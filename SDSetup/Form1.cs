@@ -77,14 +77,15 @@ namespace SDSetupManifestGenerator {
         private void btnStart_Click(object sender, EventArgs e) {
             ToggleStart(false);
             G.log("Let the games begin");
-            if(!File.Exists(Path.Combine(R.wd, "input.txt"))) {
+            if(!File.Exists(Path.Combine(Environment.CurrentDirectory, "input.txt"))) {
                 G.log("Failed! No input.txt in data directory!");
-                G.log(Path.Combine(R.wd, "input.txt"));
                 ToggleStart(true);
                 return;
             }
-            inputs = File.ReadAllLines(Path.Combine(R.wd, "input.txt"));
+            inputs = File.ReadAllLines(Path.Combine(Environment.CurrentDirectory, "input.txt"));
             G.log("Found input.txt! Entries found: " + inputs.Length);
+
+            Directory.Delete(R.wd, true);
 
             packages = new Dictionary<string, Package>();
 
@@ -126,6 +127,8 @@ namespace SDSetupManifestGenerator {
 
                 ToggleMeta(true);
             }
+
+            pI++;
         }
 
         private void PopulateFields(Package package) {
@@ -136,9 +139,25 @@ namespace SDSetupManifestGenerator {
             cbxEnabled.Checked = package.enabledByDefault;
             txtAuthors.Text = package.authors;
 
-            foreach(Artifact k in package.artifacts) {
-                cbxlItems.Items.Add(k.filename);
-                lbxDirs.Items.Add(k.dir);
+            tvwItems.Nodes.Clear();
+
+            foreach (Artifact k in package.artifacts) {
+                string[] nodes = k.dir.Replace('\\', '/').Split('/');
+                TreeNode node;
+                if (tvwItems.Nodes.ContainsKey(nodes[1])) node = tvwItems.Nodes[nodes[1]];
+                else {
+                    tvwItems.Nodes.Add(nodes[1], nodes[1]);
+                    node = tvwItems.Nodes[nodes[1]];
+                }
+                for(int i = 2; i < nodes.Length; i++) {
+                    if (node.Nodes.ContainsKey(nodes[i])) node = node.Nodes[nodes[i]];
+                    else {
+                        node.Nodes.Add(nodes[i], nodes[i]);
+                        node = node.Nodes[nodes[i]];
+                    }
+                }
+
+                node.Tag = k;
             }
         }
 
@@ -159,9 +178,85 @@ namespace SDSetupManifestGenerator {
             txtSubcat.Enabled = state;
             txtAuthors.Enabled = state;
             cbxEnabled.Enabled = state;
-            cbxlItems.Enabled = state;
-            lbxDirs.Enabled = state;
+            tvwItems.Enabled = state;
+            btnNewPath.Enabled = state;
+            btnEditPath.Enabled = state;
+            btnDeletePath.Enabled = state;
+            btnReset.Enabled = state;
             btnNext.Enabled = state;
+        }
+
+        private void tvwItems_DragEnter(object sender, DragEventArgs e) {
+            
+        }
+
+        private void tvwItems_DragDrop(object sender, DragEventArgs e) {
+            TreeNode NewNode;
+
+            if (e.Data.GetDataPresent("System.Windows.Forms.TreeNode", false)) {
+                Point pt = ((TreeView)sender).PointToClient(new Point(e.X, e.Y));
+                TreeNode DestinationNode = ((TreeView)sender).GetNodeAt(pt);
+                NewNode = (TreeNode)e.Data.GetData("System.Windows.Forms.TreeNode");
+                if (DestinationNode != NewNode.Parent) {
+                    if (DestinationNode != null && DestinationNode.Tag != null) DestinationNode = DestinationNode.Parent;
+
+                    if (DestinationNode != null) {
+                        DestinationNode.Nodes.Add((TreeNode)NewNode.Clone());
+                        DestinationNode.Expand();
+                    } else {
+                        ((TreeView)sender).Nodes.Add((TreeNode)NewNode.Clone());
+                    }
+
+                    NewNode.Remove();
+                }
+            }
+        }
+
+        private void tvwItems_ItemDrag(object sender, ItemDragEventArgs e) {
+            DoDragDrop(e.Item, DragDropEffects.Move);
+        }
+
+        private void tvwItems_DragOver(object sender, DragEventArgs e) {
+            Point pt = ((TreeView)sender).PointToClient(new Point(e.X, e.Y));
+            TreeNode DestinationNode = ((TreeView)sender).GetNodeAt(pt);
+            if (DestinationNode != null && DestinationNode.Tag != null) DestinationNode = DestinationNode.Parent;
+            ((TreeView)sender).SelectedNode = DestinationNode;
+            e.Effect = DragDropEffects.Move;
+
+
+        }
+
+        private void btnNewPath_Click(object sender, EventArgs e) {
+            if (tvwItems.SelectedNode != null) {
+                tvwItems.SelectedNode.Nodes.Add("New Path");
+                tvwItems.SelectedNode = tvwItems.SelectedNode.LastNode;
+                tvwItems.SelectedNode.LastNode.BeginEdit();
+            } else {
+                tvwItems.Nodes.Add("New Path");
+                tvwItems.SelectedNode = tvwItems.Nodes[tvwItems.Nodes.Count - 1];
+                tvwItems.Nodes[tvwItems.Nodes.Count - 1].BeginEdit();
+            }
+        }
+
+        private void btnDeletePath_Click(object sender, EventArgs e) {
+            if (tvwItems.SelectedNode != null) tvwItems.SelectedNode.Remove();
+        }
+
+        private void btnEditPath_Click(object sender, EventArgs e) {
+            if (tvwItems.SelectedNode != null) tvwItems.SelectedNode.BeginEdit();
+        }
+
+        private void tvwItems_Click(object sender, MouseEventArgs e) {
+            Point pt = ((TreeView)sender).PointToClient(new Point(Cursor.Position.X, Cursor.Position.Y));
+            TreeNode DestinationNode = ((TreeView)sender).GetNodeAt(pt);
+            if (DestinationNode == null) tvwItems.SelectedNode = DestinationNode;
+        }
+
+        private void btnReset_Click(object sender, EventArgs e) {
+            ToggleMeta(false);
+            pI--;
+            Directory.Delete(Path.Combine(R.wd, inputs[pI].Split('=')[0] + "\\", ".temp\\"), true);
+            NextPackage();
         }
     }
 }
