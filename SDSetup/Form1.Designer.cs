@@ -220,6 +220,7 @@
             this.btnNext.TabIndex = 14;
             this.btnNext.Text = "Next Package";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // lblProgress
             // 
@@ -266,7 +267,6 @@
             this.txtURL.Size = new System.Drawing.Size(545, 20);
             this.txtURL.TabIndex = 22;
             this.txtURL.TabStop = false;
-            this.txtURL.UseSystemPasswordChar = true;
             // 
             // tvwItems
             // 

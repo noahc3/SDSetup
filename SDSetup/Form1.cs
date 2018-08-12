@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
+using Newtonsoft.Json;
 
 namespace SDSetupManifestGenerator {
     public partial class Form1 : Form {
@@ -93,42 +94,105 @@ namespace SDSetupManifestGenerator {
         }
 
         private void NextPackage() {
-            lblProgress.Text = "Progress: Package " + (pI + 1) + " of " + inputs.Length;
-            string k = inputs[pI];
+            if(pI < inputs.Length) {
+                lblProgress.Text = "Progress: Package " + (pI + 1) + " of " + inputs.Length;
+                string k = inputs[pI];
 
-            string id = k.Split('=')[0];
-            string rawUrl = k.Substring(id.Length + 1);
+                string id = k.Split('=')[0];
+                string rawUrl = k.Substring(id.Length + 1);
 
-            if (rawUrl.ToLower().Contains("github.com/")) {
-                G.log("Found Github package with ID: " + id);
+                if (rawUrl.ToLower().Contains("github.com/")) {
+                    G.log("Found Github package with ID: " + id);
 
-                string user = rawUrl.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[2];
+                    string user = rawUrl.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[2];
 
-                string[] rawArtifacts = Git.GetLatestReleaseAssets(rawUrl);
-                List<Artifact> artifacts = new List<Artifact>();
+                    string[] rawArtifacts = Git.GetLatestReleaseAssets(rawUrl);
+                    List<Artifact> artifacts = new List<Artifact>();
 
-                foreach (string url in rawArtifacts) {
-                    Directory.CreateDirectory(Path.Combine(R.wd, id + "\\", ".temp\\"));
-                    G.DownloadFile(url, Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()));
-                    if (url.Replace("/", "").EndsWith(".zip")) {
-                        ZipFile.ExtractToDirectory(Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()), Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
-                        string[] files = G.GetAllFilesInDir(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
-                        foreach(string n in files) {
-                            artifacts.Add(new Artifact("", "/" + n.Replace(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"), "").Replace("\\", "/"), n.Replace("\\", "/").Split('/').Last()));
+                    foreach (string url in rawArtifacts) {
+                        //TODO: needs cleanup oh god please
+                        Directory.CreateDirectory(Path.Combine(R.wd, id + "\\", ".temp\\"));
+                        G.DownloadFile(url, Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()));
+                        if (url.Replace("/", "").EndsWith(".zip")) {
+                            ZipFile.ExtractToDirectory(Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()), Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
+                            string[] files = G.GetAllFilesInDir(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
+                            foreach (string n in files) {
+                                artifacts.Add(new Artifact("", "/" + n.Replace(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"), "").Replace("\\", "/"), n.Replace("\\", "/").Split('/').Last(), n));
+                            }
+                            continue;
                         }
-                        continue;
+                        artifacts.Add(new Artifact("", "/" + url.Split('/').Last(), url.Split('/').Last(), Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last())));
                     }
-                    artifacts.Add(new Artifact("", "/" + url.Split('/').Last(), url.Split('/').Last()));
+
+                    Package p = new Package(id, "", user, "", "", false, artifacts.ToArray());
+
+                    PopulateFields(p);
+
+                    ToggleMeta(true);
                 }
+                pI++;
+            } else {
+                G.log("All packages complete, writing manifest...");
+                lblProgress.Text = "Finishing up...";
+                if (File.Exists(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json")) File.Move(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json", Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.bak.json");
+                File.WriteAllText(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json", JsonConvert.SerializeObject(packages, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+                G.log("Done!");
+                lblProgress.Text = "Progress: Not Started";
+                ToggleStart(true);
+            }
+        }
 
-                Package p = new Package(id, "", user, "", "", false, artifacts.ToArray());
+        private void SaveInfo() {
+            ToggleMeta(false);
 
-                PopulateFields(p);
+            TreeNode[] nodes = GetAllNodes();
 
-                ToggleMeta(true);
+            List<Artifact> artifacts = new List<Artifact>();
+
+            foreach(TreeNode k in nodes) {
+                if (k.Tag != null) {
+                    Artifact artifact = (Artifact) k.Tag;
+                    artifact.dir = k.FullPath;
+                    if (txtURL.Text.Last() != '/') txtURL.Text += '/';
+                    artifact.url = txtURL.Text + txtId.Text + "/" + artifact.dir;
+
+                    FileInfo fi = new FileInfo(Environment.CurrentDirectory + "\\OUTPUTDIR\\" + txtId.Text + "\\" + artifact.dir);
+                    Directory.CreateDirectory(fi.DirectoryName);
+                    File.Move(artifact.diskLocation, fi.FullName);
+                    artifact.filename = fi.Name;
+                    artifact.diskLocation = null;
+
+                    G.log("Artifact from package " + txtId.Text + " moved to " + artifact.dir);
+
+                    artifacts.Add(artifact);
+                }
             }
 
-            pI++;
+            Package package = new Package(txtId.Text, txtName.Text, txtAuthors.Text, txtCat.Text, txtSubcat.Text, cbxEnabled.Checked, artifacts.ToArray());
+
+            packages[txtId.Text] = package;
+
+            NextPackage();
+        }
+
+        private TreeNode[] GetAllNodes() {
+            List<TreeNode> nodes = new List<TreeNode>();
+            foreach(TreeNode k in tvwItems.Nodes) {
+                nodes.AddRange(GetNodesInNode(k));
+            }
+
+            return nodes.ToArray();
+        }
+
+        private TreeNode[] GetNodesInNode(TreeNode node) {
+            List<TreeNode> nodes = new List<TreeNode>();
+            foreach (TreeNode k in node.Nodes) {
+                nodes.AddRange(GetNodesInNode(k));
+            }
+
+            nodes.Add(node);
+
+            return nodes.ToArray();
         }
 
         private void PopulateFields(Package package) {
@@ -140,6 +204,9 @@ namespace SDSetupManifestGenerator {
             txtAuthors.Text = package.authors;
 
             tvwItems.Nodes.Clear();
+
+            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch") }));
+            tvwItems.Nodes.Add(new TreeNode("pc", new TreeNode[] { new TreeNode("payloads") }));
 
             foreach (Artifact k in package.artifacts) {
                 string[] nodes = k.dir.Replace('\\', '/').Split('/');
@@ -230,7 +297,7 @@ namespace SDSetupManifestGenerator {
             if (tvwItems.SelectedNode != null) {
                 tvwItems.SelectedNode.Nodes.Add("New Path");
                 tvwItems.SelectedNode = tvwItems.SelectedNode.LastNode;
-                tvwItems.SelectedNode.LastNode.BeginEdit();
+                tvwItems.SelectedNode.BeginEdit();
             } else {
                 tvwItems.Nodes.Add("New Path");
                 tvwItems.SelectedNode = tvwItems.Nodes[tvwItems.Nodes.Count - 1];
@@ -257,6 +324,10 @@ namespace SDSetupManifestGenerator {
             pI--;
             Directory.Delete(Path.Combine(R.wd, inputs[pI].Split('=')[0] + "\\", ".temp\\"), true);
             NextPackage();
+        }
+
+        private void btnNext_Click(object sender, EventArgs e) {
+            SaveInfo();
         }
     }
 }

@@ -33,6 +33,7 @@ namespace SDSetupManifestGenerator {
         public string url = "";
         public string dir = "/";
         public string filename = "unknown";
+        public string diskLocation;
 
         public Artifact() {
 
@@ -42,6 +43,13 @@ namespace SDSetupManifestGenerator {
             this.url = url;
             this.dir = dir;
             this.filename = filename;
+        }
+
+        public Artifact(string url, string dir, string filename, string diskLocation) {
+            this.url = url;
+            this.dir = dir;
+            this.filename = filename;
+            this.diskLocation = diskLocation;
         }
     }
 }
