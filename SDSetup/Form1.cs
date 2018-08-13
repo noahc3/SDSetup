@@ -90,6 +90,14 @@ namespace SDSetupManifestGenerator {
 
             packages = new Dictionary<string, Package>();
 
+            if (File.Exists(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json")) {
+                packages = JsonConvert.DeserializeObject<Dictionary<string, Package>>(File.ReadAllText(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json"));
+                foreach (KeyValuePair<string, Package> k in packages) k.Value.artifacts = new Artifact[0];
+            }
+                
+
+            
+
             NextPackage();
         }
 
@@ -101,40 +109,53 @@ namespace SDSetupManifestGenerator {
                 string id = k.Split('=')[0];
                 string rawUrl = k.Substring(id.Length + 1);
 
+                string[] rawArtifacts;
+                List<Artifact> artifacts = new List<Artifact>();
+                string user = "";
+
                 if (rawUrl.ToLower().Contains("github.com/")) {
                     G.log("Found Github package with ID: " + id);
 
-                    string user = rawUrl.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[2];
+                    user = rawUrl.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[2];
 
-                    string[] rawArtifacts = Git.GetLatestReleaseAssets(rawUrl);
-                    List<Artifact> artifacts = new List<Artifact>();
-
-                    foreach (string url in rawArtifacts) {
-                        //TODO: needs cleanup oh god please
-                        Directory.CreateDirectory(Path.Combine(R.wd, id + "\\", ".temp\\"));
-                        G.DownloadFile(url, Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()));
-                        if (url.Replace("/", "").EndsWith(".zip")) {
-                            ZipFile.ExtractToDirectory(Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()), Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
-                            string[] files = G.GetAllFilesInDir(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
-                            foreach (string n in files) {
-                                artifacts.Add(new Artifact("", "/" + n.Replace(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"), "").Replace("\\", "/"), n.Replace("\\", "/").Split('/').Last(), n));
-                            }
-                            continue;
-                        }
-                        artifacts.Add(new Artifact("", "/" + url.Split('/').Last(), url.Split('/').Last(), Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last())));
-                    }
-
-                    Package p = new Package(id, "", user, "", "", false, artifacts.ToArray());
-
-                    PopulateFields(p);
-
-                    ToggleMeta(true);
+                    rawArtifacts = Git.GetLatestReleaseAssets(rawUrl);
+                } else {
+                    G.log("Found direct package with ID: " + id);
+                    rawArtifacts = new string[] { rawUrl };
                 }
+
+                foreach (string url in rawArtifacts) {
+                    //TODO: needs cleanup oh god please
+                    Directory.CreateDirectory(Path.Combine(R.wd, id + "\\", ".temp\\"));
+                    G.DownloadFile(url, Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()));
+                    if (url.Replace("/", "").EndsWith(".zip")) {
+                        ZipFile.ExtractToDirectory(Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()), Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
+                        string[] files = G.GetAllFilesInDir(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
+                        foreach (string n in files) {
+                            artifacts.Add(new Artifact("", "/" + n.Replace(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"), "").Replace("\\", "/"), n.Replace("\\", "/").Split('/').Last(), n));
+                        }
+                        continue;
+                    }
+                    artifacts.Add(new Artifact("", "/" + url.Split('/').Last(), url.Split('/').Last(), Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last())));
+                }
+
+                Package p;
+                if (packages.ContainsKey(id)) {
+                    p = packages[id];
+                    p.artifacts = artifacts.ToArray();
+                } else p = new Package(id, "", user, "", "", false, artifacts.ToArray());
+
+                PopulateFields(p);
+
+                ToggleMeta(true);
                 pI++;
             } else {
                 G.log("All packages complete, writing manifest...");
                 lblProgress.Text = "Finishing up...";
-                if (File.Exists(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json")) File.Move(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json", Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.bak.json");
+                if (File.Exists(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json")) {
+                    File.Delete(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.bak.json");
+                    File.Move(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json", Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.bak.json");
+                }
                 File.WriteAllText(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json", JsonConvert.SerializeObject(packages, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
                 G.log("Done!");
                 lblProgress.Text = "Progress: Not Started";
@@ -153,7 +174,7 @@ namespace SDSetupManifestGenerator {
                 if (k.Tag != null) {
                     Artifact artifact = (Artifact) k.Tag;
                     artifact.dir = k.FullPath;
-                    if (txtURL.Text.Last() != '/') txtURL.Text += '/';
+                    if (String.IsNullOrEmpty(txtURL.Text) || txtURL.Text.Last() != '/') txtURL.Text += '/';
                     artifact.url = txtURL.Text + txtId.Text + "/" + artifact.dir;
 
                     FileInfo fi = new FileInfo(Environment.CurrentDirectory + "\\OUTPUTDIR\\" + txtId.Text + "\\" + artifact.dir);
