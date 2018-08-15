@@ -1,0 +1,89 @@
+﻿@page "/faq"
+
+<div class="ui secondary pointing menu red">
+	<a href="/" class="item">
+		Home
+	</a>
+	<a href="/switch" class="item">
+		Switch
+	</a>
+	<a href="/faq" class="active item">
+		FAQ
+	</a>
+	<a href="https://github.com/noahc3/SDSetup" class="item">
+		Source
+	</a>
+	<a href="https://github.com/noahc3/SDSetup/issues" class="item">
+		Issues
+	</a>
+</div>
+
+<h1 style="text-align:center">Frequently Asked Questions</h1>
+<h4 style="text-align:center">And other things that aren't questions but you might want to know</h4>
+
+
+<h4>For users</h4>
+<div class="ui styled fluid accordion" style="margin-top:1.5em">
+	<div class="title @(active[0] == true ? "active" : "")" onclick="@(() => active[0] = !active[0])">
+		<i class="dropdown icon"></i>
+		What do I do with the ZIP file downloaded?
+	</div>
+	<div class="content @(active[0] == true ? "active" : "")">
+		<p>Extract <b>the contents</b> of the compressed folder named sd to the root of your SD card. The PC folder will contain the tools and payloads you selected. THe readmes folder will contain useful readmes for using the PC tools. the licenses folder contains licenses requried to comply with redistribution requirements.</p>
+	</div>
+	<div class="title @(active[1] == true ? "active" : "")" onclick="@(() => active[1] = !active[1])">
+		<i class="dropdown icon"></i>
+		Why can ZIPs take so long to generate?
+	</div>
+	<div class="content @(active[1] == true ? "active" : "")">
+		<p>This application uses the experimental Blazor project by the ASP.NET team. This software, while functional, has many performance issues. Other than C# code often running up to 100x slower than a native desktop app, native C# zip libraries run way too slow to be useful. As such, all files need to be downloaded individually and fed into a JavaScript zip library, which takes much longer than downloading compressed zip files. Additionally, at this moment in time, Blazor code can only run on one thread.</p>
+	</div>
+	<div class="title @(active[2] == true ? "active" : "")" onclick="@(() => active[2] = !active[2])">
+		<i class="dropdown icon"></i>
+		I want another package to be listed here! / I want to see another feature!
+	</div>
+	<div class="content @(active[2] == true ? "active" : "")">
+		<p>Make an issue on <a href="https://github.com/noahc3/SDSetup">GitHub</a> clearly stating what changes you would like made.</p>
+	</div>
+	<div class="title @(active[4] == true ? "active" : "")" onclick="@(() => active[4] = !active[4])">
+		<i class="dropdown icon"></i>
+		A package on here is outdated!
+	</div>
+	<div class="content @(active[4] == true ? "active" : "")">
+		<p>I try my best to make sure packages are up to date as often as possible. Please let me know in a <a href="https://github.com/noahc3/SDSetup">GitHub</a> issue if something is outdated.</p>
+	</div>
+</div>
+<h4>For homebrew creators</h4>
+<div class="ui styled fluid accordion" style="margin-top:1.5em">
+	<div class="title @(active[3] == true ? "active" : "")" onclick="@(() => active[3] = !active[3])">
+		<i class="dropdown icon"></i>
+		I am a developer of a package rehosted here and I would like it removed. / You are violating the redistribution rights of my softwares license.
+	</div>
+	<div class="content @(active[3] == true ? "active" : "")">
+		<p>I've tried my best to make sure I am complying with licenses correctly! If something is wrong or you would simply like your software removed, please let me know in a <a href="https://github.com/noahc3/SDSetup">GitHub</a> issue and I'll handle it ASAP!</p>
+	</div>
+</div>
+<h4>For developers</h4>
+<div class="ui styled fluid accordion" style="margin-top:1.5em">
+	<div class="title @(active[5] == true ? "active" : "")" onclick="@(() => active[5] = !active[5])">
+		<i class="dropdown icon"></i>
+		Why Blazor?
+	</div>
+	<div class="content @(active[5] == true ? "active" : "")">
+		<p>Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!</p>
+	</div>
+
+	<div class="title @(active[6] == true ? "active" : "")" onclick="@(() => active[6] = !active[6])">
+		<i class="dropdown icon"></i>
+		You know Blazor is experimental and isn't meant for production, right?
+	</div>
+	<div class="content @(active[6] == true ? "active" : "")">
+		<p>Since this app is entirely client-side (static) and there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), I didn't see any reason not to use Blazor.</p>
+	</div>
+</div>
+
+
+
+@functions {
+bool[] active = new bool[10];
+}

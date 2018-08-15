@@ -1,14 +1,43 @@
 ﻿@page "/"
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
 <div class="ui secondary pointing menu red">
-	<a href="/" class="active item"> Home
+	<a href="/" class="active item">
+		Home
 	</a>
-	<a href="/switch" class="item"> Switch
+	<a href="/switch" class="item">
+		Switch
 	</a>
-	<a class="item"> FAQ
+	<a href="/faq" class="item">
+		FAQ
+	</a>
+	<a href="https://github.com/noahc3/SDSetup" class="item">
+		Source
+	</a>
+	<a href="https://github.com/noahc3/SDSetup/issues" class="item">
+		Issues
 	</a>
 </div>
 
-<h1>Homebrew SD Setup</h1>
+<h1 style="text-align:center">Homebrew SD Setup</h1>
 
-Homebrew SD Setup is a web application that lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
+<div class="docs-example">
+	Homebrew SD Setup is a web application that lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
+</div>
+
+<div class="docs-example">
+	<h3 style="margin-bottom:0.5em;">Select a Console</h3>
+	<div class="ui link cards justify-content-center" style="margin-bottom:1.5rem">
+		<div class="card" style="max-width:30rem">
+			<div class="image" onclick="@(() => Navigate("/switch"))">
+				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Nintendo_Switch_logo%2C_square.png/480px-Nintendo_Switch_logo%2C_square.png">
+			</div>
+		</div>
+	</div>
+</div>
+
+@functions {
+	private void Navigate(string url) {
+		UriHelper.NavigateTo(url);
+	}
+}
