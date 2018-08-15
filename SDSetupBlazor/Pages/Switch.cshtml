@@ -1,0 +1,214 @@
+﻿@page "/switch"
+@inject HttpClient Http
+@if (!gettingZip) {
+	<div>
+		<div class="ui secondary pointing menu red">
+			<a href="/" class="item">
+				Home
+			</a>
+			<a href="/switch" class="active item">
+				Switch
+			</a>
+			<a class="item">
+				FAQ
+			</a>
+		</div>
+
+		<h1>Nintendo Switch</h1>
+
+		@if (!initialized) {
+			<h2>Page is loading, please wait...</h2>
+		} else {
+
+			<div class="docs-example">
+				<h3>Select your Custom Firmwares</h3>
+
+				<div class="ui three item menu">
+					@foreach (CFW k in G.cfws) {
+						<a class="item @(k.enabled == true ? "active" : "")" onclick="@(() => k.enabled = !k.enabled)">@k.name</a>
+					}
+				</div>
+			</div>
+
+			@foreach (CFW k in G.cfws) {
+				showOptions = false;
+				if (k.enabled && k.options != null) {
+					showOptions = true;
+				}
+			}
+
+			@if (showOptions == true) {
+				<div class="docs-example">
+					<h3 style="margin-bottom:0.5em;">Select Options for your Custom Firmwares</h3>
+					<Card CardType="CardType.Deck" Class="justify-content-center">
+						@foreach (CFW k in G.cfws) {
+							if (k.options != null) {
+								<Card style="margin-bottom:2rem">
+									<Card CardType="CardType.Body">
+										<Card CardType="CardType.Title">@k.name</Card>
+										<div class="ui form">
+											@foreach (CFWOption n in k.options) {
+												<div class="inline field" style="margin:0 0 0 1rem">
+													<div class="ui checkbox @(n.enabled == true ? "checked" : "")" onclick="@(() => changeCfwOptionState(n))">
+														<input type="checkbox" tabindex="0" class="hidden" checked="@(n.enabled == true)">
+														<label>@n.name</label>
+													</div>
+												</div>
+											}
+										</div>
+									</Card>
+								</Card>
+							}
+						}
+					</Card>
+				</div>
+			}
+
+
+			<div class="docs-example">
+				<h3 style="margin-bottom:0.5em;">Select your Homebrew</h3>
+				<Card CardType="CardType.Deck" Class="justify-content-center">
+					@foreach (KeyValuePair<string, Dictionary<string, List<Package>>> k in G.categories) {
+						if (G.autofillBlacklist.Contains(k.Key)) {
+							continue;
+						}
+
+						<Card style="margin-bottom:2rem">
+							<Card CardType="CardType.Body">
+								<Card CardType="CardType.Title">@k.Key</Card>
+								@foreach (KeyValuePair<string, List<Package>> n in k.Value) {
+									<Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@n.Key</Card>
+									<div class="ui form">
+										@foreach (Package p in n.Value) {
+											<div class="inline field" style="margin:0 0 0 1rem">
+												<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
+													<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
+													<label>@p.name</label>
+												</div>
+											</div>
+										}
+									</div>
+								}
+							</Card>
+						</Card>
+					}
+				</Card>
+			</div>
+
+			<div class="docs-example">
+				<h3 style="margin-bottom:0.5em;">Select your Extras</h3>
+				<Card CardType="CardType.Deck" Class="justify-content-center">
+					<Card style="margin-bottom:2rem">
+						<Card CardType="CardType.Body">
+							<Card CardType="CardType.Title">PC Tools</Card>
+							@foreach (KeyValuePair<string, List<Package>> n in G.categories["pctools"]) {
+								<Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@n.Key</Card>
+								<div class="ui form">
+									@foreach (Package p in n.Value) {
+										<div class="inline field" style="margin:0 0 0 1rem">
+											<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
+												<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
+												<label>@p.name</label>
+											</div>
+										</div>
+									}
+								</div>
+							}
+						</Card>
+					</Card>
+					<Card style="margin-bottom:2rem">
+						<Card CardType="CardType.Body">
+							<Card CardType="CardType.Title">Fusee Payloads</Card>
+							@foreach (KeyValuePair<string, List<Package>> n in G.categories["payloads"]) {
+								<Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@n.Key</Card>
+								<div class="ui form">
+									@foreach (Package p in n.Value) {
+										<div class="inline field" style="margin:0 0 0 1rem">
+											<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
+												<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
+												<label>@p.name</label>
+											</div>
+										</div>
+									}
+								</div>
+							}
+						</Card>
+					</Card>
+				</Card>
+			</div>
+
+			<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
+
+		}
+
+	</div>
+} else {
+	<div class="ui active dimmer" style="height:100%;width:100%">
+		<div class="ui massive text loader">Downloading your ZIP, please wait...</div>
+		<div class="ui negative message" style="width:90%;position:absolute;bottom:5%">
+			<div class="header fluid">
+				This might take a while. If nothing happens after ten minutes, please report it on <a href="https://www.github.com/noahc3">GitHub</a>
+			</div>
+		</div>
+	</div>
+}
+
+
+@functions {
+
+	public static bool showOptions = false;
+
+	public static bool initialized = false;
+
+	public static bool gettingZip = false;
+
+	Dictionary<string, Package> packages = new Dictionary<string, Package>();
+
+	protected override async Task OnInitAsync() {
+		if (!initialized) {
+			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/manifest_v3.json");
+			G.Init();
+			initialized = true;
+		}
+	}
+
+	private void checkClicked(string id) {
+		Console.WriteLine("Yes! id: " + id + " state: " + G.selectedPackages[id] + " new state: " + !G.selectedPackages[id]);
+		G.selectedPackages[id] = !G.selectedPackages[id];
+		StateHasChanged();
+	}
+
+	private void changeCfwOptionState(CFWOption o) {
+		o.enabled = !o.enabled;
+		StateHasChanged();
+	}
+
+
+
+
+
+
+
+
+
+	// due to many issues, this has to go here and not in global :/
+	private async void downloadZip() {
+		gettingZip = true;
+
+		foreach (CFW k in G.cfws) {
+			if (k.enabled) {
+				switch (k.id) {
+					case "sxos":
+						foreach (Artifact a in G.packages["sxos"].artifacts) {
+							FileInfo fi = new FileInfo(a.dir);
+							await ZipHelpers.AddFile(a.url, fi.DirectoryName, fi.Name);
+						}
+						break;
+					case "atmos"
+					default: break;
+				}
+			}
+		}
+		await ZipHelpers.DownloadZip();
+	}
+}

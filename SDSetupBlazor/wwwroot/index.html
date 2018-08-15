@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width">
+	<title>SDSetupBlazor</title>
+	<base href="/" />
+	<link href="css/semantic/semantic.css" rel="stylesheet" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link href="css/site.css" rel="stylesheet" />
+</head>
+<body style="background-color:#F7F7F7;height:100%">
+	<app style="height:100%;">
+		<div class="ui active dimmer" style="height:100%;width:100%">
+			<div class="ui massive text loader">Loading</div>
+			<div class="ui negative message" style="width:90%;position:absolute;bottom:5%">
+				<div class="header fluid">
+					If the page doesn't load, please report it on <a href="https://www.github.com/noahc3">GitHub</a>
+				</div>
+			</div>
+		</div>
+		<p></p>
+		<p></p>
+		<p></p>
+	</app>
+
+	<script src="libs/jquery-1.10.2.js"></script>
+	<script src="libs/FileSaver.js"></script>
+	<script src="libs/jszip.js"></script>
+	<script src="scripts/methods.js"></script>
+	<script src="_framework/blazor.webassembly.js"></script>
+
+	<script type="text/javascript">
+		const assemblyName = 'SDSetupBlazor';
+		const methodName = 'PromiseCallback';
+		const errorMethodName = 'PromiseError';
+
+
+		window.runFunction = (callbackId, fnName, data) => {
+
+			let promise = window[fnName](data);
+
+			promise.then(value => {
+				if (value === undefined) {
+					value = null;
+				}
+				const result = JSON.stringify(value);
+				DotNet.invokeMethodAsync(assemblyName, methodName, callbackId, result);
+			}).catch(reason => {
+				if (!reason) {
+					reason = "Something went wrong";
+				}
+				const result = reason.toString();
+				DotNet.invokeMethodAsync(assemblyName, errorMethodName, callbackId, result);
+			});
+
+			// Your function currently has to return something.
+			return true;
+		};
+	</script>
+</body>
+</html>

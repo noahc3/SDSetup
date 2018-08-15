@@ -1,0 +1,21 @@
+﻿@page "/fetchdata"
+@inject HttpClient Http
+
+<h1>hows it goin</h1>
+
+@functions {
+    Dictionary<string, Package> packages = new Dictionary<string, Package>();
+
+    protected override async Task OnInitAsync()
+    {
+        packages = await Http.GetJsonAsync<Dictionary<string, Package>>("https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/manifest_v3.json");
+    }
+
+    class WeatherForecast
+    {
+        public DateTime Date { get; set; }
+        public int TemperatureC { get; set; }
+        public int TemperatureF { get; set; }
+        public string Summary { get; set; }
+    }
+}
