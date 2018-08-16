@@ -8,6 +8,7 @@ namespace SDSetupBlazor
 {
     public static class G {
         public static string[] autofillBlacklist = new string[] { "cfw", "cfwoptions", "payloads", "pctools", "cfwaddons" };
+        public static string[] autodlBlacklist = new string[] { "cfw", "cfwoptions", "cfwaddons" };
         public static Dictionary<string, bool> selectedPackages = new Dictionary<string, bool>();
         public static Dictionary<string, Package> packages = new Dictionary<string, Package>();
         public static Dictionary<string, Dictionary<string, List<Package>>> categories = new Dictionary<string, Dictionary<string, List<Package>>>();

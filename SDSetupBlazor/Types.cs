@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SDSetupBlazor
-{
+namespace SDSetupBlazor {
     public class CFW {
         public string name;
         public string id;
@@ -74,6 +73,22 @@ namespace SDSetupBlazor
         public Artifact(string url, string dir, string filename, string diskLocation) {
             this.url = url;
             this.dir = dir;
+            this.filename = filename;
+        }
+    }
+
+    public class JSArtifact {
+        public string url = "";
+        public string path = "";
+        public string filename = "";
+
+        public JSArtifact() {
+            
+        }
+
+        public JSArtifact(string url, string path, string filename) {
+            this.url = url;
+            this.path = path;
             this.filename = filename;
         }
     }

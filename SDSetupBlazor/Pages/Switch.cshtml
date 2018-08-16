@@ -221,6 +221,18 @@
 
 	}
 
+	private JSArtifact[] getAllJSArtifacts(Package p) {
+		List<JSArtifact> arts = new List<JSArtifact>();
+		foreach (Artifact a in p.artifacts) {
+			FileInfo fi = new FileInfo(a.dir);
+			string path = fi.DirectoryName;
+			if (path.StartsWith("\\") || path.StartsWith("/")) path = path.Substring(1);
+			arts.Add(new JSArtifact(a.url, path, fi.Name));
+		}
+		return arts.ToArray();
+
+	}
+
 	// due to many issues, this has to go here and not in global :/
 	private async void downloadZip() {
 		gettingZip = true;
@@ -247,7 +259,7 @@
 		}
 
 		foreach (KeyValuePair<string, bool> en in G.selectedPackages) {
-			if (!G.autofillBlacklist.Contains(G.packages[en.Key].category) && en.Value == true) {
+			if (!G.autodlBlacklist.Contains(G.packages[en.Key].category) && en.Value == true) {
 				await getAllArtifacts(G.packages[en.Key]);
 			}
 		}
@@ -257,5 +269,8 @@
 		gettingZip = false;
 		zipDoneMessage = true;
 		StateHasChanged();
+
+
+
 	}
 }

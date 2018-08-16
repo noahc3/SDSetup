@@ -219,7 +219,6 @@ function getFileBuffer_url(url, name) {
 			return;
 		}
 	}).then((buffer) => {
-		console.log(buffer);
 		var blob = new Blob([buffer]);
 		console.log("Downloaded " + url);
 		return blob;
