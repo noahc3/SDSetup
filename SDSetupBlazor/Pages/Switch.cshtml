@@ -10,7 +10,7 @@
 			<div class="header">
 				Operation Completed
 			</div>
-			<p>Your ZIP file should download within the next 15 seconds!</p>
+			<p>Your ZIP file should download within the next few seconds!</p>
 		</div>
 	}
 
@@ -141,15 +141,24 @@
 
 </div>
 } else {
-	<div class="ui active dimmer" style="height:100%;width:100%">
-		<div class="ui massive text loader">Downloading your ZIP, please wait...<br />(Do not refresh or all progress will be lost!)</div>
-		<div class="ui negative message" style="width:90%;position:absolute;bottom:5%">
-			<div class="header fluid">
-				This might take a while. If nothing happens after ten minutes, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a><br />
-				If you think something might be wrong, press F12, go to the console tab and see if messages are still being printed.
-			</div>
+<div class="ui active dimmer" style="height:100%;width:100%">
+	<div class="ui massive text loader">
+		<div style="margin-bottom:2rem">Downloading your ZIP, please wait...</div>
+		@if (barMode == true) {
+			<progress Max="@total" Value="@((int)current)"></progress>
+			<label style="margin-top:0.5rem">Fetching Files (@current/@total)</label>
+		} else {
+			<progress Max="100" Value="@((int)current)" Color="Color.Success"></progress>
+			<label style="margin-top:0.5rem">Generating Zip File (@current%)</label>
+		}
+	</div>
+	<div class="ui negative message" style="width:90%;position:absolute;bottom:5%">
+		<div class="header fluid">
+			This might take a while. If the progress stalls for more than a minute, please report it on <a href="https://github.com/noahc3/SDSetup/issues">GitHub</a><br />
+			If you think something might be wrong, press F12, go to the console tab and see if messages are still being printed.
 		</div>
 	</div>
+</div>
 }
 
 
@@ -162,6 +171,10 @@
 	public static bool gettingZip = false;
 
 	private static bool zipDoneMessage = false;
+
+	static int total = 3;
+	static double current = 0;
+	static bool barMode = true;
 
 	Dictionary<string, Package> packages = new Dictionary<string, Package>();
 
@@ -198,36 +211,45 @@
 
 	}
 
-	private JSArtifact[] getAllJSArtifacts(Package p) {
-		List<JSArtifact> arts = new List<JSArtifact>();
+	private List<Tuple<string, string, string>> getArtifacts(Package p) {
+		List<Tuple<string, string, string>> artifacts = new List<Tuple<string, string, string>>();
 		foreach (Artifact a in p.artifacts) {
 			FileInfo fi = new FileInfo(a.dir);
 			string path = fi.DirectoryName;
 			if (path.StartsWith("\\") || path.StartsWith("/")) path = path.Substring(1);
-			arts.Add(new JSArtifact(a.url, path, fi.Name));
+			artifacts.Add(new Tuple<string, string, string>(a.url, path, fi.Name));
 		}
-		return arts.ToArray();
+		return artifacts;
+	}
 
+	[JSInvokable]
+	public static void ChangeProgress(double val) {
+		current = val;
+		ForceUiRefresh();
 	}
 
 	// due to many issues, this has to go here and not in global :/
 	private async void downloadZip() {
+
 		gettingZip = true;
 		zipDoneMessage = false;
+		barMode = true;
+
+		List<Tuple<string, string, string>> finalArtifacts = new List<Tuple<string, string, string>>();
 
 		foreach (CFW k in G.cfws) {
 			if (k.enabled) {
 				switch (k.id) {
 					case "sxos":
-						await getAllArtifacts(G.packages["sxos"]);
+						finalArtifacts.AddRange(getArtifacts(G.packages["sxos"]));
 						break;
 					case "atmos":
-						await getAllArtifacts(G.packages["sdfilesswitch"]);
+						finalArtifacts.AddRange(getArtifacts(G.packages["sdfilesswitch"]));
 						break;
 					case "reinx":
-						await getAllArtifacts(G.packages["reinx"]);
+						finalArtifacts.AddRange(getArtifacts(G.packages["reinx"]));
 						if (k.options[0].enabled == true) {
-							await getAllArtifacts(G.packages["reinx_nogc"]);
+							finalArtifacts.AddRange(getArtifacts(G.packages["reinx_nogc"]));
 						}
 						break;
 					default: break;
@@ -237,11 +259,23 @@
 
 		foreach (KeyValuePair<string, bool> en in G.selectedPackages) {
 			if (!G.autodlBlacklist.Contains(G.packages[en.Key].category) && en.Value == true) {
-				await getAllArtifacts(G.packages[en.Key]);
+				finalArtifacts.AddRange(getArtifacts(G.packages[en.Key]));
 			}
 		}
 
-		ZipHelpers.DownloadZip();
+		total = finalArtifacts.Count;
+
+		foreach (Tuple<string, string, string> k in finalArtifacts) {
+			await ZipHelpers.AddFile(k.Item1, k.Item2, k.Item3);
+			current++;
+			StateHasChanged();
+		}
+
+		barMode = false;
+		current = 0;
+		StateHasChanged();
+
+		await ZipHelpers.AwaitableDownloadZip();
 
 		gettingZip = false;
 		zipDoneMessage = true;

@@ -17,6 +17,8 @@ namespace SDSetupBlazor
             return JSRuntime.Current.InvokeAsync<int>("js_interop.interop_downloadFile");
         }
 
-
+        public static Task<int> AwaitableDownloadZip() {
+            return Promises.ExecuteAsync<int>("interop_downloadZip");
+        }
     }
 }

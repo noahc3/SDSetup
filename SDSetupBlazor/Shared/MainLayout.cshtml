@@ -2,31 +2,42 @@
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 @inject HttpClient Http
 <div class="main" style="min-height:100%;height:auto">
-
-	<div class="ui menu stackable red">
-		<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item">Home</a>
-		<a href="/switch" class="@(GetRelativePath().ToLower() == "switch" ? "active" : "") item">Switch</a>
-		<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
-		<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
-		<div class="right menu">
-			<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
-			<a href="https://github.com/noahc3/SDSetup" class="ui item">Source</a>
-		</div>
+	@if (browserCompatStatus == 1) {
+	<div class="ui active dimmer" style="height:100%;width:100%">
+		<img class="ui small image" src="/img/fail.png">
+		<h3 style="color:#ffffff;margin-top:1.5em">Unfortunately, Edge is incompatible at this time</h3>
+		<h6 style="color:#ffffff">(You should really consider using another browser like Chrome or Firefox)</h6>
 	</div>
-
-	<div class="container" style="padding-bottom:1.5rem">
-		<div class="content px-4">
-			@Body
+	} else {
+		<div class="ui menu stackable red">
+			<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item">Home</a>
+			<a href="/switch" class="@(GetRelativePath().ToLower() == "switch" ? "active" : "") item">Switch</a>
+			<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
+			<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
+			<div class="right menu">
+				<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
+				<a href="https://github.com/noahc3/SDSetup" class="ui item">Source</a>
+			</div>
 		</div>
-	</div>
-	<h5 style="text-align:center">Made by noahc3</h5>
-	<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">2018.08.16.01</h5>
+
+		<div class="container" style="padding-bottom:1.5rem">
+			<div class="content px-4">
+				@Body
+			</div>
+		</div>
+		<h5 style="text-align:center">Made by noahc3</h5>
+		<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">2018.08.17.01</h5>
+	}
+
 </div>
 
 @functions {
 
+	public static int browserCompatStatus = 0;
+
 	protected override async Task OnInitAsync() {
 		if (!G.initialized) {
+			JSRuntime.Current.InvokeAsync<bool>("js_interop.interop_BrowserCompatCheck");
 			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/manifest_v4.json");
 			G.Init();
 			G.initialized = true;
@@ -37,5 +48,11 @@
 
 	private string GetRelativePath() {
 		return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
+	}
+
+	[JSInvokable]
+	public static void BrowserNotCompatible(int val) {
+		Console.WriteLine("Ok! " + val);
+		browserCompatStatus = val;
 	}
 }

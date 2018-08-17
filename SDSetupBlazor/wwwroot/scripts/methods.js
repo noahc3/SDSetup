@@ -1,3 +1,4 @@
+
 var finalZip = new JSZip();
 var rateLimit = null;
 var rateLimited = false;
@@ -6,14 +7,33 @@ var finishedSteps = 0;
 var setupList;
 var donotcontinue = false;
 
+var thresholds = {
+	1: false,
+	2: false,
+	3: false,
+	4: false,
+	5: false,
+	6: false,
+	7: false,
+	8: false,
+	9: false,
+	10: false
+}
+
 function downloadZip() {
-	finalZip.generateAsync({ type:"blob" ,compression:"DEFLATE"})
+	return finalZip.generateAsync({ type: "blob", compression: "DEFLATE" }, function (meta) {
+		if (thresholds[Math.round(meta.percent / 10)] == false) {
+			thresholds[Math.round(meta.percent / 10)] = true;
+			DotNet.invokeMethodAsync("SDSetupBlazor", "ChangeProgress", meta.percent.toFixed(0));
+		}
+	})
 		.then(function (blob) {
 			if (window.navigator.userAgent.indexOf("Edge") > -1) {
 				window.navigator.msSaveBlob(blob, "SD.SETUP.SWITCH.zip");
 			} else {
 				saveAs(blob, "SD.SETUP.SWITCH.zip");
 			}
+			return 1;
 	});
 }
 
@@ -369,6 +389,11 @@ window.js_interop = {
 	interop_downloadFile: function () {
 		downloadZip();
 		return 1;
+	},
+	interop_BrowserCompatCheck: function () {
+		if (window.navigator.userAgent.indexOf("Edge") > -1) {
+			DotNet.invokeMethodAsync("SDSetupBlazor", "BrowserNotCompatible", 1);
+		}
 	}
 };
 
@@ -380,6 +405,8 @@ window.interop_addFile = (data) => {
 			resolve(1);
 		});
 	});
-
-	
 };
+
+window.interop_downloadZip = () => {
+	return downloadZip();
+}
