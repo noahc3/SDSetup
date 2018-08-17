@@ -27,6 +27,8 @@ namespace SDSetupManifestGenerator {
                 PopulatePackages();
             }
 
+            txtURL.Text = "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/repo2/";
+
             ToggleAuth(false);
             int result = Git.AuthCachedUnsafe();
             if (result == -1) {
@@ -76,6 +78,7 @@ namespace SDSetupManifestGenerator {
             btnEditPath.Enabled = state;
             btnDeletePath.Enabled = state;
             btnFetch.Enabled = state;
+            btnSave.Enabled = state;
         }
 
         private void btnLogin_Click(object sender, EventArgs e) {
@@ -199,9 +202,11 @@ namespace SDSetupManifestGenerator {
                 rawArtifacts = new string[] { rawUrl };
             }
 
+            if (Directory.Exists(Path.Combine(R.wd, id + "\\"))) Directory.Delete(Path.Combine(R.wd, id + "\\"), true);
+            Directory.CreateDirectory(Path.Combine(R.wd, id + "\\", ".temp\\"));
+
             foreach (string url in rawArtifacts) {
                 //TODO: needs cleanup oh god please
-                Directory.CreateDirectory(Path.Combine(R.wd, id + "\\", ".temp\\"));
                 G.DownloadFile(url, Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()));
                 if (url.Replace("/", "").EndsWith(".zip")) {
                     ZipFile.ExtractToDirectory(Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()), Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
@@ -213,12 +218,9 @@ namespace SDSetupManifestGenerator {
                 }
                 artifacts.Add(new Artifact("", "/" + url.Split('/').Last(), url.Split('/').Last(), Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last())));
             }
-
             tvwItems.Nodes.Clear();
-
             tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch") }));
             tvwItems.Nodes.Add(new TreeNode("pc", new TreeNode[] { new TreeNode("payloads") }));
-
             foreach (Artifact k in artifacts) {
                 string[] nodes = k.dir.Replace('\\', '/').Split('/');
                 TreeNode node;
@@ -237,8 +239,10 @@ namespace SDSetupManifestGenerator {
 
                 node.Tag = k;
             }
+            
 
             ToggleMeta(true);
+            tvwItems.Enabled = true;
         }
 
         private TreeNode[] GetAllNodes() {
@@ -331,6 +335,7 @@ namespace SDSetupManifestGenerator {
             List<Artifact> artifacts = new List<Artifact>();
 
             if (updateArtifacts) {
+                if (Directory.Exists(Environment.CurrentDirectory + "\\OUTPUTDIR\\" + txtId.Text + "\\")) Directory.Delete(Environment.CurrentDirectory + "\\OUTPUTDIR\\" + txtId.Text + "\\", true);
                 foreach (TreeNode k in nodes) {
                     if (k.Tag != null) {
                         Artifact artifact = (Artifact)k.Tag;

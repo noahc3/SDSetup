@@ -272,7 +272,7 @@
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(1170, 23);
             this.lblProgress.TabIndex = 59;
-            this.lblProgress.Text = "Manifest Authoring Tool v3.0";
+            this.lblProgress.Text = "Manifest Authoring Tool v3.1";
             this.lblProgress.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // txtLog
