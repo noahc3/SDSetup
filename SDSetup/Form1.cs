@@ -18,9 +18,18 @@ namespace SDSetupManifestGenerator {
         string[] inputs;
         Dictionary<string, Package> packages = new Dictionary<string, Package>();
 
+        Dictionary<string, Package> packs = new Dictionary<string, Package>();
+
         public Form1() {
             InitializeComponent();
             G.SetForm1(this);
+
+            if (File.Exists(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json")) {
+                packs = JsonConvert.DeserializeObject<Dictionary<string, Package>>(File.ReadAllText(Environment.CurrentDirectory + "\\OUTPUTDIR\\manifest.json"));
+                foreach(KeyValuePair<string, Package> k in packs) {
+                    ListViewItem item = new ListViewItem(k.Value.id);
+                }
+            }
 
             ToggleAuth(false);
             int result = Git.AuthCachedUnsafe();
@@ -143,7 +152,7 @@ namespace SDSetupManifestGenerator {
                 if (packages.ContainsKey(id)) {
                     p = packages[id];
                     p.artifacts = artifacts.ToArray();
-                } else p = new Package(id, "", user, "", "", false, artifacts.ToArray());
+                } else p = new Package(id, "", user, "", "", "", "", false, artifacts.ToArray());
 
                 PopulateFields(p);
 
@@ -189,7 +198,7 @@ namespace SDSetupManifestGenerator {
                 }
             }
 
-            Package package = new Package(txtId.Text, txtName.Text, txtAuthors.Text, txtCat.Text, txtSubcat.Text, cbxEnabled.Checked, artifacts.ToArray());
+            Package package = new Package(txtId.Text, txtName.Text, txtAuthors.Text, txtCat.Text, txtSubcat.Text, txtVersion.Text, txtSource.Text, cbxEnabled.Checked, artifacts.ToArray());
 
             packages[txtId.Text] = package;
 
@@ -271,7 +280,10 @@ namespace SDSetupManifestGenerator {
             btnEditPath.Enabled = state;
             btnDeletePath.Enabled = state;
             btnReset.Enabled = state;
-            btnNext.Enabled = state;
+            txtDlUrl.Enabled = state;
+            txtSource.Enabled = state;
+            txtVersion.Enabled = state;
+            btnSave.Enabled = state;
         }
 
         private void tvwItems_DragEnter(object sender, DragEventArgs e) {

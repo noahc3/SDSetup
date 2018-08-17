@@ -135,7 +135,7 @@ app {
 
 		.docs-example .card {
 			min-width:300px;
-			max-width: 30px;
+			max-width:300px;
 		}
 
 	.bg-fullheight {

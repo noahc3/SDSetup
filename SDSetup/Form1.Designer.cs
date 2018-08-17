@@ -40,7 +40,6 @@
             this.cbxEnabled = new System.Windows.Forms.CheckBox();
             this.txtLog = new System.Windows.Forms.TextBox();
             this.btnStart = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
             this.lblProgress = new System.Windows.Forms.Label();
             this.txtAuthors = new System.Windows.Forms.TextBox();
             this.lblAuthors = new System.Windows.Forms.Label();
@@ -51,13 +50,25 @@
             this.btnEditPath = new System.Windows.Forms.Button();
             this.btnDeletePath = new System.Windows.Forms.Button();
             this.btnReset = new System.Windows.Forms.Button();
+            this.txtVersion = new System.Windows.Forms.TextBox();
+            this.lblVersion = new System.Windows.Forms.Label();
+            this.txtSource = new System.Windows.Forms.TextBox();
+            this.lblSource = new System.Windows.Forms.Label();
+            this.lbxPackages = new System.Windows.Forms.ListBox();
+            this.btnOpenPackage = new System.Windows.Forms.Button();
+            this.btnNewPackage = new System.Windows.Forms.Button();
+            this.btnDeletePackage = new System.Windows.Forms.Button();
+            this.txtDlUrl = new System.Windows.Forms.TextBox();
+            this.lblDlUrl = new System.Windows.Forms.Label();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnWrite = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnLogin
             // 
             this.btnLogin.Location = new System.Drawing.Point(12, 95);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(548, 23);
+            this.btnLogin.Size = new System.Drawing.Size(275, 23);
             this.btnLogin.TabIndex = 2;
             this.btnLogin.Text = "Login to GitHub";
             this.btnLogin.UseVisualStyleBackColor = true;
@@ -67,14 +78,14 @@
             // 
             this.txtUsername.Location = new System.Drawing.Point(12, 28);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(548, 20);
+            this.txtUsername.Size = new System.Drawing.Size(275, 20);
             this.txtUsername.TabIndex = 0;
             // 
             // txtPassword
             // 
             this.txtPassword.Location = new System.Drawing.Point(12, 69);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(548, 20);
+            this.txtPassword.Size = new System.Drawing.Size(275, 20);
             this.txtPassword.TabIndex = 1;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -180,7 +191,7 @@
             this.cbxEnabled.AutoSize = true;
             this.cbxEnabled.Enabled = false;
             this.cbxEnabled.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.cbxEnabled.Location = new System.Drawing.Point(566, 212);
+            this.cbxEnabled.Location = new System.Drawing.Point(566, 290);
             this.cbxEnabled.Name = "cbxEnabled";
             this.cbxEnabled.Size = new System.Drawing.Size(116, 17);
             this.cbxEnabled.TabIndex = 8;
@@ -192,11 +203,11 @@
             this.txtLog.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLog.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtLog.Location = new System.Drawing.Point(12, 233);
+            this.txtLog.Location = new System.Drawing.Point(12, 413);
             this.txtLog.Multiline = true;
             this.txtLog.Name = "txtLog";
             this.txtLog.ReadOnly = true;
-            this.txtLog.Size = new System.Drawing.Size(548, 350);
+            this.txtLog.Size = new System.Drawing.Size(777, 368);
             this.txtLog.TabIndex = 17;
             this.txtLog.TabStop = false;
             // 
@@ -205,29 +216,18 @@
             this.btnStart.Enabled = false;
             this.btnStart.Location = new System.Drawing.Point(12, 204);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(545, 23);
+            this.btnStart.Size = new System.Drawing.Size(275, 23);
             this.btnStart.TabIndex = 3;
             this.btnStart.Text = "Start";
             this.btnStart.UseVisualStyleBackColor = true;
             this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // btnNext
-            // 
-            this.btnNext.Enabled = false;
-            this.btnNext.Location = new System.Drawing.Point(566, 257);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(223, 23);
-            this.btnNext.TabIndex = 14;
-            this.btnNext.Text = "Next Package";
-            this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // lblProgress
             // 
             this.lblProgress.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblProgress.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblProgress.Location = new System.Drawing.Point(12, 586);
+            this.lblProgress.Location = new System.Drawing.Point(12, 784);
             this.lblProgress.Name = "lblProgress";
             this.lblProgress.Size = new System.Drawing.Size(1170, 23);
             this.lblProgress.TabIndex = 19;
@@ -264,7 +264,7 @@
             // 
             this.txtURL.Location = new System.Drawing.Point(12, 178);
             this.txtURL.Name = "txtURL";
-            this.txtURL.Size = new System.Drawing.Size(545, 20);
+            this.txtURL.Size = new System.Drawing.Size(275, 20);
             this.txtURL.TabIndex = 22;
             this.txtURL.TabStop = false;
             // 
@@ -320,19 +320,141 @@
             // btnReset
             // 
             this.btnReset.Enabled = false;
-            this.btnReset.Location = new System.Drawing.Point(566, 286);
+            this.btnReset.Location = new System.Drawing.Point(566, 355);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(223, 23);
             this.btnReset.TabIndex = 24;
-            this.btnReset.Text = "Reset This Package";
+            this.btnReset.Text = "Fetch Latest";
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
+            // 
+            // txtVersion
+            // 
+            this.txtVersion.Enabled = false;
+            this.txtVersion.Location = new System.Drawing.Point(566, 225);
+            this.txtVersion.Name = "txtVersion";
+            this.txtVersion.Size = new System.Drawing.Size(223, 20);
+            this.txtVersion.TabIndex = 25;
+            // 
+            // lblVersion
+            // 
+            this.lblVersion.AutoSize = true;
+            this.lblVersion.Location = new System.Drawing.Point(563, 209);
+            this.lblVersion.Name = "lblVersion";
+            this.lblVersion.Size = new System.Drawing.Size(42, 13);
+            this.lblVersion.TabIndex = 26;
+            this.lblVersion.Text = "Version";
+            // 
+            // txtSource
+            // 
+            this.txtSource.Enabled = false;
+            this.txtSource.Location = new System.Drawing.Point(566, 264);
+            this.txtSource.Name = "txtSource";
+            this.txtSource.Size = new System.Drawing.Size(223, 20);
+            this.txtSource.TabIndex = 27;
+            // 
+            // lblSource
+            // 
+            this.lblSource.AutoSize = true;
+            this.lblSource.Location = new System.Drawing.Point(563, 248);
+            this.lblSource.Name = "lblSource";
+            this.lblSource.Size = new System.Drawing.Size(41, 13);
+            this.lblSource.TabIndex = 28;
+            this.lblSource.Text = "Source";
+            // 
+            // lbxPackages
+            // 
+            this.lbxPackages.FormattingEnabled = true;
+            this.lbxPackages.IntegralHeight = false;
+            this.lbxPackages.Location = new System.Drawing.Point(293, 12);
+            this.lbxPackages.Name = "lbxPackages";
+            this.lbxPackages.Size = new System.Drawing.Size(267, 366);
+            this.lbxPackages.TabIndex = 29;
+            // 
+            // btnOpenPackage
+            // 
+            this.btnOpenPackage.Enabled = false;
+            this.btnOpenPackage.Location = new System.Drawing.Point(294, 384);
+            this.btnOpenPackage.Name = "btnOpenPackage";
+            this.btnOpenPackage.Size = new System.Drawing.Size(85, 23);
+            this.btnOpenPackage.TabIndex = 30;
+            this.btnOpenPackage.Text = "Open";
+            this.btnOpenPackage.UseVisualStyleBackColor = true;
+            // 
+            // btnNewPackage
+            // 
+            this.btnNewPackage.Enabled = false;
+            this.btnNewPackage.Location = new System.Drawing.Point(385, 384);
+            this.btnNewPackage.Name = "btnNewPackage";
+            this.btnNewPackage.Size = new System.Drawing.Size(85, 23);
+            this.btnNewPackage.TabIndex = 31;
+            this.btnNewPackage.Text = "New";
+            this.btnNewPackage.UseVisualStyleBackColor = true;
+            // 
+            // btnDeletePackage
+            // 
+            this.btnDeletePackage.Enabled = false;
+            this.btnDeletePackage.Location = new System.Drawing.Point(476, 384);
+            this.btnDeletePackage.Name = "btnDeletePackage";
+            this.btnDeletePackage.Size = new System.Drawing.Size(85, 23);
+            this.btnDeletePackage.TabIndex = 32;
+            this.btnDeletePackage.Text = "Delete";
+            this.btnDeletePackage.UseVisualStyleBackColor = true;
+            // 
+            // txtDlUrl
+            // 
+            this.txtDlUrl.Enabled = false;
+            this.txtDlUrl.Location = new System.Drawing.Point(566, 329);
+            this.txtDlUrl.Name = "txtDlUrl";
+            this.txtDlUrl.Size = new System.Drawing.Size(223, 20);
+            this.txtDlUrl.TabIndex = 33;
+            // 
+            // lblDlUrl
+            // 
+            this.lblDlUrl.AutoSize = true;
+            this.lblDlUrl.Location = new System.Drawing.Point(563, 313);
+            this.lblDlUrl.Name = "lblDlUrl";
+            this.lblDlUrl.Size = new System.Drawing.Size(80, 13);
+            this.lblDlUrl.TabIndex = 34;
+            this.lblDlUrl.Text = "Download URL";
+            // 
+            // btnSave
+            // 
+            this.btnSave.Enabled = false;
+            this.btnSave.Location = new System.Drawing.Point(566, 384);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(223, 23);
+            this.btnSave.TabIndex = 35;
+            this.btnSave.Text = "Save Package";
+            this.btnSave.UseVisualStyleBackColor = true;
+            // 
+            // btnWrite
+            // 
+            this.btnWrite.Enabled = false;
+            this.btnWrite.Location = new System.Drawing.Point(12, 384);
+            this.btnWrite.Name = "btnWrite";
+            this.btnWrite.Size = new System.Drawing.Size(275, 23);
+            this.btnWrite.TabIndex = 36;
+            this.btnWrite.Text = "Write Manifest";
+            this.btnWrite.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1194, 614);
+            this.ClientSize = new System.Drawing.Size(1194, 812);
+            this.Controls.Add(this.btnWrite);
+            this.Controls.Add(this.btnSave);
+            this.Controls.Add(this.txtDlUrl);
+            this.Controls.Add(this.lblDlUrl);
+            this.Controls.Add(this.btnDeletePackage);
+            this.Controls.Add(this.btnNewPackage);
+            this.Controls.Add(this.btnOpenPackage);
+            this.Controls.Add(this.lbxPackages);
+            this.Controls.Add(this.txtSource);
+            this.Controls.Add(this.lblSource);
+            this.Controls.Add(this.txtVersion);
+            this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.btnDeletePath);
             this.Controls.Add(this.btnEditPath);
@@ -343,7 +465,6 @@
             this.Controls.Add(this.txtAuthors);
             this.Controls.Add(this.lblAuthors);
             this.Controls.Add(this.lblProgress);
-            this.Controls.Add(this.btnNext);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.txtLog);
             this.Controls.Add(this.cbxEnabled);
@@ -386,7 +507,6 @@
         private System.Windows.Forms.CheckBox cbxEnabled;
         private System.Windows.Forms.Button btnStart;
         public System.Windows.Forms.TextBox txtLog;
-        private System.Windows.Forms.Button btnNext;
         private System.Windows.Forms.Label lblProgress;
         private System.Windows.Forms.TextBox txtAuthors;
         private System.Windows.Forms.Label lblAuthors;
@@ -397,6 +517,18 @@
         private System.Windows.Forms.Button btnEditPath;
         private System.Windows.Forms.Button btnDeletePath;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.TextBox txtVersion;
+        private System.Windows.Forms.Label lblVersion;
+        private System.Windows.Forms.TextBox txtSource;
+        private System.Windows.Forms.Label lblSource;
+        private System.Windows.Forms.ListBox lbxPackages;
+        private System.Windows.Forms.Button btnOpenPackage;
+        private System.Windows.Forms.Button btnNewPackage;
+        private System.Windows.Forms.Button btnDeletePackage;
+        private System.Windows.Forms.TextBox txtDlUrl;
+        private System.Windows.Forms.Label lblDlUrl;
+        private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnWrite;
     }
 }
 

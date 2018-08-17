@@ -9,17 +9,22 @@ using System.IO;
 namespace SDSetupManifestGenerator {
     public static class G {
         private static Form1 frm;
+        private static FormMain frmm;
         private static WebClient web = new WebClient();
 
         public static void SetForm1(Form1 frm) {
             G.frm = frm;
         }
 
+        public static void SetFormMain(FormMain frm) {
+            G.frmm = frm;
+        }
+
         public static void log(string message) {
             Action action = new Action(() => {
-                frm.txtLog.AppendText("[ INFO ] " + message + "\r\n");
+                frmm.txtLog.AppendText("[ INFO ] " + message + "\r\n");
             });
-            if (frm.InvokeRequired) frm.Invoke(action);
+            if (frmm.InvokeRequired) frmm.Invoke(action);
             else action();
         }
 

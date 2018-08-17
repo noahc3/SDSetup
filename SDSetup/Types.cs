@@ -11,6 +11,10 @@ namespace SDSetupManifestGenerator {
         public string authors = "";
         public string category = "";
         public string subcategory = "";
+        public string version = "";
+        public string source = "";
+        public string dlSource = "";
+
         public bool enabledByDefault = false;
         public Artifact[] artifacts = null;
 
@@ -18,7 +22,7 @@ namespace SDSetupManifestGenerator {
 
         }
 
-        public Package(string id, string name, string authors, string category, string subcategory, bool enabledByDefault, Artifact[] artifacts) {
+        public Package(string id, string name, string authors, string category, string subcategory, string version, string source, bool enabledByDefault, Artifact[] artifacts) {
             this.id = id;
             this.name = name;
             this.authors = authors;
@@ -26,6 +30,21 @@ namespace SDSetupManifestGenerator {
             this.subcategory = subcategory;
             this.enabledByDefault = enabledByDefault;
             this.artifacts = artifacts;
+            this.version = version;
+            this.source = source;
+        }
+
+        public Package(string id, string name, string authors, string category, string subcategory, string version, string source, string dlSource, bool enabledByDefault, Artifact[] artifacts) {
+            this.id = id;
+            this.name = name;
+            this.authors = authors;
+            this.category = category;
+            this.subcategory = subcategory;
+            this.enabledByDefault = enabledByDefault;
+            this.artifacts = artifacts;
+            this.version = version;
+            this.source = source;
+            this.dlSource = dlSource;
         }
     }
 
