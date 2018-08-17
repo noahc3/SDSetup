@@ -2,7 +2,6 @@
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
 
-
 <h1 style="text-align:center">Homebrew SD Setup</h1>
 
 <div class="docs-example">
@@ -21,7 +20,8 @@
 </div>
 
 @functions {
-	private void Navigate(string url) {
-		UriHelper.NavigateTo(url);
-	}
+
+private void Navigate(string url) {
+	UriHelper.NavigateTo(url);
+}
 }

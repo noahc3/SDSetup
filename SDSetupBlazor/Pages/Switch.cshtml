@@ -16,14 +16,14 @@
 
 	<h1>Nintendo Switch</h1>
 
-	@if (!initialized) {
+	@if (!G.initialized) {
 		<h2>Page is loading, please wait...</h2>
 	} else {
 
 		<div class="docs-example">
 			<h3>Select your Custom Firmwares</h3>
 
-			<div class="ui three item menu">
+			<div class="ui three item menu" style="margin-bottom:2rem">
 				@foreach (CFW k in G.cfws) {
 					<a class="item @(k.enabled == true ? "active" : "")" onclick="@(() => k.enabled = !k.enabled)">@k.name</a>
 				}
@@ -39,7 +39,7 @@
 
 		@if (showOptions == true) {
 			<div class="docs-example">
-				<h3 style="margin-bottom:0.5em;">Select Options for your Custom Firmwares</h3>
+				<h3 style="margin-bottom:0.5em">Select Options for your Custom Firmwares</h3>
 				<Card CardType="CardType.Deck" Class="justify-content-center">
 					@foreach (CFW k in G.cfws) {
 						if (k.options != null) {
@@ -63,9 +63,8 @@
 				</Card>
 			</div>
 		}
-
 		<div class="docs-example">
-			<h3 style="margin-bottom:0.5em;">Select your Homebrew</h3>
+			<h3 style="margin-bottom:0.5em">Select your Homebrew</h3>
 			<Card CardType="CardType.Deck" Class="justify-content-center">
 				@foreach (KeyValuePair<string, Dictionary<string, List<Package>>> k in G.categories) {
 					if (G.autofillBlacklist.Contains(k.Key)) {
@@ -82,7 +81,7 @@
 										<div class="inline field" style="margin:0 0 0 1rem">
 											<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
 												<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
-												<label>@p.name</label>
+												<label>@p.name@if(!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
 											</div>
 										</div>
 									}
@@ -107,7 +106,7 @@
 									<div class="inline field" style="margin:0 0 0 1rem">
 										<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
 											<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
-											<label>@p.name</label>
+											<label>@p.name@if(!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
 										</div>
 									</div>
 								}
@@ -125,7 +124,7 @@
 									<div class="inline field" style="margin:0 0 0 1rem">
 										<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
 											<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
-											<label>@p.name</label>
+											<label>@p.name@if(!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
 										</div>
 									</div>
 								}
@@ -156,9 +155,9 @@
 
 @functions {
 
-	public static bool showOptions = false;
+	public static Action ForceUiRefresh;
 
-	public static bool initialized = false;
+	public static bool showOptions = false;
 
 	public static bool gettingZip = false;
 
@@ -167,11 +166,7 @@
 	Dictionary<string, Package> packages = new Dictionary<string, Package>();
 
 	protected override async Task OnInitAsync() {
-		if (!initialized) {
-			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/manifest_v3.json");
-			G.Init();
-			initialized = true;
-		}
+		ForceUiRefresh = new Action(() => StateHasChanged());
 	}
 
 	private void checkClicked(string id) {

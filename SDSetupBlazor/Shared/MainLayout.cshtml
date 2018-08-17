@@ -1,5 +1,6 @@
 @inherits BlazorLayoutComponent
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject HttpClient Http
 
 <div class="main" style="min-height:100%;height:auto">
 
@@ -22,7 +23,17 @@
 	<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">2018.08.16.01</h5>
 </div>
 
-@functions {  
+@functions {
+
+	protected override async Task OnInitAsync() {
+		if (!G.initialized) {
+			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/manifest_v4.json");
+			G.Init();
+			G.initialized = true;
+			if (Pages.Switch.ForceUiRefresh != null) Pages.Switch.ForceUiRefresh();
+		}
+	}
+
 	private string GetRelativePath() {
 		return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
 	}
