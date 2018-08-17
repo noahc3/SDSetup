@@ -1,13 +1,13 @@
 @inherits BlazorLayoutComponent
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 @inject HttpClient Http
-
 <div class="main" style="min-height:100%;height:auto">
 
 	<div class="ui menu stackable red">
 		<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item">Home</a>
 		<a href="/switch" class="@(GetRelativePath().ToLower() == "switch" ? "active" : "") item">Switch</a>
 		<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
+		<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
 		<div class="right menu">
 			<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
 			<a href="https://github.com/noahc3/SDSetup" class="ui item">Source</a>
@@ -31,6 +31,7 @@
 			G.Init();
 			G.initialized = true;
 			if (Pages.Switch.ForceUiRefresh != null) Pages.Switch.ForceUiRefresh();
+			if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
 		}
 	}
 

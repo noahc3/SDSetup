@@ -1,0 +1,47 @@
+﻿@page "/credits"
+
+<h3>Package Credits</h3>
+@if (G.initialized) {
+	<table class="ui celled padded table">
+		<thead>
+			<tr>
+				<th>Package ID</th>
+				<th>Authors</th>
+				<th>Version</th>
+				<th>Source</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (KeyValuePair<string, Package> k in G.packages) {
+				Package p = k.Value;
+				if (String.IsNullOrEmpty(p.authors)) { continue; }
+				<tr>
+					<td>@p.name</td>
+					<td>@p.authors</td>
+					<td>@p.version</td>
+					<td>@if (@p.source.Contains("https://") || p.source.Contains("http://")) {<a href="@p.source">@p.source</a>} else {@p.source}</td>
+				</tr>
+			}
+
+		</tbody>
+	</table>
+} else {
+	<h4>Loading, please wait...</h4>
+}
+
+<h3>Credits</h3>
+
+<ul class="ui list">
+	<li>Steve Sanderson and contributors for making this almost amazing thing called Blazor</li>
+	<li>Rikumax25 / Jorgev259 for JSZip wrapper functions used in 3SDSetup/WiiuSetup, ultimately making my life much easier</li>
+	<li>Chanan Braunstein for BlazorStrap</li>
+	<li>Joonas W. for <a href="https://joonasw.net/view/csharp-await-and-js-promises-in-blazor">Using C# await against JS Promises in Blazor</a></li>
+</ul>
+
+@functions {
+public static Action ForceUiUpdate;
+
+protected override async Task OnInitAsync() {
+	ForceUiUpdate = new Action(() => StateHasChanged());
+}
+}
