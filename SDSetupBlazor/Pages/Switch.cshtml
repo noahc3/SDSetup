@@ -183,7 +183,6 @@
 	}
 
 	private void checkClicked(string id) {
-		Console.WriteLine("Yes! id: " + id + " state: " + G.selectedPackages[id] + " new state: " + !G.selectedPackages[id]);
 		G.selectedPackages[id] = !G.selectedPackages[id];
 		StateHasChanged();
 	}
