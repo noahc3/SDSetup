@@ -2,11 +2,11 @@
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 @inject HttpClient Http
 <div class="main" style="min-height:100%;height:auto">
-	@if (browserCompatStatus == 1) {
+	@if (browserCompatStatus == 1 && !edgeConfirmed) {
 	<div class="ui active dimmer" style="height:100%;width:100%">
-		<img class="ui small image" src="/img/fail.png">
-		<h3 style="color:#ffffff;margin-top:1.5em">Unfortunately, Edge is incompatible at this time</h3>
-		<h6 style="color:#ffffff">(You should really consider using another browser like Chrome or Firefox)</h6>
+		<h3 style="color:#ffffff;margin-top:1.5em">Microsoft Edge Disclaimer:</h3>
+		<h6 style="color:#ffffff">Microsoft Edge is compatible with this site, however, generating the ZIP file can take a very long time. You should consider using another browser for the best experience.</h6>
+		<button class="fluid ui red button" style="margin-top:3rem;max-width:40rem" onclick="@(() => edgeConfirmed = true)">I understand, continue to the site</button>
 	</div>
 	} else {
 		<div class="ui menu stackable red">
@@ -34,6 +34,8 @@
 @functions {
 
 	public static int browserCompatStatus = 0;
+
+	public static bool edgeConfirmed = false;
 
 	protected override async Task OnInitAsync() {
 		if (!G.initialized) {
