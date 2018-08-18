@@ -8,6 +8,7 @@ var setupList;
 var donotcontinue = false;
 
 var thresholds = {
+	0: true,
 	1: false,
 	2: false,
 	3: false,
@@ -17,13 +18,23 @@ var thresholds = {
 	7: false,
 	8: false,
 	9: false,
-	10: false
+	10: false,
+	11: false,
+	12: false,
+	13: false,
+	14: false,
+	15: false,
+	16: false,
+	17: false,
+	18: false,
+	19: false,
+	20: false
 }
 
 function downloadZip() {
-	return finalZip.generateAsync({ type: "blob", compression: "DEFLATE" }, function (meta) {
-		if (thresholds[Math.round(meta.percent / 10)] == false) {
-			thresholds[Math.round(meta.percent / 10)] = true;
+	return finalZip.generateAsync({ type: "blob", compression: "STORE" }, function (meta) {
+		if (thresholds[Math.floor(meta.percent / 5)] == false) {
+			thresholds[Math.floor(meta.percent / 5)] = true;
 			DotNet.invokeMethodAsync("SDSetupBlazor", "ChangeProgress", meta.percent.toFixed(0));
 		}
 	})
