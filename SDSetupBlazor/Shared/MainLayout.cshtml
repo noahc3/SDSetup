@@ -2,44 +2,36 @@
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 @inject HttpClient Http
 <div class="main" style="min-height:100%;height:auto">
-	@if (browserCompatStatus == 1 && !edgeConfirmed) {
-	<div class="ui active dimmer" style="height:100%;width:100%">
-		<h3 style="color:#ffffff;margin-top:1.5em">Microsoft Edge Disclaimer:</h3>
-		<h6 style="color:#ffffff">Microsoft Edge is compatible with this site, however, generating the ZIP file can take a very long time. You should consider using another browser for the best experience.</h6>
-		<button class="fluid ui red button" style="margin-top:3rem;max-width:40rem" onclick="@(() => edgeConfirmed = true)">I understand, continue to the site</button>
+	<div class="ui menu stackable red">
+		<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
+		<a href="/switch" class="@(GetRelativePath().ToLower() == "switch" ? "active" : "") item">Switch</a>
+		<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
+		<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
+		<div class="right menu">
+			<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
+			<a href="https://github.com/noahc3/SDSetup" class="ui item">Source</a>
+		</div>
 	</div>
-	} else {
-		<div class="ui menu stackable red">
-			<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
-			<a href="/switch" class="@(GetRelativePath().ToLower() == "switch" ? "active" : "") item">Switch</a>
-			<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
-			<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
-			<div class="right menu">
-				<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
-				<a href="https://github.com/noahc3/SDSetup" class="ui item">Source</a>
-			</div>
-		</div>
 
-		<div class="container" style="padding-bottom:1.5rem">
-			<div class="content px-4">
-				@Body
-			</div>
+	<div class="container" style="padding-bottom:1.5rem">
+		<div class="content px-4">
+			@Body
 		</div>
-		<h5 style="text-align:center">Made by noahc3</h5>
-		<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">2018.08.17.01</h5>
-	}
+	</div>
+	<h5 style="text-align:center">Made by noahc3</h5>
+	<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">2018.08.17.01</h5>
 
 </div>
 
 @functions {
 
-	public static int browserCompatStatus = 0;
+	//public static int browserCompatStatus = 0;
 
-	public static bool edgeConfirmed = false;
+	//public static bool edgeConfirmed = false;
 
 	protected override async Task OnInitAsync() {
 		if (!G.initialized) {
-			JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
+			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
 			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/manifest_v4.json");
 			G.Init();
 			G.initialized = true;
@@ -52,9 +44,9 @@
 		return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
 	}
 
-	[JSInvokable]
-	public static void BrowserNotCompatible(int val) {
-		Console.WriteLine("Browser Compat Response: " + val);
-		browserCompatStatus = val;
-	}
+	//[JSInvokable]
+	//public static void BrowserNotCompatible(int val) {
+	//	Console.WriteLine("Browser Compat Response: " + val);
+	//	browserCompatStatus = val;
+	//}
 }
