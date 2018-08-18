@@ -393,7 +393,17 @@ window.js_interop = {
 	interop_BrowserCompatCheck: function () {
 		if (window.navigator.userAgent.indexOf("Edge") > -1) {
 			DotNet.invokeMethodAsync("SDSetupBlazor", "BrowserNotCompatible", 1);
+			return 0;
 		}
+		if (window.navigator.userAgent.indexOf('Trident/') > -1) {
+			DotNet.invokeMethodAsync("SDSetupBlazor", "BrowserNotCompatible", 2);
+			return 0;
+		}
+		if (window.navigator.userAgent.indexOf('MSIE ') > -1) {
+			DotNet.invokeMethodAsync("SDSetupBlazor", "BrowserNotCompatible", 2);
+			return 0;
+		}
+		return 0;
 	}
 };
 

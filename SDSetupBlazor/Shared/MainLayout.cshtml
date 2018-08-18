@@ -39,7 +39,7 @@
 
 	protected override async Task OnInitAsync() {
 		if (!G.initialized) {
-			JSRuntime.Current.InvokeAsync<bool>("js_interop.interop_BrowserCompatCheck");
+			JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
 			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/manifest_v4.json");
 			G.Init();
 			G.initialized = true;
@@ -54,7 +54,7 @@
 
 	[JSInvokable]
 	public static void BrowserNotCompatible(int val) {
-		Console.WriteLine("Ok! " + val);
+		Console.WriteLine("Browser Compat Response: " + val);
 		browserCompatStatus = val;
 	}
 }
