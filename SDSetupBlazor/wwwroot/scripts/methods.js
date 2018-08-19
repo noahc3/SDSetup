@@ -243,14 +243,13 @@ function getFileBuffer_url(url, name) {
 	console.log("Downloading " + url);
 	return fetch(url).then((Response) => {
 		if (Response.ok) {
-			return Response.arrayBuffer();
+			return Response.blob();
 		} else {
 			console.log("e1 js");
 			console.log("File download failed!");
 			return;
 		}
-	}).then((buffer) => {
-		var blob = new Blob([buffer]);
+	}).then((blob) => {
 		console.log("Downloaded " + url);
 		return blob;
 	});
