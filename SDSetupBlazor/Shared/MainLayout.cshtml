@@ -32,7 +32,7 @@
 	protected override async Task OnInitAsync() {
 		if (!G.initialized) {
 			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
-			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/manifest_v4.json");
+			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("/manifest_v5b.json");
 			G.Init();
 			G.initialized = true;
 			if (Pages.Switch.ForceUiRefresh != null) Pages.Switch.ForceUiRefresh();

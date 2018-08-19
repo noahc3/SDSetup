@@ -1,0 +1,1703 @@
+{
+  "hekate": {
+    "id": "hekate",
+    "name": "Hekate",
+    "authors": "CTCaer",
+    "category": "payloads",
+    "subcategory": "Loaders",
+    "version": "v3.2",
+    "source": "https://github.com/CTCaer/hekate/",
+    "dlSource": "https://github.com/CTCaer/hekate/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/hekate/pc/payloads/hekate_ctcaer_3.2.bin",
+        "dir": "pc/payloads/hekate_ctcaer_3.2.bin",
+        "filename": "hekate_ctcaer_3.2.bin"
+      }
+    ]
+  },
+  "reinx": {
+    "id": "reinx",
+    "name": "ReiNX",
+    "authors": "Reisyukaku",
+    "category": "cfw",
+    "subcategory": "cfw",
+    "version": "v1.2",
+    "source": "https://github.com/Reisyukaku/ReiNX/",
+    "dlSource": "https://github.com/Reisyukaku/ReiNX/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/patches/es_patch.rxp",
+        "dir": "sd/ReiNX/patches/es_patch.rxp",
+        "filename": "es_patch.rxp"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/fs_mitm.kip",
+        "dir": "sd/ReiNX/sysmodules/fs_mitm.kip",
+        "filename": "fs_mitm.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/loader.kip",
+        "dir": "sd/ReiNX/sysmodules/loader.kip",
+        "filename": "loader.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/sm.kip",
+        "dir": "sd/ReiNX/sysmodules/sm.kip",
+        "filename": "sm.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/splash.bin",
+        "dir": "sd/ReiNX/splash.bin",
+        "filename": "splash.bin"
+      }
+    ]
+  },
+  "reinx_nogc": {
+    "id": "reinx_nogc",
+    "name": "reinx_nogc",
+    "authors": "",
+    "category": "cfwoptions",
+    "subcategory": "General",
+    "version": "",
+    "source": "",
+    "dlSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/nogc",
+    "enabledByDefault": true,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx_nogc/sd/ReiNX/nogc",
+        "dir": "sd/ReiNX/nogc",
+        "filename": "nogc"
+      }
+    ]
+  },
+  "hbmenu": {
+    "id": "hbmenu",
+    "name": "Homebrew Menu",
+    "authors": "yellows8, SwitchBrew",
+    "category": "General",
+    "subcategory": "Loaders",
+    "version": "2.0.0",
+    "source": "Darth Meteos' Super Special SD Stash",
+    "dlSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/hbmenu.nro",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/hbmenu/sd/hbmenu.nro",
+        "dir": "sd/hbmenu.nro",
+        "filename": "hbmenu.nro"
+      }
+    ]
+  },
+  "appstorenx": {
+    "id": "appstorenx",
+    "name": "AppStoreNX",
+    "authors": "VGMoose",
+    "category": "General",
+    "subcategory": "Loaders",
+    "version": "1.0",
+    "source": "https://www.switchbru.com/appstore/#/app/appstore",
+    "dlSource": "https://www.switchbru.com/appstore/zips/appstore.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/.DS_Store",
+        "dir": "sd/switch/appstore/res/.DS_Store",
+        "filename": ".DS_Store"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/default.png",
+        "dir": "sd/switch/appstore/res/default.png",
+        "filename": "default.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/GET.png",
+        "dir": "sd/switch/appstore/res/GET.png",
+        "filename": "GET.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/icon.jpg",
+        "dir": "sd/switch/appstore/res/icon.jpg",
+        "filename": "icon.jpg"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/icon.png",
+        "dir": "sd/switch/appstore/res/icon.png",
+        "filename": "icon.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/icon_small.png",
+        "dir": "sd/switch/appstore/res/icon_small.png",
+        "filename": "icon_small.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/INSTALLED.png",
+        "dir": "sd/switch/appstore/res/INSTALLED.png",
+        "filename": "INSTALLED.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/LOCAL.png",
+        "dir": "sd/switch/appstore/res/LOCAL.png",
+        "filename": "LOCAL.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/noscreen.png",
+        "dir": "sd/switch/appstore/res/noscreen.png",
+        "filename": "noscreen.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/popup.png",
+        "dir": "sd/switch/appstore/res/popup.png",
+        "filename": "popup.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/productsans.ttf",
+        "dir": "sd/switch/appstore/res/productsans.ttf",
+        "filename": "productsans.ttf"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/shade.png",
+        "dir": "sd/switch/appstore/res/shade.png",
+        "filename": "shade.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/res/UPDATE.png",
+        "dir": "sd/switch/appstore/res/UPDATE.png",
+        "filename": "UPDATE.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/appstore.nro",
+        "dir": "sd/switch/appstore/appstore.nro",
+        "filename": "appstore.nro"
+      }
+    ]
+  },
+  "vbanextswitch": {
+    "id": "vbanextswitch",
+    "name": "VBA Next",
+    "authors": "RSDuck",
+    "category": "Emulators",
+    "subcategory": "GB, GBC, GBA",
+    "version": "v0.7",
+    "source": "https://github.com/RSDuck/vba-next-switch/",
+    "dlSource": "https://github.com/RSDuck/vba-next-switch/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/vbanextswitch/sd/switch/vba-next.nro",
+        "dir": "sd/switch/vba-next.nro",
+        "filename": "vba-next.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/vbanextswitch/licenses/VBANEXTSWITCH",
+        "dir": "licenses/VBANEXTSWITCH",
+        "filename": "VBANEXTSWITCH"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/vbanextswitch/licenses/VBANEXTSWITCH.thirdprty",
+        "dir": "licenses/VBANEXTSWITCH.thirdprty",
+        "filename": "VBANEXTSWITCH.thirdprty"
+      }
+    ]
+  },
+  "khedgb": {
+    "id": "khedgb",
+    "name": "khedGB",
+    "authors": "khedoros, jakibaki",
+    "category": "Emulators",
+    "subcategory": "GB, GBC, GBA",
+    "version": "v1.0",
+    "source": "https://www.switchbru.com/appstore/#/app/khedgb",
+    "dlSource": "https://www.switchbru.com/appstore/zips/khedgb.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/khedgb/sd/switch/khedgb.nro",
+        "dir": "sd/switch/khedgb.nro",
+        "filename": "khedgb.nro"
+      }
+    ]
+  },
+  "salamander": {
+    "id": "salamander",
+    "name": "Salamander RetroNX",
+    "authors": "Zedris",
+    "category": "Emulators",
+    "subcategory": "Bundles",
+    "version": "v0.9.5",
+    "source": "https://www.reddit.com/r/SwitchHacks/comments/8tk4q3/retronx_salamander_bundle/",
+    "dlSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/salamander_rev1.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/switch/retroarch_switch.nro",
+        "dir": "sd/switch/retroarch_switch.nro",
+        "filename": "retroarch_switch.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/4do.nro",
+        "dir": "sd/retroarch/cores/switch/4do.nro",
+        "filename": "4do.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/beetle-ngp.nro",
+        "dir": "sd/retroarch/cores/switch/beetle-ngp.nro",
+        "filename": "beetle-ngp.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/beetle-pce_fast.nro",
+        "dir": "sd/retroarch/cores/switch/beetle-pce_fast.nro",
+        "filename": "beetle-pce_fast.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/beetle-supergrafx.nro",
+        "dir": "sd/retroarch/cores/switch/beetle-supergrafx.nro",
+        "filename": "beetle-supergrafx.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/beetle-virtualboy.nro",
+        "dir": "sd/retroarch/cores/switch/beetle-virtualboy.nro",
+        "filename": "beetle-virtualboy.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/beetle-wonderswan.nro",
+        "dir": "sd/retroarch/cores/switch/beetle-wonderswan.nro",
+        "filename": "beetle-wonderswan.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/bluemsx.nro",
+        "dir": "sd/retroarch/cores/switch/bluemsx.nro",
+        "filename": "bluemsx.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/fceumm.nro",
+        "dir": "sd/retroarch/cores/switch/fceumm.nro",
+        "filename": "fceumm.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/gambatte.nro",
+        "dir": "sd/retroarch/cores/switch/gambatte.nro",
+        "filename": "gambatte.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/genesis_plus_gx.nro",
+        "dir": "sd/retroarch/cores/switch/genesis_plus_gx.nro",
+        "filename": "genesis_plus_gx.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/handy.nro",
+        "dir": "sd/retroarch/cores/switch/handy.nro",
+        "filename": "handy.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/mame2003.nro",
+        "dir": "sd/retroarch/cores/switch/mame2003.nro",
+        "filename": "mame2003.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/nxengine.nro",
+        "dir": "sd/retroarch/cores/switch/nxengine.nro",
+        "filename": "nxengine.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/o2em.nro",
+        "dir": "sd/retroarch/cores/switch/o2em.nro",
+        "filename": "o2em.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/prosystem.nro",
+        "dir": "sd/retroarch/cores/switch/prosystem.nro",
+        "filename": "prosystem.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/snes9x2010.nro",
+        "dir": "sd/retroarch/cores/switch/snes9x2010.nro",
+        "filename": "snes9x2010.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/stella.nro",
+        "dir": "sd/retroarch/cores/switch/stella.nro",
+        "filename": "stella.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/vba-next.nro",
+        "dir": "sd/retroarch/cores/switch/vba-next.nro",
+        "filename": "vba-next.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/vecx.nro",
+        "dir": "sd/retroarch/cores/switch/vecx.nro",
+        "filename": "vecx.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/salamander/sd/retroarch/cores/switch/virtualjaguar.nro",
+        "dir": "sd/retroarch/cores/switch/virtualjaguar.nro",
+        "filename": "virtualjaguar.nro"
+      }
+    ]
+  },
+  "jksv": {
+    "id": "jksv",
+    "name": "JK's Save Manager",
+    "authors": "J-D-K",
+    "category": "Utilities",
+    "subcategory": "Save Management",
+    "version": "08/05/2018",
+    "source": "https://github.com/J-D-K/JKSV/",
+    "dlSource": "https://github.com/J-D-K/JKSV/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/jksv/sd/switch/JKSV.nro",
+        "dir": "sd/switch/JKSV.nro",
+        "filename": "JKSV.nro"
+      }
+    ]
+  },
+  "checkpoint": {
+    "id": "checkpoint",
+    "name": "Checkpoint",
+    "authors": "BernardoGiordano",
+    "category": "Utilities",
+    "subcategory": "Save Management",
+    "version": "3.4.1",
+    "source": "https://github.com/BernardoGiordano/Checkpoint/",
+    "dlSource": "https://github.com/BernardoGiordano/Checkpoint/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/checkpoint/sd/switch/Checkpoint.nro",
+        "dir": "sd/switch/Checkpoint.nro",
+        "filename": "Checkpoint.nro"
+      }
+    ]
+  },
+  "psnes": {
+    "id": "psnes",
+    "name": "pSNES",
+    "authors": "Cpasjuste",
+    "category": "Emulators",
+    "subcategory": "SNES",
+    "version": "v1.5",
+    "source": "https://github.com/Cpasjuste/psnes/",
+    "dlSource": "https://github.com/Cpasjuste/psnes/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/0.png",
+        "dir": "sd/switch/psnes/skin/buttons/0.png",
+        "filename": "0.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/1.png",
+        "dir": "sd/switch/psnes/skin/buttons/1.png",
+        "filename": "1.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/10.png",
+        "dir": "sd/switch/psnes/skin/buttons/10.png",
+        "filename": "10.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/11.png",
+        "dir": "sd/switch/psnes/skin/buttons/11.png",
+        "filename": "11.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/12.png",
+        "dir": "sd/switch/psnes/skin/buttons/12.png",
+        "filename": "12.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/13.png",
+        "dir": "sd/switch/psnes/skin/buttons/13.png",
+        "filename": "13.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/14.png",
+        "dir": "sd/switch/psnes/skin/buttons/14.png",
+        "filename": "14.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/15.png",
+        "dir": "sd/switch/psnes/skin/buttons/15.png",
+        "filename": "15.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/2.png",
+        "dir": "sd/switch/psnes/skin/buttons/2.png",
+        "filename": "2.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/3.png",
+        "dir": "sd/switch/psnes/skin/buttons/3.png",
+        "filename": "3.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/4.png",
+        "dir": "sd/switch/psnes/skin/buttons/4.png",
+        "filename": "4.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/5.png",
+        "dir": "sd/switch/psnes/skin/buttons/5.png",
+        "filename": "5.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/6.png",
+        "dir": "sd/switch/psnes/skin/buttons/6.png",
+        "filename": "6.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/7.png",
+        "dir": "sd/switch/psnes/skin/buttons/7.png",
+        "filename": "7.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/8.png",
+        "dir": "sd/switch/psnes/skin/buttons/8.png",
+        "filename": "8.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/buttons/9.png",
+        "dir": "sd/switch/psnes/skin/buttons/9.png",
+        "filename": "9.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/default.h",
+        "dir": "sd/switch/psnes/skin/default.h",
+        "filename": "default.h"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/default.ttf",
+        "dir": "sd/switch/psnes/skin/default.ttf",
+        "filename": "default.ttf"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/title.h",
+        "dir": "sd/switch/psnes/skin/title.h",
+        "filename": "title.h"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/title.png",
+        "dir": "sd/switch/psnes/skin/title.png",
+        "filename": "title.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/skin/title.xcf",
+        "dir": "sd/switch/psnes/skin/title.xcf",
+        "filename": "title.xcf"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/db.xml",
+        "dir": "sd/switch/psnes/db.xml",
+        "filename": "db.xml"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/psnes/sd/switch/psnes/psnes.nro",
+        "dir": "sd/switch/psnes/psnes.nro",
+        "filename": "psnes.nro"
+      }
+    ]
+  },
+  "tinfoil": {
+    "id": "tinfoil",
+    "name": "Tinfoil",
+    "authors": "Adubbz",
+    "category": "Utilities",
+    "subcategory": "Storage Management",
+    "version": "",
+    "source": "Darth Meteos' Super Special SD Stash",
+    "dlSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/Tinfoil.nro",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/tinfoil/sd/switch/Tinfoil.nro",
+        "dir": "sd/switch/Tinfoil.nro",
+        "filename": "Tinfoil.nro"
+      }
+    ]
+  },
+  "sdfilesswitch": {
+    "id": "sdfilesswitch",
+    "name": "SDFilesSwitch",
+    "authors": "TumGER",
+    "category": "cfwaddons",
+    "subcategory": "cfwaddons",
+    "version": "v6.1",
+    "source": "https://github.com/tumGER/SDFilesSwitch/",
+    "dlSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/sdfiles.custom.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/switch/SDFilesUpdater/SDFilesUpdater.nro",
+        "dir": "sd/switch/SDFilesUpdater/SDFilesUpdater.nro",
+        "filename": "SDFilesUpdater.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/switch/SDFilesUpdater/settings.cfg",
+        "dir": "sd/switch/SDFilesUpdater/settings.cfg",
+        "filename": "settings.cfg"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/bootlogo.bmp",
+        "dir": "sd/bootlogo.bmp",
+        "filename": "bootlogo.bmp"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/hekate_ipl.ini",
+        "dir": "sd/hekate_ipl.ini",
+        "filename": "hekate_ipl.ini"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/sigpatchpayload.bin",
+        "dir": "sd/sigpatchpayload.bin",
+        "filename": "sigpatchpayload.bin"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/atmosphere/atmosphere.bmp",
+        "dir": "sd/modules/atmosphere/atmosphere.bmp",
+        "filename": "atmosphere.bmp"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/atmosphere/exosphere.bin",
+        "dir": "sd/modules/atmosphere/exosphere.bin",
+        "filename": "exosphere.bin"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/atmosphere/fs_mitm.kip",
+        "dir": "sd/modules/atmosphere/fs_mitm.kip",
+        "filename": "fs_mitm.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/atmosphere/loader.kip",
+        "dir": "sd/modules/atmosphere/loader.kip",
+        "filename": "loader.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/atmosphere/pm.kip",
+        "dir": "sd/modules/atmosphere/pm.kip",
+        "filename": "pm.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/atmosphere/sm.kip",
+        "dir": "sd/modules/atmosphere/sm.kip",
+        "filename": "sm.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/newfirm/fs_mitm.kip",
+        "dir": "sd/modules/newfirm/fs_mitm.kip",
+        "filename": "fs_mitm.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/newfirm/loader.kip",
+        "dir": "sd/modules/newfirm/loader.kip",
+        "filename": "loader.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/newfirm/sm.kip",
+        "dir": "sd/modules/newfirm/sm.kip",
+        "filename": "sm.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/oldfirm/loader.kip1",
+        "dir": "sd/modules/oldfirm/loader.kip1",
+        "filename": "loader.kip1"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/oldfirm/sm.kip1",
+        "dir": "sd/modules/oldfirm/sm.kip1",
+        "filename": "sm.kip1"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/nx-dreport.kip",
+        "dir": "sd/modules/nx-dreport.kip",
+        "filename": "nx-dreport.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/modules/sys-ftpd.kip",
+        "dir": "sd/modules/sys-ftpd.kip",
+        "filename": "sys-ftpd.kip"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/atmosphere/titles/0100000000000036/exefs/main",
+        "dir": "sd/atmosphere/titles/0100000000000036/exefs/main",
+        "filename": "main"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/atmosphere/titles/0100000000000036/exefs/main.npdm",
+        "dir": "sd/atmosphere/titles/0100000000000036/exefs/main.npdm",
+        "filename": "main.npdm"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/atmosphere/titles/010000000000100D/exefs/main",
+        "dir": "sd/atmosphere/titles/010000000000100D/exefs/main",
+        "filename": "main"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/atmosphere/titles/010000000000100D/exefs/main.npdm",
+        "dir": "sd/atmosphere/titles/010000000000100D/exefs/main.npdm",
+        "filename": "main.npdm"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdfilesswitch/sd/atmosphere/titles/010000000000100D/exefs/rtld.stub",
+        "dir": "sd/atmosphere/titles/010000000000100D/exefs/rtld.stub",
+        "filename": "rtld.stub"
+      }
+    ]
+  },
+  "sxos": {
+    "id": "sxos",
+    "name": "SX OS",
+    "authors": "Team Xecuter",
+    "category": "cfw",
+    "subcategory": "cfw",
+    "version": "v1.5",
+    "source": "https://sx.xecuter.com/",
+    "dlSource": "https://sx.xecuter.com/download/SXOS_v1.5.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sxos/sd/boot.dat",
+        "dir": "sd/boot.dat",
+        "filename": "boot.dat"
+      }
+    ]
+  },
+  "msolarusdx": {
+    "id": "msolarusdx",
+    "name": "Mystery of Solarus DX",
+    "authors": "ChristophoZS, carstene1ns",
+    "category": "Games",
+    "subcategory": "Action Adventure",
+    "version": "beta 2",
+    "source": "https://f4ke.de/dev/switch/",
+    "dlSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/MysteryOfSolarusDX-rebuild.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/msolarusdx/sd/switch/MysteryOfSolarusDX/data.solarus",
+        "dir": "sd/switch/MysteryOfSolarusDX/data.solarus",
+        "filename": "data.solarus"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/msolarusdx/sd/switch/MysteryOfSolarusDX/MysteryOfSolarusDX.nro",
+        "dir": "sd/switch/MysteryOfSolarusDX/MysteryOfSolarusDX.nro",
+        "filename": "MysteryOfSolarusDX.nro"
+      }
+    ]
+  },
+  "postalnx": {
+    "id": "postalnx",
+    "name": "Postal NX",
+    "authors": "lantus, Running With Scissors",
+    "category": "Games",
+    "subcategory": "Shooter",
+    "version": "v1.00",
+    "source": "https://github.com/lantus/postal-nx/",
+    "dlSource": "https://github.com/lantus/postal-nx/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/postalnx/sd/switch/Postal/PostalPlus/POSTAL.INI",
+        "dir": "sd/switch/Postal/PostalPlus/POSTAL.INI",
+        "filename": "POSTAL.INI"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/postalnx/sd/switch/Postal/postal.nro",
+        "dir": "sd/switch/Postal/postal.nro",
+        "filename": "postal.nro"
+      }
+    ]
+  },
+  "2048": {
+    "id": "2048",
+    "name": "2048",
+    "authors": "BernardoGiordano",
+    "category": "Games",
+    "subcategory": "Casual",
+    "version": "v1.0.0",
+    "source": "https://github.com/BernardoGiordano/2048/",
+    "dlSource": "https://github.com/BernardoGiordano/2048/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/2048/sd/switch/2048.nro",
+        "dir": "sd/switch/2048.nro",
+        "filename": "2048.nro"
+      }
+    ]
+  },
+  "meritous": {
+    "id": "meritous",
+    "name": "Meritous",
+    "authors": "Nop90-Switch",
+    "category": "Games",
+    "subcategory": "RPG",
+    "version": "v1.0",
+    "source": "https://github.com/Nop90-Switch/Meritous-Switch/",
+    "dlSource": "https://github.com/Nop90-Switch/Meritous-Switch/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/circuitcharge.wav",
+        "dir": "sd/switch/meritous/dat/a/circuitcharge.wav",
+        "filename": "circuitcharge.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/circuitrecover.wav",
+        "dir": "sd/switch/meritous/dat/a/circuitrecover.wav",
+        "filename": "circuitrecover.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/circuitrelease.wav",
+        "dir": "sd/switch/meritous/dat/a/circuitrelease.wav",
+        "filename": "circuitrelease.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/crystal.wav",
+        "dir": "sd/switch/meritous/dat/a/crystal.wav",
+        "filename": "crystal.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/crystal2.wav",
+        "dir": "sd/switch/meritous/dat/a/crystal2.wav",
+        "filename": "crystal2.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/enemyhit.wav",
+        "dir": "sd/switch/meritous/dat/a/enemyhit.wav",
+        "filename": "enemyhit.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons0shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons0shot.wav",
+        "filename": "mons0shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons10shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons10shot.wav",
+        "filename": "mons10shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons1shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons1shot.wav",
+        "filename": "mons1shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons2shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons2shot.wav",
+        "filename": "mons2shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons3shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons3shot.wav",
+        "filename": "mons3shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons4shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons4shot.wav",
+        "filename": "mons4shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons5shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons5shot.wav",
+        "filename": "mons5shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons6shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons6shot.wav",
+        "filename": "mons6shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons7shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons7shot.wav",
+        "filename": "mons7shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons8shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons8shot.wav",
+        "filename": "mons8shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/mons9shot.wav",
+        "dir": "sd/switch/meritous/dat/a/mons9shot.wav",
+        "filename": "mons9shot.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/playerhurt.wav",
+        "dir": "sd/switch/meritous/dat/a/playerhurt.wav",
+        "filename": "playerhurt.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/shieldhit.wav",
+        "dir": "sd/switch/meritous/dat/a/shieldhit.wav",
+        "filename": "shieldhit.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/teleport.wav",
+        "dir": "sd/switch/meritous/dat/a/teleport.wav",
+        "filename": "teleport.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/a/tone.wav",
+        "dir": "sd/switch/meritous/dat/a/tone.wav",
+        "filename": "tone.wav"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/d/bossroom.loc",
+        "dir": "sd/switch/meritous/dat/d/bossroom.loc",
+        "filename": "bossroom.loc"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/d/centre.loc",
+        "dir": "sd/switch/meritous/dat/d/centre.loc",
+        "filename": "centre.loc"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/d/cstream.loc",
+        "dir": "sd/switch/meritous/dat/d/cstream.loc",
+        "filename": "cstream.loc"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/d/fbossroom.loc",
+        "dir": "sd/switch/meritous/dat/d/fbossroom.loc",
+        "filename": "fbossroom.loc"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/d/font.dat",
+        "dir": "sd/switch/meritous/dat/d/font.dat",
+        "filename": "font.dat"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/d/helpfile.txt",
+        "dir": "sd/switch/meritous/dat/d/helpfile.txt",
+        "filename": "helpfile.txt"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/d/icon_bitmask.dat",
+        "dir": "sd/switch/meritous/dat/d/icon_bitmask.dat",
+        "filename": "icon_bitmask.dat"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/d/weapon.loc",
+        "dir": "sd/switch/meritous/dat/d/weapon.loc",
+        "filename": "weapon.loc"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/agate.png",
+        "dir": "sd/switch/meritous/dat/i/agate.png",
+        "filename": "agate.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/artifacts.png",
+        "dir": "sd/switch/meritous/dat/i/artifacts.png",
+        "filename": "artifacts.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/asceai.png",
+        "dir": "sd/switch/meritous/dat/i/asceai.png",
+        "filename": "asceai.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/automap.png",
+        "dir": "sd/switch/meritous/dat/i/automap.png",
+        "filename": "automap.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/boss1.png",
+        "dir": "sd/switch/meritous/dat/i/boss1.png",
+        "filename": "boss1.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/boss2.png",
+        "dir": "sd/switch/meritous/dat/i/boss2.png",
+        "filename": "boss2.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/boss3.png",
+        "dir": "sd/switch/meritous/dat/i/boss3.png",
+        "filename": "boss3.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/boss4.png",
+        "dir": "sd/switch/meritous/dat/i/boss4.png",
+        "filename": "boss4.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/boss_icon.png",
+        "dir": "sd/switch/meritous/dat/i/boss_icon.png",
+        "filename": "boss_icon.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/circuits_1.png",
+        "dir": "sd/switch/meritous/dat/i/circuits_1.png",
+        "filename": "circuits_1.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/fin.png",
+        "dir": "sd/switch/meritous/dat/i/fin.png",
+        "filename": "fin.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/gem.png",
+        "dir": "sd/switch/meritous/dat/i/gem.png",
+        "filename": "gem.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/glitter.png",
+        "dir": "sd/switch/meritous/dat/i/glitter.png",
+        "filename": "glitter.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/hidden_monster.png",
+        "dir": "sd/switch/meritous/dat/i/hidden_monster.png",
+        "filename": "hidden_monster.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/icon.png",
+        "dir": "sd/switch/meritous/dat/i/icon.png",
+        "filename": "icon.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/inrange.png",
+        "dir": "sd/switch/meritous/dat/i/inrange.png",
+        "filename": "inrange.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/linetest.png",
+        "dir": "sd/switch/meritous/dat/i/linetest.png",
+        "filename": "linetest.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/meter.png",
+        "dir": "sd/switch/meritous/dat/i/meter.png",
+        "filename": "meter.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons1.png",
+        "dir": "sd/switch/meritous/dat/i/mons1.png",
+        "filename": "mons1.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons10.png",
+        "dir": "sd/switch/meritous/dat/i/mons10.png",
+        "filename": "mons10.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons2.png",
+        "dir": "sd/switch/meritous/dat/i/mons2.png",
+        "filename": "mons2.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons3.png",
+        "dir": "sd/switch/meritous/dat/i/mons3.png",
+        "filename": "mons3.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons4.png",
+        "dir": "sd/switch/meritous/dat/i/mons4.png",
+        "filename": "mons4.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons5.png",
+        "dir": "sd/switch/meritous/dat/i/mons5.png",
+        "filename": "mons5.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons6.png",
+        "dir": "sd/switch/meritous/dat/i/mons6.png",
+        "filename": "mons6.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons7.png",
+        "dir": "sd/switch/meritous/dat/i/mons7.png",
+        "filename": "mons7.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons8.png",
+        "dir": "sd/switch/meritous/dat/i/mons8.png",
+        "filename": "mons8.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/mons9.png",
+        "dir": "sd/switch/meritous/dat/i/mons9.png",
+        "filename": "mons9.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/overview.png",
+        "dir": "sd/switch/meritous/dat/i/overview.png",
+        "filename": "overview.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/player.png",
+        "dir": "sd/switch/meritous/dat/i/player.png",
+        "filename": "player.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/reticle.png",
+        "dir": "sd/switch/meritous/dat/i/reticle.png",
+        "filename": "reticle.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/star1.png",
+        "dir": "sd/switch/meritous/dat/i/star1.png",
+        "filename": "star1.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/star2.png",
+        "dir": "sd/switch/meritous/dat/i/star2.png",
+        "filename": "star2.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/star3.png",
+        "dir": "sd/switch/meritous/dat/i/star3.png",
+        "filename": "star3.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/stream.png",
+        "dir": "sd/switch/meritous/dat/i/stream.png",
+        "filename": "stream.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/teleflash.png",
+        "dir": "sd/switch/meritous/dat/i/teleflash.png",
+        "filename": "teleflash.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/theend.png",
+        "dir": "sd/switch/meritous/dat/i/theend.png",
+        "filename": "theend.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/tileset.png",
+        "dir": "sd/switch/meritous/dat/i/tileset.png",
+        "filename": "tileset.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/title.png",
+        "dir": "sd/switch/meritous/dat/i/title.png",
+        "filename": "title.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/true_end.png",
+        "dir": "sd/switch/meritous/dat/i/true_end.png",
+        "filename": "true_end.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/i/wuss_ending.png",
+        "dir": "sd/switch/meritous/dat/i/wuss_ending.png",
+        "filename": "wuss_ending.png"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/amblight.xm",
+        "dir": "sd/switch/meritous/dat/m/amblight.xm",
+        "filename": "amblight.xm"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/cave.xm",
+        "dir": "sd/switch/meritous/dat/m/cave.xm",
+        "filename": "cave.xm"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/cave06.s3m",
+        "dir": "sd/switch/meritous/dat/m/cave06.s3m",
+        "filename": "cave06.s3m"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/cavern.xm",
+        "dir": "sd/switch/meritous/dat/m/cavern.xm",
+        "filename": "cavern.xm"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/CT_BOSS.MOD",
+        "dir": "sd/switch/meritous/dat/m/CT_BOSS.MOD",
+        "filename": "CT_BOSS.MOD"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/Cv_boss.mod",
+        "dir": "sd/switch/meritous/dat/m/Cv_boss.mod",
+        "filename": "Cv_boss.mod"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/fear2.mod",
+        "dir": "sd/switch/meritous/dat/m/fear2.mod",
+        "filename": "fear2.mod"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/FINALBAT.s3m",
+        "dir": "sd/switch/meritous/dat/m/FINALBAT.s3m",
+        "filename": "FINALBAT.s3m"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/Fr_boss.mod",
+        "dir": "sd/switch/meritous/dat/m/Fr_boss.mod",
+        "filename": "Fr_boss.mod"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/ICEFRONT.S3M",
+        "dir": "sd/switch/meritous/dat/m/ICEFRONT.S3M",
+        "filename": "ICEFRONT.S3M"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/iller_knarkloader_final.xm",
+        "dir": "sd/switch/meritous/dat/m/iller_knarkloader_final.xm",
+        "filename": "iller_knarkloader_final.xm"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/rpg_bat1.xm",
+        "dir": "sd/switch/meritous/dat/m/rpg_bat1.xm",
+        "filename": "rpg_bat1.xm"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/dat/m/Wood.s3m",
+        "dir": "sd/switch/meritous/dat/m/Wood.s3m",
+        "filename": "Wood.s3m"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/meritous/sd/switch/meritous/meritous.nro",
+        "dir": "sd/switch/meritous/meritous.nro",
+        "filename": "meritous.nro"
+      }
+    ]
+  },
+  "pickr": {
+    "id": "pickr",
+    "name": "Pickr",
+    "authors": "BernardoGiordano",
+    "category": "Games",
+    "subcategory": "Casual",
+    "version": "v1.1.1",
+    "source": "https://github.com/BernardoGiordano/Pickr/",
+    "dlSource": "https://github.com/BernardoGiordano/Pickr/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/pickr/sd/switch/Pickr.nro",
+        "dir": "sd/switch/Pickr.nro",
+        "filename": "Pickr.nro"
+      }
+    ]
+  },
+  "pixelpainter": {
+    "id": "pixelpainter",
+    "name": "Pixel Painter",
+    "authors": "16BitWonder",
+    "category": "Games",
+    "subcategory": "Casual",
+    "version": "v1.5.1",
+    "source": "https://github.com/16BitWonder/Pixel-Painter-Switch",
+    "dlSource": "https://github.com/16BitWonder/Pixel-Painter-Switch",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/pixelpainter/sd/switch/Pixel-Painter/Pixel-Painter.nacp",
+        "dir": "sd/switch/Pixel-Painter/Pixel-Painter.nacp",
+        "filename": "Pixel-Painter.nacp"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/pixelpainter/sd/switch/Pixel-Painter/Pixel-Painter.nro",
+        "dir": "sd/switch/Pixel-Painter/Pixel-Painter.nro",
+        "filename": "Pixel-Painter.nro"
+      }
+    ]
+  },
+  "sdlpop": {
+    "id": "sdlpop",
+    "name": "Prince of Persia",
+    "authors": "usineur",
+    "category": "Games",
+    "subcategory": "Action Adventure",
+    "version": "v1.0",
+    "source": "https://github.com/usineur/SDLPoP/",
+    "dlSource": "https://github.com/usineur/SDLPoP/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/CDUNGEON.DAT",
+        "dir": "sd/switch/sdlpop/data/CDUNGEON.DAT",
+        "filename": "CDUNGEON.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/CPALACE.DAT",
+        "dir": "sd/switch/sdlpop/data/CPALACE.DAT",
+        "filename": "CPALACE.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/DIGISND1.DAT",
+        "dir": "sd/switch/sdlpop/data/DIGISND1.DAT",
+        "filename": "DIGISND1.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/DIGISND2.DAT",
+        "dir": "sd/switch/sdlpop/data/DIGISND2.DAT",
+        "filename": "DIGISND2.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/DIGISND3.DAT",
+        "dir": "sd/switch/sdlpop/data/DIGISND3.DAT",
+        "filename": "DIGISND3.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/EDUNGEON.DAT",
+        "dir": "sd/switch/sdlpop/data/EDUNGEON.DAT",
+        "filename": "EDUNGEON.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/EPALACE.DAT",
+        "dir": "sd/switch/sdlpop/data/EPALACE.DAT",
+        "filename": "EPALACE.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/FAT.DAT",
+        "dir": "sd/switch/sdlpop/data/FAT.DAT",
+        "filename": "FAT.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/GUARD.DAT",
+        "dir": "sd/switch/sdlpop/data/GUARD.DAT",
+        "filename": "GUARD.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/GUARD1.DAT",
+        "dir": "sd/switch/sdlpop/data/GUARD1.DAT",
+        "filename": "GUARD1.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/GUARD2.DAT",
+        "dir": "sd/switch/sdlpop/data/GUARD2.DAT",
+        "filename": "GUARD2.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/IBM_SND1.DAT",
+        "dir": "sd/switch/sdlpop/data/IBM_SND1.DAT",
+        "filename": "IBM_SND1.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/IBM_SND2.DAT",
+        "dir": "sd/switch/sdlpop/data/IBM_SND2.DAT",
+        "filename": "IBM_SND2.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/KID.DAT",
+        "dir": "sd/switch/sdlpop/data/KID.DAT",
+        "filename": "KID.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/LEVELS.DAT",
+        "dir": "sd/switch/sdlpop/data/LEVELS.DAT",
+        "filename": "LEVELS.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/MIDISND1.DAT",
+        "dir": "sd/switch/sdlpop/data/MIDISND1.DAT",
+        "filename": "MIDISND1.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/MIDISND2.DAT",
+        "dir": "sd/switch/sdlpop/data/MIDISND2.DAT",
+        "filename": "MIDISND2.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/PRINCE.DAT",
+        "dir": "sd/switch/sdlpop/data/PRINCE.DAT",
+        "filename": "PRINCE.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/PV.DAT",
+        "dir": "sd/switch/sdlpop/data/PV.DAT",
+        "filename": "PV.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/SHADOW.DAT",
+        "dir": "sd/switch/sdlpop/data/SHADOW.DAT",
+        "filename": "SHADOW.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/SKEL.DAT",
+        "dir": "sd/switch/sdlpop/data/SKEL.DAT",
+        "filename": "SKEL.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/TITLE.DAT",
+        "dir": "sd/switch/sdlpop/data/TITLE.DAT",
+        "filename": "TITLE.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/VDUNGEON.DAT",
+        "dir": "sd/switch/sdlpop/data/VDUNGEON.DAT",
+        "filename": "VDUNGEON.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/VIZIER.DAT",
+        "dir": "sd/switch/sdlpop/data/VIZIER.DAT",
+        "filename": "VIZIER.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/data/VPALACE.DAT",
+        "dir": "sd/switch/sdlpop/data/VPALACE.DAT",
+        "filename": "VPALACE.DAT"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/SDLPoP.ini",
+        "dir": "sd/switch/sdlpop/SDLPoP.ini",
+        "filename": "SDLPoP.ini"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sdlpop/sd/switch/sdlpop/SDLPoP.nro",
+        "dir": "sd/switch/sdlpop/SDLPoP.nro",
+        "filename": "SDLPoP.nro"
+      }
+    ]
+  },
+  "spacegamenx": {
+    "id": "spacegamenx",
+    "name": "SpaceGameNX",
+    "authors": "vgmoose",
+    "category": "Games",
+    "subcategory": "Casual",
+    "version": "v1.1",
+    "source": "https://github.com/vgmoose/spacenx/",
+    "dlSource": "https://github.com/vgmoose/spacenx/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/spacegamenx/sd/switch/spacenx.nro",
+        "dir": "sd/switch/spacenx.nro",
+        "filename": "spacenx.nro"
+      }
+    ]
+  },
+  "ftpd": {
+    "id": "ftpd",
+    "name": "FTPD",
+    "authors": "WinterMute",
+    "category": "Utilities",
+    "subcategory": "Storage Management",
+    "version": "c.947dc137",
+    "source": "https://github.com/WinterMute/ftpd/",
+    "dlSource": "https://github.com/WinterMute/ftpd/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/ftpd/sd/switch/ftpd.nro",
+        "dir": "sd/switch/ftpd.nro",
+        "filename": "ftpd.nro"
+      }
+    ]
+  },
+  "nxshell": {
+    "id": "nxshell",
+    "name": "NXShell",
+    "authors": "joel16",
+    "category": "Utilities",
+    "subcategory": "Storage Management",
+    "version": "beta 4",
+    "source": "https://github.com/joel16/NX-Shell/",
+    "dlSource": "https://github.com/joel16/NX-Shell/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/nxshell/sd/switch/NX-Shell.nro",
+        "dir": "sd/switch/NX-Shell.nro",
+        "filename": "NX-Shell.nro"
+      }
+    ]
+  },
+  "gagorder": {
+    "id": "gagorder",
+    "name": "Gag Order",
+    "authors": "Adubbz",
+    "category": "Utilities",
+    "subcategory": "Miscellaneous",
+    "version": "v0.1.0",
+    "source": "https://github.com/Adubbz/Gag-Order/",
+    "dlSource": "https://github.com/Adubbz/Gag-Order/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/gagorder/sd/switch/gag-order.nro",
+        "dir": "sd/switch/gag-order.nro",
+        "filename": "gag-order.nro"
+      }
+    ]
+  },
+  "edizon": {
+    "id": "edizon",
+    "name": "EdiZon",
+    "authors": "thomasnet-mc",
+    "category": "Utilities",
+    "subcategory": "Save Management",
+    "version": "v1.3.3",
+    "source": "https://github.com/thomasnet-mc/EdiZon/",
+    "dlSource": "https://github.com/thomasnet-mc/EdiZon/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/switch/EdiZon/EdiZon.nacp",
+        "dir": "sd/switch/EdiZon/EdiZon.nacp",
+        "filename": "EdiZon.nacp"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/switch/EdiZon/EdiZon.nro",
+        "dir": "sd/switch/EdiZon/EdiZon.nro",
+        "filename": "EdiZon.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/scripts/lib/json.lua",
+        "dir": "sd/EdiZon/editor/scripts/lib/json.lua",
+        "filename": "json.lua"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/scripts/lib/md5.lua",
+        "dir": "sd/EdiZon/editor/scripts/lib/md5.lua",
+        "filename": "md5.lua"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/scripts/bin.lua",
+        "dir": "sd/EdiZon/editor/scripts/bin.lua",
+        "filename": "bin.lua"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/scripts/json.lua",
+        "dir": "sd/EdiZon/editor/scripts/json.lua",
+        "filename": "json.lua"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/scripts/octp.lua",
+        "dir": "sd/EdiZon/editor/scripts/octp.lua",
+        "filename": "octp.lua"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/scripts/setsuna.lua",
+        "dir": "sd/EdiZon/editor/scripts/setsuna.lua",
+        "filename": "setsuna.lua"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/0100000000010000.json",
+        "dir": "sd/EdiZon/editor/0100000000010000.json",
+        "filename": "0100000000010000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/010057D006492000.json",
+        "dir": "sd/EdiZon/editor/010057D006492000.json",
+        "filename": "010057D006492000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/0100633007D48000.json",
+        "dir": "sd/EdiZon/editor/0100633007D48000.json",
+        "filename": "0100633007D48000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/010067300059A000.json",
+        "dir": "sd/EdiZon/editor/010067300059A000.json",
+        "filename": "010067300059A000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/010076F0049A2000.json",
+        "dir": "sd/EdiZon/editor/010076F0049A2000.json",
+        "filename": "010076F0049A2000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/01007960049A0000.json",
+        "dir": "sd/EdiZon/editor/01007960049A0000.json",
+        "filename": "01007960049A0000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/01007EF00011E000.json",
+        "dir": "sd/EdiZon/editor/01007EF00011E000.json",
+        "filename": "01007EF00011E000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/0100849000BDA000.json",
+        "dir": "sd/EdiZon/editor/0100849000BDA000.json",
+        "filename": "0100849000BDA000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/010086D00B3D2000.json",
+        "dir": "sd/EdiZon/editor/010086D00B3D2000.json",
+        "filename": "010086D00B3D2000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/010096000B3EA000.json",
+        "dir": "sd/EdiZon/editor/010096000B3EA000.json",
+        "filename": "010096000B3EA000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/0100AE00096EA000.json",
+        "dir": "sd/EdiZon/editor/0100AE00096EA000.json",
+        "filename": "0100AE00096EA000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/0100BDE00862A000.json",
+        "dir": "sd/EdiZon/editor/0100BDE00862A000.json",
+        "filename": "0100BDE00862A000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/0100C4E004406000.json",
+        "dir": "sd/EdiZon/editor/0100C4E004406000.json",
+        "filename": "0100C4E004406000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/0100E66006406000.json",
+        "dir": "sd/EdiZon/editor/0100E66006406000.json",
+        "filename": "0100E66006406000.json"
+      }
+    ]
+  },
+  "briccme": {
+    "id": "briccme",
+    "name": "Briccmii",
+    "authors": "rajkosto",
+    "category": "payloads",
+    "subcategory": "Utilities",
+    "version": "v2",
+    "source": "https://switchtools.sshnuke.net/",
+    "dlSource": "https://files.sshnuke.net/briccmiiv2.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/briccme/pc/payloads/briccmii.bin",
+        "dir": "pc/payloads/briccmii.bin",
+        "filename": "briccmii.bin"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/briccme/licenses/BRICCMII",
+        "dir": "licenses/BRICCMII",
+        "filename": "BRICCMII"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/briccme/readmes/BRICCMII",
+        "dir": "readmes/BRICCMII",
+        "filename": "BRICCMII"
+      }
+    ]
+  },
+  "gptrestore": {
+    "id": "gptrestore",
+    "name": "GPTRestore",
+    "authors": "rajkosto",
+    "category": "payloads",
+    "subcategory": "Utilities",
+    "version": "v1",
+    "source": "https://switchtools.sshnuke.net/",
+    "dlSource": "https://files.sshnuke.net/gptrestorev1.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/gptrestore/pc/payloads/gptrestore.bin",
+        "dir": "pc/payloads/gptrestore.bin",
+        "filename": "gptrestore.bin"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/gptrestore/licenses/GPTRESTORE",
+        "dir": "licenses/GPTRESTORE",
+        "filename": "GPTRESTORE"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/gptrestore/readmes/GPTRESTORE",
+        "dir": "readmes/GPTRESTORE",
+        "filename": "GPTRESTORE"
+      }
+    ]
+  },
+  "biskeydump": {
+    "id": "biskeydump",
+    "name": "BIS Key Dump",
+    "authors": "rajkosto",
+    "category": "payloads",
+    "subcategory": "Utilities",
+    "version": "v6",
+    "source": "https://switchtools.sshnuke.net/",
+    "dlSource": "https://files.sshnuke.net/biskeydumpv6.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/biskeydump/pc/payloads/biskeydump.bin",
+        "dir": "pc/payloads/biskeydump.bin",
+        "filename": "biskeydump.bin"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/biskeydump/licenses/BISKEYDUMP",
+        "dir": "licenses/BISKEYDUMP",
+        "filename": "BISKEYDUMP"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/biskeydump/readmes/BISKEYDUMP",
+        "dir": "readmes/BISKEYDUMP",
+        "filename": "BISKEYDUMP"
+      }
+    ]
+  },
+  "sxloader": {
+    "id": "sxloader",
+    "name": "SX OS Loader",
+    "authors": "Team Xecuter",
+    "category": "payloads",
+    "subcategory": "Loaders",
+    "version": "v1.0",
+    "source": "https://sx.xecuter.com/",
+    "dlSource": "https://sx.xecuter.com/download/payload.bin",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/sxloader/pc/payloads/sxloader.bin",
+        "dir": "pc/payloads/sxloader.bin",
+        "filename": "sxloader.bin"
+      }
+    ]
+  },
+  "reinxpayload": {
+    "id": "reinxpayload",
+    "name": "ReiNX Loader",
+    "authors": "Reisyukaku",
+    "category": "payloads",
+    "subcategory": "Loaders",
+    "version": "v1.2",
+    "source": "https://github.com/Reisyukaku/ReiNX/",
+    "dlSource": "https://github.com/Reisyukaku/ReiNX/",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinxpayload/pc/payloads/ReiNX.bin",
+        "dir": "pc/payloads/ReiNX.bin",
+        "filename": "ReiNX.bin"
+      }
+    ]
+  },
+  "tegrarcmsmash": {
+    "id": "tegrarcmsmash",
+    "name": "TegraRCMSmash",
+    "authors": "rajkosto",
+    "category": "pctools",
+    "subcategory": "General",
+    "version": "v1.2.1-3",
+    "source": "https://switchtools.sshnuke.net/",
+    "dlSource": "https://files.sshnuke.net/TegraRcmSmash1213.zip",
+    "enabledByDefault": false,
+    "artifacts": [
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/tegrarcmsmash/pc/tegrarcmsmash/Win32/TegraRcmSmash.exe",
+        "dir": "pc/tegrarcmsmash/Win32/TegraRcmSmash.exe",
+        "filename": "TegraRcmSmash.exe"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/tegrarcmsmash/pc/tegrarcmsmash/x64/TegraRcmSmash.exe",
+        "dir": "pc/tegrarcmsmash/x64/TegraRcmSmash.exe",
+        "filename": "TegraRcmSmash.exe"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/tegrarcmsmash/licenses/TEGRARCMSMASH",
+        "dir": "licenses/TEGRARCMSMASH",
+        "filename": "TEGRARCMSMASH"
+      },
+      {
+        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/tegrarcmsmash/readmes/TEGRARCMSMASH",
+        "dir": "readmes/TEGRARCMSMASH",
+        "filename": "TEGRARCMSMASH"
+      }
+    ]
+  }
+}
