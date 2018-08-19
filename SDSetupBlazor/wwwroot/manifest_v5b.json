@@ -14,6 +14,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/hekate/pc/payloads/hekate_ctcaer_3.2.bin",
         "dir": "pc/payloads/hekate_ctcaer_3.2.bin",
         "filename": "hekate_ctcaer_3.2.bin"
+      },
+      {
+        "url": "https://cdn.rawgit.com/CTCaer/hekate/master/LICENSE",
+        "dir": "licenses/HEKATE",
+        "filename": "HEKATE"
       }
     ]
   },
@@ -52,6 +57,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/splash.bin",
         "dir": "sd/ReiNX/splash.bin",
         "filename": "splash.bin"
+      },
+      {
+        "url": "https://cdn.rawgit.com/Reisyukaku/ReiNX/master/LICENSE.txt",
+        "dir": "licenses/REINX",
+        "filename": "REINX"
       }
     ]
   },
@@ -171,6 +181,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/appstorenx/sd/switch/appstore/appstore.nro",
         "dir": "sd/switch/appstore/appstore.nro",
         "filename": "appstore.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/vgmoose/appstorenx/f8ee4142/LICENSE",
+        "dir": "licenses/APPSTORENX",
+        "filename": "APPSTORENX"
       }
     ]
   },
@@ -217,6 +232,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/khedgb/sd/switch/khedgb.nro",
         "dir": "sd/switch/khedgb.nro",
         "filename": "khedgb.nro"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/jakibaki/khedgb/master/LICENSE",
+        "dir": "licenses/KHEDGB",
+        "filename": "KHEDGB"
       }
     ]
   },
@@ -993,6 +1013,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/jksv/sd/switch/JKSV.nro",
         "dir": "sd/switch/JKSV.nro",
         "filename": "JKSV.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/J-D-K/JKSV/master/LICENSE",
+        "dir": "licenses/JKSV",
+        "filename": "JKSV"
       }
     ]
   },
@@ -1011,6 +1036,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/checkpoint/sd/switch/Checkpoint.nro",
         "dir": "sd/switch/Checkpoint.nro",
         "filename": "Checkpoint.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/BernardoGiordano/Checkpoint/master/LICENSE",
+        "dir": "licenses/CHECKPOINT",
+        "filename": "CHECKPOINT"
       }
     ]
   },
@@ -1157,6 +1187,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/tinfoil/sd/switch/Tinfoil.nro",
         "dir": "sd/switch/Tinfoil.nro",
         "filename": "Tinfoil.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/Adubbz/Tinfoil/f6ce3cd2/LICENSE",
+        "dir": "licenses/TINFOIL",
+        "filename": "TINFOIL"
       }
     ]
   },
@@ -1349,6 +1384,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/postalnx/sd/switch/Postal/postal.nro",
         "dir": "sd/switch/Postal/postal.nro",
         "filename": "postal.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/lantus/postal-nx/master/LICENSE",
+        "dir": "licenses/POSTALNX",
+        "filename": "POSTALNX"
       }
     ]
   },
@@ -1367,6 +1407,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/2048/sd/switch/2048.nro",
         "dir": "sd/switch/2048.nro",
         "filename": "2048.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/BernardoGiordano/2048/master/LICENSE",
+        "dir": "licenses/2048",
+        "filename": "2048"
       }
     ]
   },
@@ -1818,6 +1863,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/pickr/sd/switch/Pickr.nro",
         "dir": "sd/switch/Pickr.nro",
         "filename": "Pickr.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/BernardoGiordano/Pickr/master/LICENSE",
+        "dir": "licenses/PICKR",
+        "filename": "PICKR"
       }
     ]
   },
@@ -1841,6 +1891,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/pixelpainter/sd/switch/Pixel-Painter/Pixel-Painter.nro",
         "dir": "sd/switch/Pixel-Painter/Pixel-Painter.nro",
         "filename": "Pixel-Painter.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/16BitWonder/Pixel-Painter-Switch/master/LICENSE",
+        "dir": "licenses/PIXELPAINTER",
+        "filename": "PIXELPAINTER"
       }
     ]
   },
@@ -2007,6 +2062,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/spacegamenx/sd/switch/spacenx.nro",
         "dir": "sd/switch/spacenx.nro",
         "filename": "spacenx.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/vgmoose/spacenx/master/LICENSE",
+        "dir": "licenses/SPACEGAMENX",
+        "filename": "SPACEGAMENX"
       }
     ]
   },
@@ -2043,6 +2103,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/nxshell/sd/switch/NX-Shell.nro",
         "dir": "sd/switch/NX-Shell.nro",
         "filename": "NX-Shell.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/joel16/NX-Shell/3efc9771/LICENSE",
+        "dir": "licenses/NXSHELL",
+        "filename": "NXSHELL"
       }
     ]
   },
@@ -2061,6 +2126,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/gagorder/sd/switch/gag-order.nro",
         "dir": "sd/switch/gag-order.nro",
         "filename": "gag-order.nro"
+      },
+      {
+        "url": "https://cdn.rawgit.com/Adubbz/Gag-Order/master/LICENSE",
+        "dir": "licenses/GAGORDER",
+        "filename": "GAGORDER"
       }
     ]
   },
@@ -2184,6 +2254,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/edizon/sd/EdiZon/editor/0100E66006406000.json",
         "dir": "sd/EdiZon/editor/0100E66006406000.json",
         "filename": "0100E66006406000.json"
+      },
+      {
+        "url": "https://cdn.rawgit.com/thomasnet-mc/EdiZon/master/LICENSE",
+        "dir": "licenses/EDIZON",
+        "filename": "EDIZON"
       }
     ]
   },
@@ -2567,6 +2642,11 @@
         "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/hactool/pc/hactool/hactool.exe",
         "dir": "pc/hactool/hactool.exe",
         "filename": "hactool.exe"
+      },
+      {
+        "url": "https://cdn.rawgit.com/SciresM/hactool/master/LICENSE",
+        "dir": "licenses/HACTOOL",
+        "filename": "HACTOOL"
       }
     ]
   },
@@ -2596,11 +2676,11 @@
         "dir": "pc/NCABuilder/NCABuilder.exe",
         "filename": "NCABuilder.exe"
       },
-      {
-        "url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/ncabuilder/pc/NCABuilder/RunProcessAsTask.dll",
-        "dir": "pc/NCABuilder/RunProcessAsTask.dll",
-        "filename": "RunProcessAsTask.dll"
-      }
+					{
+						"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/ncabuilder/pc/NCABuilder/RunProcessAsTask.dll",
+						"dir": "pc/NCABuilder/RunProcessAsTask.dll",
+						"filename": "RunProcessAsTask.dll"
+					}
     ]
   }
 }
