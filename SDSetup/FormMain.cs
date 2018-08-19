@@ -27,7 +27,7 @@ namespace SDSetupManifestGenerator {
                 PopulatePackages();
             }
 
-            txtURL.Text = "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/repo2/";
+            txtURL.Text = "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/";
 
             ToggleAuth(false);
             int result = Git.AuthCachedUnsafe();
@@ -170,7 +170,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnNewPackage_Click(object sender, EventArgs e) {
             string guid = Guid.NewGuid().ToString().ToLower().Replace("-", "");
-            packages[guid] = new Package(guid, "", "", "", "", "", "", false, null);
+            packages[guid] = new Package(guid, "", "", "", "", "", "", false, new Artifact[0]);
             PopulatePackages();
         }
 
