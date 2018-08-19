@@ -4,7 +4,9 @@
 Homebrew SD Setup is a web application written in C# (and a little bit of JavaScript) running on Blazor. The app lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
 
 ## Compatibility
-The application has been verified working in Firefox and Chrome on Windows 10, and Chrome and Firefox on Android. This application is explicitly incompatible with Microsoft Edge at this time (high priority!). Other browsers are likely to work as long as they support WebAssembly or asm.js (even IE11).
+The application has been verified working in Chrome, Firefox and Edge on Windows 10, as well as Chrome and Firefox on Android. Other browsers are likely to work fine as long as they support WebAssembly or asm.js, and ES6.
+
+Internet Explorer is explicitly incompatible due to lack of ES6 support.
 
 ## Features
 ### Nintendo Switch
@@ -25,7 +27,7 @@ Please feel free [submit an issue](https://www.github.com/noahc3/sdsetup/issues)
 * A package is outdated
 * A package's information is incorrect
 * A package should be retrieved from a different/better source
-* A browser other than Edge is incompatible
+* A browser other than Internet Explorer is incompatible
 * Reporting a bug
 * Suggesting a feature
 * Suggesting a new package
@@ -40,8 +42,7 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 * **SD Setup Manifest Generator:** A GUI authoring tool for generating a valid manifest file with package information and where to retrieve files for download.
 
 ## Contributing
-Fixing Edge is a high priority at the moment, but due to lack of pretty much any debugging tools for Blazor, fixing it is difficult. Help with this would be appreciated.
-Other changes are welcome through pull requests, of course!
+Feel free to make pull requests where you see fit!
 
 ## Credits
 Please see https://www.sdsetup.tk/credits for an up-to-date list of credits and sources for each package available.
