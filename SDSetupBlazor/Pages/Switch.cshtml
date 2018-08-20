@@ -266,7 +266,14 @@
 		total = finalArtifacts.Count;
 
 		foreach (Tuple<string, string, string> k in finalArtifacts) {
-			await ZipHelpers.AddFile(k.Item1, k.Item2, k.Item3);
+			int result = await ZipHelpers.AddFile(k.Item1, k.Item2, k.Item3);
+			if (result == 2) {
+				Console.WriteLine("File download failed, aborting...");
+				gettingZip = false;
+				zipDoneMessage = true;
+				StateHasChanged();
+				return;
+			}
 			current++;
 			StateHasChanged();
 		}
@@ -276,7 +283,6 @@
 		StateHasChanged();
 
 		await ZipHelpers.AwaitableDownloadZip();
-
 		gettingZip = false;
 		zipDoneMessage = true;
 		StateHasChanged();

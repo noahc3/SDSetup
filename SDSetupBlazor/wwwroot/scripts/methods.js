@@ -6,6 +6,7 @@ var totalSteps = 0;
 var finishedSteps = 0;
 var setupList;
 var donotcontinue = false;
+var retry = 0;
 
 var thresholds = {
 	0: true,
@@ -421,8 +422,20 @@ window.interop_addFile = (data) => {
 	var uuid = generateUUID();
 	return new Promise((resolve, reject) => {
 		return getFileBuffer_url(data[0], uuid).then(function (blob) {
-			addFile(blob, data[1], data[2]);
-			resolve(1);
+			if (blob != null) {
+				addFile(blob, data[1], data[2]);
+				retry = 0;
+				resolve(1);
+			}
+		}).catch(function () {
+			if (retry < 3) {
+				console.log("File download failed, retrying...");
+				retry++;
+				resolve(window.interop_addFile(data));
+			} else {
+				console.log("File download failed too many times, cancelling.");
+				resolve(2);
+			}
 		});
 	});
 };
