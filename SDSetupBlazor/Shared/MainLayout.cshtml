@@ -34,6 +34,7 @@
 		if (!G.initialized) {
 			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
 			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("/manifest_v5b.json");
+			G.isMobile = await JSRuntime.Current.InvokeAsync<bool>("mobileAndTabletcheck");
 			G.Init();
 			G.initialized = true;
 			if (Pages.Switch.ForceUiRefresh != null) Pages.Switch.ForceUiRefresh();
