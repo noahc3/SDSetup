@@ -82,7 +82,7 @@
 										<div class="inline field" style="margin:0 0 0 1rem">
 											<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
 												<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
-												<label>@p.name@if(!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
+												<label>@p.name@if (!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
 											</div>
 										</div>
 									}
@@ -107,7 +107,7 @@
 									<div class="inline field" style="margin:0 0 0 1rem">
 										<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
 											<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
-											<label>@p.name@if(!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
+											<label>@p.name@if (!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
 										</div>
 									</div>
 								}
@@ -125,7 +125,7 @@
 									<div class="inline field" style="margin:0 0 0 1rem">
 										<div class="ui checkbox @(G.selectedPackages[p.id] == true ? "checked" : "")" onclick="@(() => checkClicked(p.id))">
 											<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.id] == true)">
-											<label>@p.name@if(!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
+											<label>@p.name@if (!String.IsNullOrEmpty(p.version)) {<sub style="color:#b7b7b7"> (@p.version)</sub>}</label>
 										</div>
 									</div>
 								}
@@ -136,8 +136,22 @@
 			</Card>
 		</div>
 
-		<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
+		@if (G.isMobile) {
+			if (G.selectedPackages.ContainsKey("retronx") && G.selectedPackages["retronx"] == true) {
+				<div class="ui negative message" style="margin-bottom:1.5rem">
+					<div class="header fluid">
+						STOP! Attempting to add RetroNX on mobile <b>WILL FAIL</b> because of it's size and mobile memory limitations. Unselect it!<br />
+						(Download it manually or use this site on a PC to get it)
+					</div>
+				</div>
 
+				<button class="fluid ui red disabled button" style="margin-bottom:1.5rem">Download your ZIP</button>
+			} else {
+				<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
+			}
+		} else {
+			<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
+		}
 	}
 
 </div>

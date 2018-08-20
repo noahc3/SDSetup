@@ -8,6 +8,7 @@ namespace SDSetupBlazor
 {
     public static class G {
         public static bool initialized = false;
+        public static bool isMobile = false;
 
         public static string[] autofillBlacklist = new string[] { "cfw", "cfwoptions", "payloads", "pctools", "cfwaddons" };
         public static string[] autodlBlacklist = new string[] { "cfw", "cfwoptions", "cfwaddons" };

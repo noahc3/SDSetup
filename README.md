@@ -6,7 +6,7 @@ Homebrew SD Setup is a web application written in C# (and a little bit of JavaSc
 ## Compatibility
 The application has been verified working in Chrome, Firefox, Opera and Edge on Windows 10, as well as Chrome and Firefox on Android. Other browsers are likely to work fine as long as they support WebAssembly or asm.js, and ES6.
 
-Internet Explorer is explicitly incompatible due to lack of ES6 support.
+Internet Explorer is explicitly incompatible due to lack of ES6 support. Additionally, RetroNX will cause the download to fail on mobile due to memory limitations (and as such, the download button will be disabled if you select it on mobile).
 
 ## Features
 ### Nintendo Switch
@@ -43,6 +43,8 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 
 ## Contributing
 Feel free to make pull requests where you see fit!
+
+PS. I would really appreciate it if someone could fix large ZIP downloads (ie. RetroNX).
 
 ## Credits
 Please see https://www.sdsetup.tk/credits for an up-to-date list of credits and sources for each package available.
