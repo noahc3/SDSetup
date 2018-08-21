@@ -44,38 +44,53 @@
 		"source": "https://github.com/Reisyukaku/ReiNX/",
 		"dlSource": "https://github.com/Reisyukaku/ReiNX/",
 		"enabledByDefault": false,
-		"artifacts": [
-			{
-				"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/patches/es_patch.rxp",
-				"dir": "sd/ReiNX/patches/es_patch.rxp",
-				"filename": "es_patch.rxp"
-			},
-			{
-				"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/fs_mitm.kip",
-				"dir": "sd/ReiNX/sysmodules/fs_mitm.kip",
-				"filename": "fs_mitm.kip"
-			},
-			{
-				"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/loader.kip",
-				"dir": "sd/ReiNX/sysmodules/loader.kip",
-				"filename": "loader.kip"
-			},
-			{
-				"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/sm.kip",
-				"dir": "sd/ReiNX/sysmodules/sm.kip",
-				"filename": "sm.kip"
-			},
-			{
-				"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/splash.bin",
-				"dir": "sd/ReiNX/splash.bin",
-				"filename": "splash.bin"
-			},
-			{
-				"url": "https://cdn.rawgit.com/Reisyukaku/ReiNX/master/LICENSE.txt",
-				"dir": "licenses/REINX",
-				"filename": "REINX"
-			}
-		]
+			"artifacts": [
+				{
+					"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/patches/es_patch.rxp",
+					"dir": "sd/ReiNX/patches/es_patch.rxp",
+					"filename": "es_patch.rxp"
+				},
+				{
+					"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/fs_mitm.kip",
+					"dir": "sd/ReiNX/sysmodules/fs_mitm.kip",
+					"filename": "fs_mitm.kip"
+				},
+				{
+					"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/loader.kip",
+					"dir": "sd/ReiNX/sysmodules/loader.kip",
+					"filename": "loader.kip"
+				},
+				{
+					"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/sysmodules/sm.kip",
+					"dir": "sd/ReiNX/sysmodules/sm.kip",
+					"filename": "sm.kip"
+				},
+				{
+					"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/splash.bin",
+					"dir": "sd/ReiNX/splash.bin",
+					"filename": "splash.bin"
+				},
+				{
+					"url": "https://cdn.rawgit.com/Reisyukaku/ReiNX/master/LICENSE.txt",
+					"dir": "licenses/REINX",
+					"filename": "REINX"
+				},
+				{
+					"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/titles/010000000000100D/exefs/main",
+					"dir": "sd/ReiNX/titles/010000000000100D/exefs/main",
+					"filename": "REINX"
+				},
+				{
+					"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
+					"dir": "sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
+					"filename": "REINX"
+				},
+				{
+					"url": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
+					"dir": "sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
+					"filename": "REINX"
+				}
+			]
 	},
 	"reinx_nogc": {
 		"id": "reinx_nogc",
