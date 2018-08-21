@@ -1,6 +1,8 @@
+
 [![Homebrew SD Setup](https://www.sdsetup.tk/img/logo.png)](https://www.sdsetup.tk)
 
 [https://www.sdsetup.tk](https://www.sdsetup.tk)
+
 Homebrew SD Setup is a web application written in C# (and a little bit of JavaScript) running on Blazor. The app lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
 
 ## Compatibility
@@ -41,10 +43,15 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 * **SD Setup Blazor:** The web application itself, written in C# (and a little bit of JavaScript).
 * **SD Setup Manifest Generator:** A GUI authoring tool for generating a valid manifest file with package information and where to retrieve files for download.
 
+## Todo
+I would like the project to get to a point where everything on the site can be updated using only the JSON manifest. Consoles can be added, CFWs and their options can be configured, special categories can be defined, etc. This will likely come in the near future.
+
+I'd also like the project to drop pretty much all JavaScript interop, minus browser compatibility checks. Unfortunately, SharpZipLib, the only .Net Standard 2.0 compliant ZIP library I could find, has major problems in the virtualized browser environment, making JS interop necessary.
+
 ## Contributing
 Feel free to make pull requests where you see fit!
 
-PS. I would really appreciate it if someone could fix large ZIP downloads (ie. RetroNX).
+PS. I would really appreciate it if someone could fix large ZIP downloads on mobile (ie. RetroNX).
 
 ## Credits
 Please see https://www.sdsetup.tk/credits for an up-to-date list of credits and sources for each package available.
