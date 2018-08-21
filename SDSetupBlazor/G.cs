@@ -27,7 +27,7 @@ namespace SDSetupBlazor
 
         public static CFW[] cfws = new CFW[] {
             new CFW("SX OS", "sxos", false, null),
-            new CFW("Atmosphere + Hekate", "atmos", false, null),
+            new CFW("Atmosphere (configured with SDFilesSwitch)", "atmos", false, null),
             new CFW("ReiNX", "reinx", false, new CFWOption[] {
                 reinx_nogc
             }),
