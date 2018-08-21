@@ -5,70 +5,82 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SDSetupManifestGenerator {
+    public class Manifest {
+        public string Version;
+        public string Copyright;
+        public Platform[] Platforms;
+        public FAQSection[] FAQSections;
+    }
+
+    public class Platform {
+        public string Name;
+        public string MenuName;
+        public string HomeIcon;
+        public string ID;
+        public CFW[] CFWs;
+        public PackageSection[] PackageSections;
+    }
+
+    public class CFW {
+        public string ID;
+        public string Name;
+        public string DisplayName;
+        public Package[] Packages;
+    }
+
+    public class PackageSection {
+        public string ID;
+        public string Name;
+        public string DisplayName;
+        public int ListingMode;
+        public bool Visible;
+        public PackageCategory[] Categories;
+    }
+
+    public class PackageCategory {
+        public string ID;
+        public string Name;
+        public string DisplayName;
+        public bool Visible;
+        public PackageSubcategory[] Subcategories;
+    }
+
+    public class PackageSubcategory {
+        public string ID;
+        public string Name;
+        public string DisplayName;
+        public bool Visible;
+        public Package[] Packages;
+    }
+
     public class Package {
-        public string id = "";
-        public string name = "";
-        public string authors = "";
-        public string category = "";
-        public string subcategory = "";
-        public string version = "";
-        public string source = "";
-        public string dlSource = "";
-
-        public bool enabledByDefault = false;
-        public Artifact[] artifacts = null;
-
-        public Package() {
-
-        }
-
-        public Package(string id, string name, string authors, string category, string subcategory, string version, string source, bool enabledByDefault, Artifact[] artifacts) {
-            this.id = id;
-            this.name = name;
-            this.authors = authors;
-            this.category = category;
-            this.subcategory = subcategory;
-            this.enabledByDefault = enabledByDefault;
-            this.artifacts = artifacts;
-            this.version = version;
-            this.source = source;
-        }
-
-        public Package(string id, string name, string authors, string category, string subcategory, string version, string source, string dlSource, bool enabledByDefault, Artifact[] artifacts) {
-            this.id = id;
-            this.name = name;
-            this.authors = authors;
-            this.category = category;
-            this.subcategory = subcategory;
-            this.enabledByDefault = enabledByDefault;
-            this.artifacts = artifacts;
-            this.version = version;
-            this.source = source;
-            this.dlSource = dlSource;
-        }
+        public string ID;
+        public string Name;
+        public string DisplayName;
+        public string Authors;
+        public string Version;
+        public string Source;
+        public string DLSource;
+        public bool EnabledByDefault;
+        public bool Visible;
+        public string Description;
+        public string[] Dependencies;
+        public Artifact[] Artifacts;
     }
 
     public class Artifact {
-        public string url = "";
-        public string dir = "/";
-        public string filename = "unknown";
-        public string diskLocation;
+        public string URL;
+        public string Directory;
+        public string FileName;
+    }
 
-        public Artifact() {
+    public class FAQSection {
+        public string Name;
+        public FAQ[] FAQs;
+    }
 
-        }
-
-        public Artifact(string url, string dir, string filename) {
-            this.url = url;
-            this.dir = dir;
-            this.filename = filename;
-        }
-
-        public Artifact(string url, string dir, string filename, string diskLocation) {
-            this.url = url;
-            this.dir = dir;
-            this.filename = filename;
-            this.diskLocation = diskLocation;
-        }
+    public class FAQ {
+        public string question;
+        public string answer;
     }
 }
