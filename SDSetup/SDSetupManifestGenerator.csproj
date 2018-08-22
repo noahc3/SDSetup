@@ -93,6 +93,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="..\SDSetupBlazor\SDSetupBlazor.licenseheader">
+      <Link>SDSetupBlazor.licenseheader</Link>
+    </None>
     <None Include="App.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>App.Designer.cs</LastGenOutput>
