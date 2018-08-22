@@ -14,11 +14,13 @@
 <div class="docs-example" style="margin-top:1.5rem">
 	<h3 style="margin-bottom:0.5em;">Select a Console</h3>
 	<div class="ui link cards justify-content-center" style="margin-bottom:1.5rem">
-		<div class="card" style="max-width:30rem">
-			<div class="image" onclick="@(() => Navigate("/switch"))">
-				<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Nintendo_Switch_logo%2C_square.png/480px-Nintendo_Switch_logo%2C_square.png">
+		@foreach (Platform k in G.manifest.Platforms.Values) {
+			<div class="card" style="max-width:30rem">
+				<div class="image" onclick="@(() => Navigate("/switch"))">
+					<img src="@k.HomeIcon">
+				</div>
 			</div>
-		</div>
+		}
 	</div>
 </div>
 
