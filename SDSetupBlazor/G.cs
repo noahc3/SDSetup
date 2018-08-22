@@ -17,32 +17,29 @@ namespace SDSetupBlazor
         public static string[] autofillBlacklist = new string[] { "cfw", "cfwoptions", "payloads", "pctools", "cfwaddons" };
         public static string[] autodlBlacklist = new string[] { "cfw", "cfwoptions", "cfwaddons" };
         public static Dictionary<string, bool> selectedPackages = new Dictionary<string, bool>();
-        public static Dictionary<string, Package> packages = new Dictionary<string, Package>();
-        public static Dictionary<string, Dictionary<string, List<Package>>> categories = new Dictionary<string, Dictionary<string, List<Package>>>();
-
-        public static CFWOption reinx_nogc = new CFWOption("Disable Gamecard Slot", "reinx_nogc", false);
-
+        public static Dictionary<string, Dictionary<string, Package>> packages = new Dictionary<string, Dictionary<string, Package>>();
+        public static Manifest manifest;
+        
         public static bool donotcontinue = false;
 
         [JSInvokable]
         public static void allowContinue() {
             donotcontinue = false;
         }
-
-        public static CFW[] cfws = new CFW[] {
-            new CFW("SX OS", "sxos", false, null),
-            new CFW("Atmosphere (configured with SDFilesSwitch)", "atmos", false, null),
-            new CFW("ReiNX", "reinx", false, new CFWOption[] {
-                reinx_nogc
-            }),
-        };
-
+        
         public static void Init() {
-            foreach (KeyValuePair<string, Package> k in packages) {
-                if (!categories.ContainsKey(k.Value.category)) categories[k.Value.category] = new Dictionary<string, List<Package>>();
-                if (!categories[k.Value.category].ContainsKey(k.Value.subcategory)) categories[k.Value.category][k.Value.subcategory] = new List<Package>();
-                if (!selectedPackages.ContainsKey(k.Key)) selectedPackages[k.Key] = k.Value.enabledByDefault;
-                categories[k.Value.category][k.Value.subcategory].Add(k.Value);
+            foreach (Platform k in manifest.Platforms.Values) {
+                packages[k.ID] = new Dictionary<string, Package>();
+                foreach (PackageSection sec in k.PackageSections) {
+                    foreach (PackageCategory c in sec.Categories) {
+                        foreach(PackageSubcategory s in c.Subcategories) {
+                            foreach(Package p in s.Packages) {
+                                selectedPackages[p.ID] = p.EnabledByDefault;
+                                packages[k.ID][p.ID] = p;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

@@ -16,14 +16,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (KeyValuePair<string, Package> k in G.packages) {
-				Package p = k.Value;
-				if (String.IsNullOrEmpty(p.authors)) { continue; }
+			@foreach (Package p in G.packages["switch"].Values) {
+				if (String.IsNullOrEmpty(p.Authors)) { continue; }
 				<tr>
-					<td>@p.name</td>
-					<td>@p.authors</td>
-					<td>@p.version</td>
-					<td>@if (@p.source.Contains("https://") || p.source.Contains("http://")) {<a href="@p.source">@p.source</a>} else {@p.source}</td>
+					<td>@p.Name</td>
+					<td>@p.Authors</td>
+					<td>@p.Version</td>
+					<td>@if (@p.Source.Contains("https://") || p.Source.Contains("http://")) {<a href="@p.Source">@p.Source</a>} else {@p.Source}</td>
 				</tr>
 			}
 
