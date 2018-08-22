@@ -5,31 +5,52 @@
 @inherits BlazorLayoutComponent
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 @inject HttpClient Http
-<div class="main" style="min-height:100%;height:auto">
-	<div class="ui menu stackable red">
-		<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
-		<a href="/switch" class="@(GetRelativePath().ToLower() == "switch" ? "active" : "") item">Switch</a>
-		<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
-		<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
-		<div class="right menu">
-			<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
-			<a href="https://github.com/noahc3/SDSetup" class="ui item">Source</a>
+
+@if (G.initialized) {
+	<div class="main" style="min-height:100%;height:auto">
+		<div class="ui menu stackable red">
+			<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
+			<a href="/switch" class="@(GetRelativePath().ToLower() == "switch" ? "active" : "") item">@G.manifest.Platforms["switch"].MenuName</a>
+			<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
+			<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
+			<div class="right menu">
+				<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
+				<a href="https://github.com/noahc3/SDSetup" class="ui item">Source</a>
+			</div>
+		</div>
+
+		<div class="container" style="padding-bottom:1.5rem">
+			<div class="content px-4">
+				@Body
+			</div>
+		</div>
+		<div style="text-align:center;color:#808080;">
+			@foreach (string k in G.manifest.Copyright.Split('$')) { 
+				<b style="text-align:center">@k</b><br />
+			}
+			<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">Build 2018.08.22.01</h5>
+		</div>
+
+
+	</div>
+} else {
+	<div class="ui active dimmer" style="height:100%;width:100%">
+		<div class="ui massive text loader">Loading</div>
+		<div style="width:90%;position:absolute;bottom:5%">
+			<div class="ui negative message">
+				<div class="header fluid">
+					Some anti-viruses like AVG and Avast might block this site due to a domain reputation (DRep) problem. This should resolve itself in the future, but for now you'll need to disable your anti-virus to use this site if it gets blocked.
+				</div>
+			</div>
+			<div class="ui negative message">
+				<div class="header fluid">
+					If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
+				</div>
+			</div>
 		</div>
 	</div>
+}
 
-	<div class="container" style="padding-bottom:1.5rem">
-		<div class="content px-4">
-			@Body
-		</div>
-	</div>
-	<div style="text-align:center;color:#808080;">
-		<b style="text-align:center">&#169; 2018 noahc3</b><br />
-		<b style="text-align:center">The Nintendo Switch name and logo are &#169; Nintendo. This site is in no way affiliated with Nintendo or any of it's partners.</b>
-		<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">Build 2018.08.21.01</h5>
-	</div>
-	
-
-</div>
 
 @functions {
 
@@ -40,12 +61,13 @@
 	protected override async Task OnInitAsync() {
 		if (!G.initialized) {
 			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
-			G.packages = await Http.GetJsonAsync<Dictionary<string, Package>>("/manifest_v5b.json");
+			G.manifest = await Http.GetJsonAsync<Manifest>("/manifest4.json");
 			G.isMobile = await JSRuntime.Current.InvokeAsync<bool>("mobileAndTabletcheck");
 			G.Init();
 			G.initialized = true;
 			if (Pages.Switch.ForceUiRefresh != null) Pages.Switch.ForceUiRefresh();
 			if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
+			StateHasChanged();
 		}
 	}
 

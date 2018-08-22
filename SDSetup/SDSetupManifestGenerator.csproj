@@ -58,17 +58,17 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>App.settings</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="FetchWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FetchWindow.Designer.cs">
+      <DependentUpon>FetchWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.cs">
+    <Compile Include="FormAuthoringTool.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <Compile Include="FormAuthoringTool.Designer.cs">
+      <DependentUpon>FormAuthoringTool.cs</DependentUpon>
     </Compile>
     <Compile Include="G.cs" />
     <Compile Include="Git.cs" />
@@ -76,11 +76,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="R.cs" />
     <Compile Include="Types.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FetchWindow.resx">
+      <DependentUpon>FetchWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <EmbeddedResource Include="FormAuthoringTool.resx">
+      <DependentUpon>FormAuthoringTool.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -92,6 +93,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="..\SDSetupBlazor\SDSetupBlazor.licenseheader">
+      <Link>SDSetupBlazor.licenseheader</Link>
+    </None>
     <None Include="App.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>App.Designer.cs</LastGenOutput>
