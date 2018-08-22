@@ -8,5 +8,6 @@ using System.IO;
 namespace SDSetupManifestGenerator {
     public static class R {
         public static readonly string wd = Path.Combine(Environment.CurrentDirectory, "data\\");
+        public static readonly string m = Environment.CurrentDirectory + "\\manifest4.json";
     }
 }

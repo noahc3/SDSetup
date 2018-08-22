@@ -8,28 +8,11 @@ using System.IO;
 
 namespace SDSetupManifestGenerator {
     public static class G {
-        private static Form1 frm;
-        private static FormMain frmm;
+        public static FormAuthoringTool tool;
+
         private static WebClient web = new WebClient();
 
-        public static void SetForm1(Form1 frm) {
-            G.frm = frm;
-        }
-
-        public static void SetFormMain(FormMain frm) {
-            G.frmm = frm;
-        }
-
-        public static void log(string message) {
-            Action action = new Action(() => {
-                frmm.txtLog.AppendText("[ INFO ] " + message + "\r\n");
-            });
-            if (frmm.InvokeRequired) frmm.Invoke(action);
-            else action();
-        }
-
         public static void DownloadFile(string url, string path) {
-            G.log("Downloading File " + url.Split('/').Last());
             web.DownloadFile(url, path);
         }
 
