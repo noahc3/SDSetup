@@ -49,20 +49,20 @@
 									<Card CardType="CardType.Title">@k.Name</Card>
 									<div class="ui form">
 										@foreach (CFWOption n in k.Options) {
-										<div class="inline field" style="margin:0 0 0 1rem">
-											<div class="nc3_hover">
-												<div class="ui checkbox @(n.Enabled == true ? "checked" : "")" onclick="@(() => changeCfwOptionState(n))">
-													<input type="checkbox" tabindex="0" class="hidden" checked="@(n.Enabled == true)">
-													<label>@n.Name</label>
-												</div>
-												@if (!G.isMobile) {
-													<div class="nc3_tooltip">
-														<h4 style="margin:0">@n.Name</h4>
-														<p>@G.packages["switch"][n.dependencies[0]].Description</p>
+											<div class="inline field" style="margin:0 0 0 1rem">
+												<div class="nc3_hover">
+													<div class="ui checkbox @(n.Enabled == true ? "checked" : "")" onclick="@(() => changeCfwOptionState(n))">
+														<input type="checkbox" tabindex="0" class="hidden" checked="@(n.Enabled == true)">
+														<label>@n.Name</label>
 													</div>
-												}
+													@if (!G.isMobile) {
+														<div class="nc3_tooltip">
+															<h4 style="margin:0">@n.Name</h4>
+															<p>@G.packages["switch"][n.dependencies[0]].Description</p>
+														</div>
+													}
+												</div>
 											</div>
-										</div>
 										}
 									</div>
 								</Card>
@@ -98,24 +98,24 @@
 											if (!p.Visible) {
 												continue;
 											}
-											
-										<div class="inline field" style="margin:0 0 0 1rem">
-											<div class="nc3_hover">
-												<div class="ui checkbox @(G.selectedPackages[p.ID] == true ? "checked" : "")" onclick="@(() => checkClicked(p.ID))">
-													<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.ID] == true)">
-													<label>@p.Name@if (!String.IsNullOrEmpty(p.Version)) {<sub style="color:#b7b7b7"> (@p.Version)</sub>}</label>
-												</div>
-												@if (!G.isMobile) {
-													<div class="nc3_tooltip">
-														<h4 style="margin:0">@p.Name</h4>
-														<h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
-														<p>@p.Description</p>
-														<br/><br/><p>Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a></p>
+
+											<div class="inline field" style="margin:0 0 0 1rem">
+												<div class="nc3_hover">
+													<div class="ui checkbox @(G.selectedPackages[p.ID] == true ? "checked" : "")" onclick="@(() => checkClicked(p.ID))">
+														<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.ID] == true)">
+														<label>@p.Name@if (!String.IsNullOrEmpty(p.Version)) {<sub style="color:#b7b7b7"> (@p.Version)</sub>}</label>
 													</div>
-												}
+													@if (!G.isMobile) {
+														<div class="nc3_tooltip">
+															<h4 style="margin:0">@p.Name</h4>
+															<h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
+															<p>@p.Description</p>
+															<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a></p>
+														</div>
+													}
+												</div>
 											</div>
-										</div>
-											
+
 										}
 									</div>
 								}
@@ -126,22 +126,7 @@
 			</div>
 		}
 
-		@if (G.isMobile) {
-			if (G.selectedPackages.ContainsKey("retronx") && G.selectedPackages["retronx"] == true) {
-				<div class="ui negative message" style="margin-bottom:1.5rem">
-					<div class="header fluid">
-						STOP! Attempting to add RetroNX on mobile <b>WILL FAIL</b> because of it's size and mobile memory limitations. Unselect it!<br />
-						(Download it manually or use this site on a PC to get it)
-					</div>
-				</div>
-
-				<button class="fluid ui red disabled button" style="margin-bottom:1.5rem">Download your ZIP</button>
-			} else {
-				<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
-			}
-		} else {
-			<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
-		}
+		<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
 	}
 
 </div>
