@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Copyright (c) 2018 noahc3
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,28 +12,11 @@ using System.IO;
 
 namespace SDSetupManifestGenerator {
     public static class G {
-        private static Form1 frm;
-        private static FormMain frmm;
+        public static FormAuthoringTool tool;
+
         private static WebClient web = new WebClient();
 
-        public static void SetForm1(Form1 frm) {
-            G.frm = frm;
-        }
-
-        public static void SetFormMain(FormMain frm) {
-            G.frmm = frm;
-        }
-
-        public static void log(string message) {
-            Action action = new Action(() => {
-                frmm.txtLog.AppendText("[ INFO ] " + message + "\r\n");
-            });
-            if (frmm.InvokeRequired) frmm.Invoke(action);
-            else action();
-        }
-
         public static void DownloadFile(string url, string path) {
-            G.log("Downloading File " + url.Split('/').Last());
             web.DownloadFile(url, path);
         }
 

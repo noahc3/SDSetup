@@ -1,119 +1,229 @@
-﻿/* Copyright (c) 2018 noahc3
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SDSetupBlazor {
-    public class CFW {
-        public string name;
-        public string id;
-        public bool enabled;
-        public CFWOption[] options;
+    public class Manifest {
+        public string Version = "";
+        public string Copyright = "";
+        public Dictionary<string, Platform> Platforms = new Dictionary<string, Platform>();
+        public List<FAQSection> FAQSections = new List<FAQSection>();
 
-        public CFW(string name, string id, bool enabled, CFWOption[] options) {
-            this.name = name;
-            this.id = id;
-            this.enabled = enabled;
-            this.options = options;
+        public Manifest(string version, string copyright, Dictionary<string, Platform> platforms, List<FAQSection> fAQSections) {
+            Version = version;
+            Copyright = copyright;
+            Platforms = platforms;
+            FAQSections = fAQSections;
+        }
+
+        public Manifest() {
+
+        }
+    }
+
+    public class Platform {
+        public string Name = "";
+        public string MenuName = "";
+        public string HomeIcon = "";
+        public string ID = "";
+        public List<CFW> CFWs = new List<CFW>();
+        public List<PackageSection> PackageSections = new List<PackageSection>();
+
+        public Platform(string name, string menuName, string homeIcon, string iD, List<CFW> cFWs, List<PackageSection> packageSections) {
+            Name = name;
+            MenuName = menuName;
+            HomeIcon = homeIcon;
+            ID = iD;
+            CFWs = cFWs;
+            PackageSections = packageSections;
+        }
+
+        public Platform() {
+
+        }
+    }
+
+    public class CFW {
+        public string ID = "";
+        public string Name = "";
+        public string DisplayName = "";
+        public bool Enabled = false;
+        public List<string> Dependencies = new List<string>();
+        public List<CFWOption> Options = new List<CFWOption>();
+
+        public CFW(string iD, string name, string displayName, List<string> dependencies, List<CFWOption> options) {
+            ID = iD;
+            Name = name;
+            DisplayName = displayName;
+            Dependencies = dependencies;
+            Options = options;
+        }
+
+        public CFW() {
+
         }
     }
 
     public class CFWOption {
-        public string name;
-        public string id;
-        public bool enabled;
+        public string Name = "";
+        public List<string> dependencies = new List<string>();
+        public bool enabledByDefault = false;
+        public bool Enabled = false;
 
-        public CFWOption(string name, string id, bool enabled) {
-            this.name = name;
-            this.id = id;
-            this.enabled = enabled;
+        public CFWOption(string name, List<string> dependencies, bool enabledByDefault) {
+            Name = name;
+            this.dependencies = dependencies;
+            this.enabledByDefault = enabledByDefault;
+            Enabled = enabledByDefault;
+        }
+
+
+        public CFWOption() {
+
+        }
+    }
+
+    public class PackageSection {
+        public string ID = "";
+        public string Name = "";
+        public string DisplayName = "";
+        public int ListingMode = 0;
+        public bool Visible = true;
+        public List<PackageCategory> Categories = new List<PackageCategory>();
+
+        public PackageSection(string iD, string name, string displayName, int listingMode, bool visible, List<PackageCategory> categories) {
+            ID = iD;
+            Name = name;
+            DisplayName = displayName;
+            ListingMode = listingMode;
+            Visible = visible;
+            Categories = categories;
+        }
+
+        public PackageSection() {
+
+        }
+    }
+
+    public class PackageCategory {
+        public string ID = "";
+        public string Name = "";
+        public string DisplayName = "";
+        public bool Visible = true;
+        public List<PackageSubcategory> Subcategories = new List<PackageSubcategory>();
+
+        public PackageCategory(string iD, string name, string displayName, bool visible, List<PackageSubcategory> subcategories) {
+            ID = iD;
+            Name = name;
+            DisplayName = displayName;
+            Visible = visible;
+            Subcategories = subcategories;
+        }
+
+        public PackageCategory() {
+
+        }
+    }
+
+    public class PackageSubcategory {
+        public string ID = "";
+        public string Name = "";
+        public string DisplayName = "";
+        public bool Visible = true;
+        public List<Package> Packages = new List<Package>();
+
+        public PackageSubcategory(string iD, string name, string displayName, bool visible, List<Package> packages) {
+            ID = iD;
+            Name = name;
+            DisplayName = displayName;
+            Visible = visible;
+            Packages = packages;
+        }
+
+        public PackageSubcategory() {
+
         }
     }
 
     public class Package {
-        public string id = "";
-        public string name = "";
-        public string authors = "";
-        public string category = "";
-        public string subcategory = "";
-        public string version = "";
-        public string source = "";
-        public string dlSource = "";
+        public string ID = "";
+        public string Name = "";
+        public string DisplayName = "";
+        public string Authors = "";
+        public string Version = "";
+        public string Source = "";
+        public string DLSource = "";
+        public bool EnabledByDefault = false;
+        public bool Visible = true;
+        public string Description = "";
+        public List<string> Dependencies = new List<string>();
+        public List<Artifact> Artifacts = new List<Artifact>();
 
-        public bool enabledByDefault = false;
-        public Artifact[] artifacts = null;
+        public Package(string iD, string name, string displayName, string authors, string version, string source, string dLSource, bool enabledByDefault, bool visible, string description, List<string> dependencies, List<Artifact> artifacts) {
+            ID = iD;
+            Name = name;
+            DisplayName = displayName;
+            Authors = authors;
+            Version = version;
+            Source = source;
+            DLSource = dLSource;
+            EnabledByDefault = enabledByDefault;
+            Visible = visible;
+            Description = description;
+            Dependencies = dependencies;
+            Artifacts = artifacts;
+        }
 
         public Package() {
 
         }
-
-        public Package(string id, string name, string authors, string category, string subcategory, string version, string source, bool enabledByDefault, Artifact[] artifacts) {
-            this.id = id;
-            this.name = name;
-            this.authors = authors;
-            this.category = category;
-            this.subcategory = subcategory;
-            this.enabledByDefault = enabledByDefault;
-            this.artifacts = artifacts;
-            this.version = version;
-            this.source = source;
-        }
-
-        public Package(string id, string name, string authors, string category, string subcategory, string version, string source, string dlSource, bool enabledByDefault, Artifact[] artifacts) {
-            this.id = id;
-            this.name = name;
-            this.authors = authors;
-            this.category = category;
-            this.subcategory = subcategory;
-            this.enabledByDefault = enabledByDefault;
-            this.artifacts = artifacts;
-            this.version = version;
-            this.source = source;
-            this.dlSource = dlSource;
-        }
     }
 
     public class Artifact {
-        public string url = "";
-        public string dir = "/";
-        public string filename = "unknown";
-        public string diskLocation;
+        public string URL;
+        public string Directory;
+        public string FileName;
+        public string DiskLocation;
+
+        public Artifact(string uRL, string directory, string fileName, string diskLocation) {
+            URL = uRL;
+            Directory = directory;
+            FileName = fileName;
+            DiskLocation = diskLocation;
+        }
 
         public Artifact() {
 
         }
+    }
 
-        public Artifact(string url, string dir, string filename) {
-            this.url = url;
-            this.dir = dir;
-            this.filename = filename;
+    public class FAQSection {
+        public string Name;
+        public List<FAQ> FAQs;
+
+        public FAQSection(string name, List<FAQ> fAQs) {
+            Name = name;
+            FAQs = fAQs;
         }
 
-        public Artifact(string url, string dir, string filename, string diskLocation) {
-            this.url = url;
-            this.dir = dir;
-            this.filename = filename;
+        public FAQSection() {
+
         }
     }
 
-    public class JSArtifact {
-        public string url = "";
-        public string path = "";
-        public string filename = "";
+    public class FAQ {
+        public string question;
+        public string answer;
 
-        public JSArtifact() {
-            
+        public FAQ(string question, string answer) {
+            this.question = question;
+            this.answer = answer;
         }
 
-        public JSArtifact(string url, string path, string filename) {
-            this.url = url;
-            this.path = path;
-            this.filename = filename;
+        public FAQ() {
+
         }
     }
-    
 }
