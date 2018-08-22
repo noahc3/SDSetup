@@ -13,7 +13,7 @@ namespace SDSetupManifestGenerator {
         static void Main() {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormMain());
+            Application.Run(new FormAuthoringTool());
         }
     }
 }
