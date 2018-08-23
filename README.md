@@ -1,7 +1,7 @@
 
-[![Homebrew SD Setup](https://www.sdsetup.tk/img/logo.png)](https://www.sdsetup.tk)
+[![Homebrew SD Setup](https://www.sdsetup.com/img/logo.png)](https://www.sdsetup.com)
 
-[https://www.sdsetup.tk](https://www.sdsetup.tk)
+[https://www.sdsetup.com](https://www.sdsetup.com)
 
 Homebrew SD Setup is a web application written in C# (and a little bit of JavaScript) running on Blazor. The app lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
 
@@ -22,7 +22,7 @@ Internet Explorer is explicitly incompatible due to lack of ES6 support. Additio
 * Generate a perfectly formatted file structure in ZIP format, ready for direct extraction to your SD card. No additional setup necessary, just drag and drop!
 
 ## Usage
-Head over to [https://www.sdsetup.tk](https://www.sdsetup.tk), select your console of choice, select the packages you want, and hit download! Once finished, simply **extract the contents of the sd folder** in the downloaded ZIP archive **to the root of your SD card!** Do what you wish with any additional folders included in the zip file.
+Head over to [https://www.sdsetup.com](https://www.sdsetup.com), select your console of choice, select the packages you want, and hit download! Once finished, simply **extract the contents of the sd folder** in the downloaded ZIP archive **to the root of your SD card!** Do what you wish with any additional folders included in the zip file.
 
 ## Issues
 Please feel free [submit an issue](https://www.github.com/noahc3/sdsetup/issues) for any of the following reasons:
@@ -54,7 +54,7 @@ Feel free to make pull requests where you see fit!
 PS. I would really appreciate it if someone could fix large ZIP downloads on mobile (ie. RetroNX).
 
 ## Credits
-Please see https://www.sdsetup.tk/credits for an up-to-date list of credits and sources for each package available.
+Please see https://www.sdsetup.com/credits for an up-to-date list of credits and sources for each package available.
 
 Other credits:
 *   Steve Sanderson and contributors for making this almost amazing thing called  [Blazor](https://blazor.net/)
