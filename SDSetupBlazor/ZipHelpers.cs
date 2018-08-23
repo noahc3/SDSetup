@@ -17,12 +17,14 @@ namespace SDSetupBlazor
             return Promises.ExecuteAsync<int>("interop_addFile", new string[] { url, path, filename });
         }
 
-        public static Task<int> DownloadZip() {
-            return JSRuntime.Current.InvokeAsync<int>("js_interop.interop_downloadFile");
+        public static Task<string> AwaitableGenerateZip() {
+            return Promises.ExecuteAsync<string>("interop_generateZip");
         }
 
-        public static Task<int> AwaitableDownloadZip() {
-            return Promises.ExecuteAsync<int>("interop_downloadZip");
+        public static Task<string> DownloadZip() {
+            return JSRuntime.Current.InvokeAsync<string>("interop_downloadZip");
         }
+
+        
     }
 }

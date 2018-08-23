@@ -22,5 +22,8 @@ function getBrowserCompatInfo() {
 	if (window.navigator.userAgent.indexOf('MSIE ') > -1) {
 		return 2
 	}
+	if (window.navigator.userAgent.indexOf('Firefox') > -1) {
+		return 3;
+	}
 	return 0;
 }
