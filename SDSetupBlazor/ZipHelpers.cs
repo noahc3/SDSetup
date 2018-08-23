@@ -25,6 +25,10 @@ namespace SDSetupBlazor
             return JSRuntime.Current.InvokeAsync<string>("interop_downloadZip");
         }
 
-        
+        public static Task<string> ScrollToTop() {
+            return JSRuntime.Current.InvokeAsync<string>("scrollToTop");
+        }
+
+
     }
 }
