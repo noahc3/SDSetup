@@ -293,5 +293,12 @@ namespace SDSetupManifestGenerator {
         private void btnFetchFiles_Click(object sender, EventArgs e) {
             new FetchWindow().Show();
         }
+
+        private void btnPackageAddDependency_Click(object sender, EventArgs e) {
+            if (SelectedPackage != null) {
+                SelectedPackage.Dependencies.Add(txtPackageDependency.Text);
+                RefreshDisplay();
+            }
+        }
     }
 }

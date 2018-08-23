@@ -801,6 +801,7 @@
             this.btnPackageAddDependency.TabIndex = 142;
             this.btnPackageAddDependency.Text = "Add";
             this.btnPackageAddDependency.UseVisualStyleBackColor = true;
+            this.btnPackageAddDependency.Click += new System.EventHandler(this.btnPackageAddDependency_Click);
             // 
             // label17
             // 

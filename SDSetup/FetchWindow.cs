@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.IO.Compression;
+using Microsoft.VisualBasic.FileIO;
 
 namespace SDSetupManifestGenerator {
     public partial class FetchWindow : Form {
@@ -23,6 +24,8 @@ namespace SDSetupManifestGenerator {
             tvwItems.Nodes.Add(new TreeNode("pc", new TreeNode[] { new TreeNode("payloads") }));
 
             txtUrl.Text = G.tool.txtPackageDlSource.Text;
+
+            txtUploadUrl.Text = "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/";
         }
 
         private void tvwItems_DragDrop(object sender, DragEventArgs e) {
@@ -139,7 +142,7 @@ namespace SDSetupManifestGenerator {
                 node.Tag = k;
             }
 
-            
+
             tvwItems.Enabled = true;
         }
 
@@ -192,6 +195,8 @@ namespace SDSetupManifestGenerator {
 
             FormAuthoringTool.SelectedPackage.Artifacts = artifacts;
 
+            Close();
+
         }
 
         private void btnFetchFromFile_Click(object sender, EventArgs e) {
@@ -228,6 +233,58 @@ namespace SDSetupManifestGenerator {
                 }
                 artifacts.Add(new Artifact("", "/" + url.Split('/').Last(), url.Split('/').Last(), Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last())));
             }
+            //tvwItems.Nodes.Clear();
+            foreach (Artifact k in artifacts) {
+                string[] nodes = k.Directory.Replace('\\', '/').Split('/');
+                TreeNode node;
+                if (tvwItems.Nodes.ContainsKey(nodes[1])) node = tvwItems.Nodes[nodes[1]];
+                else {
+                    tvwItems.Nodes.Add(nodes[1], nodes[1]);
+                    node = tvwItems.Nodes[nodes[1]];
+                }
+                for (int i = 2; i < nodes.Length; i++) {
+                    if (node.Nodes.ContainsKey(nodes[i])) node = node.Nodes[nodes[i]];
+                    else {
+                        node.Nodes.Add(nodes[i], nodes[i]);
+                        node = node.Nodes[nodes[i]];
+                    }
+                }
+
+                node.Tag = k;
+            }
+
+
+            tvwItems.Enabled = true;
+        }
+
+        private void btnFetchFolder_Click(object sender, EventArgs e) {
+
+            List<Artifact> artifacts = new List<Artifact>();
+
+            FolderBrowserDialog d = new FolderBrowserDialog();
+            string path;
+
+            if (d.ShowDialog() == DialogResult.OK) {
+                path = d.SelectedPath;
+            } else {
+                return;
+            }
+
+            string id = G.tool.txtPackageId.Text;
+            string version = G.tool.txtPackageVersion.Text;
+            string url = path.Replace("\\", "/");
+
+            if (Directory.Exists(Path.Combine(R.wd, id + "\\"))) Directory.Delete(Path.Combine(R.wd, id + "\\"), true);
+            Directory.CreateDirectory(Path.Combine(R.wd, id + "\\", ".temp\\"));
+
+            FileSystem.CopyDirectory(path, Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"), true);
+
+            //TODO: needs cleanup oh god please
+            string[] files = G.GetAllFilesInDir(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
+            foreach (string n in files) {
+                artifacts.Add(new Artifact("", "/" + n.Replace(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"), "").Replace("\\", "/"), n.Replace("\\", "/").Split('/').Last(), n));
+            }
+
             //tvwItems.Nodes.Clear();
             foreach (Artifact k in artifacts) {
                 string[] nodes = k.Directory.Replace('\\', '/').Split('/');
