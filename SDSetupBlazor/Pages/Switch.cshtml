@@ -27,10 +27,40 @@
 			<div class="header">
 				Firefox Notice:
 			</div>
-			<p>Firefox has some problems right now. Do the following to get your ZIP:<br />
-			1. Copy the following URL: <b>@blobUrl</b><br />
-			2. Open a new tab (do not use this tab!)<br />
-			3. Paste the copied URL into the address bar</p>
+			<p>
+				Firefox has some problems right now. Do the following to get your ZIP:<br />
+				1. Copy the following URL: <b>@blobUrl</b><br />
+				2. Open a new tab (do not use this tab!)<br />
+				3. Paste the copied URL into the address bar
+			</p>
+		</div>
+	}
+
+	@if (saveMessage) {
+		<div class="ui success message">
+			<i class="close icon" onclick="@(() => saveMessage = false)"></i>
+			<div class="header">
+				Want to redownload in the future?
+			</div>
+			<p>
+				Save the following URL somewhere to immediately have the same packages pre-selected in the future:<br />
+			</p>
+			<BlazorTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
+				<tbody>
+					<tr>
+						<th scope="row">@saveUrl</th>
+					</tr>
+				</tbody>
+			</BlazorTable>
+		</div>
+	}
+
+	@if (selectMore) {
+		<div class="ui negative message">
+			<i class="close icon" onclick="@(() => selectMore = false)"></i>
+			<div class="header">
+				No packages are selected.
+			</div>
 		</div>
 	}
 
@@ -66,21 +96,21 @@
 										@foreach (CFWOption n in k.Options) {
 											<div class="inline field" style="margin:0 0 0 1rem">
 												<div class="nc3_hover">
-													<div class="ui checkbox @(G.selectedPackages[n.dependencies[0]] == true ? "checked" : "")" onclick="@(() => G.selectedPackages[n.dependencies[0]] = !G.selectedPackages[n.dependencies[0]])">
+													<div class="ui checkbox @(G.selectedPackages[n.dependencies[0]] == true ? "checked" : "")" onclick="@(() => changeCfwOptionState(n))">
 														<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[n.dependencies[0]] == true)">
 														<label>@n.Name</label>
 													</div>
 													@if (!G.isMobile) {
-													<div class="nc3_tooltip">
-														<h4 style="margin:0">@n.Name</h4>
-														@if (!String.IsNullOrEmpty(G.packages["switch"][n.dependencies[0]].Authors)) {
-															<h6 style="margin-top:0;margin-bottom:0.5rem">by @G.packages["switch"][n.dependencies[0]].Authors</h6>
-														}
-														<p>@G.packages["switch"][n.dependencies[0]].Description</p>
-														@if (!String.IsNullOrEmpty(G.packages["switch"][n.dependencies[0]].Source)) {
-															<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@G.packages["switch"][n.dependencies[0]].Source">@G.packages["switch"][n.dependencies[0]].Source</a></p>
-														}
-													</div>
+														<div class="nc3_tooltip">
+															<h4 style="margin:0">@n.Name</h4>
+															@if (!String.IsNullOrEmpty(G.packages["switch"][n.dependencies[0]].Authors)) {
+																<h6 style="margin-top:0;margin-bottom:0.5rem">by @G.packages["switch"][n.dependencies[0]].Authors</h6>
+															}
+															<p>@G.packages["switch"][n.dependencies[0]].Description</p>
+															@if (!String.IsNullOrEmpty(G.packages["switch"][n.dependencies[0]].Source)) {
+																<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@G.packages["switch"][n.dependencies[0]].Source">@G.packages["switch"][n.dependencies[0]].Source</a></p>
+															}
+														</div>
 													}
 												</div>
 											</div>
@@ -182,12 +212,15 @@
 
 	private static bool zipDoneMessage = false;
 	private static bool firefoxMessage = false;
+	private static bool saveMessage = false;
+	private static bool selectMore = false;
 
 	private static List<string> gottenPackages;
 
 	private static bool b = false;
 
 	private static string blobUrl = "";
+	private static string saveUrl = "";
 
 	private static List<string> preenabled;
 
@@ -252,8 +285,8 @@
 
 	}
 
-	private void changeCfwOptionState(CFWOption o) {
-		o.Enabled = !o.Enabled;
+	private void changeCfwOptionState(CFWOption n) {
+		G.selectedPackages[n.dependencies[0]] = !G.selectedPackages[n.dependencies[0]];
 		StateHasChanged();
 	}
 
@@ -288,6 +321,9 @@
 
 		gettingZip = true;
 		zipDoneMessage = false;
+		firefoxMessage = false;
+		saveMessage = false;
+		selectMore = false;
 		barMode = true;
 		current = 0;
 
@@ -314,6 +350,13 @@
 			}
 		}
 
+		if (gottenPackages.Count == 0) {
+			selectMore = true;
+			gettingZip = false;
+			StateHasChanged();
+			await ZipHelpers.ScrollToTop();
+		}
+
 		total = finalArtifacts.Count;
 
 		foreach (Tuple<string, string, string> k in finalArtifacts) {
@@ -334,12 +377,19 @@
 		StateHasChanged();
 
 		string response = await ZipHelpers.AwaitableGenerateZip();
+
+		saveUrl = UriHelper.GetBaseUri() + "switch#";
+		foreach (string k in gottenPackages) {
+			saveUrl += k + ";";
+		}
+
 		if (String.IsNullOrEmpty(response)) {
 			zipDoneMessage = true;
 		} else {
 			blobUrl = response;
 			firefoxMessage = true;
 		}
+		saveMessage = true;
 		gettingZip = false;
 		StateHasChanged();
 	}
