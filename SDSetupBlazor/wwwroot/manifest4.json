@@ -39,8 +39,7 @@
           "Name": "Atmosphere",
           "DisplayName": "Atmosphere (configured with SDFilesSwitch)",
           "Dependencies": [
-            "atmosphere",
-            "atmos_bootlogo"
+            "atmosphere"
           ],
           "Options": [
             {
@@ -2647,7 +2646,8 @@
                       "Visible": true,
                       "Description": "Work in progress custom firmware with the goal of replacing each component of the Nintendo Switch system. Configured with Hekate, including sys-ftpd, espatches, homebrew loading and more.",
                       "Dependencies": [
-						"atmos_musthave"
+						"atmos_musthave",
+						"atmos_bootlogo"
 					  ],
                       "Artifacts": [
                         {

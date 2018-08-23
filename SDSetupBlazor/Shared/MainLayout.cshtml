@@ -28,7 +28,7 @@
 			@foreach (string k in G.manifest.Copyright.Split('$')) { 
 				<b style="text-align:center">@k</b><br />
 			}
-			<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">Build 2018.08.23.04</h5>
+			<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">Build 2018.08.23.05</h5>
 		</div>
 
 
@@ -63,7 +63,8 @@
 			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
 			G.manifest = await Http.GetJsonAsync<Manifest>("/manifest4.json");
 			G.isMobile = await JSRuntime.Current.InvokeAsync<bool>("mobileAndTabletcheck");
-			G.Init();
+			Console.WriteLine(UriHelper.GetAbsoluteUri());
+			G.Init(UriHelper.GetAbsoluteUri());
 			G.initialized = true;
 			if (Pages.Switch.ForceUiRefresh != null) Pages.Switch.ForceUiRefresh();
 			if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
