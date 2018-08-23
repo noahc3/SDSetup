@@ -39,9 +39,46 @@
           "Name": "Atmosphere",
           "DisplayName": "Atmosphere (configured with SDFilesSwitch)",
           "Dependencies": [
-            "sdfilesswitch_atmos"
+            "atmosphere",
+            "atmos_bootlogo"
           ],
-          "Options": []
+          "Options": [
+            {
+              "Name": "Enable Signature Patches",
+              "dependencies": [
+                "atmos_sigpatch"
+              ],
+              "enabledByDefault": true
+            },
+            {
+              "Name": "SysFTPD",
+              "dependencies": [
+                "atmos_sysftpd"
+              ],
+              "enabledByDefault": false
+            },
+            {
+              "Name": "SwitchPresence",
+              "dependencies": [
+                "atmos_switchpresence"
+              ],
+              "enabledByDefault": false
+            },
+            {
+              "Name": "SysNetcheat",
+              "dependencies": [
+                "atmos_sysnetcheat"
+              ],
+              "enabledByDefault": false
+            },
+            {
+              "Name": "XorPlay",
+              "dependencies": [
+                "atmos_xorplay"
+              ],
+              "enabledByDefault": false
+            }
+          ]
         }
       ],
       "PackageSections": [
@@ -75,7 +112,9 @@
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Menu to launch all of your Switch NRO homebrew.",
-                      "Dependencies": [],
+                      "Dependencies": [
+                        "sxos"
+                      ],
                       "Artifacts": [
                         {
                           "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo3/hbmenu/v2.0.0/sd/switch/hbmenu.nro",
@@ -1551,7 +1590,7 @@
                       "Name": "Hekate",
                       "DisplayName": "Hekate",
                       "Authors": "CTCaer, pluuto",
-                      "Version": "v3.2",
+                      "Version": "v4.0",
                       "Source": "https://github.com/CTCaer/hekate/",
                       "DLSource": "https://github.com/CTCaer/hekate/",
                       "EnabledByDefault": false,
@@ -1560,14 +1599,9 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo3/hekate/v3.2/payloads/hekate_ctcaer_3.2.bin",
-                          "Directory": "payloads/hekate_ctcaer_3.2.bin",
-                          "FileName": "hekate_ctcaer_3.2.bin"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/CTCaer/hekate/master/LICENSE",
-                          "Directory": "licenses/HEKATE",
-                          "FileName": "HEKATE"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/hekate/v4.0/payloads/hekate_ctcaer_4.0.bin",
+                          "Directory": "payloads/hekate_ctcaer_4.0.bin",
+                          "FileName": "hekate_ctcaer_4.0.bin"
                         }
                       ]
                     },
@@ -2156,6 +2190,201 @@
                           "FileName": "nogc"
                         }
                       ]
+                    },
+                    {
+                      "ID": "atmos_sigpatch",
+                      "Name": "Enable Signature Patches",
+                      "DisplayName": "Enable Signature Patches",
+                      "Authors": "Rajkosto",
+                      "Version": "",
+                      "Source": "",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Allows launching of sideloaded NSP files.",
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
+                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
+                          "FileName": "7135C20E752183914606CCE81293F24B738C3AEF.ips"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
+                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
+                          "FileName": "76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
+                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
+                          "FileName": "A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
+                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
+                          "FileName": "C0BFC6518707AC975295A0B656A051DA885A9045.ips"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
+                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
+                          "FileName": "F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
+                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
+                          "FileName": "F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "atmos_switchpresence",
+                      "Name": "SwitchPresence",
+                      "DisplayName": "SwitchPresence",
+                      "Authors": "Random0666",
+                      "Version": "v1.0.3",
+                      "Source": "https://github.com/Random0666/SwitchPresence",
+                      "DLSource": "https://github.com/Random0666/SwitchPresence",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Add automatic Discord rich presence support for Nintendo Switch titles (tell people what you are playing on Discord).",
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_switchpresence/v1.0.3/sd/bootloader/ini/switch-presence.ini",
+                          "Directory": "sd/bootloader/ini/switch-presence.ini",
+                          "FileName": "switch-presence.ini"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_switchpresence/v1.0.3/sd/modules/switch-rich-presence.kip",
+                          "Directory": "sd/modules/switch-rich-presence.kip",
+                          "FileName": "switch-rich-presence.kip"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "atmos_sysftpd",
+                      "Name": "Sys-FTPD",
+                      "DisplayName": "Sys-FTPD",
+                      "Authors": "jakibaki",
+                      "Version": "v.41fd7ee",
+                      "Source": "https://github.com/jakibaki/sys-ftpd",
+                      "DLSource": "https://github.com/jakibaki/sys-ftpd",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Have an FTP server running in the background on your Switch for managing files on your SD card remotely.",
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/sysftpd/v.41fd7ee/sd/bootloader/ini/FTP_Server.ini",
+                          "Directory": "sd/bootloader/ini/FTP_Server.ini",
+                          "FileName": "FTP_Server.ini"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/sysftpd/v.41fd7ee/sd/ftpd/connect.mp3",
+                          "Directory": "sd/ftpd/connect.mp3",
+                          "FileName": "connect.mp3"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/sysftpd/v.41fd7ee/sd/ftpd/disconnect.mp3",
+                          "Directory": "sd/ftpd/disconnect.mp3",
+                          "FileName": "disconnect.mp3"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/sysftpd/v.41fd7ee/sd/ftpd/pauseoff.mp3",
+                          "Directory": "sd/ftpd/pauseoff.mp3",
+                          "FileName": "pauseoff.mp3"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/sysftpd/v.41fd7ee/sd/ftpd/pauseon.mp3",
+                          "Directory": "sd/ftpd/pauseon.mp3",
+                          "FileName": "pauseon.mp3"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/sysftpd/v.41fd7ee/sd/modules/sys-ftpd.kip",
+                          "Directory": "sd/modules/sys-ftpd.kip",
+                          "FileName": "sys-ftpd.kip"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "atmos_sysnetcheat",
+                      "Name": "Sys-Netcheat",
+                      "DisplayName": "Sys-Netcheat",
+                      "Authors": "jakibaki",
+                      "Version": "v1.3.1",
+                      "Source": "https://github.com/jakibaki/sys-netcheat",
+                      "DLSource": "https://github.com/jakibaki/sys-netcheat",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Remote cheat engine for Switch using Netcat.",
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_sysnetcheat/v1.3.1/sd/bootloader/ini/sys-netcheat.ini",
+                          "Directory": "sd/bootloader/ini/sys-netcheat.ini",
+                          "FileName": "sys-netcheat.ini"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_sysnetcheat/v1.3.1/sd/modules/sys-netcheat.kip",
+                          "Directory": "sd/modules/sys-netcheat.kip",
+                          "FileName": "sys-netcheat.kip"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "atmos_xorplay",
+                      "Name": "XorPlay",
+                      "DisplayName": "XorPlay",
+                      "Authors": "XorTroll",
+                      "Version": "v0.1",
+                      "Source": "https://github.com/XorTroll/ModuleMania/",
+                      "DLSource": "https://github.com/XorTroll/ModuleMania/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Play audio in the background on your Nintendo Switch.",
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_xorplay/v0.1/sd/bootloader/ini/xor_play.ini",
+                          "Directory": "sd/bootloader/ini/xor_play.ini",
+                          "FileName": "xor_play.ini"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_xorplay/v0.1/sd/modules/music/moon_theme.mp3",
+                          "Directory": "sd/modules/music/moon_theme.mp3",
+                          "FileName": "moon_theme.mp3"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_xorplay/v0.1/sd/modules/xor.play.kip",
+                          "Directory": "sd/modules/xor.play.kip",
+                          "FileName": "xor.play.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_xorplay/v0.1/sd/xor.play.json",
+                          "Directory": "sd/xor.play.json",
+                          "FileName": "xor.play.json"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "atmos_bootlogo",
+                      "Name": "SDFilesSwitch Boot Logo",
+                      "DisplayName": "SDFilesSwitch Boot Logo",
+                      "Authors": "tumGER",
+                      "Version": "v8.0.1",
+                      "Source": "https://github.com/tumGER/SDFilesSwitch",
+                      "DLSource": "https://github.com/tumGER/SDFilesSwitch",
+                      "EnabledByDefault": false,
+                      "Visible": false,
+                      "Description": "Hekate bootlogo featuring Atmosphere Alpha and SDFilesSwitch.",
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_bootlogo/v8.0.1/sd/bootloader/bootlogo.bmp",
+                          "Directory": "sd/bootloader/bootlogo.bmp",
+                          "FileName": "bootlogo.bmp"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -2332,78 +2561,225 @@
                       ]
                     },
                     {
+                      "ID": "reinx",
+                      "Name": "ReiNX",
+                      "DisplayName": "ReiNX",
+                      "Authors": "Reisyukaku",
+                      "Version": "v1.2.0",
+                      "Source": "https://github.com/Reisyukaku/ReiNX",
+                      "DLSource": "https://github.com/Reisyukaku/ReiNX",
+                      "EnabledByDefault": false,
+                      "Visible": false,
+                      "Description": "A modular custom firmware for the Nintendo Switch. Includes sigpatches, homebrew via album, and more.",
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/patches/es_patch.rxp",
+                          "Directory": "sd/ReiNX/patches/es_patch.rxp",
+                          "FileName": "es_patch.rxp"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/sysmodules/fs_mitm.kip",
+                          "Directory": "sd/ReiNX/sysmodules/fs_mitm.kip",
+                          "FileName": "fs_mitm.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/sysmodules/loader.kip",
+                          "Directory": "sd/ReiNX/sysmodules/loader.kip",
+                          "FileName": "loader.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/sysmodules/pm.kip",
+                          "Directory": "sd/ReiNX/sysmodules/pm.kip",
+                          "FileName": "pm.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/sysmodules/sm.kip",
+                          "Directory": "sd/ReiNX/sysmodules/sm.kip",
+                          "FileName": "sm.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/titles/0100000000000036/exefs/main",
+                          "Directory": "sd/ReiNX/titles/0100000000000036/exefs/main",
+                          "FileName": "main"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/titles/0100000000000036/exefs/main.npdm",
+                          "Directory": "sd/ReiNX/titles/0100000000000036/exefs/main.npdm",
+                          "FileName": "main.npdm"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/titles/010000000000100D/exefs/main",
+                          "Directory": "sd/ReiNX/titles/010000000000100D/exefs/main",
+                          "FileName": "main"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
+                          "Directory": "sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
+                          "FileName": "main.npdm"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
+                          "Directory": "sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
+                          "FileName": "rtld.stub"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/ReiNX/splash.bin",
+                          "Directory": "sd/ReiNX/splash.bin",
+                          "FileName": "splash.bin"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/reinx/v1.2.0/sd/bootloader/payloads/ReiNX.bin",
+                          "Directory": "sd/bootloader/payloads/ReiNX.bin",
+                          "FileName": "ReiNX.bin"
+                        }
+                      ]
+                    },
+                    {
                       "ID": "atmosphere",
                       "Name": "Atmosphere",
-                      "DisplayName": "Atmosphere (configured with SDFilesSwitch)",
+                      "DisplayName": "Atmosphere (Launch with Hekate)",
                       "Authors": "SciresM, TuxSH, hexkyz",
-                      "Version": "",
+                      "Version": "08.23.2018",
                       "Source": "https://github.com/Atmosphere-NX/Atmosphere",
                       "DLSource": "https://github.com/Atmosphere-NX/Atmosphere",
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Work in progress custom firmware with the goal of replacing each component of the Nintendo Switch system. Configured with Hekate, including sys-ftpd, espatches, homebrew loading and more.",
                       "Dependencies": [
-                        "sdfilesswitch_atmos"
-                      ],
-                      "Artifacts": []
-                    },
-                    {
-                      "ID": "reinx",
-                      "Name": "ReiNX",
-                      "DisplayName": "ReiNX",
-                      "Authors": "Reisyukaku",
-                      "Version": "v1.2",
-                      "Source": "https://github.com/Reisyukaku/ReiNX/",
-                      "DLSource": "https://github.com/Reisyukaku/ReiNX/",
-                      "EnabledByDefault": false,
-                      "Visible": true,
-                      "Description": "A modular Switch custom firmware with smart kip patching, FS hotpatching, sigpatches, homebrew and more.",
-                      "Dependencies": [],
+						"atmos_musthave"
+					  ],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo3/reinx/v1.2/sd/ReiNX/patches/es_patch.rxp",
-                          "Directory": "sd/ReiNX/patches/es_patch.rxp",
-                          "FileName": "es_patch.rxp"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmosphere/08.23.2018/sd/bootloader/ini/atmosphere_hekate.ini",
+                          "Directory": "sd/bootloader/ini/atmosphere_hekate.ini",
+                          "FileName": "atmosphere_hekate.ini"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo3/reinx/v1.2/sd/ReiNX/sysmodules/fs_mitm.kip",
-                          "Directory": "sd/ReiNX/sysmodules/fs_mitm.kip",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmosphere/08.23.2018/sd/modules/atmosphere/atmosphere.bmp",
+                          "Directory": "sd/modules/atmosphere/atmosphere.bmp",
+                          "FileName": "atmosphere.bmp"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmosphere/08.23.2018/sd/modules/atmosphere/exosphere.bin",
+                          "Directory": "sd/modules/atmosphere/exosphere.bin",
+                          "FileName": "exosphere.bin"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmosphere/08.23.2018/sd/modules/atmosphere/fs_mitm.kip",
+                          "Directory": "sd/modules/atmosphere/fs_mitm.kip",
                           "FileName": "fs_mitm.kip"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo3/reinx/v1.2/sd/ReiNX/sysmodules/loader.kip",
-                          "Directory": "sd/ReiNX/sysmodules/loader.kip",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmosphere/08.23.2018/sd/modules/atmosphere/loader.kip",
+                          "Directory": "sd/modules/atmosphere/loader.kip",
                           "FileName": "loader.kip"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo3/reinx/v1.2/sd/ReiNX/sysmodules/sm.kip",
-                          "Directory": "sd/ReiNX/sysmodules/sm.kip",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmosphere/08.23.2018/sd/modules/atmosphere/pm.kip",
+                          "Directory": "sd/modules/atmosphere/pm.kip",
+                          "FileName": "pm.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmosphere/08.23.2018/sd/modules/atmosphere/sm.kip",
+                          "Directory": "sd/modules/atmosphere/sm.kip",
+                          "FileName": "sm.kip"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ID": "other",
+              "Name": "other",
+              "DisplayName": "other",
+              "Visible": false,
+              "Subcategories": [
+                {
+                  "ID": "other",
+                  "Name": "other",
+                  "DisplayName": "other",
+                  "Visible": false,
+                  "Packages": [
+                    {
+                      "ID": "atmos_musthave",
+                      "Name": "Must Have",
+                      "DisplayName": "Must Have",
+                      "Authors": "tumGER",
+                      "Version": "v1",
+                      "Source": "",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Required files for Atmosphere.",
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/atmosphere/titles/0100000000000036/exefs/main",
+                          "Directory": "sd/atmosphere/titles/0100000000000036/exefs/main",
+                          "FileName": "main"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/atmosphere/titles/0100000000000036/exefs/main.npdm",
+                          "Directory": "sd/atmosphere/titles/0100000000000036/exefs/main.npdm",
+                          "FileName": "main.npdm"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/main",
+                          "Directory": "sd/atmosphere/titles/010000000000100D/exefs/main",
+                          "FileName": "main"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/main.npdm",
+                          "Directory": "sd/atmosphere/titles/010000000000100D/exefs/main.npdm",
+                          "FileName": "main.npdm"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/rtld.stub",
+                          "Directory": "sd/atmosphere/titles/010000000000100D/exefs/rtld.stub",
+                          "FileName": "rtld.stub"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/bootloader/sys/libsys_lp0.bso",
+                          "Directory": "sd/bootloader/sys/libsys_lp0.bso",
+                          "FileName": "libsys_lp0.bso"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/bootloader/hekate_ipl.ini",
+                          "Directory": "sd/bootloader/hekate_ipl.ini",
+                          "FileName": "hekate_ipl.ini"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/modules/newfirm/fs_mitm.kip",
+                          "Directory": "sd/modules/newfirm/fs_mitm.kip",
+                          "FileName": "fs_mitm.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/modules/newfirm/loader.kip",
+                          "Directory": "sd/modules/newfirm/loader.kip",
+                          "FileName": "loader.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/modules/newfirm/pm.kip",
+                          "Directory": "sd/modules/newfirm/pm.kip",
+                          "FileName": "pm.kip"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/modules/newfirm/sm.kip",
+                          "Directory": "sd/modules/newfirm/sm.kip",
                           "FileName": "sm.kip"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo3/reinx/v1.2/sd/ReiNX/splash.bin",
-                          "Directory": "sd/ReiNX/splash.bin",
-                          "FileName": "splash.bin"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/switch/SDFilesUpdater/SDFilesUpdater.nro",
+                          "Directory": "sd/switch/SDFilesUpdater/SDFilesUpdater.nro",
+                          "FileName": "SDFilesUpdater.nro"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/Reisyukaku/ReiNX/master/LICENSE.txt",
-                          "Directory": "licenses/REINX",
-                          "FileName": "REINX"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/titles/010000000000100D/exefs/main",
-                          "Directory": "sd/ReiNX/titles/010000000000100D/exefs/main",
-                          "FileName": "REINX"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
-                          "Directory": "sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
-                          "FileName": "REINX"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo2/reinx/sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
-                          "Directory": "sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
-                          "FileName": "REINX"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/atmos_musthave/v1/sd/switch/SDFilesUpdater/settings.cfg",
+                          "Directory": "sd/switch/SDFilesUpdater/settings.cfg",
+                          "FileName": "settings.cfg"
                         }
                       ]
                     }
@@ -2412,6 +2788,14 @@
               ]
             }
           ]
+        },
+        {
+          "ID": "sysmodules",
+          "Name": "Sysmodules",
+          "DisplayName": "Sysmodules",
+          "ListingMode": 0,
+          "Visible": false,
+          "Categories": []
         }
       ]
     }

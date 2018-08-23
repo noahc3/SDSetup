@@ -58,7 +58,7 @@
 				<h3 style="margin-bottom:0.5em">Select Options for your Custom Firmwares</h3>
 				<Card CardType="CardType.Deck" Class="justify-content-center">
 					@foreach (CFW k in @G.manifest.Platforms["switch"].CFWs) {
-						if (k.Options != null && k.Options.Any()) {
+						if (k.Enabled && k.Options != null && k.Options.Any()) {
 							<Card style="margin-bottom:2rem">
 								<Card CardType="CardType.Body">
 									<Card CardType="CardType.Title">@k.Name</Card>
@@ -71,10 +71,16 @@
 														<label>@n.Name</label>
 													</div>
 													@if (!G.isMobile) {
-														<div class="nc3_tooltip">
-															<h4 style="margin:0">@n.Name</h4>
-															<p>@G.packages["switch"][n.dependencies[0]].Description</p>
-														</div>
+													<div class="nc3_tooltip">
+														<h4 style="margin:0">@n.Name</h4>
+														@if (!String.IsNullOrEmpty(G.packages["switch"][n.dependencies[0]].Authors)) {
+															<h6 style="margin-top:0;margin-bottom:0.5rem">by @G.packages["switch"][n.dependencies[0]].Authors</h6>
+														}
+														<p>@G.packages["switch"][n.dependencies[0]].Description</p>
+														@if (!String.IsNullOrEmpty(G.packages["switch"][n.dependencies[0]].Source)) {
+															<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@G.packages["switch"][n.dependencies[0]].Source">@G.packages["switch"][n.dependencies[0]].Source</a></p>
+														}
+													</div>
 													}
 												</div>
 											</div>
