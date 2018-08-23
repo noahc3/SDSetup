@@ -5,6 +5,8 @@
 @page "/switch"
 @inject HttpClient Http
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+
 @if (!gettingZip) {
 
 <div>
@@ -16,6 +18,19 @@
 				Operation Completed
 			</div>
 			<p>Your ZIP file should download within the next few seconds!</p>
+		</div>
+	}
+
+	@if (firefoxMessage == true) {
+		<div class="ui success message">
+			<i class="close icon" onclick="@(() => firefoxMessage = false)"></i>
+			<div class="header">
+				Firefox Notice:
+			</div>
+			<p>Firefox has some problems right now. Do the following to get your ZIP:<br />
+			1. Copy the following URL: <b>@blobUrl</b><br />
+			2. Open a new tab (do not use this tab!)<br />
+			3. Paste the copied URL into the address bar</p>
 		</div>
 	}
 
@@ -133,13 +148,13 @@
 } else {
 <div class="ui active dimmer" style="height:100%;width:100%">
 	<div class="ui massive text loader">
-		<div style="margin-bottom:2rem">Downloading your ZIP, please wait...</div>
+		<div id="infoh" style="margin-bottom:2rem">Downloading your ZIP, please wait...</div>
 		@if (barMode == true) {
-			<progress Max="@total" Value="@((int)current)"></progress>
+			<progress Max="@total" Value="@current"></progress>
 			<label style="margin-top:0.5rem">Fetching Files (@current/@total)</label>
 		} else {
-			<progress Max="100" Value="@((int)current)" Color="Color.Success"></progress>
-			<label style="margin-top:0.5rem">Generating Zip File (@current%)</label>
+			<progress Max="@total" Value="@current" Color="Color.Success"></progress>
+			<label style="margin-top:0.5rem">Zipping Files (@current/@total)</label>
 		}
 	</div>
 	<div class="ui negative message" style="width:90%;position:absolute;bottom:5%">
@@ -159,17 +174,20 @@
 	public static bool gettingZip = false;
 
 	private static bool zipDoneMessage = false;
+	private static bool firefoxMessage = false;
 
 	private static List<string> gottenPackages;
 
 	private static bool b = false;
 
+	private static string blobUrl = "";
+
 	static int total = 3;
-	static double current = 0;
+	static int current = 0;
 	static bool barMode = true;
 
 	//Dictionary<string, Package> packages = new Dictionary<string, Package>();
-	
+
 
 	private bool showOptions() {
 		bool show = false;
@@ -216,8 +234,8 @@
 	}
 
 	[JSInvokable]
-	public static void ChangeProgress(double val) {
-		current = val;
+	public static void AddProgress() {
+		current++;
 		ForceUiRefresh();
 	}
 
@@ -271,13 +289,15 @@
 		current = 0;
 		StateHasChanged();
 
-		await ZipHelpers.AwaitableDownloadZip();
+		string response = await ZipHelpers.AwaitableGenerateZip();
+		if (String.IsNullOrEmpty(response)) {
+			zipDoneMessage = true;
+		} else {
+			blobUrl = response;
+			firefoxMessage = true;
+		}
 		gettingZip = false;
-		zipDoneMessage = true;
 		StateHasChanged();
-
-
-
 	}
 
 	private string UUID() {

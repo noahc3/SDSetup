@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\scripts\zipjs\" />
     <Folder Include="wwwroot\scss\" />
   </ItemGroup>
 
