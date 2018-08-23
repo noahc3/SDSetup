@@ -6,20 +6,20 @@
 <h1 style="text-align:center">Credits</h1>
 <h3>Package Credits</h3>
 @if (G.initialized) {
-	<table class="ui celled padded table">
+	<BlazorTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
 		<thead>
 			<tr>
-				<th>Package ID</th>
-				<th>Authors</th>
-				<th>Version</th>
-				<th>Source</th>
+				<th scope="col">Package Name</th>
+				<th scope="col">Authors</th>
+				<th scope="col">Version</th>
+				<th scope="col">Source</th>
 			</tr>
 		</thead>
 		<tbody>
 			@foreach (Package p in G.packages["switch"].Values) {
 				if (String.IsNullOrEmpty(p.Authors)) { continue; }
 				<tr>
-					<td>@p.Name</td>
+					<th scope="row">@p.Name</th>
 					<td>@p.Authors</td>
 					<td>@p.Version</td>
 					<td>@if (@p.Source.Contains("https://") || p.Source.Contains("http://")) {<a href="@p.Source">@p.Source</a>} else {@p.Source}</td>
@@ -27,7 +27,7 @@
 			}
 
 		</tbody>
-	</table>
+	</BlazorTable>
 } else {
 	<h4>Loading, please wait...</h4>
 }
