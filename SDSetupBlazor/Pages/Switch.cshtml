@@ -45,7 +45,7 @@
 
 			<div class="ui three item menu" style="margin-bottom:2rem">
 				@foreach (CFW k in @G.manifest.Platforms["switch"].CFWs) {
-					<a class="item @(k.Enabled == true ? "active" : "")" onclick="@(() => k.Enabled = !k.Enabled)">@k.DisplayName</a>
+					<a class="item @(G.selectedPackages[k.Dependencies[0]] == true ? "active" : "")" onclick="@(() => changeCfwState(k))">@k.DisplayName</a>
 				}
 			</div>
 		</div>
@@ -58,7 +58,7 @@
 				<h3 style="margin-bottom:0.5em">Select Options for your Custom Firmwares</h3>
 				<Card CardType="CardType.Deck" Class="justify-content-center">
 					@foreach (CFW k in @G.manifest.Platforms["switch"].CFWs) {
-						if (k.Enabled && k.Options != null && k.Options.Any()) {
+						if (G.selectedPackages[k.Dependencies[0]] && k.Options != null && k.Options.Any()) {
 							<Card style="margin-bottom:2rem">
 								<Card CardType="CardType.Body">
 									<Card CardType="CardType.Title">@k.Name</Card>
@@ -66,8 +66,8 @@
 										@foreach (CFWOption n in k.Options) {
 											<div class="inline field" style="margin:0 0 0 1rem">
 												<div class="nc3_hover">
-													<div class="ui checkbox @(n.Enabled == true ? "checked" : "")" onclick="@(() => changeCfwOptionState(n))">
-														<input type="checkbox" tabindex="0" class="hidden" checked="@(n.Enabled == true)">
+													<div class="ui checkbox @(G.selectedPackages[n.dependencies[0]] == true ? "checked" : "")" onclick="@(() => G.selectedPackages[n.dependencies[0]] = !G.selectedPackages[n.dependencies[0]])">
+														<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[n.dependencies[0]] == true)">
 														<label>@n.Name</label>
 													</div>
 													@if (!G.isMobile) {
@@ -91,6 +91,7 @@
 						}
 					}
 				</Card>
+				<p style="text-align:center;color:#808080"><b>These modules are powered by <a href="https://github.com/tumGER/SDFilesSwitch">tomGER's SDFilesSwitch</a></b></p>
 			</div>
 		}
 
@@ -188,6 +189,8 @@
 
 	private static string blobUrl = "";
 
+	private static List<string> preenabled;
+
 	static int total = 3;
 	static int current = 0;
 	static bool barMode = true;
@@ -198,7 +201,7 @@
 	private bool showOptions() {
 		bool show = false;
 		foreach (CFW k in @G.manifest.Platforms["switch"].CFWs) {
-			if (k.Enabled && k.Options != null && k.Options.Any()) {
+			if (G.selectedPackages[k.Dependencies[0]] && k.Options != null && k.Options.Any()) {
 				show = true;
 			}
 		}
@@ -206,12 +209,47 @@
 	}
 
 	protected override async Task OnInitAsync() {
-		ForceUiRefresh = new Action(() => StateHasChanged());
+		if (ForceUiRefresh == null) {
+			ForceUiRefresh = new Action(() => StateHasChanged());
+		}
+		UriHelper.OnLocationChanged += OnLocationChanged;
+	}
+
+	private void OnLocationChanged(object sender, string location) {
+		if (G.initialized) {
+			G.SelectByUrl(UriHelper.GetAbsoluteUri());
+			StateHasChanged();
+		}
 	}
 
 	private void checkClicked(string id) {
 		G.selectedPackages[id] = !G.selectedPackages[id];
 		StateHasChanged();
+	}
+
+	private void changeCfwState(CFW k) {
+		Console.WriteLine(G.selectedPackages[k.Dependencies[0]]);
+		G.selectedPackages[k.Dependencies[0]] = !G.selectedPackages[k.Dependencies[0]];
+		Console.WriteLine(G.selectedPackages[k.Dependencies[0]]);
+
+
+		if (G.selectedPackages[k.Dependencies[0]] == false) {
+			foreach (string v in k.Dependencies) {
+				if (G.selectedPackages.ContainsKey(v)) {
+					G.selectedPackages[v] = false;
+				}
+			}
+
+			foreach (CFWOption o in k.Options) {
+				foreach (string v in o.dependencies) {
+					if (G.selectedPackages.ContainsKey(v)) {
+						G.selectedPackages[v] = false;
+					}
+				}
+			}
+		}
+		Console.WriteLine(G.selectedPackages[k.Dependencies[0]]);
+
 	}
 
 	private void changeCfwOptionState(CFWOption o) {
@@ -257,18 +295,18 @@
 
 		List<Tuple<string, string, string>> finalArtifacts = new List<Tuple<string, string, string>>();
 
-		foreach (CFW k in G.manifest.Platforms["switch"].CFWs) {
-			if (k.Enabled) {
-				foreach(string p in k.Dependencies) finalArtifacts.AddRange(getArtifacts(G.packages["switch"][p]));
-				foreach (CFWOption o in k.Options) {
-					if (o.Enabled) {
-						foreach (string d in o.dependencies) {
-							finalArtifacts.AddRange(getArtifacts(G.packages["switch"][d]));
-						}
-					}
-				}
-			}
-		}
+		//foreach (CFW k in G.manifest.Platforms["switch"].CFWs) {
+		//	if (k.Enabled) {
+		//		foreach(string p in k.Dependencies) finalArtifacts.AddRange(getArtifacts(G.packages["switch"][p]));
+		//		foreach (CFWOption o in k.Options) {
+		//			if (o.Enabled) {
+		//				foreach (string d in o.dependencies) {
+		//					finalArtifacts.AddRange(getArtifacts(G.packages["switch"][d]));
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
 
 		foreach (KeyValuePair<string, bool> k in G.selectedPackages) {
 			if (k.Value) {

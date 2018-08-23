@@ -40,6 +40,7 @@ function downloadZip() {
 					} else {
 						console.log("Non-Firefox detected");
 						saveAs(blob, "SDSetup.Switch.zip");
+						blobs = [];
 						resolve("");
 					}
 				});
