@@ -33,6 +33,7 @@
             this.btnEditPath = new System.Windows.Forms.Button();
             this.btnNewPath = new System.Windows.Forms.Button();
             this.txtUploadUrl = new System.Windows.Forms.TextBox();
+            this.btnFetchFolder = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // tvwItems
@@ -131,11 +132,22 @@
             this.txtUploadUrl.Size = new System.Drawing.Size(523, 20);
             this.txtUploadUrl.TabIndex = 61;
             // 
+            // btnFetchFolder
+            // 
+            this.btnFetchFolder.Location = new System.Drawing.Point(12, 154);
+            this.btnFetchFolder.Name = "btnFetchFolder";
+            this.btnFetchFolder.Size = new System.Drawing.Size(523, 23);
+            this.btnFetchFolder.TabIndex = 62;
+            this.btnFetchFolder.Text = "Fetch from Folder";
+            this.btnFetchFolder.UseVisualStyleBackColor = true;
+            this.btnFetchFolder.Click += new System.EventHandler(this.btnFetchFolder_Click);
+            // 
             // FetchWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(940, 709);
+            this.Controls.Add(this.btnFetchFolder);
             this.Controls.Add(this.txtUploadUrl);
             this.Controls.Add(this.btnDeletePath);
             this.Controls.Add(this.btnEditPath);
@@ -165,5 +177,6 @@
         private System.Windows.Forms.Button btnEditPath;
         private System.Windows.Forms.Button btnNewPath;
         private System.Windows.Forms.TextBox txtUploadUrl;
+        private System.Windows.Forms.Button btnFetchFolder;
     }
 }
