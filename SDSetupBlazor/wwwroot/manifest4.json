@@ -1108,7 +1108,7 @@
                       "Name": "pSNES",
                       "DisplayName": "pSNES",
                       "Authors": "Cpasjuste",
-                      "Version": "v1.5",
+                      "Version": "v1.6",
                       "Source": "https://github.com/Cpasjuste/psnes/",
                       "DLSource": "https://github.com/Cpasjuste/psnes/",
                       "EnabledByDefault": false,
@@ -1117,117 +1117,117 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/0.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/0.png",
                           "Directory": "sd/switch/psnes/skin/buttons/0.png",
                           "FileName": "0.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/1.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/1.png",
                           "Directory": "sd/switch/psnes/skin/buttons/1.png",
                           "FileName": "1.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/10.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/10.png",
                           "Directory": "sd/switch/psnes/skin/buttons/10.png",
                           "FileName": "10.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/11.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/11.png",
                           "Directory": "sd/switch/psnes/skin/buttons/11.png",
                           "FileName": "11.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/12.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/12.png",
                           "Directory": "sd/switch/psnes/skin/buttons/12.png",
                           "FileName": "12.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/13.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/13.png",
                           "Directory": "sd/switch/psnes/skin/buttons/13.png",
                           "FileName": "13.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/14.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/14.png",
                           "Directory": "sd/switch/psnes/skin/buttons/14.png",
                           "FileName": "14.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/15.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/15.png",
                           "Directory": "sd/switch/psnes/skin/buttons/15.png",
                           "FileName": "15.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/2.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/2.png",
                           "Directory": "sd/switch/psnes/skin/buttons/2.png",
                           "FileName": "2.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/3.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/3.png",
                           "Directory": "sd/switch/psnes/skin/buttons/3.png",
                           "FileName": "3.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/4.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/4.png",
                           "Directory": "sd/switch/psnes/skin/buttons/4.png",
                           "FileName": "4.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/5.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/5.png",
                           "Directory": "sd/switch/psnes/skin/buttons/5.png",
                           "FileName": "5.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/6.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/6.png",
                           "Directory": "sd/switch/psnes/skin/buttons/6.png",
                           "FileName": "6.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/7.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/7.png",
                           "Directory": "sd/switch/psnes/skin/buttons/7.png",
                           "FileName": "7.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/8.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/8.png",
                           "Directory": "sd/switch/psnes/skin/buttons/8.png",
                           "FileName": "8.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/buttons/9.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/buttons/9.png",
                           "Directory": "sd/switch/psnes/skin/buttons/9.png",
                           "FileName": "9.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/default.h",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/default.h",
                           "Directory": "sd/switch/psnes/skin/default.h",
                           "FileName": "default.h"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/default.ttf",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/default.ttf",
                           "Directory": "sd/switch/psnes/skin/default.ttf",
                           "FileName": "default.ttf"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/title.h",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/title.h",
                           "Directory": "sd/switch/psnes/skin/title.h",
                           "FileName": "title.h"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/title.png",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/title.png",
                           "Directory": "sd/switch/psnes/skin/title.png",
                           "FileName": "title.png"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/skin/title.xcf",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/skin/title.xcf",
                           "Directory": "sd/switch/psnes/skin/title.xcf",
                           "FileName": "title.xcf"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/db.xml",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/db.xml",
                           "Directory": "sd/switch/psnes/db.xml",
                           "FileName": "db.xml"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.5/sd/switch/psnes/psnes.nro",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/psnes/v1.6/sd/switch/psnes/psnes.nro",
                           "Directory": "sd/switch/psnes/psnes.nro",
                           "FileName": "psnes.nro"
                         }
@@ -2636,9 +2636,9 @@
                       "Visible": true,
                       "Description": "Work in progress custom firmware with the goal of replacing each component of the Nintendo Switch system. Configured with Hekate, including sys-ftpd, espatches, homebrew loading and more.",
                       "Dependencies": [
-						"atmos_musthave",
-						"atmos_bootlogo"
-					  ],
+                        "atmos_musthave",
+                        "atmos_bootlogo"
+                      ],
                       "Artifacts": [
                         {
                           "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmosphere/08.23.2018/sd/bootloader/ini/atmosphere_hekate.ini",
@@ -2828,10 +2828,10 @@
           "question": "Why Blazor?",
           "answer": "Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!"
         },
-        {
-          "question": "You know Blazor is experimental and isn't meant for production, right?",
-          "answer": "Since this app is entirely client-side (static), there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), and compatibility is fine with Chrome and Firefox, I didn't see any reason not to use Blazor."
-        }
+							{
+								"question": "You know Blazor is experimental and isn't meant for production, right?",
+								"answer": "Since this app is entirely client-side (static), there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), and compatibility is fine with Chrome and Firefox, I didn't see any reason not to use Blazor."
+							}
       ]
     }
   ]
