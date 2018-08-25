@@ -63,5 +63,23 @@ namespace SDSetupBlazor
 
             return;
         }
+
+
+
+
+        public static bool CanShow(bool visible, List<string> When, int WhenMode) {
+            if (!visible) return false;
+            if (When.Count == 0) return true;
+            int selections = 0;
+            foreach(string k in When) {
+                if (selectedPackages.ContainsKey(k) && selectedPackages[k]) selections++;
+            }
+            if (WhenMode == 0) {
+                if (selections == When.Count) return true;
+            } else if (WhenMode == 1) {
+                if (selections > 0) return true;
+            }
+            return false;
+        }
     }
 }

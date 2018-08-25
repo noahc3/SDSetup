@@ -92,19 +92,25 @@ namespace SDSetupManifestGenerator {
         public string DisplayName = "";
         public int ListingMode = 0;
         public bool Visible = true;
+        public List<string> When = new List<string>();
+        public int WhenMode = 0; //0: all | 1: any
         public List<PackageCategory> Categories = new List<PackageCategory>();
 
-        public PackageSection(string iD, string name, string displayName, int listingMode, bool visible, List<PackageCategory> categories) {
+        
+
+        public PackageSection() {
+
+        }
+
+        public PackageSection(string iD, string name, string displayName, int listingMode, bool visible, List<string> when, int whenMode, List<PackageCategory> categories) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
             ListingMode = listingMode;
             Visible = visible;
+            When = when;
+            WhenMode = whenMode;
             Categories = categories;
-        }
-
-        public PackageSection() {
-
         }
     }
 
@@ -113,18 +119,24 @@ namespace SDSetupManifestGenerator {
         public string Name = "";
         public string DisplayName = "";
         public bool Visible = true;
+        public List<string> When = new List<string>();
+        public int WhenMode = 0; //0: all | 1: any
         public List<PackageSubcategory> Subcategories = new List<PackageSubcategory>();
 
-        public PackageCategory(string iD, string name, string displayName, bool visible, List<PackageSubcategory> subcategories) {
+
+
+        public PackageCategory() {
+
+        }
+
+        public PackageCategory(string iD, string name, string displayName, bool visible, List<string> when, int whenMode, List<PackageSubcategory> subcategories) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
             Visible = visible;
+            When = when;
+            WhenMode = whenMode;
             Subcategories = subcategories;
-        }
-
-        public PackageCategory() {
-
         }
     }
 
@@ -133,18 +145,23 @@ namespace SDSetupManifestGenerator {
         public string Name = "";
         public string DisplayName = "";
         public bool Visible = true;
+        public List<string> When = new List<string>();
+        public int WhenMode = 0; //0: all | 1: any
         public List<Package> Packages = new List<Package>();
 
-        public PackageSubcategory(string iD, string name, string displayName, bool visible, List<Package> packages) {
+
+        public PackageSubcategory() {
+
+        }
+
+        public PackageSubcategory(string iD, string name, string displayName, bool visible, List<string> when, int whenMode, List<Package> packages) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
             Visible = visible;
+            When = when;
+            WhenMode = whenMode;
             Packages = packages;
-        }
-
-        public PackageSubcategory() {
-
         }
     }
 
@@ -159,10 +176,18 @@ namespace SDSetupManifestGenerator {
         public bool EnabledByDefault = false;
         public bool Visible = true;
         public string Description = "";
+        public List<string> When = new List<string>();
+        public int WhenMode = 0; //0: all | 1: any
         public List<string> Dependencies = new List<string>();
         public List<Artifact> Artifacts = new List<Artifact>();
 
-        public Package(string iD, string name, string displayName, string authors, string version, string source, string dLSource, bool enabledByDefault, bool visible, string description, List<string> dependencies, List<Artifact> artifacts) {
+
+
+        public Package() {
+
+        }
+
+        public Package(string iD, string name, string displayName, string authors, string version, string source, string dLSource, bool enabledByDefault, bool visible, string description, List<string> when, int whenMode, List<string> dependencies, List<Artifact> artifacts) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
@@ -173,12 +198,10 @@ namespace SDSetupManifestGenerator {
             EnabledByDefault = enabledByDefault;
             Visible = visible;
             Description = description;
+            When = when;
+            WhenMode = whenMode;
             Dependencies = dependencies;
             Artifacts = artifacts;
-        }
-
-        public Package() {
-
         }
     }
 

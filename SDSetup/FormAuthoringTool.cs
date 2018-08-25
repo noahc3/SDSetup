@@ -193,7 +193,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnSectionSave_Click(object sender, EventArgs e) {
             if (SelectedSection == null) {
-                SelectedPlatform.PackageSections.Add(new PackageSection(txtSectionID.Text, txtSectionName.Text, txtSectionDisplay.Text, (int) nudDisplayMode.Value, cbxSectionVisible.Checked, new List<PackageCategory>()));
+                SelectedPlatform.PackageSections.Add(new PackageSection(txtSectionID.Text, txtSectionName.Text, txtSectionDisplay.Text, (int) nudDisplayMode.Value, cbxSectionVisible.Checked, new List<string>(), 0, new List<PackageCategory>()));
             } else {
                 SelectedSection.ID = txtSectionID.Text;
                 SelectedSection.Name = txtSectionName.Text;
@@ -216,7 +216,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnCategorySave_Click(object sender, EventArgs e) {
             if (SelectedCategory == null) {
-                SelectedSection.Categories.Add(new PackageCategory(txtCategoryID.Text, txtCategoryName.Text, txtCategoryDisplay.Text, cbxCategoryVisible.Checked, new List<PackageSubcategory>()));
+                SelectedSection.Categories.Add(new PackageCategory(txtCategoryID.Text, txtCategoryName.Text, txtCategoryDisplay.Text, cbxCategoryVisible.Checked, new List<string>(), 0, new List<PackageSubcategory>()));
             } else {
                 SelectedCategory.ID = txtCategoryID.Text;
                 SelectedCategory.Name = txtCategoryName.Text;
@@ -238,7 +238,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnSubcategorySave_Click(object sender, EventArgs e) {
             if (SelectedSubcategory == null) {
-                SelectedCategory.Subcategories.Add(new PackageSubcategory(txtSubcategoryID.Text, txtSubcategoryName.Text, txtSubcategoryDisplay.Text, cbxSubcategoryVisible.Checked, new List<Package>()));
+                SelectedCategory.Subcategories.Add(new PackageSubcategory(txtSubcategoryID.Text, txtSubcategoryName.Text, txtSubcategoryDisplay.Text, cbxSubcategoryVisible.Checked, new List<string>(), 0, new List<Package>()));
             } else {
                 SelectedSubcategory.ID = txtSubcategoryID.Text;
                 SelectedSubcategory.Name = txtSubcategoryName.Text;
@@ -260,7 +260,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnPackageSave_Click(object sender, EventArgs e) {
             if (SelectedPackage == null) {
-                SelectedSubcategory.Packages.Add(new Package(txtPackageId.Text, txtPackageName.Text, txtPackageDisplay.Text, txtPackageAuthors.Text, txtPackageVersion.Text, txtPackageSource.Text, txtPackageDlSource.Text, cbxPackageDefault.Checked, cbxPackageVisible.Checked, txtDescription.Text, new List<string>(), new List<Artifact>()));
+                SelectedSubcategory.Packages.Add(new Package(txtPackageId.Text, txtPackageName.Text, txtPackageDisplay.Text, txtPackageAuthors.Text, txtPackageVersion.Text, txtPackageSource.Text, txtPackageDlSource.Text, cbxPackageDefault.Checked, cbxPackageVisible.Checked, txtDescription.Text, new List<string>(), 0, new List<string>(), new List<Artifact>()));
             } else {
                 SelectedPackage.ID = txtPackageId.Text;
                 SelectedPackage.Name = txtPackageName.Text;
