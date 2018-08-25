@@ -69,113 +69,74 @@
 	@if (!G.initialized) {
 		<h2>Page is loading, please wait...</h2>
 	} else {
+		@foreach (PackageSection sec in G.manifest.Platforms["switch"].PackageSections) {
+			if (!G.CanShow(sec.Visible, sec.When, sec.WhenMode)) {
+				continue;
+			}
+			if (sec.ListingMode == 0) {
+				<div class="docs-example">
+					<h3 style="margin-bottom:0.5em">@sec.DisplayName</h3>
+					<Card CardType="CardType.Deck" Class="justify-content-center">
+						@foreach (PackageCategory cat in sec.Categories) {
+							if (!G.CanShow(cat.Visible, cat.When, cat.WhenMode)) {
+								continue;
+							}
 
-		<div class="docs-example">
-			<h3>Select your Custom Firmwares</h3>
-
-			<div class="ui three item menu" style="margin-bottom:2rem">
-				@foreach (CFW k in @G.manifest.Platforms["switch"].CFWs) {
-					<a class="item @(G.selectedPackages[k.Dependencies[0]] == true ? "active" : "")" onclick="@(() => changeCfwState(k))">@k.DisplayName</a>
-				}
-			</div>
-		</div>
-
-
-
-
-		@if (showOptions() == true) {
-			<div class="docs-example">
-				<h3 style="margin-bottom:0.5em">Select Options for your Custom Firmwares</h3>
-				<Card CardType="CardType.Deck" Class="justify-content-center">
-					@foreach (CFW k in @G.manifest.Platforms["switch"].CFWs) {
-						if (G.selectedPackages[k.Dependencies[0]] && k.Options != null && k.Options.Any()) {
 							<Card style="margin-bottom:2rem">
 								<Card CardType="CardType.Body">
-									<Card CardType="CardType.Title">@k.Name</Card>
-									<div class="ui form">
-										@foreach (CFWOption n in k.Options) {
-											<div class="inline field" style="margin:0 0 0 1rem">
-												<div class="nc3_hover">
-													<div class="ui checkbox @(G.selectedPackages[n.dependencies[0]] == true ? "checked" : "")" onclick="@(() => changeCfwOptionState(n))">
-														<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[n.dependencies[0]] == true)">
-														<label>@n.Name</label>
-													</div>
-													@if (!G.isMobile) {
-														<div class="nc3_tooltip">
-															<h4 style="margin:0">@n.Name</h4>
-															@if (!String.IsNullOrEmpty(G.packages["switch"][n.dependencies[0]].Authors)) {
-																<h6 style="margin-top:0;margin-bottom:0.5rem">by @G.packages["switch"][n.dependencies[0]].Authors</h6>
-															}
-															<p>@G.packages["switch"][n.dependencies[0]].Description</p>
-															@if (!String.IsNullOrEmpty(G.packages["switch"][n.dependencies[0]].Source)) {
-																<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@G.packages["switch"][n.dependencies[0]].Source">@G.packages["switch"][n.dependencies[0]].Source</a></p>
-															}
-														</div>
-													}
-												</div>
-											</div>
+									<Card CardType="CardType.Title">@cat.DisplayName</Card>
+									@foreach (PackageSubcategory sub in cat.Subcategories) {
+										if (!G.CanShow(sub.Visible, sub.When, sub.WhenMode)) {
+											continue;
 										}
-									</div>
+										<Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@sub.DisplayName</Card>
+										<div class="ui form">
+											@foreach (Package p in sub.Packages) {
+												if (!G.CanShow(p.Visible, p.When, p.WhenMode)) {
+													continue;
+												}
+
+												<div class="inline field" style="margin:0 0 0 1rem">
+													<div class="nc3_hover">
+														<div class="ui checkbox @(G.selectedPackages[p.ID] == true ? "checked" : "")" onclick="@(() => checkClicked(p.ID))">
+															<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.ID] == true)">
+															<label>@p.Name@if (!String.IsNullOrEmpty(p.Version)) {<sub style="color:#b7b7b7"> (@p.Version)</sub>}</label>
+														</div>
+														@if (!G.isMobile) {
+															<div class="nc3_tooltip">
+																<h4 style="margin:0">@p.Name</h4>
+																<h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
+																<p>@p.Description</p>
+																<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a></p>
+															</div>
+														}
+													</div>
+												</div>
+
+											}
+										</div>
+									}
 								</Card>
 							</Card>
 						}
-					}
-				</Card>
-				<p style="text-align:center;color:#808080"><b>These modules are powered by <a href="https://github.com/tumGER/SDFilesSwitch">tomGER's SDFilesSwitch</a></b></p>
-			</div>
-		}
-
-		@foreach (PackageSection sec in G.manifest.Platforms["switch"].PackageSections) {
-			if (!sec.Visible) {
-				continue;
-			}
-			<div class="docs-example">
-				<h3 style="margin-bottom:0.5em">@sec.DisplayName</h3>
-				<Card CardType="CardType.Deck" Class="justify-content-center">
-					@foreach (PackageCategory cat in sec.Categories) {
-						if (!cat.Visible) {
-							continue;
-						}
-
-						<Card style="margin-bottom:2rem">
-							<Card CardType="CardType.Body">
-								<Card CardType="CardType.Title">@cat.DisplayName</Card>
-								@foreach (PackageSubcategory sub in cat.Subcategories) {
-									if (!sub.Visible) {
-										continue;
+					</Card>
+				</div>
+			} else {
+				<div class="docs-example">
+					<h3>@sec.DisplayName</h3>
+					<div class="ui three item menu" style="margin-bottom:2rem">
+						@foreach (PackageCategory cat in sec.Categories) {
+							@foreach (PackageSubcategory sub in cat.Subcategories) {
+								@foreach (Package k in sub.Packages) {
+									@if (G.CanShow(k.Visible, k.When, k.WhenMode)) { 
+										<a class="item @(G.selectedPackages[k.ID] == true ? "active" : "")" onclick="@(() => checkClicked(k.ID))">@k.DisplayName</a>
 									}
-									<Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@sub.DisplayName</Card>
-									<div class="ui form">
-										@foreach (Package p in sub.Packages) {
-											if (!p.Visible) {
-												continue;
-											}
-
-											<div class="inline field" style="margin:0 0 0 1rem">
-												<div class="nc3_hover">
-													<div class="ui checkbox @(G.selectedPackages[p.ID] == true ? "checked" : "")" onclick="@(() => checkClicked(p.ID))">
-														<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[p.ID] == true)">
-														<label>@p.Name@if (!String.IsNullOrEmpty(p.Version)) {<sub style="color:#b7b7b7"> (@p.Version)</sub>}</label>
-													</div>
-													@if (!G.isMobile) {
-														<div class="nc3_tooltip">
-															<h4 style="margin:0">@p.Name</h4>
-															<h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
-															<p>@p.Description</p>
-															<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a></p>
-														</div>
-													}
-												</div>
-											</div>
-
-										}
-									</div>
 								}
-							</Card>
-						</Card>
-					}
-				</Card>
-			</div>
+							}
+						}
+					</div>
+				</div>
+			}
 		}
 
 		<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
@@ -228,19 +189,6 @@
 	static int current = 0;
 	static bool barMode = true;
 
-	//Dictionary<string, Package> packages = new Dictionary<string, Package>();
-
-
-	private bool showOptions() {
-		bool show = false;
-		foreach (CFW k in @G.manifest.Platforms["switch"].CFWs) {
-			if (G.selectedPackages[k.Dependencies[0]] && k.Options != null && k.Options.Any()) {
-				show = true;
-			}
-		}
-		return show;
-	}
-
 	protected override async Task OnInitAsync() {
 		if (ForceUiRefresh == null) {
 			ForceUiRefresh = new Action(() => StateHasChanged());
@@ -259,39 +207,6 @@
 		G.selectedPackages[id] = !G.selectedPackages[id];
 		StateHasChanged();
 	}
-
-	private void changeCfwState(CFW k) {
-		Console.WriteLine(G.selectedPackages[k.Dependencies[0]]);
-		G.selectedPackages[k.Dependencies[0]] = !G.selectedPackages[k.Dependencies[0]];
-		Console.WriteLine(G.selectedPackages[k.Dependencies[0]]);
-
-
-		if (G.selectedPackages[k.Dependencies[0]] == false) {
-			foreach (string v in k.Dependencies) {
-				if (G.selectedPackages.ContainsKey(v)) {
-					G.selectedPackages[v] = false;
-				}
-			}
-
-			foreach (CFWOption o in k.Options) {
-				foreach (string v in o.dependencies) {
-					if (G.selectedPackages.ContainsKey(v)) {
-						G.selectedPackages[v] = false;
-					}
-				}
-			}
-		}
-		Console.WriteLine(G.selectedPackages[k.Dependencies[0]]);
-
-	}
-
-	private void changeCfwOptionState(CFWOption n) {
-		G.selectedPackages[n.dependencies[0]] = !G.selectedPackages[n.dependencies[0]];
-		StateHasChanged();
-	}
-
-
-
 
 	//TODO: Move this to package
 
