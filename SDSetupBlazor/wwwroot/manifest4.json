@@ -7,7 +7,6 @@
       "MenuName": "Switch",
       "HomeIcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Nintendo_Switch_logo%2C_square.png/480px-Nintendo_Switch_logo%2C_square.png",
       "ID": "switch",
-      "CFWs": [],
       "PackageSections": [
 	    {
           "ID": "cfws",
@@ -197,7 +196,7 @@
 		{
           "ID": "cfwoptions",
           "Name": "CFW Options",
-          "DisplayName": "Select options for your CFWs",
+          "DisplayName": "Customize your CFWs",
           "ListingMode": 0,
           "Visible": true,
           "When": [
@@ -235,7 +234,9 @@
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Disables Gamecard slot to prevent sideloaded firmwares from preventing the gamecard slot from working after downgrading lower than v4.0.0.",
-                      "When": [],
+                      "When": [
+						"reinx"
+					  ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -265,7 +266,9 @@
 					"Name": "General",
 					"DisplayName": "General",
 					"Visible": true,
-					"When": [],
+					"When": [
+						"atmosphere"
+					],
 					"WhenMode": 0,
 					"Packages": [
                     {
@@ -314,29 +317,43 @@
                           "FileName": "F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips"
                         }
                       ]
-                    },
-                    {
+                    }
+                  ]
+                },
+				{
+					"ID": "atmosphere_sysmodules",
+					"Name": "Sys Modules",
+					"DisplayName": "Sys Modules",
+					"Visible": true,
+					"When": [
+						"atmosphere"
+					],
+					"WhenMode": 0,
+					"Packages": [
+					{
                       "ID": "atmos_switchpresence",
                       "Name": "SwitchPresence",
                       "DisplayName": "SwitchPresence",
                       "Authors": "Random0666",
-                      "Version": "v1.0.3",
+                      "Version": "v1.0.4",
                       "Source": "https://github.com/Random0666/SwitchPresence",
                       "DLSource": "https://github.com/Random0666/SwitchPresence",
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Add automatic Discord rich presence support for Nintendo Switch titles (tell people what you are playing on Discord).",
-                      "When": [],
-                      "WhenMode": 0,
+					  "When": [
+						"atmosphere"
+					  ],
+					  "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.3/sd/bootloader/ini/switch-presence.ini",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.4/sd/bootloader/ini/switch-presence.ini",
                           "Directory": "sd/bootloader/ini/switch-presence.ini",
                           "FileName": "switch-presence.ini"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.3/sd/modules/switch-rich-presence.kip",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.4/sd/modules/switch-rich-presence.kip",
                           "Directory": "sd/modules/switch-rich-presence.kip",
                           "FileName": "switch-rich-presence.kip"
                         }
@@ -353,7 +370,9 @@
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Have an FTP server running in the background on your Switch for managing files on your SD card remotely.",
-                      "When": [],
+                      "When": [
+						"atmosphere"
+					  ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -400,7 +419,9 @@
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Remote cheat engine for Switch using Netcat.",
-                      "When": [],
+                      "When": [
+						"atmosphere"
+					  ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -427,7 +448,9 @@
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Play audio in the background on your Nintendo Switch.",
-                      "When": [],
+                      "When": [
+						"atmosphere"
+					  ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -464,7 +487,9 @@
                       "EnabledByDefault": false,
                       "Visible": false,
                       "Description": "Hekate bootlogo featuring Atmosphere Alpha and SDFilesSwitch.",
-                      "When": [],
+                      "When": [
+						"atmosphere"
+					  ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -484,9 +509,11 @@
                       "Source": "",
                       "DLSource": "",
                       "EnabledByDefault": false,
-                      "Visible": true,
+                      "Visible": false,
                       "Description": "Required files for Atmosphere.",
-                      "When": [],
+                      "When": [
+						"atmosphere"
+					  ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -557,8 +584,8 @@
                         }
                       ]
                     }
-                  ]
-                }
+				  ]
+				}
               ]
             }
           ]

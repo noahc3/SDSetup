@@ -70,14 +70,32 @@ namespace SDSetupBlazor
         public static bool CanShow(bool visible, List<string> When, int WhenMode) {
             if (!visible) return false;
             if (When.Count == 0) return true;
-            int selections = 0;
-            foreach(string k in When) {
-                if (selectedPackages.ContainsKey(k) && selectedPackages[k]) selections++;
-            }
             if (WhenMode == 0) {
-                if (selections == When.Count) return true;
+                foreach (string k in When) {
+                    if (!selectedPackages.ContainsKey(k) || !selectedPackages[k]) return false;
+                }
+                return true;
             } else if (WhenMode == 1) {
-                if (selections > 0) return true;
+                foreach (string k in When) {
+                    if (selectedPackages.ContainsKey(k) && selectedPackages[k]) return true;
+                }
+                return false;
+            }
+            return false;
+        }
+
+        public static bool CanDownload(List<string> When, int WhenMode) {
+            if (When.Count == 0) return true;
+            if (WhenMode == 0) {
+                foreach (string k in When) {
+                    if (!selectedPackages.ContainsKey(k) || !selectedPackages[k]) return false;
+                }
+                return true;
+            } else if (WhenMode == 1) {
+                foreach (string k in When) {
+                    if (selectedPackages.ContainsKey(k) && selectedPackages[k]) return true;
+                }
+                return false;
             }
             return false;
         }

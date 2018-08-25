@@ -260,7 +260,7 @@
 		//}
 
 		foreach (KeyValuePair<string, bool> k in G.selectedPackages) {
-			if (k.Value) {
+			if (k.Value && G.CanDownload(G.packages["switch"][k.Key].When, G.packages["switch"][k.Key].WhenMode)) {
 				finalArtifacts.AddRange(getArtifacts(G.packages["switch"][k.Key]));
 			}
 		}
