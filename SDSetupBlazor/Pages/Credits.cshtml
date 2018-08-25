@@ -18,7 +18,7 @@
 		</thead>
 		<tbody>
 			@foreach (Package p in G.packages["switch"].Values) {
-				if (String.IsNullOrEmpty(p.Authors)) { continue; }
+				if (String.IsNullOrEmpty(p.Authors) || !p.Visible) { continue; }
 				<tr>
 					<th scope="row">@p.Name</th>
 					<td>@p.Authors</td>
