@@ -28,56 +28,17 @@ namespace SDSetupBlazor {
         public string MenuName = "";
         public string HomeIcon = "";
         public string ID = "";
-        public List<CFW> CFWs = new List<CFW>();
         public List<PackageSection> PackageSections = new List<PackageSection>();
 
-        public Platform(string name, string menuName, string homeIcon, string iD, List<CFW> cFWs, List<PackageSection> packageSections) {
+        public Platform(string name, string menuName, string homeIcon, string iD, List<PackageSection> packageSections) {
             Name = name;
             MenuName = menuName;
             HomeIcon = homeIcon;
             ID = iD;
-            CFWs = cFWs;
             PackageSections = packageSections;
         }
 
         public Platform() {
-
-        }
-    }
-
-    public class CFW {
-        public string ID = "";
-        public string Name = "";
-        public string DisplayName = "";
-        public List<string> Dependencies = new List<string>();
-        public List<CFWOption> Options = new List<CFWOption>();
-
-        public CFW(string iD, string name, string displayName, List<string> dependencies, List<CFWOption> options) {
-            ID = iD;
-            Name = name;
-            DisplayName = displayName;
-            Dependencies = dependencies;
-            Options = options;
-        }
-
-        public CFW() {
-
-        }
-    }
-
-    public class CFWOption {
-        public string Name = "";
-        public List<string> dependencies = new List<string>();
-        public bool enabledByDefault = false;
-
-        public CFWOption(string name, List<string> dependencies, bool enabledByDefault) {
-            Name = name;
-            this.dependencies = dependencies;
-            this.enabledByDefault = enabledByDefault;
-        }
-
-
-        public CFWOption() {
 
         }
     }
