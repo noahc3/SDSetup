@@ -634,7 +634,7 @@
                       "Artifacts": [
                         {
                           "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/hbmenu/v2.0.0/sd/switch/hbmenu.nro",
-                          "Directory": "sd/switch/hbmenu.nro",
+                          "Directory": "sd/hbmenu.nro",
                           "FileName": "hbmenu.nro"
                         }
                       ]
