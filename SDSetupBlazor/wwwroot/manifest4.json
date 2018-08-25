@@ -2230,7 +2230,7 @@
                       "Name": "SwitchPresence",
                       "DisplayName": "SwitchPresence",
                       "Authors": "Random0666",
-                      "Version": "v1.0.3",
+                      "Version": "v1.0.4",
                       "Source": "https://github.com/Random0666/SwitchPresence",
                       "DLSource": "https://github.com/Random0666/SwitchPresence",
                       "EnabledByDefault": false,
@@ -2239,12 +2239,12 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.3/sd/bootloader/ini/switch-presence.ini",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.4/sd/bootloader/ini/switch-presence.ini",
                           "Directory": "sd/bootloader/ini/switch-presence.ini",
                           "FileName": "switch-presence.ini"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.3/sd/modules/switch-rich-presence.kip",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.4/sd/modules/switch-rich-presence.kip",
                           "Directory": "sd/modules/switch-rich-presence.kip",
                           "FileName": "switch-rich-presence.kip"
                         }
