@@ -1,0 +1,16 @@
+﻿<#@ assembly name="System.Core.dll" #>
+<#@ template language="C#v3.5" debug="True" hostspecific="True"  #>
+<#@ output extension=".cs" #>
+using System;
+
+namespace SDSetupBlazor
+{
+    public static class Reference
+    {
+        public static string BuildDate {
+			get {
+				return "<#= DateTime.Now.ToShortDateString().Replace("-", ".") + "." + Guid.NewGuid().ToString().Replace("-", "").Substring(0, 6) #>";
+			}
+		}
+    }
+}
