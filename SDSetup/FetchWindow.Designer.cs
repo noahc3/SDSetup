@@ -27,7 +27,6 @@
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.btnFetchUrl = new System.Windows.Forms.Button();
             this.btnFetchFromFile = new System.Windows.Forms.Button();
-            this.txtFile = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnDeletePath = new System.Windows.Forms.Button();
             this.btnEditPath = new System.Windows.Forms.Button();
@@ -70,20 +69,13 @@
             // 
             // btnFetchFromFile
             // 
-            this.btnFetchFromFile.Location = new System.Drawing.Point(12, 106);
+            this.btnFetchFromFile.Location = new System.Drawing.Point(12, 125);
             this.btnFetchFromFile.Name = "btnFetchFromFile";
             this.btnFetchFromFile.Size = new System.Drawing.Size(523, 23);
             this.btnFetchFromFile.TabIndex = 56;
             this.btnFetchFromFile.Text = "Fetch from File";
             this.btnFetchFromFile.UseVisualStyleBackColor = true;
             this.btnFetchFromFile.Click += new System.EventHandler(this.btnFetchFromFile_Click);
-            // 
-            // txtFile
-            // 
-            this.txtFile.Location = new System.Drawing.Point(12, 80);
-            this.txtFile.Name = "txtFile";
-            this.txtFile.Size = new System.Drawing.Size(523, 20);
-            this.txtFile.TabIndex = 55;
             // 
             // btnSave
             // 
@@ -154,7 +146,6 @@
             this.Controls.Add(this.btnNewPath);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnFetchFromFile);
-            this.Controls.Add(this.txtFile);
             this.Controls.Add(this.btnFetchUrl);
             this.Controls.Add(this.txtUrl);
             this.Controls.Add(this.tvwItems);
@@ -171,7 +162,6 @@
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.Button btnFetchUrl;
         private System.Windows.Forms.Button btnFetchFromFile;
-        private System.Windows.Forms.TextBox txtFile;
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Button btnDeletePath;
         private System.Windows.Forms.Button btnEditPath;
