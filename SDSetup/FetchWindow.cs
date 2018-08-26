@@ -20,12 +20,14 @@ namespace SDSetupManifestGenerator {
         public FetchWindow() {
             InitializeComponent();
 
-            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch") }));
+
+            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch"), new TreeNode("retroarch", new TreeNode[] { new TreeNode("cores", new TreeNode[] { new TreeNode("switch") })})}));
             tvwItems.Nodes.Add(new TreeNode("pc", new TreeNode[] { new TreeNode("payloads") }));
+            tvwItems.ExpandAll();
 
             txtUrl.Text = G.tool.txtPackageDlSource.Text;
 
-            txtUploadUrl.Text = "https://cdn.rawgit.com/noahc3/SDSetupFiles/repo4/";
+            txtUploadUrl.Text = "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/";
         }
 
         private void tvwItems_DragDrop(object sender, DragEventArgs e) {
@@ -200,39 +202,32 @@ namespace SDSetupManifestGenerator {
         }
 
         private void btnFetchFromFile_Click(object sender, EventArgs e) {
+            List<Artifact> artifacts = new List<Artifact>();
+
+            OpenFileDialog d = new OpenFileDialog();
+            string path;
+
+            if (d.ShowDialog() == DialogResult.OK) {
+                path = d.FileName;
+            } else {
+                return;
+            }
+
             string id = G.tool.txtPackageId.Text;
             string version = G.tool.txtPackageVersion.Text;
-            string rawUrl = "file:///" + txtFile.Text;
+            string url = path.Replace("\\", "/");
 
-            string[] rawArtifacts;
-            List<Artifact> artifacts = new List<Artifact>();
-            string user = "";
-
-            if (rawUrl.ToLower().Contains("github.com/")) {
-
-                user = rawUrl.Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries)[2];
-
-                rawArtifacts = Git.GetLatestReleaseAssets(rawUrl);
-            } else {
-                rawArtifacts = new string[] { rawUrl };
-            }
-
-            if (Directory.Exists(Path.Combine(R.wd, id + "\\"))) Directory.Delete(Path.Combine(R.wd, id + "\\"), true);
+            if (Directory.Exists(Path.Combine(R.wd, id + "\\"))) FileSystem.DeleteDirectory(Path.Combine(R.wd, id + "\\"), DeleteDirectoryOption.DeleteAllContents);
             Directory.CreateDirectory(Path.Combine(R.wd, id + "\\", ".temp\\"));
 
-            foreach (string url in rawArtifacts) {
-                //TODO: needs cleanup oh god please
-                G.DownloadFile(url, Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()));
-                if (url.Replace("/", "").EndsWith(".zip")) {
-                    ZipFile.ExtractToDirectory(Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last()), Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
-                    string[] files = G.GetAllFilesInDir(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"));
-                    foreach (string n in files) {
-                        artifacts.Add(new Artifact("", "/" + n.Replace(Path.Combine(R.wd, id + "\\", ".temp\\." + url.Split('/').Last() + "\\"), "").Replace("\\", "/"), n.Replace("\\", "/").Split('/').Last(), n));
-                    }
-                    continue;
-                }
-                artifacts.Add(new Artifact("", "/" + url.Split('/').Last(), url.Split('/').Last(), Path.Combine(R.wd, id + "\\", ".temp\\", url.Split('/').Last())));
+            FileSystem.CopyFile(path, R.wd + id + "\\.temp\\" + url.Split('/').Last(), true);
+
+            //TODO: needs cleanup oh god please
+            string[] files = new string[1] { R.wd + id + "\\.temp\\" + url.Split('/').Last() };
+            foreach (string n in files) {
+                artifacts.Add(new Artifact("", "/" + n.Replace("/", "\\").Replace(Path.Combine(R.wd, id + "\\", ".temp\\"), "").Replace("\\", "/"), n.Replace("\\", "/").Split('/').Last(), n));
             }
+
             //tvwItems.Nodes.Clear();
             foreach (Artifact k in artifacts) {
                 string[] nodes = k.Directory.Replace('\\', '/').Split('/');
