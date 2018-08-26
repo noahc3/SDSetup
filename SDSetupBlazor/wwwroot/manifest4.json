@@ -2381,8 +2381,20 @@
                       ]
                     }
                   ]
-                },
-                {
+                }
+              ]
+            },
+			{
+			"ID": "homeconsoles2",
+			"Name": "Home Consoles",
+			"DisplayName": "Home Consoles",
+			"Visible": true,
+			"When": [
+				"retronx"
+			],
+			"WhenMode": 0,
+			"Subcategories": [
+				{
                   "ID": "atari",
                   "Name": "Atari",
                   "DisplayName": "Atari",
@@ -2574,8 +2586,8 @@
                     }
                   ]
                 }
-              ]
-            },
+			]
+			},
             {
               "ID": "portableconsoles",
               "Name": "Portable Consoles",
@@ -2997,11 +3009,11 @@
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
-																							{
-																								"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_fmsx/v0.9.8/sd/retroarch/cores/switch/fmsx.nro",
-																								"Directory": "sd/retroarch/cores/switch/fmsx.nro",
-																								"FileName": "fmsx.nro"
-																							}
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_fmsx/v0.9.8/sd/retroarch/cores/switch/fmsx.nro",
+                          "Directory": "sd/retroarch/cores/switch/fmsx.nro",
+                          "FileName": "fmsx.nro"
+                        }
                       ]
                     }
                   ]
@@ -3680,10 +3692,10 @@
           "question": "Why Blazor?",
           "answer": "Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!"
         },
-        {
-          "question": "You know Blazor is experimental and isn't meant for production, right?",
-          "answer": "Since this app is entirely client-side (static), there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), and compatibility is fine with Chrome and Firefox, I didn't see any reason not to use Blazor."
-        }
+							{
+								"question": "You know Blazor is experimental and isn't meant for production, right?",
+								"answer": "Since this app is entirely client-side (static), there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), and compatibility is fine with Chrome and Firefox, I didn't see any reason not to use Blazor."
+							}
       ]
     }
   ]
