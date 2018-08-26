@@ -8,7 +8,7 @@
       "HomeIcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Nintendo_Switch_logo%2C_square.png/480px-Nintendo_Switch_logo%2C_square.png",
       "ID": "switch",
       "PackageSections": [
-	    {
+        {
           "ID": "cfws",
           "Name": "Custom Firmwares",
           "DisplayName": "Select your Custom Firmwares",
@@ -193,16 +193,16 @@
             }
           ]
         },
-		{
+        {
           "ID": "cfwoptions",
           "Name": "CFW Options",
           "DisplayName": "Customize your CFWs",
           "ListingMode": 0,
           "Visible": true,
           "When": [
-			"atmosphere",
-			"reinx"
-		  ],
+            "atmosphere",
+            "reinx"
+          ],
           "WhenMode": 1,
           "Categories": [
             {
@@ -211,8 +211,8 @@
               "DisplayName": "ReiNX",
               "Visible": true,
               "When": [
-				"reinx"
-			  ],
+                "reinx"
+              ],
               "WhenMode": 0,
               "Subcategories": [
                 {
@@ -235,8 +235,8 @@
                       "Visible": true,
                       "Description": "Disables Gamecard slot to prevent sideloaded firmwares from preventing the gamecard slot from working after downgrading lower than v4.0.0.",
                       "When": [
-						"reinx"
-					  ],
+                        "reinx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -247,30 +247,30 @@
                         }
                       ]
                     }
-				  ]
-				}
-			  ]
-			},
-			{
-				"ID": "atmosphere_options",
-				"Name": "Atmosphere Options",
-				"DisplayName": "Atmosphere",
-				"Visible": true,
-				"When": [
-					"atmosphere"
-				],
-				"WhenMode": 0,
-				"Subcategories": [
-				{
-					"ID": "general",
-					"Name": "General",
-					"DisplayName": "General",
-					"Visible": true,
-					"When": [
-						"atmosphere"
-					],
-					"WhenMode": 0,
-					"Packages": [
+                  ]
+                }
+              ]
+            },
+            {
+              "ID": "atmosphere_options",
+              "Name": "Atmosphere Options",
+              "DisplayName": "Atmosphere",
+              "Visible": true,
+              "When": [
+                "atmosphere"
+              ],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "general",
+                  "Name": "General",
+                  "DisplayName": "General",
+                  "Visible": true,
+                  "When": [
+                    "atmosphere"
+                  ],
+                  "WhenMode": 0,
+                  "Packages": [
                     {
                       "ID": "atmos_sigpatch",
                       "Name": "Enable Signature Patches",
@@ -320,17 +320,17 @@
                     }
                   ]
                 },
-				{
-					"ID": "atmosphere_sysmodules",
-					"Name": "Sys Modules",
-					"DisplayName": "Sys Modules",
-					"Visible": true,
-					"When": [
-						"atmosphere"
-					],
-					"WhenMode": 0,
-					"Packages": [
-					{
+                {
+                  "ID": "atmosphere_sysmodules",
+                  "Name": "Sys Modules",
+                  "DisplayName": "Sys Modules",
+                  "Visible": true,
+                  "When": [
+                    "atmosphere"
+                  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
                       "ID": "atmos_switchpresence",
                       "Name": "SwitchPresence",
                       "DisplayName": "SwitchPresence",
@@ -341,10 +341,10 @@
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Add automatic Discord rich presence support for Nintendo Switch titles (tell people what you are playing on Discord).",
-					  "When": [
-						"atmosphere"
-					  ],
-					  "WhenMode": 0,
+                      "When": [
+                        "atmosphere"
+                      ],
+                      "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
                         {
@@ -371,8 +371,8 @@
                       "Visible": true,
                       "Description": "Have an FTP server running in the background on your Switch for managing files on your SD card remotely.",
                       "When": [
-						"atmosphere"
-					  ],
+                        "atmosphere"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -420,8 +420,8 @@
                       "Visible": true,
                       "Description": "Remote cheat engine for Switch using Netcat.",
                       "When": [
-						"atmosphere"
-					  ],
+                        "atmosphere"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -449,8 +449,8 @@
                       "Visible": true,
                       "Description": "Play audio in the background on your Nintendo Switch.",
                       "When": [
-						"atmosphere"
-					  ],
+                        "atmosphere"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -488,8 +488,8 @@
                       "Visible": false,
                       "Description": "Hekate bootlogo featuring Atmosphere Alpha and SDFilesSwitch.",
                       "When": [
-						"atmosphere"
-					  ],
+                        "atmosphere"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -500,7 +500,7 @@
                         }
                       ]
                     },
-					{
+                    {
                       "ID": "atmos_musthave",
                       "Name": "Must Have",
                       "DisplayName": "Must Have",
@@ -512,8 +512,8 @@
                       "Visible": false,
                       "Description": "Required files for Atmosphere.",
                       "When": [
-						"atmosphere"
-					  ],
+                        "atmosphere"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -584,8 +584,8 @@
                         }
                       ]
                     }
-				  ]
-				}
+                  ]
+                }
               ]
             }
           ]
@@ -1434,170 +1434,180 @@
                       "Name": "RetroNX",
                       "DisplayName": "RetroNX",
                       "Authors": "m4xw",
-                      "Version": "v0.9.7b",
+                      "Version": "v0.9.8",
                       "Source": "https://www.reddit.com/r/SwitchHaxing/comments/965gky/retronx_v097b/",
                       "DLSource": "",
                       "EnabledByDefault": false,
                       "Visible": true,
-                      "Description": "Bundle containing many RetroArch cores compiled for LibNX.",
+                      "Description": "Bundle containing many RetroArch cores compiled for LibNX. You can select each core individually after selection.",
                       "When": [],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/switch/retroarch_switch.nro",
-                          "Directory": "sd/switch/retroarch_switch.nro",
-                          "FileName": "retroarch_switch.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/4do.nro",
-                          "Directory": "sd/retroarch/cores/switch/4do.nro",
-                          "FileName": "4do.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/beetle-ngp.nro",
-                          "Directory": "sd/retroarch/cores/switch/beetle-ngp.nro",
-                          "FileName": "beetle-ngp.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/beetle-pce_fast.nro",
-                          "Directory": "sd/retroarch/cores/switch/beetle-pce_fast.nro",
-                          "FileName": "beetle-pce_fast.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/beetle-supergrafx.nro",
-                          "Directory": "sd/retroarch/cores/switch/beetle-supergrafx.nro",
-                          "FileName": "beetle-supergrafx.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/beetle-virtualboy.nro",
-                          "Directory": "sd/retroarch/cores/switch/beetle-virtualboy.nro",
-                          "FileName": "beetle-virtualboy.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/beetle-wonderswan.nro",
-                          "Directory": "sd/retroarch/cores/switch/beetle-wonderswan.nro",
-                          "FileName": "beetle-wonderswan.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/bluemsx.nro",
-                          "Directory": "sd/retroarch/cores/switch/bluemsx.nro",
-                          "FileName": "bluemsx.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/fbalpha.nro",
-                          "Directory": "sd/retroarch/cores/switch/fbalpha.nro",
-                          "FileName": "fbalpha.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/fceumm.nro",
-                          "Directory": "sd/retroarch/cores/switch/fceumm.nro",
-                          "FileName": "fceumm.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/gambatte.nro",
-                          "Directory": "sd/retroarch/cores/switch/gambatte.nro",
-                          "FileName": "gambatte.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/genesis_plus_gx.nro",
-                          "Directory": "sd/retroarch/cores/switch/genesis_plus_gx.nro",
-                          "FileName": "genesis_plus_gx.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/handy.nro",
-                          "Directory": "sd/retroarch/cores/switch/handy.nro",
-                          "FileName": "handy.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/mgba.nro",
-                          "Directory": "sd/retroarch/cores/switch/mgba.nro",
-                          "FileName": "mgba.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/nxengine.nro",
-                          "Directory": "sd/retroarch/cores/switch/nxengine.nro",
-                          "FileName": "nxengine.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/o2em.nro",
-                          "Directory": "sd/retroarch/cores/switch/o2em.nro",
-                          "FileName": "o2em.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/pcsx_rearmed.nro",
-                          "Directory": "sd/retroarch/cores/switch/pcsx_rearmed.nro",
-                          "FileName": "pcsx_rearmed.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/prosystem.nro",
-                          "Directory": "sd/retroarch/cores/switch/prosystem.nro",
-                          "FileName": "prosystem.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/snes9x.nro",
-                          "Directory": "sd/retroarch/cores/switch/snes9x.nro",
-                          "FileName": "snes9x.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/snes9x2010.nro",
-                          "Directory": "sd/retroarch/cores/switch/snes9x2010.nro",
-                          "FileName": "snes9x2010.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/stella.nro",
-                          "Directory": "sd/retroarch/cores/switch/stella.nro",
-                          "FileName": "stella.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/vba-next.nro",
-                          "Directory": "sd/retroarch/cores/switch/vba-next.nro",
-                          "FileName": "vba-next.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/vecx.nro",
-                          "Directory": "sd/retroarch/cores/switch/vecx.nro",
-                          "FileName": "vecx.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/switch/virtualjaguar.nro",
-                          "Directory": "sd/retroarch/cores/switch/virtualjaguar.nro",
-                          "FileName": "virtualjaguar.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/cores/system/Put BIOS files here.txt",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/cores/system/Put BIOS files here.txt",
                           "Directory": "sd/retroarch/cores/system/Put BIOS files here.txt",
                           "FileName": "Put BIOS files here.txt"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/overlays/README.txt",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/DOSBox.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/DOSBox.png",
+                          "FileName": "DOSBox.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/FCEUmm.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/FCEUmm.png",
+                          "FileName": "FCEUmm.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/Gambatte.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/Gambatte.png",
+                          "FileName": "Gambatte.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/Genesis Plus GX.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/Genesis Plus GX.png",
+                          "FileName": "Genesis Plus GX.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/MAME 2003-plus.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/MAME 2003-plus.png",
+                          "FileName": "MAME 2003-plus.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/mame2003.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/mame2003.png",
+                          "FileName": "mame2003.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/mGBA.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/mGBA.png",
+                          "FileName": "mGBA.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/ParaLLEl N64.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/ParaLLEl N64.png",
+                          "FileName": "ParaLLEl N64.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/PCSX-ReARMed.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/PCSX-ReARMed.png",
+                          "FileName": "PCSX-ReARMed.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/RetroNX.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/RetroNX.png",
+                          "FileName": "RetroNX.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/Snes9x 2010.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/Snes9x 2010.png",
+                          "FileName": "Snes9x 2010.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/menu/Snes9x.png",
+                          "Directory": "sd/retroarch/nxrgui/menu/Snes9x.png",
+                          "FileName": "Snes9x.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/overlay/README.txt",
+                          "Directory": "sd/retroarch/nxrgui/overlay/README.txt",
+                          "FileName": "README.txt"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/overlay/Snes9x 2010.png",
+                          "Directory": "sd/retroarch/nxrgui/overlay/Snes9x 2010.png",
+                          "FileName": "Snes9x 2010.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/overlay/Snes9x 2010_.png",
+                          "Directory": "sd/retroarch/nxrgui/overlay/Snes9x 2010_.png",
+                          "FileName": "Snes9x 2010_.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/DOSBox.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/DOSBox.png",
+                          "FileName": "DOSBox.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/FCEUmm.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/FCEUmm.png",
+                          "FileName": "FCEUmm.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/Gambatte.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/Gambatte.png",
+                          "FileName": "Gambatte.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/Genesis Plus GX.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/Genesis Plus GX.png",
+                          "FileName": "Genesis Plus GX.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/mGBA.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/mGBA.png",
+                          "FileName": "mGBA.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/ParaLLEl N64.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/ParaLLEl N64.png",
+                          "FileName": "ParaLLEl N64.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/PCSX-ReARMed.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/PCSX-ReARMed.png",
+                          "FileName": "PCSX-ReARMed.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/RetroNX.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/RetroNX.png",
+                          "FileName": "RetroNX.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/Snes9x 2010.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/Snes9x 2010.png",
+                          "FileName": "Snes9x 2010.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui/splash/Snes9x.png",
+                          "Directory": "sd/retroarch/nxrgui/splash/Snes9x.png",
+                          "FileName": "Snes9x.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/overlays/README.txt",
                           "Directory": "sd/retroarch/overlays/README.txt",
                           "FileName": "README.txt"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/menu_bg_blank.png",
-                          "Directory": "sd/retroarch/menu_bg_blank.png",
-                          "FileName": "menu_bg_blank.png"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/nxrgui.ttf",
+                          "Directory": "sd/retroarch/nxrgui.ttf",
+                          "FileName": "nxrgui.ttf"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/pcsx_retroarch.cfg",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/pcsx_retroarch.cfg",
                           "Directory": "sd/retroarch/pcsx_retroarch.cfg",
                           "FileName": "pcsx_retroarch.cfg"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/retroarch.cfg",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/retroarch.cfg",
                           "Directory": "sd/retroarch/retroarch.cfg",
                           "FileName": "retroarch.cfg"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/sd/retroarch/splash_01_720p.png",
-                          "Directory": "sd/retroarch/splash_01_720p.png",
-                          "FileName": "splash_01_720p.png"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/retroarch/split_joycon_wip.cfg",
+                          "Directory": "sd/retroarch/split_joycon_wip.cfg",
+                          "FileName": "split_joycon_wip.cfg"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.7b/readmes/RetroNX.txt",
-                          "Directory": "readmes/RetroNX.txt",
-                          "FileName": "RetroNX.txt"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/sd/switch/retroarch_switch.nro",
+                          "Directory": "sd/switch/retroarch_switch.nro",
+                          "FileName": "retroarch_switch.nro"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx/v0.9.8/readmes/RetroNX",
+                          "Directory": "readmes/RetroNX",
+                          "FileName": "RetroNX"
                         }
                       ]
                     }
@@ -2139,6 +2149,859 @@
                           "Directory": "sd/switch/scummvm/scummvm.nro",
                           "FileName": "scummvm.nro"
                         }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+		{
+          "ID": "retronx",
+          "Name": "RetroNX",
+          "DisplayName": "Customize RetroNX",
+          "ListingMode": 0,
+          "Visible": true,
+          "When": [
+			"retronx"
+		  ],
+          "WhenMode": 0,
+          "Categories": [
+            {
+              "ID": "homeconsoles",
+              "Name": "Home Consoles",
+              "DisplayName": "Home Consoles",
+              "Visible": true,
+              "When": [
+				"retronx"
+			  ],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "nintendo",
+                  "Name": "Nintendo",
+                  "DisplayName": "Nintendo",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_fceumm",
+                      "Name": "FCEUmm",
+                      "DisplayName": "FCEUmm",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the NES.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_fceumm/v0.9.8/sd/retroarch/cores/switch/fceumm.nro",
+                          "Directory": "sd/retroarch/cores/switch/fceumm.nro",
+                          "FileName": "fceumm.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_snes9x2010",
+                      "Name": "SNES9X2010",
+                      "DisplayName": "SNEX9X2010",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the SNES. Based on SNES9X 1.52 from 2010, trading accuracy for better performance.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_snes9x2010/v0.9.8/sd/retroarch/cores/switch/snes9x2010.nro",
+                          "Directory": "sd/retroarch/cores/switch/snes9x2010.nro",
+                          "FileName": "snes9x2010.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_snes9x",
+                      "Name": "SNES9X",
+                      "DisplayName": "SNEX9X",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the SNES. Higher accuracy than the 2010 variant, sacrificing performance.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_snes9x/v0.9.8/sd/retroarch/cores/switch/snes9x.nro",
+                          "Directory": "sd/retroarch/cores/switch/snes9x.nro",
+                          "FileName": "snes9x.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_beetlevb",
+                      "Name": "BeetleVB",
+                      "DisplayName": "BeetleVB",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Virtual Boy.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_beetlevb/v0.9.8/sd/retroarch/cores/switch/beetle-virtualboy.nro",
+                          "Directory": "sd/retroarch/cores/switch/beetle-virtualboy.nro",
+                          "FileName": "beetle-virtualboy.nro"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "playstation",
+                  "Name": "PlayStation",
+                  "DisplayName": "PlayStation",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_pcsxra",
+                      "Name": "PCSX ReArmed",
+                      "DisplayName": "PCSX ReArmed",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the PlayStation.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_pcsxra/v0.9.8/sd/retroarch/cores/switch/pcsx_rearmed.nro",
+                          "Directory": "sd/retroarch/cores/switch/pcsx_rearmed.nro",
+                          "FileName": "pcsx_rearmed.nro"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "sega",
+                  "Name": "Sega",
+                  "DisplayName": "Sega",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_gengxp",
+                      "Name": "Genesis GX Plus",
+                      "DisplayName": "Genesis GX Plus",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Genesis, Megadrive and Master System.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_gengxp/v0.9.8/sd/retroarch/cores/switch/genesis_plus_gx.nro",
+                          "Directory": "sd/retroarch/cores/switch/genesis_plus_gx.nro",
+                          "FileName": "genesis_plus_gx.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_picod",
+                      "Name": "PicoDrive",
+                      "DisplayName": "PicoDrive",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Master System, SegaCD, Genesis, PICO and 32X.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_picod/v0.9.8/sd/retroarch/cores/switch/picodrive.nro",
+                          "Directory": "sd/retroarch/cores/switch/picodrive.nro",
+                          "FileName": "picodrive.nro"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "atari",
+                  "Name": "Atari",
+                  "DisplayName": "Atari",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_vjaguar",
+                      "Name": "VirtualJaguar",
+                      "DisplayName": "VirtualJaguar",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Atari Jaguar.",
+                     "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_vjaguar/v0.9.8/sd/retroarch/cores/switch/virtualjaguar.nro",
+                          "Directory": "sd/retroarch/cores/switch/virtualjaguar.nro",
+                          "FileName": "virtualjaguar.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_stella",
+                      "Name": "Stella",
+                      "DisplayName": "Stella",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Atari 2600.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_stella/v0.9.8/sd/retroarch/cores/switch/stella.nro",
+                          "Directory": "sd/retroarch/cores/switch/stella.nro",
+                          "FileName": "stella.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_prosys",
+                      "Name": "ProSystem",
+                      "DisplayName": "ProSystem",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Atari 7800.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_prosys/v0.9.8/sd/retroarch/cores/switch/prosystem.nro",
+                          "Directory": "sd/retroarch/cores/switch/prosystem.nro",
+                          "FileName": "prosystem.nro"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "other",
+                  "Name": "Other",
+                  "DisplayName": "Other",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_4do",
+                      "Name": "4DO",
+                      "DisplayName": "4DO",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the 3DO",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_4do/v0.9.8/sd/retroarch/cores/switch/4do.nro",
+                          "Directory": "sd/retroarch/cores/switch/4do.nro",
+                          "FileName": "4do.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_o2em",
+                      "Name": "O2em",
+                      "DisplayName": "O2em",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Odyssey and VideoPAC.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_o2em/v0.9.8/sd/retroarch/cores/switch/o2em.nro",
+                          "Directory": "sd/retroarch/cores/switch/o2em.nro",
+                          "FileName": "o2em.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_vecx",
+                      "Name": "VECX",
+                      "DisplayName": "VECX",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Vectrex.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_vecx/v0.9.8/sd/retroarch/cores/switch/vecx.nro",
+                          "Directory": "sd/retroarch/cores/switch/vecx.nro",
+                          "FileName": "vecx.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_nxe",
+                      "Name": "NxEngine",
+                      "DisplayName": "NxEngine",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for Cave Story (NxEngine).",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_nxe/v0.9.8/sd/retroarch/cores/switch/nxengine.nro",
+                          "Directory": "sd/retroarch/cores/switch/nxengine.nro",
+                          "FileName": "nxengine.nro"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ID": "portableconsoles",
+              "Name": "Portable Consoles",
+              "DisplayName": "Portable Consoles",
+              "Visible": true,
+              "When": [
+				"retronx"
+			  ],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "nintendo",
+                  "Name": "Nintendo",
+                  "DisplayName": "Nintendo",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_vbanext",
+                      "Name": "VBA Next",
+                      "DisplayName": "VBA Next",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Gameboy Advance.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_vbanext/v0.9.8/sd/retroarch/cores/switch/vba-next.nro",
+                          "Directory": "sd/retroarch/cores/switch/vba-next.nro",
+                          "FileName": "vba-next.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_mgba",
+                      "Name": "mGBA",
+                      "DisplayName": "mGBA",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Gameboy Advance.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_mgba/v0.9.8/sd/retroarch/cores/switch/mgba.nro",
+                          "Directory": "sd/retroarch/cores/switch/mgba.nro",
+                          "FileName": "mgba.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_gambatte",
+                      "Name": "Gambatte",
+                      "DisplayName": "Gambatte",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Gameboy and Gameboy Color.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_gambatte/v0.9.8/sd/retroarch/cores/switch/gambatte.nro",
+                          "Directory": "sd/retroarch/cores/switch/gambatte.nro",
+                          "FileName": "gambatte.nro"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "atari",
+                  "Name": "Atari",
+                  "DisplayName": "Atari",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_handy",
+                      "Name": "Handy",
+                      "DisplayName": "Handy",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Atari Lynx.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_handy/v0.9.8/sd/retroarch/cores/switch/handy.nro",
+                          "Directory": "sd/retroarch/cores/switch/handy.nro",
+                          "FileName": "handy.nro"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "other",
+                  "Name": "Other",
+                  "DisplayName": "Other",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_ngp",
+                      "Name": "Beetle-NGP",
+                      "DisplayName": "Beetle-NGP",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the Neo Geo Pocket Color.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_ngp/v0.9.8/sd/retroarch/cores/switch/beetle-ngp.nro",
+                          "Directory": "sd/retroarch/cores/switch/beetle-ngp.nro",
+                          "FileName": "beetle-ngp.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_wswan",
+                      "Name": "Beetle-WSWan",
+                      "DisplayName": "Beetle-WSWan",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for the WonderSwan.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_wswan/v0.9.8/sd/retroarch/cores/switch/beetle-wonderswan.nro",
+                          "Directory": "sd/retroarch/cores/switch/beetle-wonderswan.nro",
+                          "FileName": "beetle-wonderswan.nro"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ID": "arcade",
+              "Name": "Arcade",
+              "DisplayName": "Arcade",
+              "Visible": true,
+              "When": [
+				"retronx"
+			  ],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "multi",
+                  "Name": "Multi",
+                  "DisplayName": "Multi",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_mame",
+                      "Name": "MAME2003",
+                      "DisplayName": "MAME2003",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for emulating thousands of arcade machine titles.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_mame/v0.9.8/sd/retroarch/cores/switch/mame2003.nro",
+                          "Directory": "sd/retroarch/cores/switch/mame2003.nro",
+                          "FileName": "mame2003.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_mameplus",
+                      "Name": "MAME2003 Plus",
+                      "DisplayName": "MAME2003 Plus",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for emulating thousands of arcade machine titles.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_mameplus/v0.9.8/sd/retroarch/cores/switch/mame2003-plus.nro",
+                          "Directory": "sd/retroarch/cores/switch/mame2003-plus.nro",
+                          "FileName": "mame2003-plus.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_fba",
+                      "Name": "Final Burn Alpha",
+                      "DisplayName": "Final Burn Alpha",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for emulating thousands of arcade machine titles.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_fba/v0.9.8/sd/retroarch/cores/switch/fbalpha.nro",
+                          "Directory": "sd/retroarch/cores/switch/fbalpha.nro",
+                          "FileName": "fbalpha.nro"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ID": "pc",
+              "Name": "PC",
+              "DisplayName": "PC",
+              "Visible": true,
+              "When": [
+				"retronx"
+			  ],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "pcengine",
+                  "Name": "PCEngine",
+                  "DisplayName": "PCEngine",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_pcefast",
+                      "Name": "Beetle PCE Fast",
+                      "DisplayName": "Beetle PCE Fast",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for PC Engine.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_pcefast/v0.9.8/sd/retroarch/cores/switch/beetle-pce_fast.nro",
+                          "Directory": "sd/retroarch/cores/switch/beetle-pce_fast.nro",
+                          "FileName": "beetle-pce_fast.nro"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "retronx_sgrafx",
+                      "Name": "Beetle SuperGraFX",
+                      "DisplayName": "Beetle SuperGraFX",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for PC Engine SuperGraFX titles.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_sgrafx/v0.9.8/sd/retroarch/cores/switch/beetle-supergrafx.nro",
+                          "Directory": "sd/retroarch/cores/switch/beetle-supergrafx.nro",
+                          "FileName": "beetle-supergrafx.nro"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "dos",
+                  "Name": "DOS",
+                  "DisplayName": "DOS",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_dosbox",
+                      "Name": "DOSBox",
+                      "DisplayName": "DOSBox",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for DOS titles.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_dosbox/v0.9.8/sd/retroarch/cores/switch/dosbox.nro",
+                          "Directory": "sd/retroarch/cores/switch/dosbox.nro",
+                          "FileName": "dosbox.nro"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "msx",
+                  "Name": "MSX",
+                  "DisplayName": "MSX",
+                  "Visible": true,
+                  "When": [
+					"retronx"
+				  ],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "retronx_fmsx",
+                      "Name": "fMSX",
+                      "DisplayName": "fMSX",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for MSX titles.",
+                      "When": [
+						"retronx"
+					  ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+																							{
+																								"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_fmsx/v0.9.8/sd/retroarch/cores/switch/fmsx.nro",
+																								"Directory": "sd/retroarch/cores/switch/fmsx.nro",
+																								"FileName": "fmsx.nro"
+																							}
                       ]
                     }
                   ]
