@@ -7,9 +7,9 @@
 
 <img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto;margin-bottom:1.5rem;width:60%"/>
 
-<div class="ui success message">
+<div class="ui warning message">
 	<div class="header fluid" style="text-align:center">
-		Hekate 4.0 support is here!
+		This version of SD Setup is highly experimental! You should consider using <a href="https://www.sdsetup.com">the stable site!</a>
 	</div>
 </div>
 
@@ -22,7 +22,7 @@
 	<div class="ui link cards justify-content-center" style="margin-bottom:1.5rem">
 		@foreach (Platform k in G.manifest.Platforms.Values) {
 			<div class="card" style="max-width:30rem">
-				<div class="image" onclick="@(() => Navigate("/switch"))">
+				<div class="image" onclick="@(() => Navigate("/console?switch"))">
 					<img src="@k.HomeIcon">
 				</div>
 			</div>
