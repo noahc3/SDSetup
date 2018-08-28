@@ -22,7 +22,7 @@
 	<div class="ui link cards justify-content-center" style="margin-bottom:1.5rem">
 		@foreach (Platform k in G.manifest.Platforms.Values) {
 			<div class="card" style="max-width:30rem">
-				<div class="image" onclick="@(() => Navigate("/console?switch"))">
+				<div class="image" onclick="@(() => Navigate("/console?" + k.ID))">
 					<img src="@k.HomeIcon">
 				</div>
 			</div>
