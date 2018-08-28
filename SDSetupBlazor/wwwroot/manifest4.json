@@ -49,7 +49,7 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sxos/v1.5/sd/boot.dat",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sxos/v1.6/sd/boot.dat",
                           "Directory": "sd/boot.dat",
                           "FileName": "boot.dat"
                         }
@@ -2157,15 +2157,15 @@
             }
           ]
         },
-		{
+        {
           "ID": "retronx",
           "Name": "RetroNX",
           "DisplayName": "Customize RetroNX",
           "ListingMode": 0,
           "Visible": true,
           "When": [
-			"retronx"
-		  ],
+            "retronx"
+          ],
           "WhenMode": 0,
           "Categories": [
             {
@@ -2174,8 +2174,8 @@
               "DisplayName": "Home Consoles",
               "Visible": true,
               "When": [
-				"retronx"
-			  ],
+                "retronx"
+              ],
               "WhenMode": 0,
               "Subcategories": [
                 {
@@ -2184,8 +2184,8 @@
                   "DisplayName": "Nintendo",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2200,8 +2200,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the NES.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2224,8 +2224,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the SNES. Based on SNES9X 1.52 from 2010, trading accuracy for better performance.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2248,8 +2248,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the SNES. Higher accuracy than the 2010 variant, sacrificing performance.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2272,8 +2272,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Virtual Boy.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2292,8 +2292,8 @@
                   "DisplayName": "PlayStation",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2308,8 +2308,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the PlayStation.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2328,8 +2328,8 @@
                   "DisplayName": "Sega",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2344,8 +2344,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Genesis, Megadrive and Master System.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2368,8 +2368,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Master System, SegaCD, Genesis, PICO and 32X.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2384,24 +2384,24 @@
                 }
               ]
             },
-			{
-			"ID": "homeconsoles2",
-			"Name": "Home Consoles",
-			"DisplayName": "Home Consoles",
-			"Visible": true,
-			"When": [
-				"retronx"
-			],
-			"WhenMode": 0,
-			"Subcategories": [
-				{
+            {
+              "ID": "homeconsoles2",
+              "Name": "Home Consoles",
+              "DisplayName": "Home Consoles",
+              "Visible": true,
+              "When": [
+                "retronx"
+              ],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
                   "ID": "atari",
                   "Name": "Atari",
                   "DisplayName": "Atari",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2415,9 +2415,9 @@
                       "EnabledByDefault": false,
                       "Visible": true,
                       "Description": "Retroarch core for the Atari Jaguar.",
-                     "When": [
-						"retronx"
-					  ],
+                      "When": [
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2440,8 +2440,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Atari 2600.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2464,8 +2464,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Atari 7800.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2484,8 +2484,8 @@
                   "DisplayName": "Other",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2500,8 +2500,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the 3DO",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2524,8 +2524,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Odyssey and VideoPAC.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2548,8 +2548,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Vectrex.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2572,8 +2572,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for Cave Story (NxEngine).",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2586,16 +2586,16 @@
                     }
                   ]
                 }
-			]
-			},
+              ]
+            },
             {
               "ID": "portableconsoles",
               "Name": "Portable Consoles",
               "DisplayName": "Portable Consoles",
               "Visible": true,
               "When": [
-				"retronx"
-			  ],
+                "retronx"
+              ],
               "WhenMode": 0,
               "Subcategories": [
                 {
@@ -2604,8 +2604,8 @@
                   "DisplayName": "Nintendo",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2620,8 +2620,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Gameboy Advance.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2644,8 +2644,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Gameboy Advance.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2668,8 +2668,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Gameboy and Gameboy Color.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2688,8 +2688,8 @@
                   "DisplayName": "Atari",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2704,8 +2704,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Atari Lynx.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2724,8 +2724,8 @@
                   "DisplayName": "Other",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2740,8 +2740,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the Neo Geo Pocket Color.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2764,8 +2764,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for the WonderSwan.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2786,8 +2786,8 @@
               "DisplayName": "Arcade",
               "Visible": true,
               "When": [
-				"retronx"
-			  ],
+                "retronx"
+              ],
               "WhenMode": 0,
               "Subcategories": [
                 {
@@ -2796,8 +2796,8 @@
                   "DisplayName": "Multi",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2812,8 +2812,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for emulating thousands of arcade machine titles.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2836,8 +2836,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for emulating thousands of arcade machine titles.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2860,8 +2860,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for emulating thousands of arcade machine titles.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2882,8 +2882,8 @@
               "DisplayName": "PC",
               "Visible": true,
               "When": [
-				"retronx"
-			  ],
+                "retronx"
+              ],
               "WhenMode": 0,
               "Subcategories": [
                 {
@@ -2892,8 +2892,8 @@
                   "DisplayName": "PCEngine",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2908,8 +2908,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for PC Engine.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2920,30 +2920,30 @@
                         }
                       ]
                     },
-                    {
-                      "ID": "retronx_sgrafx",
-                      "Name": "Beetle SuperGraFX",
-                      "DisplayName": "Beetle SuperGraFX",
-                      "Authors": "m4xw",
-                      "Version": "v0.9.8",
-                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
-                      "DLSource": "",
-                      "EnabledByDefault": false,
-                      "Visible": true,
-                      "Description": "Retroarch core for PC Engine SuperGraFX titles.",
-                      "When": [
-						"retronx"
-					  ],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_sgrafx/v0.9.8/sd/retroarch/cores/switch/beetle-supergrafx.nro",
-                          "Directory": "sd/retroarch/cores/switch/beetle-supergrafx.nro",
-                          "FileName": "beetle-supergrafx.nro"
-                        }
-                      ]
-                    }
+																			{
+																				"ID": "retronx_sgrafx",
+																				"Name": "Beetle SuperGraFX",
+																				"DisplayName": "Beetle SuperGraFX",
+																				"Authors": "m4xw",
+																				"Version": "v0.9.8",
+																				"Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+																				"DLSource": "",
+																				"EnabledByDefault": false,
+																				"Visible": true,
+																				"Description": "Retroarch core for PC Engine SuperGraFX titles.",
+																				"When": [
+																					"retronx"
+																				],
+																				"WhenMode": 0,
+																				"Dependencies": [],
+																				"Artifacts": [
+																					{
+																						"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_sgrafx/v0.9.8/sd/retroarch/cores/switch/beetle-supergrafx.nro",
+																						"Directory": "sd/retroarch/cores/switch/beetle-supergrafx.nro",
+																						"FileName": "beetle-supergrafx.nro"
+																					}
+																				]
+																			}
                   ]
                 },
                 {
@@ -2952,8 +2952,8 @@
                   "DisplayName": "DOS",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -2968,8 +2968,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for DOS titles.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -2988,8 +2988,8 @@
                   "DisplayName": "MSX",
                   "Visible": true,
                   "When": [
-					"retronx"
-				  ],
+                    "retronx"
+                  ],
                   "WhenMode": 0,
                   "Packages": [
                     {
@@ -3004,8 +3004,8 @@
                       "Visible": true,
                       "Description": "Retroarch core for MSX titles.",
                       "When": [
-						"retronx"
-					  ],
+                        "retronx"
+                      ],
                       "WhenMode": 0,
                       "Dependencies": [],
                       "Artifacts": [
@@ -3652,6 +3652,67 @@
           ]
         }
       ]
+    },
+    "3ds": {
+      "Name": "Nintendo 3DS",
+      "MenuName": "3DS",
+      "HomeIcon": "https://puu.sh/BlUiD/92f3ff760d.png",
+      "ID": "3ds",
+      "PackageSections": [
+        {
+          "ID": "cfws",
+          "Name": "Custom Firmwares",
+          "DisplayName": "Select your Custom Firmwares",
+          "ListingMode": 1,
+          "Visible": true,
+          "When": [],
+          "WhenMode": 0,
+          "Categories": [
+            {
+              "ID": "cfws",
+              "Name": "Custom Firmwares",
+              "DisplayName": "Select your Custom Firmwares",
+              "Visible": true,
+              "When": [],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "cfws",
+                  "Name": "Custom Firmwares",
+                  "DisplayName": "Select your Custom Firmwares",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "luma",
+                      "Name": "Luma3DS",
+                      "DisplayName": "Luma3DS",
+                      "Authors": "AuroraWright, TuxSH, Reisyukaku",
+                      "Version": "v9.1",
+                      "Source": "https://github.com/AuroraWright/Luma3DS",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Noob-proof custom firmware, featuring signature patches, region lock bypass, a custom in-game menu and more.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/luma/v9.1/sd/boot.firm",
+                          "Directory": "sd/boot.firm",
+                          "FileName": "boot.firm"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   },
   "FAQSections": [
@@ -3692,10 +3753,10 @@
           "question": "Why Blazor?",
           "answer": "Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!"
         },
-							{
-								"question": "You know Blazor is experimental and isn't meant for production, right?",
-								"answer": "Since this app is entirely client-side (static), there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), and compatibility is fine with Chrome and Firefox, I didn't see any reason not to use Blazor."
-							}
+        {
+          "question": "You know Blazor is experimental and isn't meant for production, right?",
+          "answer": "Since this app is entirely client-side (static), there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), and compatibility is fine with Chrome and Firefox, I didn't see any reason not to use Blazor."
+        }
       ]
     }
   ]

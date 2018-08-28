@@ -35,18 +35,23 @@ namespace SDSetupBlazor
         public static void Init(string url) {
             foreach (Platform k in manifest.Platforms.Values) {
                 packages[k.ID] = new Dictionary<string, Package>();
+                selectedPackages[k.ID] = new Dictionary<string, bool>();
                 foreach (PackageSection sec in k.PackageSections) {
                     foreach (PackageCategory c in sec.Categories) {
                         foreach (PackageSubcategory s in c.Subcategories) {
                             foreach (Package p in s.Packages) {
-                                selectedPackages[consoleId][p.ID] = p.EnabledByDefault;
+                                selectedPackages[k.ID][p.ID] = p.EnabledByDefault;
                                 packages[k.ID][p.ID] = p;
                             }
                         }
                     }
                 }
             }
-
+            if (url.Contains("/console?")) {
+                string a = url.Split('?')[1];
+                if (a.Contains('#')) a = a.Split('#')[0];
+                G.consoleId = a;
+            }
             SelectByUrl(url);
         }
 

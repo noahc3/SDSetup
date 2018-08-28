@@ -6,6 +6,7 @@
 @inject HttpClient Http
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
+@SetConsoleId()
 
 @if (!gettingZip) {
 
@@ -124,11 +125,11 @@
 			} else {
 				<div class="docs-example">
 					<h3>@sec.DisplayName</h3>
-					<div class="ui three item menu" style="margin-bottom:2rem">
+					<div class="ui @GetMenuSize(sec) item menu" style="margin-bottom:2rem">
 						@foreach (PackageCategory cat in sec.Categories) {
 							@foreach (PackageSubcategory sub in cat.Subcategories) {
 								@foreach (Package k in sub.Packages) {
-									@if (G.CanShow(k.Visible, k.When, k.WhenMode)) { 
+									@if (G.CanShow(k.Visible, k.When, k.WhenMode)) {
 										<a class="item @(G.selectedPackages[G.consoleId][k.ID] == true ? "active" : "")" onclick="@(() => checkClicked(k.ID))">@k.DisplayName</a>
 									}
 								}
@@ -192,10 +193,10 @@
 	static bool barMode = true;
 
 	protected override void OnInit() {
+		string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+		if (a.Contains('#')) a = a.Split('#')[0];
+		G.consoleId = a;
 		if (localInitialized == false) {
-			string a = UriHelper.GetAbsoluteUri().Split('?')[1];
-			if (a.Contains('#')) a = a.Split('#')[0];
-			G.consoleId = a;
 			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
 			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
 		}
@@ -213,12 +214,42 @@
 
 	private void OnLocationChanged(object sender, string location) {
 		if (G.initialized) {
-			string a = UriHelper.GetAbsoluteUri().Split('?')[1];
-			if (a.Contains('#')) a = a.Split('#')[0];
-			G.consoleId = a;
-			G.SelectByUrl(UriHelper.GetAbsoluteUri());
-			StateHasChanged();
+			if (UriHelper.GetAbsoluteUri().Contains("/console?")) {
+				zipDoneMessage = false;
+				firefoxMessage = false;
+				saveMessage = false;
+				selectMore = false;
+				string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+				if (a.Contains('#')) a = a.Split('#')[0];
+				G.consoleId = a;
+				G.SelectByUrl(UriHelper.GetAbsoluteUri());
+				StateHasChanged();
+			}
+
 		}
+	}
+
+	private string GetMenuSize(PackageSection sec) {
+		int num = 0;
+		foreach (PackageCategory cat in sec.Categories) foreach (PackageSubcategory sub in cat.Subcategories) foreach (Package pac in sub.Packages) num++;
+
+		switch (num) {
+			case 1: return "one";
+			case 2: return "two";
+			case 3: return "three";
+			case 4: return "four";
+			case 5: return "five";
+			case 6: return "six";
+			default: return "three";
+		}
+
+	}
+
+	private string SetConsoleId() {
+		string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+		if (a.Contains('#')) a = a.Split('#')[0];
+		G.consoleId = a;
+		return "";
 	}
 
 	private void checkClicked(string id) {
