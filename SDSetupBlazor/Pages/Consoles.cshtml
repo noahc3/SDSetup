@@ -121,9 +121,10 @@
 							</Card>
 						}
 					</Card>
+					<p style="text-align:center;color:#808080"><b>@((MarkupString)sec.Footer)</b></p>
 				</div>
 			} else {
-				<div class="docs-example">
+				<div class="docs-example markup">
 					<h3>@sec.DisplayName</h3>
 					<div class="ui @GetMenuSize(sec) item menu" style="margin-bottom:2rem">
 						@foreach (PackageCategory cat in sec.Categories) {
@@ -136,11 +137,11 @@
 							}
 						}
 					</div>
+					@((MarkupString)sec.Footer)
 				</div>
 			}
 		}
-
-		<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
+		<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
 	}
 
 </div>
@@ -196,6 +197,7 @@
 		string a = UriHelper.GetAbsoluteUri().Split('?')[1];
 		if (a.Contains('#')) a = a.Split('#')[0];
 		G.consoleId = a;
+		Shared.MainLayout.ForceUiRefresh();
 		if (localInitialized == false) {
 			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
 			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
@@ -224,6 +226,7 @@
 				G.consoleId = a;
 				G.SelectByUrl(UriHelper.GetAbsoluteUri());
 				StateHasChanged();
+				Shared.MainLayout.ForceUiRefresh();
 			}
 
 		}

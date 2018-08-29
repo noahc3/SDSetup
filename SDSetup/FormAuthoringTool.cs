@@ -166,7 +166,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnPlatformSave_Click(object sender, EventArgs e) {
             if (SelectedPlatform == null) {
-                manifest.Platforms[txtPlatformID.Text] = new Platform(txtPlatformName.Text, txtPlatformMenu.Text, txtPlatformIcon.Text, txtPlatformID.Text, new List<PackageSection>());
+                manifest.Platforms[txtPlatformID.Text] = new Platform(txtPlatformName.Text, txtPlatformMenu.Text, txtPlatformIcon.Text, txtPlatformID.Text, new List<PackageSection>(), "");
             } else {
                 SelectedPlatform.Name = txtPlatformName.Text;
                 SelectedPlatform.MenuName = txtPlatformMenu.Text;
@@ -193,7 +193,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnSectionSave_Click(object sender, EventArgs e) {
             if (SelectedSection == null) {
-                SelectedPlatform.PackageSections.Add(new PackageSection(txtSectionID.Text, txtSectionName.Text, txtSectionDisplay.Text, (int) nudDisplayMode.Value, cbxSectionVisible.Checked, new List<string>(), 0, new List<PackageCategory>()));
+                SelectedPlatform.PackageSections.Add(new PackageSection(txtSectionID.Text, txtSectionName.Text, txtSectionDisplay.Text, (int) nudDisplayMode.Value, cbxSectionVisible.Checked, new List<string>(), 0, new List<PackageCategory>(), ""));
             } else {
                 SelectedSection.ID = txtSectionID.Text;
                 SelectedSection.Name = txtSectionName.Text;

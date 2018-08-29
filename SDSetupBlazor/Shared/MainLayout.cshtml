@@ -8,7 +8,7 @@
 
 @if (G.initialized) {
 	<div class="main" style="min-height:100%;height:auto">
-		<div class="ui menu stackable red">
+		<div class="ui menu stackable @G.manifest.Platforms[G.consoleId].Color">
 			<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
 			@foreach(Platform k in G.manifest.Platforms.Values) {
 				<a href="/console?@k.ID" class="@(GetRelativePath().ToLower().StartsWith("console?" + k.ID) ? "active" : "") item">@k.MenuName</a>
@@ -60,7 +60,12 @@
 
 	//public static bool edgeConfirmed = false;
 
+	public static Action ForceUiRefresh;
+
 	protected override async Task OnInitAsync() {
+		if (ForceUiRefresh == null) {
+			ForceUiRefresh = new Action(() => StateHasChanged());
+		}
 		if (!G.initialized) {
 			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
 			G.manifest = await Http.GetJsonAsync<Manifest>("/manifest4.json");
