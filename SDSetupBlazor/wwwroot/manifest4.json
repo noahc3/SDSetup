@@ -2920,30 +2920,30 @@
                         }
                       ]
                     },
-																			{
-																				"ID": "retronx_sgrafx",
-																				"Name": "Beetle SuperGraFX",
-																				"DisplayName": "Beetle SuperGraFX",
-																				"Authors": "m4xw",
-																				"Version": "v0.9.8",
-																				"Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
-																				"DLSource": "",
-																				"EnabledByDefault": false,
-																				"Visible": true,
-																				"Description": "Retroarch core for PC Engine SuperGraFX titles.",
-																				"When": [
-																					"retronx"
-																				],
-																				"WhenMode": 0,
-																				"Dependencies": [],
-																				"Artifacts": [
-																					{
-																						"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_sgrafx/v0.9.8/sd/retroarch/cores/switch/beetle-supergrafx.nro",
-																						"Directory": "sd/retroarch/cores/switch/beetle-supergrafx.nro",
-																						"FileName": "beetle-supergrafx.nro"
-																					}
-																				]
-																			}
+                    {
+                      "ID": "retronx_sgrafx",
+                      "Name": "Beetle SuperGraFX",
+                      "DisplayName": "Beetle SuperGraFX",
+                      "Authors": "m4xw",
+                      "Version": "v0.9.8",
+                      "Source": "https://git.m4xw.net/Switch/RetroArch/RetroArch/wikis/home",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Retroarch core for PC Engine SuperGraFX titles.",
+                      "When": [
+                        "retronx"
+                      ],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/retronx_sgrafx/v0.9.8/sd/retroarch/cores/switch/beetle-supergrafx.nro",
+                          "Directory": "sd/retroarch/cores/switch/beetle-supergrafx.nro",
+                          "FileName": "beetle-supergrafx.nro"
+                        }
+                      ]
+                    }
                   ]
                 },
                 {
@@ -3703,6 +3703,1109 @@
                           "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/luma/v9.1/sd/boot.firm",
                           "Directory": "sd/boot.firm",
                           "FileName": "boot.firm"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+		{
+          "ID": "payloads",
+          "Name": "Payloads",
+          "DisplayName": "Select boot9strap payloads",
+          "ListingMode": 0,
+          "Visible": true,
+          "When": [],
+          "WhenMode": 0,
+          "Categories": [
+            {
+              "ID": "utilities",
+              "Name": "Utilities",
+              "DisplayName": "Utilities",
+              "Visible": true,
+              "When": [],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "systemmanagement",
+                  "Name": "System Management",
+                  "DisplayName": "System Management",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "godmode9",
+                      "Name": "GodeMode9",
+                      "DisplayName": "GodMode9",
+                      "Authors": "d0k3",
+                      "Version": "v1.7.1",
+                      "Source": "https://github.com/d0k3/GodMode9/",
+                      "DLSource": "https://github.com/d0k3/GodMode9/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Full access NAND and SD manager with scripting support.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/gm9/scripts/GM9Megascript.gm9",
+                          "Directory": "sd/gm9/scripts/GM9Megascript.gm9",
+                          "FileName": "GM9Megascript.gm9"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/gm9/scripts/NANDManager.gm9",
+                          "Directory": "sd/gm9/scripts/NANDManager.gm9",
+                          "FileName": "NANDManager.gm9"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/gm9/support/aeskeydb.bin.here",
+                          "Directory": "sd/gm9/support/aeskeydb.bin.here",
+                          "FileName": "aeskeydb.bin.here"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/gm9/support/encTitleKeys.bin.here",
+                          "Directory": "sd/gm9/support/encTitleKeys.bin.here",
+                          "FileName": "encTitleKeys.bin.here"
+                        },
+																							{
+																								"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/gm9/support/seeddb.bin.here",
+																								"Directory": "sd/gm9/support/seeddb.bin.here",
+																								"FileName": "seeddb.bin.here"
+																							},
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/luma/payloads/GodMode9.firm",
+                          "Directory": "sd/luma/payloads/GodMode9.firm",
+                          "FileName": "GodMode9.firm"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/luma/payloads/GodMode9.firm.sha",
+                          "Directory": "sd/luma/payloads/GodMode9.firm.sha",
+                          "FileName": "GodMode9.firm.sha"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/readmes/GodMode9.txt",
+                          "Directory": "readmes/GodMode9.txt",
+                          "FileName": "GodMode9.txt"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "openfirminstaller",
+                      "Name": "OpenFirmInstaller",
+                      "DisplayName": "OpenFirmInstaller",
+                      "Authors": "d0k3",
+                      "Version": "v0.0.8",
+                      "Source": "https://github.com/d0k3/OpenFirmInstaller/",
+                      "DLSource": "https://github.com/d0k3/OpenFirmInstaller/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Tool to install boot9strap FIRMs to NAND (currently only boot9strap and fastboot3ds).",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/openfirminstaller/v0.0.8/sd/luma/payloads/OpenFirmInstaller.firm",
+                          "Directory": "sd/luma/payloads/OpenFirmInstaller.firm",
+                          "FileName": "OpenFirmInstaller.firm"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/openfirminstaller/v0.0.8/readmes/OpenFirmInstaller.txt",
+                          "Directory": "readmes/OpenFirmInstaller.txt",
+                          "FileName": "OpenFirmInstaller.txt"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "other",
+                  "Name": "Other",
+                  "DisplayName": "Other",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "fastboot3ds",
+                      "Name": "FastBoot3DS",
+                      "DisplayName": "FastBoot3DS",
+                      "Authors": "derrek, profi200, d0k3",
+                      "Version": "v1.1 beta",
+                      "Source": "https://github.com/derrekr/fastboot3DS/",
+                      "DLSource": "https://github.com/derrekr/fastboot3DS/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Custom bootloader for the 3DS with chainloading, NAND backup and restoring, OTP dumping and more. Requires OpenFirmInstaller to install.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1beta/sd/ofi/fastboot3DS.firm",
+                          "Directory": "sd/ofi/fastboot3DS.firm",
+                          "FileName": "fastboot3DS.firm"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1beta/licenses/Fastboot3DS.txt",
+                          "Directory": "licenses/Fastboot3DS.txt",
+                          "FileName": "Fastboot3DS.txt"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1beta/readmes/Fastboot3DS.txt",
+                          "Directory": "readmes/Fastboot3DS.txt",
+                          "FileName": "Fastboot3DS.txt"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "ID": "homebrew",
+          "Name": "Homebrew",
+          "DisplayName": "Select your Homebrew",
+          "ListingMode": 0,
+          "Visible": true,
+          "When": [],
+          "WhenMode": 0,
+          "Categories": [
+            {
+              "ID": "general",
+              "Name": "General",
+              "DisplayName": "General",
+              "Visible": true,
+              "When": [],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "loaders",
+                  "Name": "Loaders",
+                  "DisplayName": "Loaders",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "hbmenu3ds",
+                      "Name": "Homebrew Menu",
+                      "DisplayName": "Homebrew Menu",
+                      "Authors": "fincs, smea",
+                      "Version": "v2.0.0",
+                      "Source": "https://github.com/fincs/new-hbmenu",
+                      "DLSource": "https://github.com/fincs/new-hbmenu",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "A simple, but beautiful, menu that lists 3DSX homebrew applications. Compatible with ninjhax, *hax and Rosalina.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/hbmenu3ds/v2.0.0/sd/boot.3dsx",
+                          "Directory": "sd/boot.3dsx",
+                          "FileName": "boot.3dsx"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "plugins",
+                  "Name": "Plugins",
+                  "DisplayName": "Plugins",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "bootntr",
+                      "Name": "BootNTR Selector",
+                      "DisplayName": "BootNTR Selector",
+                      "Authors": "Nanquitas",
+                      "Version": "v2.12",
+                      "Source": "https://github.com/Nanquitas/BootNTR",
+                      "DLSource": "https://github.com/Nanquitas/BootNTR",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Application to load real-time game plugins. Allows things like in-game inventory and stat editing, game patches, and more.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/bootntr/v2.12/sd/3ds/BootNTRSelector/BootNTRSelector-PabloMK7-Banner.3dsx",
+                          "Directory": "sd/3ds/BootNTRSelector/BootNTRSelector-PabloMK7-Banner.3dsx",
+                          "FileName": "BootNTRSelector-PabloMK7-Banner.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/bootntr/v2.12/sd/cias/BootNTRSelector-PabloMK7-Banner.cia",
+                          "Directory": "sd/cias/BootNTRSelector-PabloMK7-Banner.cia",
+                          "FileName": "BootNTRSelector-PabloMK7-Banner.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "bootntrm3",
+                      "Name": "BootNTR Selector (MODE3)",
+                      "DisplayName": "BootNTR Selector (MODE3)",
+                      "Authors": "Nanquitas",
+                      "Version": "v2.12",
+                      "Source": "https://github.com/Nanquitas/BootNTR",
+                      "DLSource": "https://github.com/Nanquitas/BootNTR",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Application to load real-time game plugins. Allows things like in-game inventory and stat editing, game patches, and more. Mode3 allows support for extended memory titles on Old 3DS (thus not necessary for N3DS).",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/bootntrm3/v2.12/sd/cias/BootNTRSelector-Mode3-PabloMK7-Banner.cia",
+                          "Directory": "sd/cias/BootNTRSelector-Mode3-PabloMK7-Banner.cia",
+                          "FileName": "BootNTRSelector-Mode3-PabloMK7-Banner.cia"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ID": "utilities",
+              "Name": "Utilities",
+              "DisplayName": "Utilities",
+              "Visible": true,
+              "When": [],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "storage",
+                  "Name": "Storage Management",
+                  "DisplayName": "Storage Management",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "fbi",
+                      "Name": "FBI",
+                      "DisplayName": "FBI",
+                      "Authors": "Steveice10",
+                      "Version": "v2.5.2",
+                      "Source": "https://github.com/Steveice10/FBI/",
+                      "DLSource": "https://github.com/Steveice10/FBI/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Open-source file browser and install for the 3DS. Browse SD card and internal NAND and install CIA files.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fbi/v2.5.2/sd/3ds/FBI.3dsx",
+                          "Directory": "sd/3ds/FBI.3dsx",
+                          "FileName": "FBI.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fbi/v2.5.2/sd/cias/FBI.cia",
+                          "Directory": "sd/cias/FBI.cia",
+                          "FileName": "FBI.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "ftpdb",
+                      "Name": "FTPDB",
+                      "DisplayName": "FTPDB",
+                      "Authors": "Fanva, mtheall",
+                      "Version": "v1.4.1",
+                      "Source": "https://github.com/Favna/FTPDB",
+                      "DLSource": "https://github.com/Favna/FTPDB",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "FTP server for 3DS to allow remote management of the SD card.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/ftpdb/v1.4.1/sd/3ds/FTPDB/FTPDB.3dsx",
+                          "Directory": "sd/3ds/FTPDB/FTPDB.3dsx",
+                          "FileName": "FTPDB.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/ftpdb/v1.4.1/sd/cias/FTPDB.cia",
+                          "Directory": "sd/cias/FTPDB.cia",
+                          "FileName": "FTPDB.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "multiupdater",
+                      "Name": "MultiUpdater",
+                      "DisplayName": "MultiUpdater",
+                      "Authors": "LiquidFenrir",
+                      "Version": "v4.0.2",
+                      "Source": "https://github.com/LiquidFenrir/MultiUpdater/",
+                      "DLSource": "https://github.com/LiquidFenrir/MultiUpdater/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Updater for FIRM payloads, CIA applications and other files on the SD card.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/multiupdater/v4.0.2/sd/3ds/MultiUpdater/MultiUpdater.3dsx",
+                          "Directory": "sd/3ds/MultiUpdater/MultiUpdater.3dsx",
+                          "FileName": "MultiUpdater.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/multiupdater/v4.0.2/sd/cias/MultiUpdater.cia",
+                          "Directory": "sd/cias/MultiUpdater.cia",
+                          "FileName": "MultiUpdater.cia"
+                        }
+                      ]
+                    }
+                  ]
+                },
+				{
+                  "ID": "saves",
+                  "Name": "Save Management",
+                  "DisplayName": "Save Management",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "checkpoint3ds",
+                      "Name": "Checkpoint",
+                      "DisplayName": "Checkpoint",
+                      "Authors": "BernardoGiordano",
+                      "Version": "v3.4.1",
+                      "Source": "https://github.com/FlagBrew/Checkpoint",
+                      "DLSource": "https://github.com/FlagBrew/Checkpoint",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Graphical save manager for 3DS with backup and restore functionality.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/checkpoint3ds/v3.4.1/sd/3ds/Checkpoint.3dsx",
+                          "Directory": "sd/3ds/Checkpoint.3dsx",
+                          "FileName": "Checkpoint.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/checkpoint3ds/v3.4.1/sd/cias/Checkpoint.cia",
+                          "Directory": "sd/cias/Checkpoint.cia",
+                          "FileName": "Checkpoint.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "jksm",
+                      "Name": "JKSM",
+                      "DisplayName": "JKSM",
+                      "Authors": "J-D-K",
+                      "Version": "08.19.2018",
+                      "Source": "https://github.com/J-D-K/JKSM",
+                      "DLSource": "https://github.com/J-D-K/JKSM",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Simplel save manager for 3DS with backup and restore functionality.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/jksm/08.19.2018/sd/3ds/JKSM.3dsx",
+                          "Directory": "sd/3ds/JKSM.3dsx",
+                          "FileName": "JKSM.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/jksm/08.19.2018/sd/cias/JKSM.cia",
+                          "Directory": "sd/cias/JKSM.cia",
+                          "FileName": "JKSM.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "pksm",
+                      "Name": "PKSM",
+                      "DisplayName": "PKSM",
+                      "Authors": "BernardoGiordano",
+                      "Version": "v5.1.4",
+                      "Source": "https://github.com/FlagBrew/PKSM",
+                      "DLSource": "https://github.com/FlagBrew/PKSM",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "On-console save editor for GenIV-GenVII Pokemon games. Features in depth stat editing for your Pokemon and an offline Pokemon Bank clone.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/pksm/v5.1.4/sd/cias/PKSM.cia",
+                          "Directory": "sd/cias/PKSM.cia",
+                          "FileName": "PKSM.cia"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "info",
+                  "Name": "Info",
+                  "DisplayName": "Info",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "3dsident",
+                      "Name": "3DSident",
+                      "DisplayName": "3DSident",
+                      "Authors": "joel16",
+                      "Version": "v0.8.0",
+                      "Source": "https://github.com/joel16/3DSident/",
+                      "DLSource": "https://github.com/joel16/3DSident/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "3DSident is an application for displaying lots of information about your 3DS, including serial number, screen types, firmware versions, and more.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/3dsident/v0.8.0/sd/3ds/3DSident.3dsx",
+                          "Directory": "sd/3ds/3DSident.3dsx",
+                          "FileName": "3DSident.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/3dsident/v0.8.0/sd/cias/3DSident.cia",
+                          "Directory": "sd/cias/3DSident.cia",
+                          "FileName": "3DSident.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "3dsidentgui",
+                      "Name": "3DSident GUI",
+                      "DisplayName": "3DSident GUI",
+                      "Authors": "joel16",
+                      "Version": "v0.8.0",
+                      "Source": "https://github.com/joel16/3DSident/",
+                      "DLSource": "https://github.com/joel16/3DSident/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "3DSident with a nicer GUI.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/3dsidentgui/v0.8.0/sd/3ds/3DSident-GUI.3dsx",
+                          "Directory": "sd/3ds/3DSident-GUI.3dsx",
+                          "FileName": "3DSident-GUI.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/3dsidentgui/v0.8.0/sd/cias/3DSident-GUI.cia",
+                          "Directory": "sd/cias/3DSident-GUI.cia",
+                          "FileName": "3DSident-GUI.cia"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "other",
+                  "Name": "Other",
+                  "DisplayName": "Other",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "anemone3ds",
+                      "Name": "Anemone3DS",
+                      "DisplayName": "Anemone3DS",
+                      "Authors": "astronautlevel2",
+                      "Version": "v2.1.0 beta",
+                      "Source": "https://github.com/astronautlevel2/Anemone3DS/",
+                      "DLSource": "https://github.com/astronautlevel2/Anemone3DS/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Theme and splashscreen manager for 3DS with QR code scanning.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/anemone3ds/v2.1.0beta/sd/3ds/Animone3DS/Anemone3DS.3dsx",
+                          "Directory": "sd/3ds/Animone3DS/Anemone3DS.3dsx",
+                          "FileName": "Anemone3DS.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/anemone3ds/v2.1.0beta/sd/3ds/Animone3DS/Anemone3DS.smdh",
+                          "Directory": "sd/3ds/Animone3DS/Anemone3DS.smdh",
+                          "FileName": "Anemone3DS.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/anemone3ds/v2.1.0beta/sd/cias/Anemone3DS.cia",
+                          "Directory": "sd/cias/Anemone3DS.cia",
+                          "FileName": "Anemone3DS.cia"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ID": "games",
+              "Name": "Games",
+              "DisplayName": "Games",
+              "Visible": true,
+              "When": [],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "casual",
+                  "Name": "Casual",
+                  "DisplayName": "Casual",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "breakout",
+                      "Name": "Breakout",
+                      "DisplayName": "Breakout",
+                      "Authors": "Magicrafter13",
+                      "Version": "v1.7.2 beta",
+                      "Source": "https://github.com/Magicrafter13/Breakout/",
+                      "DLSource": "https://github.com/Magicrafter13/Breakout/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Breakout clone for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/breakout/v1.7.2beta/sd/3ds/Breakout/Breakout.3dsx",
+                          "Directory": "sd/3ds/Breakout/Breakout.3dsx",
+                          "FileName": "Breakout.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/breakout/v1.7.2beta/sd/3ds/Breakout/Breakout.smdh",
+                          "Directory": "sd/3ds/Breakout/Breakout.smdh",
+                          "FileName": "Breakout.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/breakout/v1.7.2beta/sd/cias/Breakout.cia",
+                          "Directory": "sd/cias/Breakout.cia",
+                          "FileName": "Breakout.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "mastermind3ds",
+                      "Name": "Mastermind",
+                      "DisplayName": "Mastermind",
+                      "Authors": "MrJPGames",
+                      "Version": "v1.1",
+                      "Source": "https://github.com/MrJPGames/Mastermind-3DS/",
+                      "DLSource": "https://github.com/MrJPGames/Mastermind-3DS/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Mastermind clone for the 3DS with CPU and local (same system) multiplayer.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/mastermind3ds/v1.1/sd/3ds/mastermind/Mastermind.3dsx",
+                          "Directory": "sd/3ds/mastermind/Mastermind.3dsx",
+                          "FileName": "Mastermind.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/mastermind3ds/v1.1/sd/3ds/mastermind/Mastermind.smdh",
+                          "Directory": "sd/3ds/mastermind/Mastermind.smdh",
+                          "FileName": "Mastermind.smdh"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "minesweeper2ds",
+                      "Name": "Minesweeper 2DS",
+                      "DisplayName": "Minesweeper 2DS",
+                      "Authors": "Cid2mizard",
+                      "Version": "v1.2.1",
+                      "Source": "https://gbatemp.net/threads/release-minesweeper-2ds.384185/",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Minesweeper clone for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/minesweeper2ds/v1.2.1/sd/3ds/Minesweeper 2DS/Minesweeper 2DS.3dsx",
+                          "Directory": "sd/3ds/Minesweeper 2DS/Minesweeper 2DS.3dsx",
+                          "FileName": "Minesweeper 2DS.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/minesweeper2ds/v1.2.1/sd/3ds/Minesweeper 2DS/Minesweeper 2DS.smdh",
+                          "Directory": "sd/3ds/Minesweeper 2DS/Minesweeper 2DS.smdh",
+                          "FileName": "Minesweeper 2DS.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/minesweeper2ds/v1.2.1/sd/cias/Minesweeper 2DS.cia",
+                          "Directory": "sd/cias/Minesweeper 2DS.cia",
+                          "FileName": "Minesweeper 2DS.cia"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/minesweeper2ds/v1.2.1/readmes/Minesweeper2DS.txt",
+                          "Directory": "readmes/Minesweeper2DS.txt",
+                          "FileName": "Minesweeper2DS.txt"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "shooter",
+                  "Name": "Shooter",
+                  "DisplayName": "Shooter",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "eduke3d",
+                      "Name": "EDuke3D",
+                      "DisplayName": "EDuke3D",
+                      "Authors": "masterfeizz",
+                      "Version": "v1.0",
+                      "Source": "https://github.com/masterfeizz/EDuke3D/",
+                      "DLSource": "https://github.com/masterfeizz/EDuke3D/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "EDuke32 (Duke Nukem 3D)  port for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/eduke3d/v1.0/sd/3ds/eduke3d/duke3d.grp",
+                          "Directory": "sd/3ds/eduke3d/duke3d.grp",
+                          "FileName": "duke3d.grp"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/eduke3d/v1.0/sd/3ds/eduke3d/eduke32.cfg",
+                          "Directory": "sd/3ds/eduke3d/eduke32.cfg",
+                          "FileName": "eduke32.cfg"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/eduke3d/v1.0/sd/3ds/eduke3d/eduke3d.3dsx",
+                          "Directory": "sd/3ds/eduke3d/eduke3d.3dsx",
+                          "FileName": "eduke3d.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/eduke3d/v1.0/sd/3ds/eduke3d/eduke3d.smdh",
+                          "Directory": "sd/3ds/eduke3d/eduke3d.smdh",
+                          "FileName": "eduke3d.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/eduke3d/v1.0/sd/3ds/eduke3d/keyboardOverlay.bin",
+                          "Directory": "sd/3ds/eduke3d/keyboardOverlay.bin",
+                          "FileName": "keyboardOverlay.bin"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/eduke3d/v1.0/sd/3ds/eduke3d/touchpadOverlay.bin",
+                          "Directory": "sd/3ds/eduke3d/touchpadOverlay.bin",
+                          "FileName": "touchpadOverlay.bin"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/eduke3d/v1.0/sd/cias/EDuke3D.cia",
+                          "Directory": "sd/cias/EDuke3D.cia",
+                          "FileName": "EDuke3D.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "ctrquake",
+                      "Name": "ctrQuake",
+                      "DisplayName": "ctrQuake",
+                      "Authors": "masterfeizz",
+                      "Version": "v1.0",
+                      "Source": "https://github.com/masterfeizz/ctrQuake",
+                      "DLSource": "https://github.com/masterfeizz/ctrQuake",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Quake port for the 3DS with support for online multiplayer. Only includes the shareware episode, unlock full game by placing pak1.pak from the full game into the id1 folder.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/ctrquake/v1.0/sd/3ds/ctrQuake/id1/pak0.pak",
+                          "Directory": "sd/3ds/ctrQuake/id1/pak0.pak",
+                          "FileName": "pak0.pak"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/ctrquake/v1.0/sd/3ds/ctrQuake/ctrQuake.3dsx",
+                          "Directory": "sd/3ds/ctrQuake/ctrQuake.3dsx",
+                          "FileName": "ctrQuake.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/ctrquake/v1.0/sd/3ds/ctrQuake/ctrQuake.smdh",
+                          "Directory": "sd/3ds/ctrQuake/ctrQuake.smdh",
+                          "FileName": "ctrQuake.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/ctrquake/v1.0/sd/3ds/ctrQuake/keyboardOverlay.bin",
+                          "Directory": "sd/3ds/ctrQuake/keyboardOverlay.bin",
+                          "FileName": "keyboardOverlay.bin"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/ctrquake/v1.0/sd/3ds/ctrQuake/touchOverlay.bin",
+                          "Directory": "sd/3ds/ctrQuake/touchOverlay.bin",
+                          "FileName": "touchOverlay.bin"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/ctrquake/v1.0/sd/cias/ctrQuake.cia",
+                          "Directory": "sd/cias/ctrQuake.cia",
+                          "FileName": "ctrQuake.cia"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "actionadventure",
+                  "Name": "Action Adventure",
+                  "DisplayName": "Action Adventure",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "zeldaroth",
+                      "Name": "Zelda: Return of the Hylian (CIA)",
+                      "DisplayName": "Zelda: Return of the Hylian (CIA)",
+                      "Authors": "nop90",
+                      "Version": "v1.0.2",
+                      "Source": "https://github.com/nop90/ZeldaROTH",
+                      "DLSource": "https://github.com/nop90/ZeldaROTH",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Zelda fan-game in the style of A Link to the Past, ported to the 3DS. Features a full quest line with hours of gameplay. CIA release.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/zeldaroth/v1.0.2/sd/cias/ZeldaROTH.cia",
+                          "Directory": "sd/cias/ZeldaROTH.cia",
+                          "FileName": "ZeldaROTH.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "zeldaroth_3dsx",
+                      "Name": "Zelda: Return of the Hylian (3DSX)",
+                      "DisplayName": "Zelda: Return of the Hylian (3DSX)",
+                      "Authors": "nop90",
+                      "Version": "v1.0.2",
+                      "Source": "https://github.com/nop90/ZeldaROTH",
+                      "DLSource": "https://github.com/nop90/ZeldaROTH",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Zelda fan-game in the style of A Link to the Past, ported to the 3DS. Features a full quest line with hours of gameplay. 3DSX release.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/zeldaroth_3dsx/v1.0.2/sd/3ds/ZeldaROTH/ZeldaROTH.3dsx",
+                          "Directory": "sd/3ds/ZeldaROTH/ZeldaROTH.3dsx",
+                          "FileName": "ZeldaROTH.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/zeldaroth_3dsx/v1.0.2/sd/3ds/ZeldaROTH/ZeldaROTH.smdh",
+                          "Directory": "sd/3ds/ZeldaROTH/ZeldaROTH.smdh",
+                          "FileName": "ZeldaROTH.smdh"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "ID": "emulators",
+              "Name": "Emulators",
+              "DisplayName": "Emulators",
+              "Visible": true,
+              "When": [],
+              "WhenMode": 0,
+              "Subcategories": [
+                {
+                  "ID": "nintendo",
+                  "Name": "Nintendo",
+                  "DisplayName": "Nintendo",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "blargsnes",
+                      "Name": "blargSNES",
+                      "DisplayName": "blargSNES",
+                      "Authors": "StapleButter",
+                      "Version": "v1.3b",
+                      "Source": "http://blargsnes.kuribo64.net/",
+                      "DLSource": "",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "SNES emulator for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/blargsnes/v1.3b/sd/3ds/blargSNES/blargSnes.3dsx",
+                          "Directory": "sd/3ds/blargSNES/blargSnes.3dsx",
+                          "FileName": "blargSnes.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/blargsnes/v1.3b/sd/3ds/blargSNES/blargSnes.smdh",
+                          "Directory": "sd/3ds/blargSNES/blargSnes.smdh",
+                          "FileName": "blargSnes.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/blargsnes/v1.3b/sd/cias/blargSnes.cia",
+                          "Directory": "sd/cias/blargSnes.cia",
+                          "FileName": "blargSnes.cia"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "snes9x3ds",
+                      "Name": "snes9x",
+                      "DisplayName": "snes9x",
+                      "Authors": "bubble2k16",
+                      "Version": "v1.30",
+                      "Source": "https://github.com/bubble2k16/snes9x_3ds/",
+                      "DLSource": "https://github.com/bubble2k16/snes9x_3ds/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "SNES emulator for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/snes9x3ds/v1.30/sd/3ds/snes9x/snes9x_3ds.3dsx",
+                          "Directory": "sd/3ds/snes9x/snes9x_3ds.3dsx",
+                          "FileName": "snes9x_3ds.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/snes9x3ds/v1.30/sd/3ds/snes9x/snes9x_3ds.smdh",
+                          "Directory": "sd/3ds/snes9x/snes9x_3ds.smdh",
+                          "FileName": "snes9x_3ds.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/snes9x3ds/v1.30/sd/3ds/snes9x/snes9x_3ds_top.png",
+                          "Directory": "sd/3ds/snes9x/snes9x_3ds_top.png",
+                          "FileName": "snes9x_3ds_top.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/snes9x3ds/v1.30/sd/cias/snes9x_3ds.cia",
+                          "Directory": "sd/cias/snes9x_3ds.cia",
+                          "FileName": "snes9x_3ds.cia"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/snes9x3ds/v1.30/readmes/SNES9X.txt",
+                          "Directory": "readmes/SNES9X.txt",
+                          "FileName": "SNES9X.txt"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "virtuanes3ds",
+                      "Name": "VirtuaNES",
+                      "DisplayName": "VirtuaNES",
+                      "Authors": "bubble2k16",
+                      "Version": "v1.02",
+                      "Source": "https://github.com/bubble2k16/emus3ds",
+                      "DLSource": "https://github.com/bubble2k16/emus3ds",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "NES emulator for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/virtuanes3ds/v1.02/sd/3ds/virtuanes/virtuanes_3ds.3dsx",
+                          "Directory": "sd/3ds/virtuanes/virtuanes_3ds.3dsx",
+                          "FileName": "virtuanes_3ds.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/virtuanes3ds/v1.02/sd/3ds/virtuanes/virtuanes_3ds.smdh",
+                          "Directory": "sd/3ds/virtuanes/virtuanes_3ds.smdh",
+                          "FileName": "virtuanes_3ds.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/virtuanes3ds/v1.02/sd/3ds/virtuanes/virtuanes_3ds_top.png",
+                          "Directory": "sd/3ds/virtuanes/virtuanes_3ds_top.png",
+                          "FileName": "virtuanes_3ds_top.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/virtuanes3ds/v1.02/sd/cias/virtuanes_3ds.cia",
+                          "Directory": "sd/cias/virtuanes_3ds.cia",
+                          "FileName": "virtuanes_3ds.cia"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/virtuanes3ds/v1.02/readmes/VirtuaNES.txt",
+                          "Directory": "readmes/VirtuaNES.txt",
+                          "FileName": "VirtuaNES.txt"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "mgba3ds",
+                      "Name": "mGBA",
+                      "DisplayName": "mGBA",
+                      "Authors": "Jeffrey Pfau",
+                      "Version": "v0.6.3",
+                      "Source": "https://github.com/mgba-emu/mgba",
+                      "DLSource": "https://github.com/mgba-emu/mgba",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "GBA emulator for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/mgba3ds/v0.6.3/sd/3ds/mgba/mgba.3dsx",
+                          "Directory": "sd/3ds/mgba/mgba.3dsx",
+                          "FileName": "mgba.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/mgba3ds/v0.6.3/sd/3ds/mgba/mgba.smdh",
+                          "Directory": "sd/3ds/mgba/mgba.smdh",
+                          "FileName": "mgba.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/mgba3ds/v0.6.3/sd/3ds/mgba/mgba.xml",
+                          "Directory": "sd/3ds/mgba/mgba.xml",
+                          "FileName": "mgba.xml"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/mgba3ds/v0.6.3/sd/cias/mgba.cia",
+                          "Directory": "sd/cias/mgba.cia",
+                          "FileName": "mgba.cia"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/mgba3ds/v0.6.3/licenses/mGBA.txt",
+                          "Directory": "licenses/mGBA.txt",
+                          "FileName": "mGBA.txt"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "gameyob3ds",
+                      "Name": "GameYob",
+                      "DisplayName": "GameYob",
+                      "Authors": "Stevice10, Drenn1",
+                      "Version": "v1.0.8",
+                      "Source": "https://github.com/mgba-emu/mgba",
+                      "DLSource": "https://github.com/mgba-emu/mgba",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "GB/GBC/GBA emulator for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/gameyob3ds/v1.0.8/sd/3ds/GameYob/GameYob.3dsx",
+                          "Directory": "sd/3ds/GameYob/GameYob.3dsx",
+                          "FileName": "GameYob.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/gameyob3ds/v1.0.8/sd/cias/GameYob.cia",
+                          "Directory": "sd/cias/GameYob.cia",
+                          "FileName": "GameYob.cia"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "ID": "sega",
+                  "Name": "Sega",
+                  "DisplayName": "Sega",
+                  "Visible": true,
+                  "When": [],
+                  "WhenMode": 0,
+                  "Packages": [
+                    {
+                      "ID": "picodrive3ds",
+                      "Name": "PicoDrive 3DS",
+                      "DisplayName": "PicoDrive 3DS",
+                      "Authors": "bubble2k16",
+                      "Version": "v0.9.4",
+                      "Source": "https://github.com/bubble2k16/picodrive_3ds",
+                      "DLSource": "https://github.com/bubble2k16/picodrive_3ds",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Master System/Mega Drive emulator for the 3DS.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/picodrive3ds/v0.9.4/sd/3ds/picodrive/picodrive_3ds.3dsx",
+                          "Directory": "sd/3ds/picodrive/picodrive_3ds.3dsx",
+                          "FileName": "picodrive_3ds.3dsx"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/picodrive3ds/v0.9.4/sd/3ds/picodrive/picodrive_3ds_top.png",
+                          "Directory": "sd/3ds/picodrive/picodrive_3ds_top.png",
+                          "FileName": "picodrive_3ds_top.png"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/picodrive3ds/v0.9.4/sd/3ds/picodrive/picodrive_3ds.smdh",
+                          "Directory": "sd/3ds/picodrive/picodrive_3ds.smdh",
+                          "FileName": "picodrive_3ds.smdh"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/picodrive3ds/v0.9.4/sd/cias/picodrive_3ds.cia",
+                          "Directory": "sd/cias/picodrive_3ds.cia",
+                          "FileName": "picodrive_3ds.cia"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/picodrive3ds/v0.9.4/readmes/PicoDrive.txt",
+                          "Directory": "readmes/PicoDrive.txt",
+                          "FileName": "PicoDrive.txt"
                         }
                       ]
                     }
