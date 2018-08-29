@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Blazor;
 
 namespace SDSetupBlazor {
     public class Manifest {
@@ -28,14 +29,16 @@ namespace SDSetupBlazor {
         public string MenuName = "";
         public string HomeIcon = "";
         public string ID = "";
+        public string Color = "";
         public List<PackageSection> PackageSections = new List<PackageSection>();
 
-        public Platform(string name, string menuName, string homeIcon, string iD, List<PackageSection> packageSections) {
+        public Platform(string name, string menuName, string homeIcon, string iD, List<PackageSection> packageSections, string color) {
             Name = name;
             MenuName = menuName;
             HomeIcon = homeIcon;
             ID = iD;
             PackageSections = packageSections;
+            Color = color;
         }
 
         public Platform() {
@@ -51,15 +54,16 @@ namespace SDSetupBlazor {
         public bool Visible = true;
         public List<string> When = new List<string>();
         public int WhenMode = 0; //0: all | 1: any
+        public string Footer;
         public List<PackageCategory> Categories = new List<PackageCategory>();
 
-
+        
 
         public PackageSection() {
 
         }
 
-        public PackageSection(string iD, string name, string displayName, int listingMode, bool visible, List<string> when, int whenMode, List<PackageCategory> categories) {
+        public PackageSection(string iD, string name, string displayName, int listingMode, bool visible, List<string> when, int whenMode, List<PackageCategory> categories, string footer) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
@@ -68,6 +72,7 @@ namespace SDSetupBlazor {
             When = when;
             WhenMode = whenMode;
             Categories = categories;
+            Footer = footer;
         }
     }
 

@@ -7,6 +7,7 @@
       "MenuName": "Switch",
       "HomeIcon": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Nintendo_Switch_logo%2C_square.png/480px-Nintendo_Switch_logo%2C_square.png",
       "ID": "switch",
+      "Color": "red",
       "PackageSections": [
         {
           "ID": "cfws",
@@ -16,6 +17,7 @@
           "Visible": true,
           "When": [],
           "WhenMode": 0,
+          "Footer": "",
           "Categories": [
             {
               "ID": "cfws",
@@ -193,403 +195,404 @@
             }
           ]
         },
-        {
-          "ID": "cfwoptions",
-          "Name": "CFW Options",
-          "DisplayName": "Customize your CFWs",
-          "ListingMode": 0,
-          "Visible": true,
-          "When": [
-            "atmosphere",
-            "reinx"
-          ],
-          "WhenMode": 1,
-          "Categories": [
-            {
-              "ID": "reinx_options",
-              "Name": "ReiNX Options",
-              "DisplayName": "ReiNX",
-              "Visible": true,
-              "When": [
-                "reinx"
-              ],
-              "WhenMode": 0,
-              "Subcategories": [
-                {
-                  "ID": "general",
-                  "Name": "General",
-                  "DisplayName": "General",
-                  "Visible": true,
-                  "When": [],
-                  "WhenMode": 0,
-                  "Packages": [
-                    {
-                      "ID": "reinx_nogc",
-                      "Name": "Disable Gamecard Slot",
-                      "DisplayName": "Disable Gamecard Slot",
-                      "Authors": "Reisyukaku",
-                      "Version": "",
-                      "Source": "https://github.com/Reisyukaku/ReiNX",
-                      "DLSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/nogc",
-                      "EnabledByDefault": false,
-                      "Visible": true,
-                      "Description": "Disables Gamecard slot to prevent sideloaded firmwares from preventing the gamecard slot from working after downgrading lower than v4.0.0.",
-                      "When": [
-                        "reinx"
-                      ],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx_nogc//sd/ReiNX/nogc",
-                          "Directory": "sd/ReiNX/nogc",
-                          "FileName": "nogc"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "ID": "atmosphere_options",
-              "Name": "Atmosphere Options",
-              "DisplayName": "Atmosphere",
-              "Visible": true,
-              "When": [
-                "atmosphere"
-              ],
-              "WhenMode": 0,
-              "Subcategories": [
-                {
-                  "ID": "general",
-                  "Name": "General",
-                  "DisplayName": "General",
-                  "Visible": true,
-                  "When": [
-                    "atmosphere"
-                  ],
-                  "WhenMode": 0,
-                  "Packages": [
-                    {
-                      "ID": "atmos_sigpatch",
-                      "Name": "Enable Signature Patches",
-                      "DisplayName": "Enable Signature Patches",
-                      "Authors": "Rajkosto",
-                      "Version": "",
-                      "Source": "",
-                      "DLSource": "",
-                      "EnabledByDefault": false,
-                      "Visible": true,
-                      "Description": "Allows launching of sideloaded NSP files.",
-                      "When": [],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
-                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
-                          "FileName": "7135C20E752183914606CCE81293F24B738C3AEF.ips"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
-                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
-                          "FileName": "76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
-                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
-                          "FileName": "A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
-                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
-                          "FileName": "C0BFC6518707AC975295A0B656A051DA885A9045.ips"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
-                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
-                          "FileName": "F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
-                          "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
-                          "FileName": "F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips"
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "ID": "atmosphere_sysmodules",
-                  "Name": "Sys Modules",
-                  "DisplayName": "Sys Modules",
-                  "Visible": true,
-                  "When": [
-                    "atmosphere"
-                  ],
-                  "WhenMode": 0,
-                  "Packages": [
-                    {
-                      "ID": "atmos_switchpresence",
-                      "Name": "SwitchPresence",
-                      "DisplayName": "SwitchPresence",
-                      "Authors": "Random0666",
-                      "Version": "v1.0.4",
-                      "Source": "https://github.com/Random0666/SwitchPresence",
-                      "DLSource": "https://github.com/Random0666/SwitchPresence",
-                      "EnabledByDefault": false,
-                      "Visible": true,
-                      "Description": "Add automatic Discord rich presence support for Nintendo Switch titles (tell people what you are playing on Discord).",
-                      "When": [
-                        "atmosphere"
-                      ],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.4/sd/bootloader/ini/switch-presence.ini",
-                          "Directory": "sd/bootloader/ini/switch-presence.ini",
-                          "FileName": "switch-presence.ini"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.4/sd/modules/switch-rich-presence.kip",
-                          "Directory": "sd/modules/switch-rich-presence.kip",
-                          "FileName": "switch-rich-presence.kip"
-                        }
-                      ]
-                    },
-                    {
-                      "ID": "atmos_sysftpd",
-                      "Name": "Sys-FTPD",
-                      "DisplayName": "Sys-FTPD",
-                      "Authors": "jakibaki",
-                      "Version": "c.67fda0b",
-                      "Source": "https://github.com/jakibaki/sys-ftpd",
-                      "DLSource": "https://github.com/jakibaki/sys-ftpd",
-                      "EnabledByDefault": false,
-                      "Visible": true,
-                      "Description": "Have an FTP server running in the background on your Switch for managing files on your SD card remotely.",
-                      "When": [
-                        "atmosphere"
-                      ],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/bootloader/ini/FTP_Server.ini",
-                          "Directory": "sd/bootloader/ini/FTP_Server.ini",
-                          "FileName": "FTP_Server.ini"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/ftpd/connect.mp3",
-                          "Directory": "sd/ftpd/connect.mp3",
-                          "FileName": "connect.mp3"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/ftpd/disconnect.mp3",
-                          "Directory": "sd/ftpd/disconnect.mp3",
-                          "FileName": "disconnect.mp3"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/ftpd/pauseoff.mp3",
-                          "Directory": "sd/ftpd/pauseoff.mp3",
-                          "FileName": "pauseoff.mp3"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/ftpd/pauseon.mp3",
-                          "Directory": "sd/ftpd/pauseon.mp3",
-                          "FileName": "pauseon.mp3"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/modules/sys-ftpd.kip",
-                          "Directory": "sd/modules/sys-ftpd.kip",
-                          "FileName": "sys-ftpd.kip"
-                        }
-                      ]
-                    },
-                    {
-                      "ID": "atmos_sysnetcheat",
-                      "Name": "Sys-Netcheat",
-                      "DisplayName": "Sys-Netcheat",
-                      "Authors": "jakibaki",
-                      "Version": "v1.3.2",
-                      "Source": "https://github.com/jakibaki/sys-netcheat",
-                      "DLSource": "https://github.com/jakibaki/sys-netcheat",
-                      "EnabledByDefault": false,
-                      "Visible": true,
-                      "Description": "Remote cheat engine for Switch using Netcat.",
-                      "When": [
-                        "atmosphere"
-                      ],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sysnetcheat/v1.3.2/sd/bootloader/ini/sys-netcheat.ini",
-                          "Directory": "sd/bootloader/ini/sys-netcheat.ini",
-                          "FileName": "sys-netcheat.ini"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sysnetcheat/v1.3.2/sd/modules/sys-netcheat.kip",
-                          "Directory": "sd/modules/sys-netcheat.kip",
-                          "FileName": "sys-netcheat.kip"
-                        }
-                      ]
-                    },
-                    {
-                      "ID": "atmos_xorplay",
-                      "Name": "XorPlay",
-                      "DisplayName": "XorPlay",
-                      "Authors": "XorTroll",
-                      "Version": "v0.1",
-                      "Source": "https://github.com/XorTroll/ModuleMania/",
-                      "DLSource": "https://github.com/XorTroll/ModuleMania/",
-                      "EnabledByDefault": false,
-                      "Visible": true,
-                      "Description": "Play audio in the background on your Nintendo Switch.",
-                      "When": [
-                        "atmosphere"
-                      ],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_xorplay/v0.1/sd/bootloader/ini/xor_play.ini",
-                          "Directory": "sd/bootloader/ini/xor_play.ini",
-                          "FileName": "xor_play.ini"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_xorplay/v0.1/sd/modules/music/moon_theme.mp3",
-                          "Directory": "sd/modules/music/moon_theme.mp3",
-                          "FileName": "moon_theme.mp3"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_xorplay/v0.1/sd/modules/xor.play.kip",
-                          "Directory": "sd/modules/xor.play.kip",
-                          "FileName": "xor.play.kip"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_xorplay/v0.1/sd/xor.play.json",
-                          "Directory": "sd/xor.play.json",
-                          "FileName": "xor.play.json"
-                        }
-                      ]
-                    },
-                    {
-                      "ID": "atmos_bootlogo",
-                      "Name": "SDFilesSwitch Boot Logo",
-                      "DisplayName": "SDFilesSwitch Boot Logo",
-                      "Authors": "tumGER",
-                      "Version": "v8.0.1",
-                      "Source": "https://github.com/tumGER/SDFilesSwitch",
-                      "DLSource": "https://github.com/tumGER/SDFilesSwitch",
-                      "EnabledByDefault": false,
-                      "Visible": false,
-                      "Description": "Hekate bootlogo featuring Atmosphere Alpha and SDFilesSwitch.",
-                      "When": [
-                        "atmosphere"
-                      ],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_bootlogo/v8.0.1/sd/bootloader/bootlogo.bmp",
-                          "Directory": "sd/bootloader/bootlogo.bmp",
-                          "FileName": "bootlogo.bmp"
-                        }
-                      ]
-                    },
-                    {
-                      "ID": "atmos_musthave",
-                      "Name": "Must Have",
-                      "DisplayName": "Must Have",
-                      "Authors": "tumGER",
-                      "Version": "v1",
-                      "Source": "",
-                      "DLSource": "",
-                      "EnabledByDefault": false,
-                      "Visible": false,
-                      "Description": "Required files for Atmosphere.",
-                      "When": [
-                        "atmosphere"
-                      ],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/0100000000000036/exefs/main",
-                          "Directory": "sd/atmosphere/titles/0100000000000036/exefs/main",
-                          "FileName": "main"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/0100000000000036/exefs/main.npdm",
-                          "Directory": "sd/atmosphere/titles/0100000000000036/exefs/main.npdm",
-                          "FileName": "main.npdm"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/main",
-                          "Directory": "sd/atmosphere/titles/010000000000100D/exefs/main",
-                          "FileName": "main"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/main.npdm",
-                          "Directory": "sd/atmosphere/titles/010000000000100D/exefs/main.npdm",
-                          "FileName": "main.npdm"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/rtld.stub",
-                          "Directory": "sd/atmosphere/titles/010000000000100D/exefs/rtld.stub",
-                          "FileName": "rtld.stub"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/bootloader/sys/libsys_lp0.bso",
-                          "Directory": "sd/bootloader/sys/libsys_lp0.bso",
-                          "FileName": "libsys_lp0.bso"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/bootloader/hekate_ipl.ini",
-                          "Directory": "sd/bootloader/hekate_ipl.ini",
-                          "FileName": "hekate_ipl.ini"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/modules/newfirm/fs_mitm.kip",
-                          "Directory": "sd/modules/newfirm/fs_mitm.kip",
-                          "FileName": "fs_mitm.kip"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/modules/newfirm/loader.kip",
-                          "Directory": "sd/modules/newfirm/loader.kip",
-                          "FileName": "loader.kip"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/modules/newfirm/pm.kip",
-                          "Directory": "sd/modules/newfirm/pm.kip",
-                          "FileName": "pm.kip"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/modules/newfirm/sm.kip",
-                          "Directory": "sd/modules/newfirm/sm.kip",
-                          "FileName": "sm.kip"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/switch/SDFilesUpdater/SDFilesUpdater.nro",
-                          "Directory": "sd/switch/SDFilesUpdater/SDFilesUpdater.nro",
-                          "FileName": "SDFilesUpdater.nro"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/switch/SDFilesUpdater/settings.cfg",
-                          "Directory": "sd/switch/SDFilesUpdater/settings.cfg",
-                          "FileName": "settings.cfg"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
+							{
+								"ID": "cfwoptions",
+								"Name": "CFW Options",
+								"DisplayName": "Customize your CFWs",
+								"ListingMode": 0,
+								"Visible": true,
+								"When": [
+									"atmosphere",
+									"reinx"
+								],
+								"WhenMode": 1,
+								"Footer": "These modules are powered by <a href='https://github.com/tumGER/SDFilesSwitch'>tomGER's SDFilesSwitch</a>",
+								"Categories": [
+									{
+										"ID": "reinx_options",
+										"Name": "ReiNX Options",
+										"DisplayName": "ReiNX",
+										"Visible": true,
+										"When": [
+											"reinx"
+										],
+										"WhenMode": 0,
+										"Subcategories": [
+											{
+												"ID": "general",
+												"Name": "General",
+												"DisplayName": "General",
+												"Visible": true,
+												"When": [],
+												"WhenMode": 0,
+												"Packages": [
+													{
+														"ID": "reinx_nogc",
+														"Name": "Disable Gamecard Slot",
+														"DisplayName": "Disable Gamecard Slot",
+														"Authors": "Reisyukaku",
+														"Version": "",
+														"Source": "https://github.com/Reisyukaku/ReiNX",
+														"DLSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/nogc",
+														"EnabledByDefault": false,
+														"Visible": true,
+														"Description": "Disables Gamecard slot to prevent sideloaded firmwares from preventing the gamecard slot from working after downgrading lower than v4.0.0.",
+														"When": [
+															"reinx"
+														],
+														"WhenMode": 0,
+														"Dependencies": [],
+														"Artifacts": [
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx_nogc//sd/ReiNX/nogc",
+																"Directory": "sd/ReiNX/nogc",
+																"FileName": "nogc"
+															}
+														]
+													}
+												]
+											}
+										]
+									},
+									{
+										"ID": "atmosphere_options",
+										"Name": "Atmosphere Options",
+										"DisplayName": "Atmosphere",
+										"Visible": true,
+										"When": [
+											"atmosphere"
+										],
+										"WhenMode": 0,
+										"Subcategories": [
+											{
+												"ID": "general",
+												"Name": "General",
+												"DisplayName": "General",
+												"Visible": true,
+												"When": [
+													"atmosphere"
+												],
+												"WhenMode": 0,
+												"Packages": [
+													{
+														"ID": "atmos_sigpatch",
+														"Name": "Enable Signature Patches",
+														"DisplayName": "Enable Signature Patches",
+														"Authors": "Rajkosto",
+														"Version": "",
+														"Source": "",
+														"DLSource": "",
+														"EnabledByDefault": false,
+														"Visible": true,
+														"Description": "Allows launching of sideloaded NSP files.",
+														"When": [],
+														"WhenMode": 0,
+														"Dependencies": [],
+														"Artifacts": [
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
+																"Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
+																"FileName": "7135C20E752183914606CCE81293F24B738C3AEF.ips"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
+																"Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
+																"FileName": "76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
+																"Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
+																"FileName": "A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
+																"Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
+																"FileName": "C0BFC6518707AC975295A0B656A051DA885A9045.ips"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
+																"Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
+																"FileName": "F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sigpatch//sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
+																"Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
+																"FileName": "F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips"
+															}
+														]
+													}
+												]
+											},
+											{
+												"ID": "atmosphere_sysmodules",
+												"Name": "Sys Modules",
+												"DisplayName": "Sys Modules",
+												"Visible": true,
+												"When": [
+													"atmosphere"
+												],
+												"WhenMode": 0,
+												"Packages": [
+													{
+														"ID": "atmos_switchpresence",
+														"Name": "SwitchPresence",
+														"DisplayName": "SwitchPresence",
+														"Authors": "Random0666",
+														"Version": "v1.0.4",
+														"Source": "https://github.com/Random0666/SwitchPresence",
+														"DLSource": "https://github.com/Random0666/SwitchPresence",
+														"EnabledByDefault": false,
+														"Visible": true,
+														"Description": "Add automatic Discord rich presence support for Nintendo Switch titles (tell people what you are playing on Discord).",
+														"When": [
+															"atmosphere"
+														],
+														"WhenMode": 0,
+														"Dependencies": [],
+														"Artifacts": [
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.4/sd/bootloader/ini/switch-presence.ini",
+																"Directory": "sd/bootloader/ini/switch-presence.ini",
+																"FileName": "switch-presence.ini"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_switchpresence/v1.0.4/sd/modules/switch-rich-presence.kip",
+																"Directory": "sd/modules/switch-rich-presence.kip",
+																"FileName": "switch-rich-presence.kip"
+															}
+														]
+													},
+													{
+														"ID": "atmos_sysftpd",
+														"Name": "Sys-FTPD",
+														"DisplayName": "Sys-FTPD",
+														"Authors": "jakibaki",
+														"Version": "c.67fda0b",
+														"Source": "https://github.com/jakibaki/sys-ftpd",
+														"DLSource": "https://github.com/jakibaki/sys-ftpd",
+														"EnabledByDefault": false,
+														"Visible": true,
+														"Description": "Have an FTP server running in the background on your Switch for managing files on your SD card remotely.",
+														"When": [
+															"atmosphere"
+														],
+														"WhenMode": 0,
+														"Dependencies": [],
+														"Artifacts": [
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/bootloader/ini/FTP_Server.ini",
+																"Directory": "sd/bootloader/ini/FTP_Server.ini",
+																"FileName": "FTP_Server.ini"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/ftpd/connect.mp3",
+																"Directory": "sd/ftpd/connect.mp3",
+																"FileName": "connect.mp3"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/ftpd/disconnect.mp3",
+																"Directory": "sd/ftpd/disconnect.mp3",
+																"FileName": "disconnect.mp3"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/ftpd/pauseoff.mp3",
+																"Directory": "sd/ftpd/pauseoff.mp3",
+																"FileName": "pauseoff.mp3"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/ftpd/pauseon.mp3",
+																"Directory": "sd/ftpd/pauseon.mp3",
+																"FileName": "pauseon.mp3"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/sysftpd/v.42/sd/modules/sys-ftpd.kip",
+																"Directory": "sd/modules/sys-ftpd.kip",
+																"FileName": "sys-ftpd.kip"
+															}
+														]
+													},
+													{
+														"ID": "atmos_sysnetcheat",
+														"Name": "Sys-Netcheat",
+														"DisplayName": "Sys-Netcheat",
+														"Authors": "jakibaki",
+														"Version": "v1.3.2",
+														"Source": "https://github.com/jakibaki/sys-netcheat",
+														"DLSource": "https://github.com/jakibaki/sys-netcheat",
+														"EnabledByDefault": false,
+														"Visible": true,
+														"Description": "Remote cheat engine for Switch using Netcat.",
+														"When": [
+															"atmosphere"
+														],
+														"WhenMode": 0,
+														"Dependencies": [],
+														"Artifacts": [
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sysnetcheat/v1.3.2/sd/bootloader/ini/sys-netcheat.ini",
+																"Directory": "sd/bootloader/ini/sys-netcheat.ini",
+																"FileName": "sys-netcheat.ini"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_sysnetcheat/v1.3.2/sd/modules/sys-netcheat.kip",
+																"Directory": "sd/modules/sys-netcheat.kip",
+																"FileName": "sys-netcheat.kip"
+															}
+														]
+													},
+													{
+														"ID": "atmos_xorplay",
+														"Name": "XorPlay",
+														"DisplayName": "XorPlay",
+														"Authors": "XorTroll",
+														"Version": "v0.1",
+														"Source": "https://github.com/XorTroll/ModuleMania/",
+														"DLSource": "https://github.com/XorTroll/ModuleMania/",
+														"EnabledByDefault": false,
+														"Visible": true,
+														"Description": "Play audio in the background on your Nintendo Switch.",
+														"When": [
+															"atmosphere"
+														],
+														"WhenMode": 0,
+														"Dependencies": [],
+														"Artifacts": [
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_xorplay/v0.1/sd/bootloader/ini/xor_play.ini",
+																"Directory": "sd/bootloader/ini/xor_play.ini",
+																"FileName": "xor_play.ini"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_xorplay/v0.1/sd/modules/music/moon_theme.mp3",
+																"Directory": "sd/modules/music/moon_theme.mp3",
+																"FileName": "moon_theme.mp3"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_xorplay/v0.1/sd/modules/xor.play.kip",
+																"Directory": "sd/modules/xor.play.kip",
+																"FileName": "xor.play.kip"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_xorplay/v0.1/sd/xor.play.json",
+																"Directory": "sd/xor.play.json",
+																"FileName": "xor.play.json"
+															}
+														]
+													},
+													{
+														"ID": "atmos_bootlogo",
+														"Name": "SDFilesSwitch Boot Logo",
+														"DisplayName": "SDFilesSwitch Boot Logo",
+														"Authors": "tumGER",
+														"Version": "v8.0.1",
+														"Source": "https://github.com/tumGER/SDFilesSwitch",
+														"DLSource": "https://github.com/tumGER/SDFilesSwitch",
+														"EnabledByDefault": false,
+														"Visible": false,
+														"Description": "Hekate bootlogo featuring Atmosphere Alpha and SDFilesSwitch.",
+														"When": [
+															"atmosphere"
+														],
+														"WhenMode": 0,
+														"Dependencies": [],
+														"Artifacts": [
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_bootlogo/v8.0.1/sd/bootloader/bootlogo.bmp",
+																"Directory": "sd/bootloader/bootlogo.bmp",
+																"FileName": "bootlogo.bmp"
+															}
+														]
+													},
+													{
+														"ID": "atmos_musthave",
+														"Name": "Must Have",
+														"DisplayName": "Must Have",
+														"Authors": "tumGER",
+														"Version": "v1",
+														"Source": "",
+														"DLSource": "",
+														"EnabledByDefault": false,
+														"Visible": false,
+														"Description": "Required files for Atmosphere.",
+														"When": [
+															"atmosphere"
+														],
+														"WhenMode": 0,
+														"Dependencies": [],
+														"Artifacts": [
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/0100000000000036/exefs/main",
+																"Directory": "sd/atmosphere/titles/0100000000000036/exefs/main",
+																"FileName": "main"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/0100000000000036/exefs/main.npdm",
+																"Directory": "sd/atmosphere/titles/0100000000000036/exefs/main.npdm",
+																"FileName": "main.npdm"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/main",
+																"Directory": "sd/atmosphere/titles/010000000000100D/exefs/main",
+																"FileName": "main"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/main.npdm",
+																"Directory": "sd/atmosphere/titles/010000000000100D/exefs/main.npdm",
+																"FileName": "main.npdm"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/atmosphere/titles/010000000000100D/exefs/rtld.stub",
+																"Directory": "sd/atmosphere/titles/010000000000100D/exefs/rtld.stub",
+																"FileName": "rtld.stub"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/bootloader/sys/libsys_lp0.bso",
+																"Directory": "sd/bootloader/sys/libsys_lp0.bso",
+																"FileName": "libsys_lp0.bso"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/bootloader/hekate_ipl.ini",
+																"Directory": "sd/bootloader/hekate_ipl.ini",
+																"FileName": "hekate_ipl.ini"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/modules/newfirm/fs_mitm.kip",
+																"Directory": "sd/modules/newfirm/fs_mitm.kip",
+																"FileName": "fs_mitm.kip"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/modules/newfirm/loader.kip",
+																"Directory": "sd/modules/newfirm/loader.kip",
+																"FileName": "loader.kip"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/modules/newfirm/pm.kip",
+																"Directory": "sd/modules/newfirm/pm.kip",
+																"FileName": "pm.kip"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/modules/newfirm/sm.kip",
+																"Directory": "sd/modules/newfirm/sm.kip",
+																"FileName": "sm.kip"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/switch/SDFilesUpdater/SDFilesUpdater.nro",
+																"Directory": "sd/switch/SDFilesUpdater/SDFilesUpdater.nro",
+																"FileName": "SDFilesUpdater.nro"
+															},
+															{
+																"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/atmos_musthave/v1/sd/switch/SDFilesUpdater/settings.cfg",
+																"Directory": "sd/switch/SDFilesUpdater/settings.cfg",
+																"FileName": "settings.cfg"
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							},
         {
           "ID": "homebrew",
           "Name": "Homebrew",
@@ -598,6 +601,7 @@
           "Visible": true,
           "When": [],
           "WhenMode": 0,
+          "Footer": "",
           "Categories": [
             {
               "ID": "general",
@@ -2167,6 +2171,7 @@
             "retronx"
           ],
           "WhenMode": 0,
+          "Footer": "",
           "Categories": [
             {
               "ID": "homeconsoles",
@@ -3030,6 +3035,7 @@
           "Visible": true,
           "When": [],
           "WhenMode": 0,
+          "Footer": "",
           "Categories": [
             {
               "ID": "payloads",
@@ -3658,6 +3664,7 @@
       "MenuName": "3DS",
       "HomeIcon": "https://puu.sh/BlUiD/92f3ff760d.png",
       "ID": "3ds",
+      "Color": "blue",
       "PackageSections": [
         {
           "ID": "cfws",
@@ -3667,6 +3674,7 @@
           "Visible": true,
           "When": [],
           "WhenMode": 0,
+          "Footer": "",
           "Categories": [
             {
               "ID": "cfws",
@@ -3712,7 +3720,7 @@
             }
           ]
         },
-		{
+        {
           "ID": "payloads",
           "Name": "Payloads",
           "DisplayName": "Select boot9strap payloads",
@@ -3720,6 +3728,7 @@
           "Visible": true,
           "When": [],
           "WhenMode": 0,
+          "Footer": "Payloads are placed into /sd/luma/payloads for luma chainloading when applicable",
           "Categories": [
             {
               "ID": "utilities",
@@ -3772,11 +3781,11 @@
                           "Directory": "sd/gm9/support/encTitleKeys.bin.here",
                           "FileName": "encTitleKeys.bin.here"
                         },
-																							{
-																								"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/gm9/support/seeddb.bin.here",
-																								"Directory": "sd/gm9/support/seeddb.bin.here",
-																								"FileName": "seeddb.bin.here"
-																							},
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/gm9/support/seeddb.bin.here",
+                          "Directory": "sd/gm9/support/seeddb.bin.here",
+                          "FileName": "seeddb.bin.here"
+                        },
                         {
                           "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/godmode9/v1.7.1/sd/luma/payloads/GodMode9.firm",
                           "Directory": "sd/luma/payloads/GodMode9.firm",
@@ -3877,6 +3886,7 @@
           "Visible": true,
           "When": [],
           "WhenMode": 0,
+          "Footer": "Homebrew includes both CIA and 3DSX builds where available, and are only split if their file sizes are large.<br>CIA files are placed into /sd/cias",
           "Categories": [
             {
               "ID": "general",
@@ -4078,7 +4088,7 @@
                     }
                   ]
                 },
-				{
+                {
                   "ID": "saves",
                   "Name": "Save Management",
                   "DisplayName": "Save Management",
@@ -4852,10 +4862,10 @@
     {
       "Name": "For homebrew creators",
       "FAQs": [
-        {
-          "question": "Why Blazor?",
-          "answer": "Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!"
-        },
+							{
+								"question": "Why Blazor?",
+								"answer": "Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!"
+							},
         {
           "question": "You know Blazor is experimental and isn't meant for production, right?",
           "answer": "Since this app is entirely client-side (static), there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), and compatibility is fine with Chrome and Firefox, I didn't see any reason not to use Blazor."
