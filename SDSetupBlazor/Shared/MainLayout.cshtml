@@ -68,7 +68,7 @@
 		}
 		if (!G.initialized) {
 			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
-			G.manifest = await Http.GetJsonAsync<Manifest>("/manifest4.json");
+			G.manifest = await Http.GetJsonAsync<Manifest>("/manifest5.json");
 			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
 			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
 			G.isMobile = await JSRuntime.Current.InvokeAsync<bool>("mobileAndTabletcheck");
