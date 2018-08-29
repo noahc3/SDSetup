@@ -3,19 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Blazor;
 
 namespace SDSetupBlazor {
     public class Manifest {
         public string Version = "";
         public string Copyright = "";
+        public Message Message = new Message();
         public Dictionary<string, Platform> Platforms = new Dictionary<string, Platform>();
         public List<FAQSection> FAQSections = new List<FAQSection>();
 
-        public Manifest(string version, string copyright, Dictionary<string, Platform> platforms, List<FAQSection> fAQSections) {
+        public Manifest(string version, string copyright, Dictionary<string, Platform> platforms, List<FAQSection> fAQSections, Message message) {
             Version = version;
             Copyright = copyright;
             Platforms = platforms;
             FAQSections = fAQSections;
+            Message = message;
         }
 
         public Manifest() {
@@ -23,19 +26,33 @@ namespace SDSetupBlazor {
         }
     }
 
+    public class Message {
+        public string Color = "info";
+        public string InnerHTML = "Welcome to Homebrew SD Setup!";
+
+        public Message(string color, string innerHTML) {
+            Color = color;
+            InnerHTML = innerHTML;
+        }
+
+        public Message() { }
+    }
+
     public class Platform {
         public string Name = "";
         public string MenuName = "";
         public string HomeIcon = "";
         public string ID = "";
+        public string Color = "";
         public List<PackageSection> PackageSections = new List<PackageSection>();
 
-        public Platform(string name, string menuName, string homeIcon, string iD, List<PackageSection> packageSections) {
+        public Platform(string name, string menuName, string homeIcon, string iD, List<PackageSection> packageSections, string color) {
             Name = name;
             MenuName = menuName;
             HomeIcon = homeIcon;
             ID = iD;
             PackageSections = packageSections;
+            Color = color;
         }
 
         public Platform() {
@@ -51,15 +68,16 @@ namespace SDSetupBlazor {
         public bool Visible = true;
         public List<string> When = new List<string>();
         public int WhenMode = 0; //0: all | 1: any
+        public string Footer;
         public List<PackageCategory> Categories = new List<PackageCategory>();
 
-
+        
 
         public PackageSection() {
 
         }
 
-        public PackageSection(string iD, string name, string displayName, int listingMode, bool visible, List<string> when, int whenMode, List<PackageCategory> categories) {
+        public PackageSection(string iD, string name, string displayName, int listingMode, bool visible, List<string> when, int whenMode, List<PackageCategory> categories, string footer) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
@@ -68,6 +86,7 @@ namespace SDSetupBlazor {
             When = when;
             WhenMode = whenMode;
             Categories = categories;
+            Footer = footer;
         }
     }
 
