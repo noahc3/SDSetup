@@ -7,11 +7,14 @@
 
 <img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto;margin-bottom:1.5rem;width:60%" />
 
-<div class="ui warning message">
-	<div class="header fluid" style="text-align:center">
-		This version of SD Setup is highly experimental! You should consider using <a href="https://www.sdsetup.com">the stable site!</a>
+@if (!String.IsNullOrEmpty(G.manifest.Message.InnerHTML)) {
+	<div class="ui @G.manifest.Message.Color message">
+		<div class="header fluid" style="text-align:center">
+			@((MarkupString)G.manifest.Message.InnerHTML)
+		</div>
 	</div>
-</div>
+}
+
 
 <div class="docs-example">
 	Homebrew SD Setup is a web application that lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
@@ -32,7 +35,7 @@
 
 @functions {
 
-	private void Navigate(string url) {
-		UriHelper.NavigateTo(url);
-	}
+private void Navigate(string url) {
+	UriHelper.NavigateTo(url);
+}
 }

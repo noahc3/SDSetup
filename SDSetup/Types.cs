@@ -12,19 +12,33 @@ namespace SDSetupManifestGenerator {
     public class Manifest {
         public string Version = "";
         public string Copyright = "";
+        public Message Message = new Message();
         public Dictionary<string, Platform> Platforms = new Dictionary<string, Platform>();
         public List<FAQSection> FAQSections = new List<FAQSection>();
 
-        public Manifest(string version, string copyright, Dictionary<string, Platform> platforms, List<FAQSection> fAQSections) {
+        public Manifest(string version, string copyright, Dictionary<string, Platform> platforms, List<FAQSection> fAQSections, Message message) {
             Version = version;
             Copyright = copyright;
             Platforms = platforms;
             FAQSections = fAQSections;
+            Message = message;
         }
 
         public Manifest() {
 
         }
+    }
+
+    public class Message {
+        public string Color = "info";
+        public string InnerHTML = "Welcome to Homebrew SD Setup!";
+
+        public Message(string color, string innerHTML) {
+            Color = color;
+            InnerHTML = innerHTML;
+        }
+
+        public Message() { }
     }
 
     public class Platform {
