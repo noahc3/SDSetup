@@ -205,11 +205,11 @@
 	}
 
 	protected override async Task OnInitAsync() {
+		UriHelper.OnLocationChanged += OnLocationChanged;
 		if (ForceUiRefresh == null) {
 			ForceUiRefresh = new Action(() => StateHasChanged());
 		}
 		if (localInitialized == false) {
-			UriHelper.OnLocationChanged += OnLocationChanged;
 			localInitialized = true;
 		}
 	}

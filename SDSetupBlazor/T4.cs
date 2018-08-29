@@ -1,4 +1,8 @@
-﻿using System;
+﻿/* Copyright (c) 2018 noahc3
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+using System;
 
 namespace SDSetupBlazor
 {
@@ -6,7 +10,7 @@ namespace SDSetupBlazor
     {
         public static string BuildDate {
 			get {
-				return "2018.08.29.228658";
+				return "2018.08.29.d1df97";
 			}
 		}
     }
