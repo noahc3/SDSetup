@@ -5,13 +5,16 @@
 @page "/"
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 
-<img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto;margin-bottom:1.5rem;width:60%"/>
+<img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto;margin-bottom:1.5rem;width:60%" />
 
-<div class="ui success message">
-	<div class="header fluid" style="text-align:center">
-		Hekate 4.0 support is here!
+@if (!String.IsNullOrEmpty(G.manifest.Message.InnerHTML)) {
+	<div class="ui @G.manifest.Message.Color message">
+		<div class="header fluid" style="text-align:center">
+			@((MarkupString)G.manifest.Message.InnerHTML)
+		</div>
 	</div>
-</div>
+}
+
 
 <div class="docs-example">
 	Homebrew SD Setup is a web application that lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
@@ -22,7 +25,7 @@
 	<div class="ui link cards justify-content-center" style="margin-bottom:1.5rem">
 		@foreach (Platform k in G.manifest.Platforms.Values) {
 			<div class="card" style="max-width:30rem">
-				<div class="image" onclick="@(() => Navigate("/switch"))">
+				<div class="image" onclick="@(() => Navigate("/console?" + k.ID))">
 					<img src="@k.HomeIcon">
 				</div>
 			</div>

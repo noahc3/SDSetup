@@ -8,14 +8,16 @@
 
 @if (G.initialized) {
 	<div class="main" style="min-height:100%;height:auto">
-		<div class="ui menu stackable red">
+		<div class="ui menu stackable @G.manifest.Platforms[G.consoleId].Color">
 			<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
-			<a href="/switch" class="@(GetRelativePath().ToLower() == "switch" ? "active" : "") item">@G.manifest.Platforms["switch"].MenuName</a>
+			@foreach(Platform k in G.manifest.Platforms.Values) {
+				<a href="/console?@k.ID" class="@(GetRelativePath().ToLower().StartsWith("console?" + k.ID) ? "active" : "") item">@k.MenuName</a>
+			}
 			<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
 			<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
 			<div class="right menu">
 				<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
-				<a href="https://github.com/noahc3/SDSetup" class="ui item">Source</a>
+				<a href="https://github.com/noahc3/SDSetup" class="ui item"><i class="big github icon"></i></a>
 			</div>
 		</div>
 
@@ -58,15 +60,22 @@
 
 	//public static bool edgeConfirmed = false;
 
+	public static Action ForceUiRefresh;
+
 	protected override async Task OnInitAsync() {
+		if (ForceUiRefresh == null) {
+			ForceUiRefresh = new Action(() => StateHasChanged());
+		}
 		if (!G.initialized) {
 			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
 			G.manifest = await Http.GetJsonAsync<Manifest>("/manifest4.json");
+			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
+			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
 			G.isMobile = await JSRuntime.Current.InvokeAsync<bool>("mobileAndTabletcheck");
 			Console.WriteLine(UriHelper.GetAbsoluteUri());
 			G.Init(UriHelper.GetAbsoluteUri());
 			G.initialized = true;
-			if (Pages.Switch.ForceUiRefresh != null) Pages.Switch.ForceUiRefresh();
+			if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
 			if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
 			StateHasChanged();
 		}

@@ -12,12 +12,14 @@ using Microsoft.AspNetCore.Blazor.Services;
 namespace SDSetupBlazor
 {
     public static class G {
+        public static string consoleId = "switch";
+
         public static bool initialized = false;
         public static bool isMobile = false;
 
         public static string[] autofillBlacklist = new string[] { "cfw", "cfwoptions", "payloads", "pctools", "cfwaddons" };
         public static string[] autodlBlacklist = new string[] { "cfw", "cfwoptions", "cfwaddons" };
-        public static Dictionary<string, bool> selectedPackages = new Dictionary<string, bool>();
+        public static Dictionary<string, Dictionary<string, bool>> selectedPackages = new Dictionary<string, Dictionary<string, bool>>();
         public static Dictionary<string, Dictionary<string, Package>> packages = new Dictionary<string, Dictionary<string, Package>>();
         public static Manifest manifest;
 
@@ -33,22 +35,28 @@ namespace SDSetupBlazor
         public static void Init(string url) {
             foreach (Platform k in manifest.Platforms.Values) {
                 packages[k.ID] = new Dictionary<string, Package>();
+                selectedPackages[k.ID] = new Dictionary<string, bool>();
                 foreach (PackageSection sec in k.PackageSections) {
                     foreach (PackageCategory c in sec.Categories) {
                         foreach (PackageSubcategory s in c.Subcategories) {
                             foreach (Package p in s.Packages) {
-                                selectedPackages[p.ID] = p.EnabledByDefault;
+                                selectedPackages[k.ID][p.ID] = p.EnabledByDefault;
                                 packages[k.ID][p.ID] = p;
                             }
                         }
                     }
                 }
             }
-
+            if (url.Contains("/console?")) {
+                string a = url.Split('?')[1];
+                if (a.Contains('#')) a = a.Split('#')[0];
+                G.consoleId = a;
+            }
             SelectByUrl(url);
         }
 
         public static void SelectByUrl(string url) {
+            if (!G.manifest.Platforms.ContainsKey(G.consoleId)) return;
             if (url.Split('#').Count() < 2 || url.Split('#')[1].Length == 0) {
                 return;
             }
@@ -56,9 +64,9 @@ namespace SDSetupBlazor
 
             if (oldPreSelects != null && preselects.SequenceEqual(oldPreSelects)) return;
             oldPreSelects = preselects;
-            foreach (KeyValuePair<string, bool> k in selectedPackages.ToList()) {
-                if (preselects.Contains(k.Key)) selectedPackages[k.Key] = true;
-                else selectedPackages[k.Key] = false;
+            foreach (KeyValuePair<string, bool> k in selectedPackages[consoleId].ToList()) {
+                if (preselects.Contains(k.Key)) selectedPackages[consoleId][k.Key] = true;
+                else selectedPackages[consoleId][k.Key] = false;
             }
 
             return;
@@ -72,12 +80,12 @@ namespace SDSetupBlazor
             if (When.Count == 0) return true;
             if (WhenMode == 0) {
                 foreach (string k in When) {
-                    if (!selectedPackages.ContainsKey(k) || !selectedPackages[k]) return false;
+                    if (!selectedPackages[consoleId].ContainsKey(k) || !selectedPackages[consoleId][k]) return false;
                 }
                 return true;
             } else if (WhenMode == 1) {
                 foreach (string k in When) {
-                    if (selectedPackages.ContainsKey(k) && selectedPackages[k]) return true;
+                    if (selectedPackages[consoleId].ContainsKey(k) && selectedPackages[consoleId][k]) return true;
                 }
                 return false;
             }
@@ -88,12 +96,12 @@ namespace SDSetupBlazor
             if (When.Count == 0) return true;
             if (WhenMode == 0) {
                 foreach (string k in When) {
-                    if (!selectedPackages.ContainsKey(k) || !selectedPackages[k]) return false;
+                    if (!selectedPackages[consoleId].ContainsKey(k) || !selectedPackages[consoleId][k]) return false;
                 }
                 return true;
             } else if (WhenMode == 1) {
                 foreach (string k in When) {
-                    if (selectedPackages.ContainsKey(k) && selectedPackages[k]) return true;
+                    if (selectedPackages[consoleId].ContainsKey(k) && selectedPackages[consoleId][k]) return true;
                 }
                 return false;
             }

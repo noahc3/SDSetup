@@ -1,0 +1,354 @@
+﻿<!-- Copyright (c) 2018 noahc3
+   - This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+@page  "/console"
+@inject HttpClient Http
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+
+@SetConsoleId()
+
+@if (!gettingZip) {
+
+<div>
+
+	@if (zipDoneMessage == true) {
+		<div class="ui success message">
+			<i class="close icon" onclick="@(() => zipDoneMessage = false)"></i>
+			<div class="header">
+				Operation Completed
+			</div>
+			<p>Your ZIP file should download within the next few seconds!</p>
+		</div>
+	}
+
+	@if (firefoxMessage == true) {
+		<div class="ui success message">
+			<i class="close icon" onclick="@(() => firefoxMessage = false)"></i>
+			<div class="header">
+				Firefox Notice:
+			</div>
+			<p>
+				Firefox has some problems right now. Do the following to get your ZIP:<br />
+				1. Copy the following URL: <b>@blobUrl</b><br />
+				2. Open a new tab (do not use this tab!)<br />
+				3. Paste the copied URL into the address bar
+			</p>
+		</div>
+	}
+
+	@if (saveMessage) {
+		<div class="ui success message">
+			<i class="close icon" onclick="@(() => saveMessage = false)"></i>
+			<div class="header">
+				Want to redownload in the future?
+			</div>
+			<p>
+				Save the following URL somewhere to immediately have the same packages pre-selected in the future:<br />
+			</p>
+			<BlazorTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
+				<tbody>
+					<tr>
+						<th scope="row">@saveUrl</th>
+					</tr>
+				</tbody>
+			</BlazorTable>
+		</div>
+	}
+
+	@if (selectMore) {
+		<div class="ui negative message">
+			<i class="close icon" onclick="@(() => selectMore = false)"></i>
+			<div class="header">
+				No packages are selected.
+			</div>
+		</div>
+	}
+
+	<h1 style="text-align:center">@G.manifest.Platforms[G.consoleId].Name</h1>
+
+	@if (!G.initialized) {
+		<h2>Page is loading, please wait...</h2>
+	} else {
+		@foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections) {
+			if (!G.CanShow(sec.Visible, sec.When, sec.WhenMode)) {
+				continue;
+			}
+			if (sec.ListingMode == 0) {
+				<div class="docs-example">
+					<h3 style="margin-bottom:0.5em">@sec.DisplayName</h3>
+					<Card CardType="CardType.Deck" Class="justify-content-center">
+						@foreach (PackageCategory cat in sec.Categories) {
+							if (!G.CanShow(cat.Visible, cat.When, cat.WhenMode)) {
+								continue;
+							}
+
+							<Card style="margin-bottom:2rem">
+								<Card CardType="CardType.Body">
+									<Card CardType="CardType.Title">@cat.DisplayName</Card>
+									@foreach (PackageSubcategory sub in cat.Subcategories) {
+										if (!G.CanShow(sub.Visible, sub.When, sub.WhenMode)) {
+											continue;
+										}
+										<Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@sub.DisplayName</Card>
+										<div class="ui form">
+											@foreach (Package p in sub.Packages) {
+												if (!G.CanShow(p.Visible, p.When, p.WhenMode)) {
+													continue;
+												}
+
+												<div class="inline field" style="margin:0 0 0 1rem">
+													<div class="nc3_hover">
+														<div class="ui checkbox @(G.selectedPackages[G.consoleId][p.ID] == true ? "checked" : "")" onclick="@(() => checkClicked(p.ID))">
+															<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[G.consoleId][p.ID] == true)">
+															<label>@p.Name@if (!String.IsNullOrEmpty(p.Version)) {<sub style="color:#b7b7b7"> (@p.Version)</sub>}</label>
+														</div>
+														@if (!G.isMobile) {
+															<div class="nc3_tooltip">
+																<h4 style="margin:0">@p.Name</h4>
+																<h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
+																<p>@p.Description</p>
+																<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a></p>
+															</div>
+														}
+													</div>
+												</div>
+
+											}
+										</div>
+									}
+								</Card>
+							</Card>
+						}
+					</Card>
+					<p style="text-align:center;color:#808080"><b>@((MarkupString)sec.Footer)</b></p>
+				</div>
+			} else {
+				<div class="docs-example markup">
+					<h3>@sec.DisplayName</h3>
+					<div class="ui @GetMenuSize(sec) item menu" style="margin-bottom:2rem">
+						@foreach (PackageCategory cat in sec.Categories) {
+							@foreach (PackageSubcategory sub in cat.Subcategories) {
+								@foreach (Package k in sub.Packages) {
+									@if (G.CanShow(k.Visible, k.When, k.WhenMode)) {
+										<a class="item @(G.selectedPackages[G.consoleId][k.ID] == true ? "active" : "")" onclick="@(() => checkClicked(k.ID))">@k.DisplayName</a>
+									}
+								}
+							}
+						}
+					</div>
+					@((MarkupString)sec.Footer)
+				</div>
+			}
+		}
+		<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
+	}
+
+</div>
+} else {
+<div class="ui active dimmer" style="height:100%;width:100%">
+	<div class="ui massive text loader">
+		<div id="infoh" style="margin-bottom:2rem">Downloading your ZIP, please wait...</div>
+		@if (barMode == true) {
+			<progress Max="@total" Value="@current"></progress>
+			<label style="margin-top:0.5rem">Fetching Files (@current/@total)</label>
+		} else {
+			<progress Max="@total" Value="@current" Color="Color.Success"></progress>
+			<label style="margin-top:0.5rem">Zipping Files (@current/@total)</label>
+		}
+	</div>
+	<div class="ui negative message" style="width:90%;position:absolute;bottom:5%">
+		<div class="header fluid">
+			This might take a while. If the progress stalls for more than a minute, please report it on <a href="https://github.com/noahc3/SDSetup/issues">GitHub</a>
+		</div>
+	</div>
+</div>
+}
+
+
+
+@functions {
+
+	private static bool localInitialized = false;
+
+	public static Action ForceUiRefresh;
+
+	public static bool gettingZip = false;
+
+	private static bool zipDoneMessage = false;
+	private static bool firefoxMessage = false;
+	private static bool saveMessage = false;
+	private static bool selectMore = false;
+
+	private static List<string> gottenPackages;
+
+	private static bool b = false;
+
+	private static string blobUrl = "";
+	private static string saveUrl = "";
+
+	private static List<string> preenabled;
+
+	static int total = 3;
+	static int current = 0;
+	static bool barMode = true;
+
+	protected override void OnInit() {
+		string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+		if (a.Contains('#')) a = a.Split('#')[0];
+		G.consoleId = a;
+		Shared.MainLayout.ForceUiRefresh();
+		if (localInitialized == false) {
+			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
+			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
+		}
+	}
+
+	protected override async Task OnInitAsync() {
+		if (ForceUiRefresh == null) {
+			ForceUiRefresh = new Action(() => StateHasChanged());
+		}
+		if (localInitialized == false) {
+			UriHelper.OnLocationChanged += OnLocationChanged;
+			localInitialized = true;
+		}
+	}
+
+	private void OnLocationChanged(object sender, string location) {
+		if (G.initialized) {
+			if (UriHelper.GetAbsoluteUri().Contains("/console?")) {
+				zipDoneMessage = false;
+				firefoxMessage = false;
+				saveMessage = false;
+				selectMore = false;
+				string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+				if (a.Contains('#')) a = a.Split('#')[0];
+				G.consoleId = a;
+				G.SelectByUrl(UriHelper.GetAbsoluteUri());
+				StateHasChanged();
+				Shared.MainLayout.ForceUiRefresh();
+			}
+
+		}
+	}
+
+	private string GetMenuSize(PackageSection sec) {
+		int num = 0;
+		foreach (PackageCategory cat in sec.Categories) foreach (PackageSubcategory sub in cat.Subcategories) foreach (Package pac in sub.Packages) num++;
+
+		switch (num) {
+			case 1: return "one";
+			case 2: return "two";
+			case 3: return "three";
+			case 4: return "four";
+			case 5: return "five";
+			case 6: return "six";
+			default: return "three";
+		}
+
+	}
+
+	private string SetConsoleId() {
+		string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+		if (a.Contains('#')) a = a.Split('#')[0];
+		G.consoleId = a;
+		return "";
+	}
+
+	private void checkClicked(string id) {
+		G.selectedPackages[G.consoleId][id] = !G.selectedPackages[G.consoleId][id];
+		StateHasChanged();
+	}
+
+	//TODO: Move this to package
+
+	private List<Tuple<string, string, string>> getArtifacts(Package p) {
+		List<Tuple<string, string, string>> artifacts = new List<Tuple<string, string, string>>();
+		if (!gottenPackages.Contains(p.ID)) {
+			foreach (Artifact a in p.Artifacts) {
+				FileInfo fi = new FileInfo(a.Directory);
+				string path = fi.DirectoryName;
+				if (path.StartsWith("\\") || path.StartsWith("/")) path = path.Substring(1);
+				artifacts.Add(new Tuple<string, string, string>(a.URL, path, fi.Name));
+			}
+			gottenPackages.Add(p.ID);
+		}
+		foreach (string k in p.Dependencies) artifacts.AddRange(getArtifacts(G.packages[G.consoleId][k]));
+		return artifacts;
+	}
+
+	[JSInvokable]
+	public static void AddProgress() {
+		current++;
+		ForceUiRefresh();
+	}
+
+	// due to many issues, this has to go here and not in global :/
+	private async void downloadZip() {
+
+		gettingZip = true;
+		zipDoneMessage = false;
+		firefoxMessage = false;
+		saveMessage = false;
+		selectMore = false;
+		barMode = true;
+		current = 0;
+
+		gottenPackages = new List<string>();
+
+		List<Tuple<string, string, string>> finalArtifacts = new List<Tuple<string, string, string>>();
+
+		foreach (KeyValuePair<string, bool> k in G.selectedPackages[G.consoleId]) {
+			if (k.Value && G.CanDownload(G.packages[G.consoleId][k.Key].When, G.packages[G.consoleId][k.Key].WhenMode)) {
+				finalArtifacts.AddRange(getArtifacts(G.packages[G.consoleId][k.Key]));
+			}
+		}
+
+		if (gottenPackages.Count == 0) {
+			selectMore = true;
+			gettingZip = false;
+			StateHasChanged();
+			await ZipHelpers.ScrollToTop();
+		}
+
+		total = finalArtifacts.Count;
+
+		foreach (Tuple<string, string, string> k in finalArtifacts) {
+			int result = await ZipHelpers.AddFile(k.Item1, k.Item2, k.Item3);
+			if (result == 2) {
+				Console.WriteLine("File download failed, aborting...");
+				gettingZip = false;
+				zipDoneMessage = true;
+				StateHasChanged();
+				return;
+			}
+			current++;
+			StateHasChanged();
+		}
+
+		barMode = false;
+		current = 0;
+		StateHasChanged();
+
+		string response = await ZipHelpers.AwaitableGenerateZip();
+
+		saveUrl = UriHelper.GetBaseUri() + "console?" + G.consoleId + "#";
+		foreach (string k in gottenPackages) {
+			saveUrl += k + ";";
+		}
+
+		if (String.IsNullOrEmpty(response)) {
+			zipDoneMessage = true;
+		} else {
+			blobUrl = response;
+			firefoxMessage = true;
+		}
+		saveMessage = true;
+		gettingZip = false;
+		StateHasChanged();
+	}
+
+	private string UUID() {
+		return new Guid().ToString();
+	}
+}
