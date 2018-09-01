@@ -17,6 +17,9 @@ namespace SDSetupBlazor
         public static bool initialized = false;
         public static bool isMobile = false;
 
+        public static Dictionary<string, Dictionary<string, List<string>>> WhenDependants = new Dictionary<string, Dictionary<string, List<string>>>();
+        public static Dictionary<string, Action> SectionRefreshes = new Dictionary<string, Action>();
+
         public static string[] autofillBlacklist = new string[] { "cfw", "cfwoptions", "payloads", "pctools", "cfwaddons" };
         public static string[] autodlBlacklist = new string[] { "cfw", "cfwoptions", "cfwaddons" };
         public static Dictionary<string, Dictionary<string, bool>> selectedPackages = new Dictionary<string, Dictionary<string, bool>>();
@@ -36,12 +39,17 @@ namespace SDSetupBlazor
             foreach (Platform k in manifest.Platforms.Values) {
                 packages[k.ID] = new Dictionary<string, Package>();
                 selectedPackages[k.ID] = new Dictionary<string, bool>();
+                WhenDependants[k.ID] = new Dictionary<string, List<string>>();
                 foreach (PackageSection sec in k.PackageSections) {
                     foreach (PackageCategory c in sec.Categories) {
                         foreach (PackageSubcategory s in c.Subcategories) {
                             foreach (Package p in s.Packages) {
                                 selectedPackages[k.ID][p.ID] = p.EnabledByDefault;
                                 packages[k.ID][p.ID] = p;
+                                foreach (string w in p.When) {
+                                    if (!WhenDependants[k.ID].ContainsKey(w)) WhenDependants[k.ID][w] = new List<string>();
+                                    if (!WhenDependants[k.ID][w].Contains(sec.ID)) WhenDependants[k.ID][w].Add(sec.ID);
+                                }
                             }
                         }
                     }
@@ -71,8 +79,6 @@ namespace SDSetupBlazor
 
             return;
         }
-
-
 
 
         public static bool CanShow(bool visible, List<string> When, int WhenMode) {

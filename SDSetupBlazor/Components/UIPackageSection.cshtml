@@ -1,0 +1,96 @@
+﻿@if (G.CanShow(Section.Visible, Section.When, Section.WhenMode)) {
+    if (Section.ListingMode == 0) {
+        <div class="docs-example">
+            <h3 style="margin-bottom:0.5em">@Section.DisplayName</h3>
+            <Card CardType="CardType.Deck" Class="justify-content-center">
+                @foreach (PackageCategory cat in Section.Categories) {
+                    if (!G.CanShow(cat.Visible, cat.When, cat.WhenMode)) {
+                        continue;
+                    }
+
+                    <Card style="margin-bottom:2rem">
+                        <Card CardType="CardType.Body">
+                            <Card CardType="CardType.Title">@cat.DisplayName</Card>
+                            @foreach (PackageSubcategory sub in cat.Subcategories) {
+                                if (!G.CanShow(sub.Visible, sub.When, sub.WhenMode)) {
+                                    continue;
+                                }
+                                <Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@sub.DisplayName</Card>
+                                <div class="ui form">
+                                    @foreach (Package p in sub.Packages) {
+                                        if (!G.CanShow(p.Visible, p.When, p.WhenMode)) {
+                                            continue;
+                                        }
+
+                                        <div class="inline field" style="margin:0 0 0 1rem">
+                                            <div class="nc3_hover">
+                                                <PackageCheckbox PID="@p.ID" Name="@p.Name" Version="@p.Version"></PackageCheckbox>
+                                                @if (!G.isMobile) {
+                                                    <div class="nc3_tooltip">
+                                                        <h4 style="margin:0">@p.Name</h4>
+                                                        <h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
+                                                        <p>@p.Description</p>
+                                                        <br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a></p>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+
+                                    }
+                                </div>
+                            }
+                        </Card>
+                    </Card>
+                }
+            </Card>
+            <p style="text-align:center;color:#808080"><b>@((MarkupString)Section.Footer)</b></p>
+        </div>
+    } else {
+        <div class="docs-example markup">
+            <h3>@Section.DisplayName</h3>
+            <div class="ui @GetMenuSize(Section) item menu" style="margin-bottom:2rem">
+                @foreach (PackageCategory cat in Section.Categories) {
+                    @foreach (PackageSubcategory sub in cat.Subcategories) {
+                        @foreach (Package k in sub.Packages) {
+                            @if (G.CanShow(k.Visible, k.When, k.WhenMode)) {
+                                <PackageMenuItem PID="@k.ID" DisplayName="@k.DisplayName"></PackageMenuItem>
+                            }
+                        }
+                    }
+                }
+            </div>
+            @((MarkupString)Section.Footer)
+        </div>
+    }
+}
+
+
+@functions {
+    [Parameter]
+    private PackageSection Section { get; set; }
+
+    public Action ForceUiRefresh;
+
+    protected override async Task OnInitAsync() {
+        if (ForceUiRefresh == null) {
+            ForceUiRefresh = new Action(() => StateHasChanged());
+            G.SectionRefreshes[Section.ID] = ForceUiRefresh;
+        }
+    }
+
+    private string GetMenuSize(PackageSection sec) {
+        int num = 0;
+        foreach (PackageCategory cat in Section.Categories) foreach (PackageSubcategory sub in cat.Subcategories) foreach (Package pac in sub.Packages) num++;
+
+        switch (num) {
+            case 1: return "one";
+            case 2: return "two";
+            case 3: return "three";
+            case 4: return "four";
+            case 5: return "five";
+            case 6: return "six";
+            default: return "three";
+        }
+
+    }
+}

@@ -1,0 +1,24 @@
+﻿<div class="ui checkbox @(G.selectedPackages[G.consoleId][PID] == true ? "checked" : "")" onclick="@(() => checkClicked(PID))">
+    <input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[G.consoleId][PID] == true)">
+    <label>@Name@if (!String.IsNullOrEmpty(Version)) {<sub style="color:#b7b7b7"> (@Version)</sub>}</label>
+</div>
+
+@functions  {
+    [Parameter]
+    private string PID { get; set; }
+
+    [Parameter]
+    private string Version { get; set; }
+
+    [Parameter]
+    private string Name { get; set; }
+
+    private void checkClicked(string id) {
+
+        //TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
+        //An ideal optimization would be to verify the page needs to refresh before refreshing.
+        G.selectedPackages[G.consoleId][PID] = !G.selectedPackages[G.consoleId][PID];
+        if (G.WhenDependants[G.consoleId].ContainsKey(PID) && G.WhenDependants[G.consoleId][PID].Count > 0) Pages.Consoles.ForceUiRefresh();
+        StateHasChanged();
+    }
+}

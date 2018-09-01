@@ -1,0 +1,18 @@
+﻿<a class="item @(G.selectedPackages[G.consoleId][PID] == true ? "active" : "")" onclick="@(() => checkClicked(PID))">@DisplayName</a>
+
+@functions  {
+    [Parameter]
+    private string PID { get; set; }
+
+    [Parameter]
+    private string DisplayName { get; set; }
+
+    private void checkClicked(string id) {
+
+        //TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
+        //An ideal optimization would be to verify the page needs to refresh before refreshing.
+        G.selectedPackages[G.consoleId][PID] = !G.selectedPackages[G.consoleId][PID];
+        if (G.WhenDependants[G.consoleId].ContainsKey(PID)) foreach (string SID in G.WhenDependants[G.consoleId][PID]) G.SectionRefreshes[SID]();
+        StateHasChanged();
+    }
+}
