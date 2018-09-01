@@ -166,7 +166,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnPlatformSave_Click(object sender, EventArgs e) {
             if (SelectedPlatform == null) {
-                manifest.Platforms[txtPlatformID.Text] = new Platform(txtPlatformName.Text, txtPlatformMenu.Text, txtPlatformIcon.Text, txtPlatformID.Text, new List<PackageSection>(), "");
+                manifest.Platforms[txtPlatformID.Text] = new Platform(txtPlatformName.Text, txtPlatformMenu.Text, txtPlatformIcon.Text, txtPlatformID.Text, new List<PackageSection>(), "", true);
             } else {
                 SelectedPlatform.Name = txtPlatformName.Text;
                 SelectedPlatform.MenuName = txtPlatformMenu.Text;
