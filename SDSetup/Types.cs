@@ -47,9 +47,10 @@ namespace SDSetupManifestGenerator {
         public string HomeIcon = "";
         public string ID = "";
         public string Color = "";
+        public bool Visible = true;
         public List<PackageSection> PackageSections = new List<PackageSection>();
 
-        public Platform(string name, string menuName, string homeIcon, string iD, List<PackageSection> packageSections, string color) {
+        public Platform(string name, string menuName, string homeIcon, string iD, List<PackageSection> packageSections, string color, bool Visible) {
             Name = name;
             MenuName = menuName;
             HomeIcon = homeIcon;

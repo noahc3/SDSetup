@@ -11,6 +11,7 @@
 		<div class="ui menu stackable @G.manifest.Platforms[G.consoleId].Color">
 			<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
 			@foreach(Platform k in G.manifest.Platforms.Values) {
+                if (!k.Visible) { continue; }
 				<a href="/console?@k.ID" class="@(GetRelativePath().ToLower().StartsWith("console?" + k.ID) ? "active" : "") item">@k.MenuName</a>
 			}
 			<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
