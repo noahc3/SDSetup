@@ -69,76 +69,9 @@
 		<h2>Page is loading, please wait...</h2>
 	} else {
 		@foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections) {
-			if (!G.CanShow(sec.Visible, sec.When, sec.WhenMode)) {
-				continue;
-			}
-			if (sec.ListingMode == 0) {
-				<div class="docs-example">
-					<h3 style="margin-bottom:0.5em">@sec.DisplayName</h3>
-					<Card CardType="CardType.Deck" Class="justify-content-center">
-						@foreach (PackageCategory cat in sec.Categories) {
-							if (!G.CanShow(cat.Visible, cat.When, cat.WhenMode)) {
-								continue;
-							}
-
-							<Card style="margin-bottom:2rem">
-								<Card CardType="CardType.Body">
-									<Card CardType="CardType.Title">@cat.DisplayName</Card>
-									@foreach (PackageSubcategory sub in cat.Subcategories) {
-										if (!G.CanShow(sub.Visible, sub.When, sub.WhenMode)) {
-											continue;
-										}
-										<Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@sub.DisplayName</Card>
-										<div class="ui form">
-											@foreach (Package p in sub.Packages) {
-												if (!G.CanShow(p.Visible, p.When, p.WhenMode)) {
-													continue;
-												}
-
-												<div class="inline field" style="margin:0 0 0 1rem">
-													<div class="nc3_hover">
-														<div class="ui checkbox @(G.selectedPackages[G.consoleId][p.ID] == true ? "checked" : "")" onclick="@(() => checkClicked(p.ID))">
-															<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[G.consoleId][p.ID] == true)">
-															<label>@p.Name@if (!String.IsNullOrEmpty(p.Version)) {<sub style="color:#b7b7b7"> (@p.Version)</sub>}</label>
-														</div>
-														@if (!G.isMobile) {
-															<div class="nc3_tooltip">
-																<h4 style="margin:0">@p.Name</h4>
-																<h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
-																<p>@p.Description</p>
-																<br /><br /><p>Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a></p>
-															</div>
-														}
-													</div>
-												</div>
-
-											}
-										</div>
-									}
-								</Card>
-							</Card>
-						}
-					</Card>
-					<p style="text-align:center;color:#808080"><b>@((MarkupString)sec.Footer)</b></p>
-				</div>
-			} else {
-				<div class="docs-example markup">
-					<h3>@sec.DisplayName</h3>
-					<div class="ui @GetMenuSize(sec) item menu" style="margin-bottom:2rem">
-						@foreach (PackageCategory cat in sec.Categories) {
-							@foreach (PackageSubcategory sub in cat.Subcategories) {
-								@foreach (Package k in sub.Packages) {
-									@if (G.CanShow(k.Visible, k.When, k.WhenMode)) {
-										<a class="item @(G.selectedPackages[G.consoleId][k.ID] == true ? "active" : "")" onclick="@(() => checkClicked(k.ID))">@k.DisplayName</a>
-									}
-								}
-							}
-						}
-					</div>
-					@((MarkupString)sec.Footer)
-				</div>
-			}
+			<UIPackageSection Section="@sec"></UIPackageSection>
 		}
+
 		<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
 	}
 
@@ -228,22 +161,6 @@
 			}
 
 		}
-	}
-
-	private string GetMenuSize(PackageSection sec) {
-		int num = 0;
-		foreach (PackageCategory cat in sec.Categories) foreach (PackageSubcategory sub in cat.Subcategories) foreach (Package pac in sub.Packages) num++;
-
-		switch (num) {
-			case 1: return "one";
-			case 2: return "two";
-			case 3: return "three";
-			case 4: return "four";
-			case 5: return "five";
-			case 6: return "six";
-			default: return "three";
-		}
-
 	}
 
 	private string SetConsoleId() {
