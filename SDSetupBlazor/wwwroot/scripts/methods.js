@@ -34,15 +34,24 @@ function downloadZip() {
 				// close the writer
 				writer.close(function (blob) {
 
-					if (getBrowserCompatInfo() == 3) {
-						console.log("Firefox browser detected");
-						resolve(window.URL.createObjectURL(blob));
-					} else {
-						console.log("Non-Firefox detected");
-						saveAs(blob, "SDSetup.Switch.zip");
-						blobs = [];
-						resolve("");
-					}
+                    if (getBrowserCompatInfo() == 3) {
+                        console.log("Firefox browser detected");
+                        if (navigator.browserSpecs.version > 61) {
+                            console.log("Firefox version " + navigator.browserSpecs.version + " supports zipjs blob download");
+                            saveAs(blob, "SDSetup.Switch.zip");
+                            blobs = [];
+                            resolve("");
+                        } else {
+                            console.log("Firefox version " + navigator.browserSpecs.version + " does not support zipjs blob download");
+                            resolve(window.URL.createObjectURL(blob));
+                        }
+
+                    } else {
+                        console.log("Non-Firefox detected");
+                        saveAs(blob, "SDSetup.Switch.zip");
+                        blobs = [];
+                        resolve("");
+                    }
 				});
 			}
 
