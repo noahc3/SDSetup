@@ -10,7 +10,7 @@ namespace SDSetupBlazor
     {
         public static string BuildDate {
 			get {
-				return "2018.09.01.2cf7a4";
+				return "2018.09.01.555d34";
 			}
 		}
     }

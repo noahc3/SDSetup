@@ -246,7 +246,7 @@
 		current = 0;
 		StateHasChanged();
 
-		string response = await ZipHelpers.AwaitableGenerateZip();
+		string response = await ZipHelpers.AwaitableGenerateZip("SD Setup (" + G.manifest.Platforms[G.consoleId].Name + " " + DateTime.Now.ToShortDateString().Replace('/', '.') + ").zip");
 
 		saveUrl = UriHelper.GetBaseUri() + "console?" + G.consoleId + "#";
 		foreach (string k in gottenPackages) {

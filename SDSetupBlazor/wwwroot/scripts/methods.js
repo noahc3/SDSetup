@@ -8,6 +8,7 @@ var setupList;
 var donotcontinue = false;
 var retry = 0;
 var finalBlob = null;
+var outputName = "SDSetup.zip";
 
 
 
@@ -38,7 +39,7 @@ function downloadZip() {
                         console.log("Firefox browser detected");
                         if (navigator.browserSpecs.version > 61) {
                             console.log("Firefox version " + navigator.browserSpecs.version + " supports zipjs blob download");
-                            saveAs(blob, "SDSetup.Switch.zip");
+                            saveAs(blob, outputName);
                             blobs = [];
                             resolve("");
                         } else {
@@ -48,7 +49,7 @@ function downloadZip() {
 
                     } else {
                         console.log("Non-Firefox detected");
-                        saveAs(blob, "SDSetup.Switch.zip");
+                        saveAs(blob, outputName);
                         blobs = [];
                         resolve("");
                     }
@@ -139,8 +140,9 @@ window.interop_addFile = (data) => {
 	});
 };
 
-window.interop_generateZip = () => {
-	return downloadZip();
+window.interop_generateZip = (filename) => {
+    outputName = filename;
+    return downloadZip();
 }
 
 window.interop_downloadZip = () => {
