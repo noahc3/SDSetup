@@ -165,7 +165,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormFetch";
-            this.Text = "FetchWindow";
+            this.Text = "Fetch Files";
             this.ResumeLayout(false);
             this.PerformLayout();
 

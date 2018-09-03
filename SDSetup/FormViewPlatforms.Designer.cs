@@ -93,7 +93,7 @@
             this.Controls.Add(this.btnNew);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormViewPlatforms";
-            this.Text = "Platforms";
+            this.Text = "View Platforms";
             this.ResumeLayout(false);
 
         }

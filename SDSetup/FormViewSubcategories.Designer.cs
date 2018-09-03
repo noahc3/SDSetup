@@ -163,7 +163,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormViewSubcategories";
-            this.Text = "FormViewSubcategories";
+            this.Text = "View Subcategories";
             this.ResumeLayout(false);
             this.PerformLayout();
 

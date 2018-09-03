@@ -140,7 +140,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormViewCategories";
-            this.Text = "FormViewCategories";
+            this.Text = "View Categories";
             this.ResumeLayout(false);
             this.PerformLayout();
 
