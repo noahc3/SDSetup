@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormEditSubcategory));
             this.label4 = new System.Windows.Forms.Label();
             this.ddlSections = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -272,6 +273,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtId);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormEditSubcategory";
             this.Text = "FormEditSubcategory";
             ((System.ComponentModel.ISupportInitialize)(this.nudWhenMode)).EndInit();

@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormViewSubcategories));
             this.label2 = new System.Windows.Forms.Label();
             this.ddlSections = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -160,6 +161,7 @@
             this.Controls.Add(this.btnEdit);
             this.Controls.Add(this.btnNew);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormViewSubcategories";
             this.Text = "FormViewSubcategories";
             this.ResumeLayout(false);
