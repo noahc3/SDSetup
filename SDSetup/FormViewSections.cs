@@ -28,7 +28,7 @@ namespace SDSetupManifestGenerator {
 
         private void btnNew_Click(object sender, EventArgs e) {
             if (ddlPlatforms.SelectedItem == null) {
-                MessageBox.Show("Select a platform for the section", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Select a platform!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             new FormEditSection((Platform)ddlPlatforms.SelectedItem).ShowDialog();
