@@ -66,5 +66,9 @@ namespace SDSetupManifestGenerator {
         private void btnSections_Click(object sender, EventArgs e) {
             new FormViewSections().ShowDialog();
         }
+
+        private void btnCategories_Click(object sender, EventArgs e) {
+            new FormViewCategories().ShowDialog();
+        }
     }
 }

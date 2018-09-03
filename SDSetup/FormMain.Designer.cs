@@ -31,7 +31,7 @@
             this.btnLogin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnPlatforms = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnCategories = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.btnSections = new System.Windows.Forms.Button();
@@ -114,14 +114,15 @@
             this.btnPlatforms.UseVisualStyleBackColor = true;
             this.btnPlatforms.Click += new System.EventHandler(this.btnPlatforms_Click);
             // 
-            // button1
+            // btnCategories
             // 
-            this.button1.Location = new System.Drawing.Point(15, 337);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(218, 23);
-            this.button1.TabIndex = 72;
-            this.button1.Text = "Edit Categories";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnCategories.Location = new System.Drawing.Point(15, 337);
+            this.btnCategories.Name = "btnCategories";
+            this.btnCategories.Size = new System.Drawing.Size(218, 23);
+            this.btnCategories.TabIndex = 72;
+            this.btnCategories.Text = "Edit Categories";
+            this.btnCategories.UseVisualStyleBackColor = true;
+            this.btnCategories.Click += new System.EventHandler(this.btnCategories_Click);
             // 
             // button2
             // 
@@ -193,7 +194,7 @@
             this.Controls.Add(this.btnSections);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnCategories);
             this.Controls.Add(this.btnPlatforms);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lblGit);
@@ -221,7 +222,7 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnPlatforms;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnCategories;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnSections;
