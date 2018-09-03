@@ -18,6 +18,8 @@ namespace SDSetupManifestGenerator {
         public FormMain() {
             InitializeComponent();
 
+            G.main = this;
+
             int result = Git.AuthCachedUnsafe();
             if (result == -1) {
                 lblGit.Text = "Auth Fail! Check your username and password.";
@@ -53,6 +55,7 @@ namespace SDSetupManifestGenerator {
         private void btnWriteManifest_Click(object sender, EventArgs e) {
             if (File.Exists(R.m)) File.Delete(R.m);
             File.WriteAllText(R.m, JsonConvert.SerializeObject(G.manifest, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
+            G.NeedsSaving = false;
         }
 
         private void btnManifestInfo_Click(object sender, EventArgs e) {

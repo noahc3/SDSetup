@@ -169,7 +169,7 @@ namespace SDSetupManifestGenerator {
 
                 subcategory.When = whens;
             }
-
+            G.NeedsSaving = true;
             Close();
         }
     }

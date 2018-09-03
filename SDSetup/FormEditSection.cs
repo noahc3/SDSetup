@@ -126,7 +126,7 @@ namespace SDSetupManifestGenerator {
                     ((Platform)ddlPlatform.SelectedItem).PackageSections.Add(section);
                 }
             }
-
+            G.NeedsSaving = true;
             Close();
         }
 

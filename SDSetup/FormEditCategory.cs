@@ -120,7 +120,7 @@ namespace SDSetupManifestGenerator {
 
                 category.When = whens;
             }
-
+            G.NeedsSaving = true;
             Close();
         }
 
