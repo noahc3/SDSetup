@@ -89,6 +89,12 @@
     <Compile Include="FormEditSection.Designer.cs">
       <DependentUpon>FormEditSection.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEditSubcategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditSubcategory.Designer.cs">
+      <DependentUpon>FormEditSubcategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,12 @@
     <Compile Include="FormViewSections.Designer.cs">
       <DependentUpon>FormViewSections.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormViewSubcategories.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormViewSubcategories.Designer.cs">
+      <DependentUpon>FormViewSubcategories.cs</DependentUpon>
+    </Compile>
     <Compile Include="G.cs" />
     <Compile Include="Git.cs" />
     <Compile Include="Program.cs" />
@@ -141,6 +153,9 @@
     <EmbeddedResource Include="FormEditSection.resx">
       <DependentUpon>FormEditSection.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormEditSubcategory.resx">
+      <DependentUpon>FormEditSubcategory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
@@ -155,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormViewSections.resx">
       <DependentUpon>FormViewSections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormViewSubcategories.resx">
+      <DependentUpon>FormViewSubcategories.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

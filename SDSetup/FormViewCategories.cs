@@ -58,6 +58,10 @@ namespace SDSetupManifestGenerator {
         }
 
         private void btnNew_Click(object sender, EventArgs e) {
+            if (ddlSections.SelectedItem == null) {
+                MessageBox.Show("Select a section!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             new FormEditCategory((Platform)ddlPlatforms.SelectedItem, (PackageSection)ddlSections.SelectedItem).ShowDialog();
             RefreshCategories();
         }
