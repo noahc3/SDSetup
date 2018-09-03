@@ -59,17 +59,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>App.settings</DependentUpon>
     </Compile>
-    <Compile Include="FetchWindow.cs">
+    <Compile Include="FormFetch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FetchWindow.Designer.cs">
-      <DependentUpon>FetchWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormAuthoringTool.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormAuthoringTool.Designer.cs">
-      <DependentUpon>FormAuthoringTool.cs</DependentUpon>
+    <Compile Include="FormFetch.Designer.cs">
+      <DependentUpon>FormFetch.cs</DependentUpon>
     </Compile>
     <Compile Include="FormEditCategory.cs">
       <SubType>Form</SubType>
@@ -149,12 +143,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="R.cs" />
     <Compile Include="Types.cs" />
-    <EmbeddedResource Include="FetchWindow.resx">
-      <DependentUpon>FetchWindow.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormAuthoringTool.resx">
-      <DependentUpon>FormAuthoringTool.cs</DependentUpon>
-      <SubType>Designer</SubType>
+    <EmbeddedResource Include="FormFetch.resx">
+      <DependentUpon>FormFetch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEditCategory.resx">
       <DependentUpon>FormEditCategory.cs</DependentUpon>

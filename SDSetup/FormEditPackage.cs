@@ -270,5 +270,11 @@ namespace SDSetupManifestGenerator {
             if (lvwDependencies.SelectedItems.Count < 1) return;
             lvwDependencies.Items.Remove(lvwDependencies.SelectedItems[0]);
         }
+
+        private void btnFetch_Click(object sender, EventArgs e) {
+            FormFetch frm = new FormFetch(txtDlSource.Text, txtVersion.Text, txtId.Text);
+            frm.ShowDialog();
+            artifacts = frm.OUTPUT;
+        }
     }
 }

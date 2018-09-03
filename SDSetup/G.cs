@@ -15,8 +15,6 @@ namespace SDSetupManifestGenerator {
 
         public static Manifest manifest;
 
-        public static FormAuthoringTool tool;
-
         private static WebClient web = new WebClient();
 
         public static void DownloadFile(string url, string path) {
