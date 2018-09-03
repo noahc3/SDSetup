@@ -186,7 +186,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormViewPackages";
-            this.Text = "FormViewPackages";
+            this.Text = "View Packages";
             this.ResumeLayout(false);
             this.PerformLayout();
 

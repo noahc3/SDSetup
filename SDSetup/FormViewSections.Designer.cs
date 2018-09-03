@@ -116,7 +116,7 @@
             this.Controls.Add(this.btnNew);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormViewSections";
-            this.Text = "FormViewSections";
+            this.Text = "View Sections";
             this.ResumeLayout(false);
             this.PerformLayout();
 

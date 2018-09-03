@@ -275,7 +275,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FormEditSubcategory";
-            this.Text = "FormEditSubcategory";
+            this.Text = "Edit Subcategory";
             ((System.ComponentModel.ISupportInitialize)(this.nudWhenMode)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
