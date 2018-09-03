@@ -77,6 +77,12 @@
     <Compile Include="FormEditCategory.Designer.cs">
       <DependentUpon>FormEditCategory.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEditPackage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditPackage.Designer.cs">
+      <DependentUpon>FormEditPackage.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormEditPlatform.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -113,6 +119,12 @@
     <Compile Include="FormViewCategories.Designer.cs">
       <DependentUpon>FormViewCategories.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormViewPackages.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormViewPackages.Designer.cs">
+      <DependentUpon>FormViewPackages.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormViewPlatforms.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -147,6 +159,9 @@
     <EmbeddedResource Include="FormEditCategory.resx">
       <DependentUpon>FormEditCategory.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormEditPackage.resx">
+      <DependentUpon>FormEditPackage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormEditPlatform.resx">
       <DependentUpon>FormEditPlatform.cs</DependentUpon>
     </EmbeddedResource>
@@ -164,6 +179,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormViewCategories.resx">
       <DependentUpon>FormViewCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormViewPackages.resx">
+      <DependentUpon>FormViewPackages.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormViewPlatforms.resx">
       <DependentUpon>FormViewPlatforms.cs</DependentUpon>

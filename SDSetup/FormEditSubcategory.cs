@@ -148,7 +148,7 @@ namespace SDSetupManifestGenerator {
                         MessageBox.Show("A subcategory with that ID already exists in that category!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
-                    if (txtId.Text == subcategory.ID && (PackageSection)ddlSections.SelectedItem != section) {
+                    if (txtId.Text == subcategory.ID && (PackageCategory)ddlCategories.SelectedItem != category) {
                         MessageBox.Show("A subcategory with that ID already exists in that category!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
