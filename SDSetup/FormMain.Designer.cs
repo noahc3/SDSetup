@@ -156,7 +156,7 @@
             // 
             // btnWriteManifest
             // 
-            this.btnWriteManifest.BackColor = System.Drawing.Color.DarkGreen;
+            this.btnWriteManifest.BackColor = System.Drawing.Color.Green;
             this.btnWriteManifest.ForeColor = System.Drawing.Color.White;
             this.btnWriteManifest.Location = new System.Drawing.Point(15, 445);
             this.btnWriteManifest.Name = "btnWriteManifest";
@@ -228,8 +228,8 @@
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button btnSections;
-        private System.Windows.Forms.Button btnWriteManifest;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnManifestInfo;
+        public System.Windows.Forms.Button btnWriteManifest;
     }
 }

@@ -242,7 +242,7 @@ namespace SDSetupManifestGenerator {
                 package.When = whens;
                 package.Dependencies = depends;
             }
-
+            G.NeedsSaving = true;
             Close();
         }
 

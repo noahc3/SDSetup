@@ -57,6 +57,7 @@ namespace SDSetupManifestGenerator {
                 p.Visible = cbxVisible.Checked;
                 p.HomeIcon = txtImg.Text;
             }
+            G.NeedsSaving = true;
             Close();
         }
 

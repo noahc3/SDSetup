@@ -13,6 +13,24 @@ using System.IO;
 namespace SDSetupManifestGenerator {
     public static class G {
 
+        public static FormMain main;
+
+        private static bool _NeedsSaving;
+
+        public static bool NeedsSaving {
+            set {
+                _NeedsSaving = value;
+                if (value) {
+                    main.btnWriteManifest.BackColor = System.Drawing.Color.DarkRed;
+                } else {
+                    main.btnWriteManifest.BackColor = System.Drawing.Color.Green;
+                }
+            }
+            get {
+                return _NeedsSaving;
+            }
+        }
+
         public static Manifest manifest;
 
         private static WebClient web = new WebClient();
