@@ -12,6 +12,9 @@ using System.IO;
 
 namespace SDSetupManifestGenerator {
     public static class G {
+
+        public static Manifest manifest;
+
         public static FormAuthoringTool tool;
 
         private static WebClient web = new WebClient();

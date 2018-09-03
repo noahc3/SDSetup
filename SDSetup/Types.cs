@@ -62,6 +62,10 @@ namespace SDSetupManifestGenerator {
         public Platform() {
 
         }
+
+        public override string ToString() {
+            return Name;
+        }
     }
 
     public class PackageSection {
@@ -92,6 +96,10 @@ namespace SDSetupManifestGenerator {
             Categories = categories;
             Footer = footer;
         }
+
+        public override string ToString() {
+            return Name;
+        }
     }
 
     public class PackageCategory {
@@ -118,6 +126,10 @@ namespace SDSetupManifestGenerator {
             WhenMode = whenMode;
             Subcategories = subcategories;
         }
+
+        public override string ToString() {
+            return Name;
+        }
     }
 
     public class PackageSubcategory {
@@ -142,6 +154,10 @@ namespace SDSetupManifestGenerator {
             When = when;
             WhenMode = whenMode;
             Packages = packages;
+        }
+
+        public override string ToString() {
+            return Name;
         }
     }
 
@@ -182,6 +198,10 @@ namespace SDSetupManifestGenerator {
             WhenMode = whenMode;
             Dependencies = dependencies;
             Artifacts = artifacts;
+        }
+
+        public override string ToString() {
+            return Name;
         }
     }
 
