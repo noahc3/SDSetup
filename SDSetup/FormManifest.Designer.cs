@@ -23,16 +23,17 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormManifest));
             this.txtCopyright = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.gbxIndexMessage = new System.Windows.Forms.GroupBox();
-            this.txtMessage = new System.Windows.Forms.TextBox();
-            this.txtClasses = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txtClasses = new System.Windows.Forms.TextBox();
+            this.txtMessage = new System.Windows.Forms.TextBox();
             this.txtManifestVersion = new System.Windows.Forms.TextBox();
             this.gbxIndexMessage.SuspendLayout();
             this.SuspendLayout();
@@ -96,19 +97,14 @@
             this.gbxIndexMessage.TabStop = false;
             this.gbxIndexMessage.Text = "Front Page Notification";
             // 
-            // txtMessage
+            // label4
             // 
-            this.txtMessage.Location = new System.Drawing.Point(13, 34);
-            this.txtMessage.Name = "txtMessage";
-            this.txtMessage.Size = new System.Drawing.Size(757, 20);
-            this.txtMessage.TabIndex = 3;
-            // 
-            // txtClasses
-            // 
-            this.txtClasses.Location = new System.Drawing.Point(13, 81);
-            this.txtClasses.Name = "txtClasses";
-            this.txtClasses.Size = new System.Drawing.Size(757, 20);
-            this.txtClasses.TabIndex = 4;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(10, 65);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(185, 13);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "CSS Color (ie. info, warning, negative)";
             // 
             // label3
             // 
@@ -119,14 +115,19 @@
             this.label3.TabIndex = 8;
             this.label3.Text = "Message (HTML) (Leave blank to hide)";
             // 
-            // label4
+            // txtClasses
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(10, 65);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(185, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "CSS Color (ie. info, warning, negative)";
+            this.txtClasses.Location = new System.Drawing.Point(13, 81);
+            this.txtClasses.Name = "txtClasses";
+            this.txtClasses.Size = new System.Drawing.Size(757, 20);
+            this.txtClasses.TabIndex = 4;
+            // 
+            // txtMessage
+            // 
+            this.txtMessage.Location = new System.Drawing.Point(13, 34);
+            this.txtMessage.Name = "txtMessage";
+            this.txtMessage.Size = new System.Drawing.Size(757, 20);
+            this.txtMessage.TabIndex = 3;
             // 
             // txtManifestVersion
             // 
@@ -148,6 +149,7 @@
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtCopyright);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "FormManifest";
             this.Text = "Edit Global Manifest Info";
