@@ -71,6 +71,42 @@
     <Compile Include="FormAuthoringTool.Designer.cs">
       <DependentUpon>FormAuthoringTool.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormEditPlatform.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditPlatform.Designer.cs">
+      <DependentUpon>FormEditPlatform.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormEditSection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormEditSection.Designer.cs">
+      <DependentUpon>FormEditSection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormMain.Designer.cs">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormManifest.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormManifest.Designer.cs">
+      <DependentUpon>FormManifest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormViewPlatforms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormViewPlatforms.Designer.cs">
+      <DependentUpon>FormViewPlatforms.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormViewSections.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormViewSections.Designer.cs">
+      <DependentUpon>FormViewSections.cs</DependentUpon>
+    </Compile>
     <Compile Include="G.cs" />
     <Compile Include="Git.cs" />
     <Compile Include="Program.cs" />
@@ -83,6 +119,24 @@
     <EmbeddedResource Include="FormAuthoringTool.resx">
       <DependentUpon>FormAuthoringTool.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditPlatform.resx">
+      <DependentUpon>FormEditPlatform.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormEditSection.resx">
+      <DependentUpon>FormEditSection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormMain.resx">
+      <DependentUpon>FormMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormManifest.resx">
+      <DependentUpon>FormManifest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormViewPlatforms.resx">
+      <DependentUpon>FormViewPlatforms.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormViewSections.resx">
+      <DependentUpon>FormViewSections.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
