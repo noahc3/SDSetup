@@ -16,17 +16,24 @@ using System.IO.Compression;
 using Microsoft.VisualBasic.FileIO;
 
 namespace SDSetupManifestGenerator {
-    public partial class FetchWindow : Form {
-        public FetchWindow() {
+    public partial class FormFetch : Form {
+
+        private string DefaultURL, Version, ID;
+        public List<Artifact> OUTPUT;
+
+        public FormFetch(string DefaultURL, string Version, string ID) {
             InitializeComponent();
 
+            this.DefaultURL = DefaultURL;
+            this.Version = Version;
+            this.ID = ID;
 
-            //tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch"), new TreeNode("retroarch", new TreeNode[] { new TreeNode("cores", new TreeNode[] { new TreeNode("switch") })})}));
-            //tvwItems.Nodes.Add(new TreeNode("pc", new TreeNode[] { new TreeNode("payloads") }));
-            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("3ds"), new TreeNode("cias") }));
+            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch"), new TreeNode("retroarch", new TreeNode[] { new TreeNode("cores", new TreeNode[] { new TreeNode("switch") })})}));
+            tvwItems.Nodes.Add(new TreeNode("pc", new TreeNode[] { new TreeNode("payloads") }));
+            //tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("3ds"), new TreeNode("cias") }));
             tvwItems.ExpandAll();
 
-            txtUrl.Text = G.tool.txtPackageDlSource.Text;
+            txtUrl.Text = DefaultURL;
 
             txtUploadUrl.Text = "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/";
         }
@@ -92,8 +99,8 @@ namespace SDSetupManifestGenerator {
         }
 
         private void btnFetchUrl_Click(object sender, EventArgs e) {
-            string id = G.tool.txtPackageId.Text;
-            string version = G.tool.txtPackageVersion.Text;
+            string id = ID;
+            string version = Version;
             string rawUrl = txtUrl.Text;
 
             string[] rawArtifacts;
@@ -170,8 +177,8 @@ namespace SDSetupManifestGenerator {
         }
 
         private void btnSave_Click(object sender, EventArgs e) {
-            string id = G.tool.txtPackageId.Text;
-            string version = G.tool.txtPackageVersion.Text.Replace(" ", "");
+            string id = ID;
+            string version = Version.Replace(" ", "");
 
             TreeNode[] nodes = GetAllNodes();
 
@@ -196,7 +203,7 @@ namespace SDSetupManifestGenerator {
                 }
             }
 
-            FormAuthoringTool.SelectedPackage.Artifacts = artifacts;
+            this.OUTPUT = artifacts;
 
             Close();
 
@@ -214,8 +221,8 @@ namespace SDSetupManifestGenerator {
                 return;
             }
 
-            string id = G.tool.txtPackageId.Text;
-            string version = G.tool.txtPackageVersion.Text;
+            string id = ID;
+            string version = Version;
             string url = path.Replace("\\", "/");
 
             if (Directory.Exists(Path.Combine(R.wd, id + "\\"))) FileSystem.DeleteDirectory(Path.Combine(R.wd, id + "\\"), DeleteDirectoryOption.DeleteAllContents);
@@ -266,8 +273,8 @@ namespace SDSetupManifestGenerator {
                 return;
             }
 
-            string id = G.tool.txtPackageId.Text;
-            string version = G.tool.txtPackageVersion.Text;
+            string id = ID;
+            string version = Version;
             string url = path.Replace("\\", "/");
 
             if (Directory.Exists(Path.Combine(R.wd, id + "\\"))) Directory.Delete(Path.Combine(R.wd, id + "\\"), true);

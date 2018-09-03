@@ -64,6 +64,7 @@
             this.btnFetch = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudWhenMode)).BeginInit();
             this.SuspendLayout();
             // 
@@ -354,7 +355,7 @@
             // 
             // lvwDependencies
             // 
-            this.lvwDependencies.Location = new System.Drawing.Point(535, 298);
+            this.lvwDependencies.Location = new System.Drawing.Point(535, 280);
             this.lvwDependencies.Name = "lvwDependencies";
             this.lvwDependencies.Size = new System.Drawing.Size(168, 94);
             this.lvwDependencies.TabIndex = 19;
@@ -363,14 +364,14 @@
             // 
             // txtDependency
             // 
-            this.txtDependency.Location = new System.Drawing.Point(535, 438);
+            this.txtDependency.Location = new System.Drawing.Point(535, 420);
             this.txtDependency.Name = "txtDependency";
             this.txtDependency.Size = new System.Drawing.Size(168, 20);
             this.txtDependency.TabIndex = 21;
             // 
             // btnAddDependency
             // 
-            this.btnAddDependency.Location = new System.Drawing.Point(535, 464);
+            this.btnAddDependency.Location = new System.Drawing.Point(535, 446);
             this.btnAddDependency.Name = "btnAddDependency";
             this.btnAddDependency.Size = new System.Drawing.Size(168, 23);
             this.btnAddDependency.TabIndex = 22;
@@ -380,7 +381,7 @@
             // 
             // btnDeleteDependency
             // 
-            this.btnDeleteDependency.Location = new System.Drawing.Point(535, 398);
+            this.btnDeleteDependency.Location = new System.Drawing.Point(535, 380);
             this.btnDeleteDependency.Name = "btnDeleteDependency";
             this.btnDeleteDependency.Size = new System.Drawing.Size(168, 23);
             this.btnDeleteDependency.TabIndex = 20;
@@ -391,7 +392,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(532, 281);
+            this.label15.Location = new System.Drawing.Point(532, 263);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(76, 13);
             this.label15.TabIndex = 95;
@@ -405,6 +406,7 @@
             this.btnFetch.TabIndex = 23;
             this.btnFetch.Text = "Fetch Files";
             this.btnFetch.UseVisualStyleBackColor = true;
+            this.btnFetch.Click += new System.EventHandler(this.btnFetch_Click);
             // 
             // btnCancel
             // 
@@ -426,11 +428,24 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
+            // label16
+            // 
+            this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.DarkRed;
+            this.label16.Location = new System.Drawing.Point(535, 470);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(168, 56);
+            this.label16.TabIndex = 96;
+            this.label16.Text = "MAKE SURE ID AND VERSION ARE CORRECT BEFORE FETCHING!";
+            this.label16.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
             // FormEditPackage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 613);
+            this.ControlBox = false;
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnFetch);
@@ -472,6 +487,7 @@
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtId);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FormEditPackage";
             this.Text = "FormEditPackage";
             ((System.ComponentModel.ISupportInitialize)(this.nudWhenMode)).EndInit();
@@ -523,5 +539,6 @@
         private System.Windows.Forms.Button btnFetch;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label16;
     }
 }
