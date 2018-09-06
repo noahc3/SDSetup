@@ -28,10 +28,11 @@
 			</div>
 		</div>
 		<div style="text-align:center;color:#808080;">
-			@foreach (string k in G.manifest.Copyright.Split('$')) { 
+			@foreach (string k in G.manifest.Copyright.Split('$')) {
 				<b style="text-align:center">@k</b><br />
 			}
-			<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em">Build @Reference.BuildDate</h5>
+			<h5 style="text-align:center;color:#d4d4d4;margin-bottom:0">Build @Reference.BuildDate</h5>
+			<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em;margin-top:0">Manifest Version @G.manifest.Version</h5>
 		</div>
 
 
