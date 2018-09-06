@@ -53,7 +53,7 @@
                     @foreach (PackageSubcategory sub in cat.Subcategories) {
                         @foreach (Package k in sub.Packages) {
                             @if (G.CanShow(k.Visible, k.When, k.WhenMode)) {
-                                <PackageMenuItem PID="@k.ID" DisplayName="@k.DisplayName"></PackageMenuItem>
+                                <PackageMenuItem PID="@k.ID" Version="@k.Version" DisplayName="@k.DisplayName"></PackageMenuItem>
                             }
                         }
                     }
