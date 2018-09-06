@@ -17,26 +17,47 @@
 	<div class="content @(active[0] == true ? "active" : "")">
 		<p>Extract <b>the contents</b> of the compressed folder named sd to the root of your SD card. The PC folder will contain the tools and payloads you selected. THe readmes folder will contain useful readmes for using the PC tools. the licenses folder contains licenses requried to comply with redistribution requirements.</p>
 	</div>
+	<div class="title @(active[7] == true ? "active" : "")" onclick="@(() => active[7] = !active[7])">
+		<i class="dropdown icon"></i>
+		How do you determine the version numbers displayed on the website?
+	</div>
+	<div class="content @(active[7] == true ? "active" : "")">
+		<p>Here is how versions are determined and presented:<ul><li>If the version is a full release, the version from the release title is used. If there is no version specified, the version from the release tag is used.</li><li>If the release is a specific commit, the commit is specified with c.xxxxxxxx where xxxxxxxx is the first 8 characters of the commit hash.</li><li>If none of the above can be determined, the date the package was retrieved is used (YYYY.MM.DD). Reasons this may be done include:</li><ul><li>The release tag is not helpful (something strange that doesn't really specify a version. This is rare).</li><li>An included package differs enough from a build or release that using a commit hash or release version would be misleading (for example, our copy of Atmosphere uses an entirely different bootloader than the one built from the repo).</li><li>The build was retrieved from a (trusted) third party.</li></ul></ul></p>
+	</div>
+	<div class="title @(active[8] == true ? "active" : "")" onclick="@(() => active[8] = !active[8])">
+		<i class="dropdown icon"></i>
+		Are packages updated automatically?
+	</div>
+	<div class="content @(active[8] == true ? "active" : "")">
+		<p>Packages are updated and tested manually because:<ul><li>Commits pushed directly to repos may not be ready for general use and therefore should be tested (and full releases should be prioritized).</li><li>File directories and structures of released archives or builds might change so it is unsafe to assume they can be automatically added the same way as a previous release.</li></ul></p>
+	</div>
 	<div class="title @(active[1] == true ? "active" : "")" onclick="@(() => active[1] = !active[1])">
 		<i class="dropdown icon"></i>
-		Why can ZIPs take so long to generate?
+		Why do files take so long to download? / Why are there so many files to download?
 	</div>
 	<div class="content @(active[1] == true ? "active" : "")">
-		<p>This application uses the experimental Blazor project by the ASP.NET team. This software, while functional, has many performance issues. Other than C# code often running up to 100x slower than a native desktop app, native C# zip libraries run way too slow to be useful. As such, all files need to be downloaded individually and fed into a JavaScript zip library, which takes much longer than downloading compressed zip files. Additionally, at this moment in time, Blazor code can only run on one thread.</p>
+		<p>Due to the virtualized nature of web browsers, and the wide array of devices and levels of hardware that run them, downloading smaller files but having to decompress them can often take longer than just downloading the uncompressed version. As such, all files being downloaded are uncompressed and unarchived. For the same reason, the resulting ZIP file has no compression applied.</p>
+	</div>
+	<div class="title @(active[9] == true ? "active" : "")" onclick="@(() => active[9] = !active[9])">
+		<i class="dropdown icon"></i>
+		Why are the resulting ZIP files so huge?
+	</div>
+	<div class="content @(active[9] == true ? "active" : "")">
+		<p>Due to the virtualized nature of web browsers, and the wide array of devices and levels of hardware that run them, compressing a ZIP file can take a very long time (often several minutes, even on desktop, depending on the browser). As such, resulting ZIP files have no compression applied. Downloaded files aren't compressed in the first place anyways (see above), so there isn't really any point in compressing the result.</p>
 	</div>
 	<div class="title @(active[2] == true ? "active" : "")" onclick="@(() => active[2] = !active[2])">
 		<i class="dropdown icon"></i>
 		I want another package to be listed here! / I want to see another feature!
 	</div>
 	<div class="content @(active[2] == true ? "active" : "")">
-		<p>Make an issue on <a href="https://github.com/noahc3/SDSetup/issues">GitHub</a> clearly stating what changes you would like made.</p>
+		<p>Make an issue on <a href="https://github.com/noahc3/SDSetup/issues">GitHub</a> saying what changes you would like made.</p>
 	</div>
 	<div class="title @(active[4] == true ? "active" : "")" onclick="@(() => active[4] = !active[4])">
 		<i class="dropdown icon"></i>
 		A package on here is outdated!
 	</div>
 	<div class="content @(active[4] == true ? "active" : "")">
-		<p>I try my best to make sure packages are up to date as often as possible. Please let me know in a <a href="https://github.com/noahc3/SDSetup/issues">GitHub issue</a> if something is outdated.</p>
+		<p>We try our best to make sure packages are up to date as often as possible. Please let us know in a <a href="https://github.com/noahc3/SDSetup/issues">GitHub issue</a> if something is outdated.</p>
 	</div>
 </div>
 <h4>For homebrew creators</h4>
@@ -46,7 +67,7 @@
 		I am a developer of a package rehosted here and I would like it removed. / You are violating the redistribution rights of my softwares license.
 	</div>
 	<div class="content @(active[3] == true ? "active" : "")">
-		<p>I've tried my best to make sure I am complying with licenses correctly! If something is wrong or you would simply like your software removed, please let me know in a <a href="https://github.com/noahc3/SDSetup/issues">GitHub issue</a> and I'll handle it ASAP!</p>
+		<p>We've tried our best to make sure we am complying with licenses correctly! If something is wrong or you would simply like your software removed, please let us know in a <a href="https://github.com/noahc3/SDSetup/issues">GitHub issue</a> and I'll handle it ASAP!</p>
 	</div>
 </div>
 <h4>For developers</h4>
@@ -64,7 +85,7 @@
 		You know Blazor is experimental and isn't meant for production, right?
 	</div>
 	<div class="content @(active[6] == true ? "active" : "")">
-		<p>Since this app is entirely client-side (static), there is no security involved anywhere outside of basic HTTPS (99% of which is done in JS anyways), and compatibility is fine with Chrome and Firefox, I didn't see any reason not to use Blazor.</p>
+		<p>Since this app is entirely client-side (static), there is no security involved anywhere, and compatibility is fine with major web browsers, I didn't see any reason not to use Blazor.</p>
 	</div>
 </div>
 
