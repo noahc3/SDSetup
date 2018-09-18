@@ -1,9 +1,9 @@
 {
-  "Version": "2018.09.05.01",
+  "Version": "2018.09.16.01",
   "Copyright": "© 2018 noahc3$The Nintendo Switch and Nintendo 3DS names and logos are © Nintendo. This site is in no way affiliated with Nintendo or any of its partners.",
   "Message": {
     "Color": "info",
-    "InnerHTML": "All packages verified up-to-date as of 2018/09/05."
+    "InnerHTML": ""
   },
   "Platforms": {
     "switch": {
@@ -13,6 +13,29 @@
       "ID": "switch",
       "Color": "red",
       "Visible": true,
+					"Bundles": [
+						{
+							"Name": "SDFiles Defaults",
+							"Description": "Includes the default packages found in tomGER's SDFilesSwitch.",
+							"Packages": [
+								"atmosphere"
+							]
+						},
+						{
+							"Name": "Minimal",
+							"Description": "Includes just enough to get Atmosphere CFW running, with no extras.",
+							"Packages": [
+								"atmosphere"
+							]
+						},
+						{
+							"Name": "Everything",
+							"Description": "Includes every package for your homebrew hoarding needs.",
+							"Packages": [
+								"atmosphere"
+							]
+						}
+					],
       "PackageSections": [
         {
           "ID": "cfws",
@@ -67,7 +90,7 @@
                       "Name": "ReiNX",
                       "DisplayName": "ReiNX",
                       "Authors": "Reisyukaku",
-                      "Version": "v1.2.0",
+                      "Version": "v1.6.0",
                       "Source": "https://github.com/Reisyukaku/ReiNX",
                       "DLSource": "https://github.com/Reisyukaku/ReiNX",
                       "EnabledByDefault": false,
@@ -78,64 +101,44 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/patches/es_patch.rxp",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.6.0/sd/bootloader/payloads/ReiNX.bin",
+                          "Directory": "sd/bootloader/payloads/ReiNX.bin",
+                          "FileName": "ReiNX.bin"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.6.0/sd/ReiNX/patches/es_patch.rxp",
                           "Directory": "sd/ReiNX/patches/es_patch.rxp",
                           "FileName": "es_patch.rxp"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/sysmodules/fs_mitm.kip",
-                          "Directory": "sd/ReiNX/sysmodules/fs_mitm.kip",
-                          "FileName": "fs_mitm.kip"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/sysmodules/loader.kip",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.6.0/sd/ReiNX/sysmodules/loader.kip",
                           "Directory": "sd/ReiNX/sysmodules/loader.kip",
                           "FileName": "loader.kip"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/sysmodules/pm.kip",
-                          "Directory": "sd/ReiNX/sysmodules/pm.kip",
-                          "FileName": "pm.kip"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/sysmodules/sm.kip",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.6.0/sd/ReiNX/sysmodules/sm.kip",
                           "Directory": "sd/ReiNX/sysmodules/sm.kip",
                           "FileName": "sm.kip"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/titles/0100000000000036/exefs/main",
-                          "Directory": "sd/ReiNX/titles/0100000000000036/exefs/main",
-                          "FileName": "main"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/titles/0100000000000036/exefs/main.npdm",
-                          "Directory": "sd/ReiNX/titles/0100000000000036/exefs/main.npdm",
-                          "FileName": "main.npdm"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/titles/010000000000100D/exefs/main",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.6.0/sd/ReiNX/titles/010000000000100D/exefs/main",
                           "Directory": "sd/ReiNX/titles/010000000000100D/exefs/main",
                           "FileName": "main"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.6.0/sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
                           "Directory": "sd/ReiNX/titles/010000000000100D/exefs/main.npdm",
                           "FileName": "main.npdm"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.6.0/sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
                           "Directory": "sd/ReiNX/titles/010000000000100D/exefs/rtld.stub",
                           "FileName": "rtld.stub"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/ReiNX/splash.bin",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.6.0/sd/ReiNX/splash.bin",
                           "Directory": "sd/ReiNX/splash.bin",
                           "FileName": "splash.bin"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx/v1.2.0/sd/bootloader/payloads/ReiNX.bin",
-                          "Directory": "sd/bootloader/payloads/ReiNX.bin",
-                          "FileName": "ReiNX.bin"
                         }
                       ]
                     },
@@ -763,7 +766,7 @@
                       "Name": "JK's Save Manager",
                       "DisplayName": "JK's Save Manager",
                       "Authors": "J-D-K",
-                      "Version": "08/26/2018",
+                      "Version": "09.15.2018",
                       "Source": "https://github.com/J-D-K/JKSV/",
                       "DLSource": "https://github.com/J-D-K/JKSV/",
                       "EnabledByDefault": false,
@@ -774,7 +777,7 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/jksv/08/26/2018/sd/switch/JKSV.nro",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/jksv/09.15.2018/sd/switch/JKSV.nro",
                           "Directory": "sd/switch/JKSV.nro",
                           "FileName": "JKSV.nro"
                         }
@@ -807,7 +810,7 @@
                       "Name": "EdiZon",
                       "DisplayName": "EdiZon",
                       "Authors": "thomasnet-mc",
-                      "Version": "v1.4.0",
+                      "Version": "v1.5.0",
                       "Source": "https://github.com/thomasnet-mc/EdiZon/",
                       "DLSource": "https://github.com/thomasnet-mc/EdiZon/",
                       "EnabledByDefault": false,
@@ -818,137 +821,162 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/switch/EdiZon/EdiZon.nacp",
-                          "Directory": "sd/switch/EdiZon/EdiZon.nacp",
-                          "FileName": "EdiZon.nacp"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/switch/EdiZon/EdiZon.nro",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/switch/EdiZon/EdiZon.nro",
                           "Directory": "sd/switch/EdiZon/EdiZon.nro",
                           "FileName": "EdiZon.nro"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/scripts/lib/checksum.lua",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/lib/checksum.lua",
                           "Directory": "sd/EdiZon/editor/scripts/lib/checksum.lua",
                           "FileName": "checksum.lua"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/scripts/lib/json.lua",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/lib/json.lua",
                           "Directory": "sd/EdiZon/editor/scripts/lib/json.lua",
                           "FileName": "json.lua"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/scripts/lib/md5.lua",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/lib/md5.lua",
                           "Directory": "sd/EdiZon/editor/scripts/lib/md5.lua",
                           "FileName": "md5.lua"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/scripts/bin.lua",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/bin.lua",
                           "Directory": "sd/EdiZon/editor/scripts/bin.lua",
                           "FileName": "bin.lua"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/scripts/json.lua",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/json.lua",
                           "Directory": "sd/EdiZon/editor/scripts/json.lua",
                           "FileName": "json.lua"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/scripts/octp.lua",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/lostsphear.lua",
+                          "Directory": "sd/EdiZon/editor/scripts/lostsphear.lua",
+                          "FileName": "lostsphear.lua"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/octp.lua",
                           "Directory": "sd/EdiZon/editor/scripts/octp.lua",
                           "FileName": "octp.lua"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/scripts/puyopuyo.lua",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/puyopuyo.lua",
                           "Directory": "sd/EdiZon/editor/scripts/puyopuyo.lua",
                           "FileName": "puyopuyo.lua"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/scripts/setsuna.lua",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/scripts/setsuna.lua",
                           "Directory": "sd/EdiZon/editor/scripts/setsuna.lua",
                           "FileName": "setsuna.lua"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/0100000000010000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100000000010000.json",
                           "Directory": "sd/EdiZon/editor/0100000000010000.json",
                           "FileName": "0100000000010000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/010053D0001BE000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/01004F10066B0000.json",
+                          "Directory": "sd/EdiZon/editor/01004F10066B0000.json",
+                          "FileName": "01004F10066B0000.json"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/010053D0001BE000.json",
                           "Directory": "sd/EdiZon/editor/010053D0001BE000.json",
                           "FileName": "010053D0001BE000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/010057D006492000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/010057D006492000.json",
                           "Directory": "sd/EdiZon/editor/010057D006492000.json",
                           "FileName": "010057D006492000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/0100633007D48000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100633007D48000.json",
                           "Directory": "sd/EdiZon/editor/0100633007D48000.json",
                           "FileName": "0100633007D48000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/010073C001D5E000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/010073C001D5E000.json",
                           "Directory": "sd/EdiZon/editor/010073C001D5E000.json",
                           "FileName": "010073C001D5E000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/010076F0049A2000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/010076F0049A2000.json",
                           "Directory": "sd/EdiZon/editor/010076F0049A2000.json",
                           "FileName": "010076F0049A2000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/01007960049A0000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100779004172000.json",
+                          "Directory": "sd/EdiZon/editor/0100779004172000.json",
+                          "FileName": "0100779004172000.json"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/010077B0038B2000.json",
+                          "Directory": "sd/EdiZon/editor/010077B0038B2000.json",
+                          "FileName": "010077B0038B2000.json"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/01007960049A0000.json",
                           "Directory": "sd/EdiZon/editor/01007960049A0000.json",
                           "FileName": "01007960049A0000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/01007AD00013E000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/01007AD00013E000.json",
                           "Directory": "sd/EdiZon/editor/01007AD00013E000.json",
                           "FileName": "01007AD00013E000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/01007EF00011E000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/01007EF00011E000.json",
                           "Directory": "sd/EdiZon/editor/01007EF00011E000.json",
                           "FileName": "01007EF00011E000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/0100849000BDA000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100849000BDA000.json",
                           "Directory": "sd/EdiZon/editor/0100849000BDA000.json",
                           "FileName": "0100849000BDA000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/010086D00B3D2000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/010086D00B3D2000.json",
                           "Directory": "sd/EdiZon/editor/010086D00B3D2000.json",
                           "FileName": "010086D00B3D2000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/010096000B3EA000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/010096000B3EA000.json",
                           "Directory": "sd/EdiZon/editor/010096000B3EA000.json",
                           "FileName": "010096000B3EA000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/0100AE00096EA000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100AE00096EA000.json",
                           "Directory": "sd/EdiZon/editor/0100AE00096EA000.json",
                           "FileName": "0100AE00096EA000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/0100BDE00862A000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100BDE00862A000.json",
                           "Directory": "sd/EdiZon/editor/0100BDE00862A000.json",
                           "FileName": "0100BDE00862A000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/0100C4E004406000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100C4E004406000.json",
                           "Directory": "sd/EdiZon/editor/0100C4E004406000.json",
                           "FileName": "0100C4E004406000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/0100E66006406000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100E66006406000.json",
                           "Directory": "sd/EdiZon/editor/0100E66006406000.json",
                           "FileName": "0100E66006406000.json"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.4.0/sd/EdiZon/editor/0100F3D001DEE000.json",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100E95004038000.json",
+                          "Directory": "sd/EdiZon/editor/0100E95004038000.json",
+                          "FileName": "0100E95004038000.json"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100F15003E64000.json",
+                          "Directory": "sd/EdiZon/editor/0100F15003E64000.json",
+                          "FileName": "0100F15003E64000.json"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/edizon/v1.5.0/sd/EdiZon/editor/0100F3D001DEE000.json",
                           "Directory": "sd/EdiZon/editor/0100F3D001DEE000.json",
                           "FileName": "0100F3D001DEE000.json"
                         }
@@ -1013,7 +1041,7 @@
                       "Name": "Tinfoil",
                       "DisplayName": "Tinfoil",
                       "Authors": "Adubbz",
-                      "Version": "c.d3c12b1d",
+                      "Version": "v0.2.0",
                       "Source": "https://github.com/Adubbz/Tinfoil",
                       "DLSource": "https://storage.googleapis.com/noahc3_hacktools/switch/sdsetup/Tinfoil.nro",
                       "EnabledByDefault": false,
@@ -1024,9 +1052,61 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/tinfoil/v1/sd/switch/Tinfoil.nro",
-                          "Directory": "sd/switch/Tinfoil.nro",
-                          "FileName": "Tinfoil.nro"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/tinfoil/v0.2.0/sd/switch/tinfoil/tinfoil.nacp",
+                          "Directory": "sd/switch/tinfoil/tinfoil.nacp",
+                          "FileName": "tinfoil.nacp"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/tinfoil/v0.2.0/sd/switch/tinfoil/tinfoil.nro",
+                          "Directory": "sd/switch/tinfoil/tinfoil.nro",
+                          "FileName": "tinfoil.nro"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/tinfoil/v0.2.0/pc/Tinfoil Remote Installer/nso.py",
+                          "Directory": "pc/Tinfoil Remote Installer/nso.py",
+                          "FileName": "nso.py"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/tinfoil/v0.2.0/pc/Tinfoil Remote Installer/remote_install_pc.py",
+                          "Directory": "pc/Tinfoil Remote Installer/remote_install_pc.py",
+                          "FileName": "remote_install_pc.py"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/tinfoil/v0.2.0/pc/Tinfoil Remote Installer/remote_install_switch.py",
+                          "Directory": "pc/Tinfoil Remote Installer/remote_install_switch.py",
+                          "FileName": "remote_install_switch.py"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/tinfoil/v0.2.0/readmes/Tinfoil.txt",
+                          "Directory": "readmes/Tinfoil.txt",
+                          "FileName": "Tinfoil.txt"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/tinfoil/v0.2.0/licenses/Tinfoil.txt",
+                          "Directory": "licenses/Tinfoil.txt",
+                          "FileName": "Tinfoil.txt"
+                        }
+                      ]
+                    },
+                    {
+                      "ID": "zerotwoxci",
+                      "Name": "ZeroTwoXCI",
+                      "DisplayName": "ZeroTwoXCI",
+                      "Authors": "2168-0002, Elise, Adubbz",
+                      "Version": "v0.1",
+                      "Source": "https://gitlab.com/2168/zerotwoxci/",
+                      "DLSource": "https://gitlab.com/2168/zerotwoxci/uploads/62116978137c98b05d3a06dd39686675/ZeroTwoXCI.nro",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "A homebrew to install XCI files to NAND/SD as if they were NSP files.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/zerotwoxci/v0.1/sd/switch/ZeroTwoXCI.nro",
+                          "Directory": "sd/switch/ZeroTwoXCI.nro",
+                          "FileName": "ZeroTwoXCI.nro"
                         }
                       ]
                     }
@@ -1357,7 +1437,7 @@
                       "Name": "Pixel Painter",
                       "DisplayName": "Pixel Painter",
                       "Authors": "16BitWonder",
-                      "Version": "v1.5.1",
+                      "Version": "v1.7.0",
                       "Source": "https://github.com/16BitWonder/Pixel-Painter-Switch",
                       "DLSource": "https://github.com/16BitWonder/Pixel-Painter-Switch",
                       "EnabledByDefault": false,
@@ -1368,12 +1448,12 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/pixelpainter/v1.5.1/sd/switch/Pixel-Painter/Pixel-Painter.nacp",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/pixelpainter/v1.7.0/sd/switch/Pixel-Painter/Pixel-Painter.nacp",
                           "Directory": "sd/switch/Pixel-Painter/Pixel-Painter.nacp",
                           "FileName": "Pixel-Painter.nacp"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/pixelpainter/v1.5.1/sd/switch/Pixel-Painter/Pixel-Painter.nro",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/pixelpainter/v1.7.0/sd/switch/Pixel-Painter/Pixel-Painter.nro",
                           "Directory": "sd/switch/Pixel-Painter/Pixel-Painter.nro",
                           "FileName": "Pixel-Painter.nro"
                         }
@@ -3068,7 +3148,7 @@
                       "Name": "ReiNX Loader",
                       "DisplayName": "ReiNX Loader",
                       "Authors": "Reisyukaku",
-                      "Version": "v1.2",
+                      "Version": "v1.6.0",
                       "Source": "https://github.com/Reisyukaku/ReiNX/",
                       "DLSource": "https://github.com/Reisyukaku/ReiNX/",
                       "EnabledByDefault": false,
@@ -3079,8 +3159,8 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx_payload/v1.2/payloads/ReiNX.bin",
-                          "Directory": "payloads/ReiNX.bin",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/reinx_payload/v1.6.0/pc/payloads/ReiNX.bin",
+                          "Directory": "pc/payloads/ReiNX.bin",
                           "FileName": "ReiNX.bin"
                         }
                       ]
@@ -3285,7 +3365,7 @@
                       "Name": "4NXCI",
                       "DisplayName": "4NXCI",
                       "Authors": "The-4n",
-                      "Version": "v1.2.1",
+                      "Version": "v1.3.0",
                       "Source": "https://github.com/The-4n/4NXCI",
                       "DLSource": "https://github.com/The-4n/4NXCI",
                       "EnabledByDefault": false,
@@ -3296,22 +3376,22 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/4nxci/v1.2.1/pc/4NXCI/4nxci.exe",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/4nxci/v1.3.0/pc/4NXCI/4nxci.exe",
                           "Directory": "pc/4NXCI/4nxci.exe",
                           "FileName": "4nxci.exe"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/4nxci/v1.2.1/pc/4NXCI/CHANGELOG.txt",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/4nxci/v1.3.0/pc/4NXCI/CHANGELOG.txt",
                           "Directory": "pc/4NXCI/CHANGELOG.txt",
                           "FileName": "CHANGELOG.txt"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/4nxci/v1.2.1/licenses/4NXCI.txt",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/4nxci/v1.3.0/licenses/4NXCI.txt",
                           "Directory": "licenses/4NXCI.txt",
                           "FileName": "4NXCI.txt"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/4nxci/v1.2.1/readmes/4NXCI.txt",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/4nxci/v1.3.0/readmes/4NXCI.txt",
                           "Directory": "readmes/4NXCI.txt",
                           "FileName": "4NXCI.txt"
                         }
@@ -3322,7 +3402,7 @@
                       "Name": "LaunchPadNX",
                       "DisplayName": "LaunchPadNX",
                       "Authors": "ThatNerdyPikachu",
-                      "Version": "v1.8.1",
+                      "Version": "v2.0.0",
                       "Source": "https://github.com/ThatNerdyPikachu/LaunchpadNX",
                       "DLSource": "https://github.com/ThatNerdyPikachu/LaunchpadNX",
                       "EnabledByDefault": false,
@@ -3333,59 +3413,54 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/LaunchpadNX.exe",
-                          "Directory": "pc/LaunchpadNX/LaunchpadNX.exe",
-                          "FileName": "LaunchpadNX.exe"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/launchpad.exe",
+                          "Directory": "pc/LaunchpadNX/launchpad.exe",
+                          "FileName": "launchpad.exe"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/Fake Tickets/7135C20E752183914606CCE81293F24B738C3AEF.ips",
-                          "Directory": "pc/LaunchpadNX/files/Fake Tickets/7135C20E752183914606CCE81293F24B738C3AEF.ips",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/launchpad",
+                          "Directory": "pc/LaunchpadNX/launchpad",
+                          "FileName": "launchpad"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/hbl.patch",
+                          "Directory": "pc/LaunchpadNX/hbl.patch",
+                          "FileName": "hbl.patch"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/fake_tickets/7135C20E752183914606CCE81293F24B738C3AEF.ips",
+                          "Directory": "pc/LaunchpadNX/fake_tickets/7135C20E752183914606CCE81293F24B738C3AEF.ips",
                           "FileName": "7135C20E752183914606CCE81293F24B738C3AEF.ips"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/Fake Tickets/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
-                          "Directory": "pc/LaunchpadNX/files/Fake Tickets/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/fake_tickets/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
+                          "Directory": "pc/LaunchpadNX/fake_tickets/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
                           "FileName": "76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/Fake Tickets/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
-                          "Directory": "pc/LaunchpadNX/files/Fake Tickets/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/fake_tickets/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
+                          "Directory": "pc/LaunchpadNX/fake_tickets/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
                           "FileName": "A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/Fake Tickets/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
-                          "Directory": "pc/LaunchpadNX/files/Fake Tickets/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/fake_tickets/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
+                          "Directory": "pc/LaunchpadNX/fake_tickets/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
                           "FileName": "C0BFC6518707AC975295A0B656A051DA885A9045.ips"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/Fake Tickets/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
-                          "Directory": "pc/LaunchpadNX/files/Fake Tickets/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/fake_tickets/E581B1898637E5BC40DBC4AB8F0C6324447E05D1.ips",
+                          "Directory": "pc/LaunchpadNX/fake_tickets/E581B1898637E5BC40DBC4AB8F0C6324447E05D1.ips",
+                          "FileName": "E581B1898637E5BC40DBC4AB8F0C6324447E05D1.ips"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/fake_tickets/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
+                          "Directory": "pc/LaunchpadNX/fake_tickets/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
                           "FileName": "F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/Fake Tickets/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
-                          "Directory": "pc/LaunchpadNX/files/Fake Tickets/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v2.0.0/pc/LaunchpadNX/fake_tickets/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
+                          "Directory": "pc/LaunchpadNX/fake_tickets/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
                           "FileName": "F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/hbl-album.json",
-                          "Directory": "pc/LaunchpadNX/files/hbl-album.json",
-                          "FileName": "hbl-album.json"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/hbl-album.patch",
-                          "Directory": "pc/LaunchpadNX/files/hbl-album.patch",
-                          "FileName": "hbl-album.patch"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/hbl-controllers.json",
-                          "Directory": "pc/LaunchpadNX/files/hbl-controllers.json",
-                          "FileName": "hbl-controllers.json"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/launchpadnx/v1.8.1/pc/LaunchpadNX/files/hbl-controllers.patch",
-                          "Directory": "pc/LaunchpadNX/files/hbl-controllers.patch",
-                          "FileName": "hbl-controllers.patch"
                         }
                       ]
                     },
@@ -3515,7 +3590,7 @@
                       "Name": "Switch Backup Manager",
                       "DisplayName": "Switch Backup Manager",
                       "Authors": "gibaBR",
-                      "Version": "v1.1.6",
+                      "Version": "v1.1.7",
                       "Source": "https://github.com/gibaBR/Switch-Backup-Manager/",
                       "DLSource": "https://github.com/gibaBR/Switch-Backup-Manager/",
                       "EnabledByDefault": false,
@@ -3526,83 +3601,83 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/Changelog.txt",
-                          "Directory": "pc/Switch Backup Manager/Changelog.txt",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/Changelog.txt",
+                          "Directory": "pc/SwitchBackupManager/Changelog.txt",
                           "FileName": "Changelog.txt"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/hactool.exe",
-                          "Directory": "pc/Switch Backup Manager/hactool.exe",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/hactool.exe",
+                          "Directory": "pc/SwitchBackupManager/hactool.exe",
                           "FileName": "hactool.exe"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/HtmlAgilityPack.dll",
-                          "Directory": "pc/Switch Backup Manager/HtmlAgilityPack.dll",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/HtmlAgilityPack.dll",
+                          "Directory": "pc/SwitchBackupManager/HtmlAgilityPack.dll",
                           "FileName": "HtmlAgilityPack.dll"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/HtmlAgilityPack.pdb",
-                          "Directory": "pc/Switch Backup Manager/HtmlAgilityPack.pdb",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/HtmlAgilityPack.pdb",
+                          "Directory": "pc/SwitchBackupManager/HtmlAgilityPack.pdb",
                           "FileName": "HtmlAgilityPack.pdb"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/HtmlAgilityPack.xml",
-                          "Directory": "pc/Switch Backup Manager/HtmlAgilityPack.xml",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/HtmlAgilityPack.xml",
+                          "Directory": "pc/SwitchBackupManager/HtmlAgilityPack.xml",
                           "FileName": "HtmlAgilityPack.xml"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/libmbedcrypto.dll",
-                          "Directory": "pc/Switch Backup Manager/libmbedcrypto.dll",
-                          "FileName": "libmbedcrypto.dll"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/libmbedtls.dll",
-                          "Directory": "pc/Switch Backup Manager/libmbedtls.dll",
-                          "FileName": "libmbedtls.dll"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/libmbedx509.dll",
-                          "Directory": "pc/Switch Backup Manager/libmbedx509.dll",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/libmbedx509.dll",
+                          "Directory": "pc/SwitchBackupManager/libmbedx509.dll",
                           "FileName": "libmbedx509.dll"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/Microsoft.WindowsAPICodePack.dll",
-                          "Directory": "pc/Switch Backup Manager/Microsoft.WindowsAPICodePack.dll",
-                          "FileName": "Microsoft.WindowsAPICodePack.dll"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/libmbedcrypto.dll",
+                          "Directory": "pc/SwitchBackupManager/libmbedcrypto.dll",
+                          "FileName": "libmbedcrypto.dll"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/Microsoft.WindowsAPICodePack.Shell.dll",
-                          "Directory": "pc/Switch Backup Manager/Microsoft.WindowsAPICodePack.Shell.dll",
-                          "FileName": "Microsoft.WindowsAPICodePack.Shell.dll"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/libmbedtls.dll",
+                          "Directory": "pc/SwitchBackupManager/libmbedtls.dll",
+                          "FileName": "libmbedtls.dll"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/Microsoft.WindowsAPICodePack.Shell.xml",
-                          "Directory": "pc/Switch Backup Manager/Microsoft.WindowsAPICodePack.Shell.xml",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/Microsoft.WindowsAPICodePack.Shell.xml",
+                          "Directory": "pc/SwitchBackupManager/Microsoft.WindowsAPICodePack.Shell.xml",
                           "FileName": "Microsoft.WindowsAPICodePack.Shell.xml"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/Microsoft.WindowsAPICodePack.xml",
-                          "Directory": "pc/Switch Backup Manager/Microsoft.WindowsAPICodePack.xml",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/Microsoft.WindowsAPICodePack.Shell.dll",
+                          "Directory": "pc/SwitchBackupManager/Microsoft.WindowsAPICodePack.Shell.dll",
+                          "FileName": "Microsoft.WindowsAPICodePack.Shell.dll"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/Microsoft.WindowsAPICodePack.dll",
+                          "Directory": "pc/SwitchBackupManager/Microsoft.WindowsAPICodePack.dll",
+                          "FileName": "Microsoft.WindowsAPICodePack.dll"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/Microsoft.WindowsAPICodePack.xml",
+                          "Directory": "pc/SwitchBackupManager/Microsoft.WindowsAPICodePack.xml",
                           "FileName": "Microsoft.WindowsAPICodePack.xml"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/ObjectListView.dll",
-                          "Directory": "pc/Switch Backup Manager/ObjectListView.dll",
-                          "FileName": "ObjectListView.dll"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/ObjectListView.pdb",
-                          "Directory": "pc/Switch Backup Manager/ObjectListView.pdb",
-                          "FileName": "ObjectListView.pdb"
-                        },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/ObjectListView.xml",
-                          "Directory": "pc/Switch Backup Manager/ObjectListView.xml",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/ObjectListView.xml",
+                          "Directory": "pc/SwitchBackupManager/ObjectListView.xml",
                           "FileName": "ObjectListView.xml"
                         },
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.6/pc/Switch Backup Manager/Switch Backup Manager.exe",
-                          "Directory": "pc/Switch Backup Manager/Switch Backup Manager.exe",
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/ObjectListView.pdb",
+                          "Directory": "pc/SwitchBackupManager/ObjectListView.pdb",
+                          "FileName": "ObjectListView.pdb"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/ObjectListView.dll",
+                          "Directory": "pc/SwitchBackupManager/ObjectListView.dll",
+                          "FileName": "ObjectListView.dll"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/switchbackupmanager/v1.1.7/pc/SwitchBackupManager/Switch Backup Manager.exe",
+                          "Directory": "pc/SwitchBackupManager/Switch Backup Manager.exe",
                           "FileName": "Switch Backup Manager.exe"
                         }
                       ]
@@ -3632,7 +3707,7 @@
                       "Name": "Rekado",
                       "DisplayName": "Rekado",
                       "Authors": "MenosGrante",
-                      "Version": "v2.2.1",
+                      "Version": "v2.3",
                       "Source": "https://github.com/MenosGrante/Rekado/",
                       "DLSource": "https://github.com/MenosGrante/Rekado/",
                       "EnabledByDefault": false,
@@ -3643,9 +3718,9 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/rekado/v2.2.1/android/2.2.1.Rekado.apk",
-                          "Directory": "android/2.2.1.Rekado.apk",
-                          "FileName": "2.2.1.Rekado.apk"
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/rekado/v2.3/android/2.3.Rekado.apk",
+                          "Directory": "android/2.3.Rekado.apk",
+                          "FileName": "2.3.Rekado.apk"
                         }
                       ]
                     }
@@ -3664,6 +3739,7 @@
       "ID": "3ds",
       "Color": "blue",
       "Visible": false,
+      "Bundles": [],
       "PackageSections": [
         {
           "ID": "cfws",
@@ -3839,38 +3915,38 @@
                   "When": [],
                   "WhenMode": 0,
                   "Packages": [
-																			{
-																				"ID": "fastboot3ds",
-																				"Name": "FastBoot3DS",
-																				"DisplayName": "FastBoot3DS",
-																				"Authors": "derrek, profi200, d0k3",
-																				"Version": "v1.1",
-																				"Source": "https://github.com/derrekr/fastboot3DS/",
-																				"DLSource": "https://github.com/derrekr/fastboot3DS/",
-																				"EnabledByDefault": false,
-																				"Visible": true,
-																				"Description": "Custom bootloader for the 3DS with chainloading, NAND backup and restoring, OTP dumping and more. Requires OpenFirmInstaller to install.",
-																				"When": [],
-																				"WhenMode": 0,
-																				"Dependencies": [],
-																				"Artifacts": [
-																					{
-																						"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1/sd/ofi/fastboot3DS.firm",
-																						"Directory": "sd/ofi/fastboot3DS.firm",
-																						"FileName": "fastboot3DS.firm"
-																					},
-																					{
-																						"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1/licenses/Fastboot3DS.txt",
-																						"Directory": "licenses/Fastboot3DS.txt",
-																						"FileName": "Fastboot3DS.txt"
-																					},
-																					{
-																						"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1/readmes/Fastboot3DS.txt",
-																						"Directory": "readmes/Fastboot3DS.txt",
-																						"FileName": "Fastboot3DS.txt"
-																					}
-																				]
-																			}
+                    {
+                      "ID": "fastboot3ds",
+                      "Name": "FastBoot3DS",
+                      "DisplayName": "FastBoot3DS",
+                      "Authors": "derrek, profi200, d0k3",
+                      "Version": "v1.1",
+                      "Source": "https://github.com/derrekr/fastboot3DS/",
+                      "DLSource": "https://github.com/derrekr/fastboot3DS/",
+                      "EnabledByDefault": false,
+                      "Visible": true,
+                      "Description": "Custom bootloader for the 3DS with chainloading, NAND backup and restoring, OTP dumping and more. Requires OpenFirmInstaller to install.",
+                      "When": [],
+                      "WhenMode": 0,
+                      "Dependencies": [],
+                      "Artifacts": [
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1/sd/ofi/fastboot3DS.firm",
+                          "Directory": "sd/ofi/fastboot3DS.firm",
+                          "FileName": "fastboot3DS.firm"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1/licenses/Fastboot3DS.txt",
+                          "Directory": "licenses/Fastboot3DS.txt",
+                          "FileName": "Fastboot3DS.txt"
+                        },
+                        {
+                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/fastboot3ds/v1.1/readmes/Fastboot3DS.txt",
+                          "Directory": "readmes/Fastboot3DS.txt",
+                          "FileName": "Fastboot3DS.txt"
+                        }
+                      ]
+                    }
                   ]
                 }
               ]
@@ -4838,11 +4914,11 @@
                           "Directory": "sd/cias/picodrive_3ds.cia",
                           "FileName": "picodrive_3ds.cia"
                         },
-                        {
-                          "URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/picodrive3ds/v0.9.4/readmes/PicoDrive.txt",
-                          "Directory": "readmes/PicoDrive.txt",
-                          "FileName": "PicoDrive.txt"
-                        }
+																							{
+																								"URL": "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/picodrive3ds/v0.9.4/readmes/PicoDrive.txt",
+																								"Directory": "readmes/PicoDrive.txt",
+																								"FileName": "PicoDrive.txt"
+																							}
                       ]
                     }
                   ]
