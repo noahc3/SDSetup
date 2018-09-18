@@ -50,18 +50,23 @@ namespace SDSetupBlazor {
         public string Color = "";
         public bool Visible = true;
         public List<PackageSection> PackageSections = new List<PackageSection>();
+        public List<Bundle> Bundles = new List<Bundle>();
 
-        public Platform(string name, string menuName, string homeIcon, string iD, List<PackageSection> packageSections, string color, bool Visible) {
+
+
+        public Platform() {
+
+        }
+
+        public Platform(string name, string menuName, string homeIcon, string iD, string color, bool visible, List<PackageSection> packageSections, List<Bundle> bundles) {
             Name = name;
             MenuName = menuName;
             HomeIcon = homeIcon;
             ID = iD;
-            PackageSections = packageSections;
             Color = color;
-        }
-
-        public Platform() {
-
+            Visible = visible;
+            PackageSections = packageSections;
+            Bundles = bundles;
         }
     }
 
@@ -200,6 +205,22 @@ namespace SDSetupBlazor {
         }
 
         public Artifact() {
+
+        }
+    }
+
+    public class Bundle {
+        public string Name;
+        public string Description;
+        public List<string> Packages;
+
+        public Bundle(string name, string description, List<string> packages) {
+            Name = name;
+            Description = description;
+            this.Packages = packages;
+        }
+
+        public Bundle() {
 
         }
     }

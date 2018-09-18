@@ -42,7 +42,7 @@ namespace SDSetupManifestGenerator {
                     return;
                 }
 
-                G.manifest.Platforms.Add(txtId.Text, new Platform(txtName.Text, txtMenu.Text, txtImg.Text, txtId.Text, new List<PackageSection>(), txtClasses.Text, cbxVisible.Checked));
+                G.manifest.Platforms.Add(txtId.Text, new Platform(txtName.Text, txtMenu.Text, txtImg.Text, txtId.Text, txtClasses.Text, cbxVisible.Checked, new List<PackageSection>(), new List<Bundle>()));
             } else {
 
                 if (txtId.Text != p.ID && G.manifest.Platforms.ContainsKey(txtId.Text)) {
