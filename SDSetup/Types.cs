@@ -27,6 +27,8 @@ namespace SDSetupManifestGenerator {
         public Manifest() {
 
         }
+
+        
     }
 
     public class Message {
@@ -39,6 +41,7 @@ namespace SDSetupManifestGenerator {
         }
 
         public Message() { }
+
     }
 
     public class Platform {
@@ -67,6 +70,10 @@ namespace SDSetupManifestGenerator {
             Visible = visible;
             PackageSections = packageSections;
             Bundles = bundles;
+        }
+
+        public override string ToString() {
+            return Name;
         }
     }
 
@@ -98,6 +105,10 @@ namespace SDSetupManifestGenerator {
             Categories = categories;
             Footer = footer;
         }
+
+        public override string ToString() {
+            return Name;
+        }
     }
 
     public class PackageCategory {
@@ -124,6 +135,10 @@ namespace SDSetupManifestGenerator {
             WhenMode = whenMode;
             Subcategories = subcategories;
         }
+
+        public override string ToString() {
+            return Name;
+        }
     }
 
     public class PackageSubcategory {
@@ -148,6 +163,10 @@ namespace SDSetupManifestGenerator {
             When = when;
             WhenMode = whenMode;
             Packages = packages;
+        }
+
+        public override string ToString() {
+            return Name;
         }
     }
 
@@ -189,6 +208,10 @@ namespace SDSetupManifestGenerator {
             Dependencies = dependencies;
             Artifacts = artifacts;
         }
+
+        public override string ToString() {
+            return Name;
+        }
     }
 
     public class Artifact {
@@ -222,6 +245,10 @@ namespace SDSetupManifestGenerator {
 
         public Bundle() {
 
+        }
+
+        public override string ToString() {
+            return Name;
         }
     }
 

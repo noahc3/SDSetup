@@ -28,8 +28,9 @@ namespace SDSetupManifestGenerator {
             this.Version = Version;
             this.ID = ID;
 
-            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch"), new TreeNode("retroarch", new TreeNode[] { new TreeNode("cores", new TreeNode[] { new TreeNode("switch") })})}));
+            //tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch"), new TreeNode("retroarch", new TreeNode[] { new TreeNode("cores", new TreeNode[] { new TreeNode("switch") })})}));
             tvwItems.Nodes.Add(new TreeNode("pc", new TreeNode[] { new TreeNode("payloads") }));
+            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch") }));
             //tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("3ds"), new TreeNode("cias") }));
             tvwItems.ExpandAll();
 
