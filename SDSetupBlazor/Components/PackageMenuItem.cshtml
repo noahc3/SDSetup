@@ -28,4 +28,8 @@
 		if (G.WhenDependants[G.consoleId].ContainsKey(PID)) foreach (string SID in G.WhenDependants[G.consoleId][PID]) G.SectionRefreshes[SID]();
 		StateHasChanged();
 	}
+
+	protected override async Task OnInitAsync() {
+		G.SelectionRefreshes[PID] = new Action(() => StateHasChanged());
+	}
 }

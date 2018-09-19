@@ -77,11 +77,12 @@
 						<Card CardType="CardType.Body">
 							<Card CardType="CardType.Title">@b.Name</Card>
 							@b.Description
-							<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;" onclick="">Select</button>
 						</Card>
+						<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin:1.2rem;margin-top:0;width:auto" onclick="@(() => G.SelectByList(b.Packages))">Select</button>
 					</Card>
 				}
 			</Card>
+
 		</div>
 
 		@foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections) {

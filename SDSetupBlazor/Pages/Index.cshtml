@@ -9,9 +9,7 @@
 
 @if (!String.IsNullOrEmpty(G.manifest.Message.InnerHTML)) {
 	<div class="ui @G.manifest.Message.Color message">
-		<div class="header fluid" style="text-align:center">
-			@((MarkupString)G.manifest.Message.InnerHTML)
-		</div>
+		@((MarkupString)G.manifest.Message.InnerHTML)
 	</div>
 }
 

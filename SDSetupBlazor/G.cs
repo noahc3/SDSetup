@@ -19,6 +19,7 @@ namespace SDSetupBlazor
 
         public static Dictionary<string, Dictionary<string, List<string>>> WhenDependants = new Dictionary<string, Dictionary<string, List<string>>>();
         public static Dictionary<string, Action> SectionRefreshes = new Dictionary<string, Action>();
+        public static Dictionary<string, Action> SelectionRefreshes = new Dictionary<string, Action>();
 
         public static string[] autofillBlacklist = new string[] { "cfw", "cfwoptions", "payloads", "pctools", "cfwaddons" };
         public static string[] autodlBlacklist = new string[] { "cfw", "cfwoptions", "cfwaddons" };
@@ -75,11 +76,24 @@ namespace SDSetupBlazor
             foreach (KeyValuePair<string, bool> k in selectedPackages[consoleId].ToList()) {
                 if (preselects.Contains(k.Key)) selectedPackages[consoleId][k.Key] = true;
                 else selectedPackages[consoleId][k.Key] = false;
+                if (SelectionRefreshes.ContainsKey(k.Key)) SelectionRefreshes[k.Key]();
             }
 
             return;
         }
 
+        public static void SelectByList(List<string> packages) {
+            foreach (KeyValuePair<string, bool> k in selectedPackages[consoleId].ToList()) {
+                bool newValue = false;
+                if (packages.Contains(k.Key)) newValue = true;
+                if (newValue != k.Value) {
+                    selectedPackages[consoleId][k.Key] = newValue;
+                    if (SelectionRefreshes.ContainsKey(k.Key)) SelectionRefreshes[k.Key]();
+                }
+            }
+
+            foreach (Action a in SectionRefreshes.Values) a();
+        }
 
         public static bool CanShow(bool visible, List<string> When, int WhenMode) {
             if (!visible) return false;
