@@ -8,7 +8,7 @@
 
 @if (G.initialized) {
 	<div class="main" style="min-height:100%;height:auto">
-		<div class="ui menu stackable @G.manifest.Platforms[G.consoleId].Color">
+		<div class="ui menu @G.manifest.Platforms[G.consoleId].Color">
 			<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
 			@foreach(Platform k in G.manifest.Platforms.Values) {
                 if (!k.Visible) { continue; }
@@ -17,6 +17,7 @@
 			<a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
 			<a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
 			<div class="right menu">
+				<a href="https://guide.sdsetup.com" class="ui item">Official Guide</a>
 				<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
 				<a href="https://github.com/noahc3/SDSetup" class="ui item"><i class="big github icon"></i></a>
 			</div>
@@ -41,11 +42,6 @@
 	<div class="ui active dimmer" style="height:100%;width:100%">
 		<div class="ui massive text loader">Loading</div>
 		<div style="width:90%;position:absolute;bottom:5%">
-			<div class="ui negative message">
-				<div class="header fluid">
-					Some anti-viruses like AVG and Avast might block this site due to a domain reputation (DRep) problem. This should resolve itself in the future, but for now you'll need to disable your anti-virus to use this site if it gets blocked.
-				</div>
-			</div>
 			<div class="ui negative message">
 				<div class="header fluid">
 					If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
