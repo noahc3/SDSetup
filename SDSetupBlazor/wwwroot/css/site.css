@@ -184,3 +184,27 @@ app {
 		}
 	}
 }
+
+.mobile-only {
+	display: none;
+	visibility: collapse;
+}
+
+@media only screen and (max-width: 768px) {
+	.mobile-only {
+		display: block;
+		visibility: visible;
+	}
+}
+
+.pc-tablet-only {
+	display: block;
+	visibility: visible;
+}
+
+@media only screen and (max-width: 768px) {
+	.pc-tablet-only {
+		display: none;
+		visibility: collapse;
+	}
+}
