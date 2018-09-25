@@ -199,6 +199,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>App.Designer.cs</LastGenOutput>
     </None>
+    <None Include="bin\Debug\manifest5.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
