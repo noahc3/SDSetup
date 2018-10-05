@@ -22,6 +22,7 @@ namespace SDSetupManifestGenerator {
                 _NeedsSaving = value;
                 if (value) {
                     main.btnWriteManifest.BackColor = System.Drawing.Color.DarkRed;
+                    main.btnWriteManifest_Click(null, null);
                 } else {
                     main.btnWriteManifest.BackColor = System.Drawing.Color.Green;
                 }
