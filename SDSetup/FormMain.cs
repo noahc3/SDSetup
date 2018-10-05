@@ -52,7 +52,7 @@ namespace SDSetupManifestGenerator {
             }
         }
 
-        private void btnWriteManifest_Click(object sender, EventArgs e) {
+        public void btnWriteManifest_Click(object sender, EventArgs e) {
             if (File.Exists(R.m)) File.Delete(R.m);
             File.WriteAllText(R.m, JsonConvert.SerializeObject(G.manifest, Formatting.Indented, new JsonSerializerSettings { NullValueHandling = NullValueHandling.Ignore }));
             G.NeedsSaving = false;
