@@ -23,14 +23,6 @@ Internet Explorer is explicitly incompatible due to lack of ES6 support. Additio
 	* Fusee Payloads (ex. Hekate, BISKeyDump, BriccMii)
 	* PC Utilities (ex. TegraRCMSmash)
 
-### Nintendo 3DS
-* Choose between a selection of common homebrew applications, tools and utilities, including:
-	* Custom Firmwares (ex. Luma3DS)
-	* Homebrew Utilities (ex. Checkpoint, PKSM, FBI)
-	* Emulators (ex. SNES9X, mGBA)
-	* Games (ex. Return of the Hylian)
-	* ARM9/Brahma Payloads (ex. Godmode9, OpenFirmInstaller)
-
 ## Usage
 Head over to [https://www.sdsetup.com](https://www.sdsetup.com), select your console of choice, select the packages you want, and hit download! Once finished, simply **extract the contents of the sd folder** in the downloaded ZIP archive **to the root of your SD card!** Do what you wish with any additional folders included in the zip file.
 
@@ -45,6 +37,7 @@ Please feel free [submit an issue](https://www.github.com/noahc3/sdsetup/issues)
 * Suggesting a new package
 * Requesting a package be removed Homebrew SD setup
 * Reporting a redistribution clause license violation for a rehosted package
+* Any other issue with the site or it's packages
 
 ## Build
 Clone the repository and open the solution in Visual Studio. Build from there.
@@ -55,8 +48,6 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 
 ## Todo
 * The project needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
-
-* The manifest authoring tool also kind of sucks, and is missing a lot of values (meaning they currently need to be set manually).
 
 * I'd also like the project to drop pretty much all JavaScript interop, minus browser compatibility checks. Unfortunately, SharpZipLib, the only .Net Standard 2.0 compliant ZIP library I could find, has major problems in the virtualized browser environment, making JS interop necessary.
 
