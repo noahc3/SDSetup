@@ -28,15 +28,19 @@ namespace SDSetupManifestGenerator {
             this.Version = Version;
             this.ID = ID;
 
-            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch"), new TreeNode("retroarch", new TreeNode[] { new TreeNode("cores", new TreeNode[] { new TreeNode("switch") })})}));
-            tvwItems.Nodes.Add(new TreeNode("pc", new TreeNode[] { new TreeNode("payloads") }));
+            tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch")}));
+            tvwItems.Nodes.Add(new TreeNode("pc"));
+            tvwItems.Nodes.Add(new TreeNode("android"));
+            tvwItems.Nodes.Add(new TreeNode("readmes"));
+            tvwItems.Nodes.Add(new TreeNode("licenses"));
+            tvwItems.Nodes.Add(new TreeNode("payloads"));
             //tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("switch") }));
             //tvwItems.Nodes.Add(new TreeNode("sd", new TreeNode[] { new TreeNode("3ds"), new TreeNode("cias") }));
             tvwItems.ExpandAll();
 
             txtUrl.Text = DefaultURL;
 
-            txtUploadUrl.Text = "https://cdn.rawgit.com/noahc3/SDSetupFiles/master/";
+            txtUploadUrl.Text = "https://s3.wasabisys.com/sdsetup/";
         }
 
         private void tvwItems_DragDrop(object sender, DragEventArgs e) {
