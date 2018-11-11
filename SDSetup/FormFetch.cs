@@ -40,7 +40,7 @@ namespace SDSetupManifestGenerator {
 
             txtUrl.Text = DefaultURL;
 
-            txtUploadUrl.Text = "https://s3.wasabisys.com/sdsetup/";
+            txtUploadUrl.Text = "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/";
         }
 
         private void tvwItems_DragDrop(object sender, DragEventArgs e) {
