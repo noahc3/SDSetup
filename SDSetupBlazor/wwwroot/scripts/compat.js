@@ -17,8 +17,8 @@ function checkMobileFirefox() {
 		$('body').replaceWith(
 			'<div class="ui active dimmer" style="height:100%;width:100%">' +
 			'<img class="ui small image" src="/img/fail.png">' +
-			'<h3 style="color:#ffffff;margin-top:1.5em">Unfortunately, Firefox for Mobile is not compatible with this site at this time.</h3>' +
-			'<h6 style="color:#ffffff">(This should be fixed in the future, for now use another browser)</h6>' +
+			'<h3 style="color:#ffffff;margin-top:1.5em">Unfortunately, Your Firefox for Mobile version is not compatible with this site.</h3>' +
+			'<h6 style="color:#ffffff">(Update it to at least version 64 or use another browser)</h6>' +
 			'</div>'
 		);
 		return;
@@ -37,7 +37,11 @@ function getBrowserCompatInfo() {
 	}
 	if (window.navigator.userAgent.indexOf('Firefox') > -1) {
 		if (navigator.mobileAndTabletcheck()) {
-			return 4;
+			if (navigator.browserSpecs.version < 64) {
+				return 4;
+			} else {
+				return 3;
+			}
 		} else {
 			return 3;
 		}
