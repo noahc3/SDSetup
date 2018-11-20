@@ -21,6 +21,8 @@
 					<a href="https://guide.sdsetup.com" class="ui item">Official Guide</a>
 					<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
 					<a href="https://github.com/noahc3/SDSetup" class="ui item"><i class="big github icon"></i></a>
+					<a href="https://www.patreon.com/atlasnx" class="ui item"><i class="big patreon icon"></i></a>
+					<a href="https://www.paypal.me/atlasnx" class="ui item"><i class="big paypal icon"></i></a>
 				</div>
 			</div>
 		</div>
@@ -37,6 +39,8 @@
 				<a href="https://guide.sdsetup.com" class="ui item">Official Guide</a>
 				<a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
 				<a href="https://github.com/noahc3/SDSetup" class="ui item">Source on Github</a>
+				<a href="https://www.patreon.com/atlasnx" class="ui item">Donate on Patreon</a>
+				<a href="https://www.paypal.me/atlasnx" class="ui item">Donate with Paypal</a>
 			</div>
 		</div>
 		
@@ -44,9 +48,9 @@
 		<div class="container" style="padding-bottom:1.5rem">
 			<div class="content px-4">
 				@if (!String.IsNullOrEmpty(G.manifest.Message.InnerHTML)) {
-					<div class="ui @G.manifest.Message.Color message">
-						@((MarkupString)G.manifest.Message.InnerHTML)
-					</div>
+				<div class="ui @G.manifest.Message.Color message">
+					@((MarkupString)G.manifest.Message.InnerHTML)
+				</div>
 				}
 				@Body
 			</div>
