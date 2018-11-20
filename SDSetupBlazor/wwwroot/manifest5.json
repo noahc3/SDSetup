@@ -1,10 +1,10 @@
 {
-  "Version": "2018.11.10.01",
+  "Version": "2018.11.11.01",
   "Copyright": "© 2018 noahc3$The Nintendo Switch and Nintendo 3DS names and logos are © Nintendo. This site is in no way affiliated with Nintendo or any of its partners.",
-  "Message": {
-    "Color": "success",
-    "InnerHTML": "<div class='header fluid' style='text-align:center'>Kosmos v11.0 is here!</div>"
-  },
+	"Message": {
+		"Color": "red",
+		"InnerHTML": "<div style=\"text-align:center\"><div class=\"ui header\">Do not update to firmware 6.2.0+</div>Nintendo changed key derivation in firmware 6.2.0. No bootloaders are compatible with these changes. You will not be able to boot CFW with firmware 6.2.0+. Wait for developers to reverse engineer and reimplement the changes.</div>"
+	},
   "Platforms": {
     "switch": {
       "Name": "Nintendo Switch",
@@ -15,8 +15,8 @@
       "Visible": true,
       "Bundles": [
         {
-          "Name": "SDFiles Defaults",
-          "Description": "Includes the default packages found in tomGER's SDFilesSwitch.",
+          "Name": "Kosmos Defaults",
+          "Description": "Includes the default packages found in Team AtlasNX's Kosmos bundle.",
           "Packages": [
             "appstorenx",
             "atmosphere",
@@ -27,11 +27,9 @@
             "checkpoint",
             "hbmenu",
             "hekate",
-            "atmos_switchpresence",
             "atmos_sysftpd",
             "atmos_sysnetcheat",
             "tinfoil",
-            "atmos_xorplay",
             "noexs"
           ]
         },
@@ -53,7 +51,6 @@
             "atmos_musthave",
             "atmos_bootlogo",
             "atmos_fusee",
-            "atmos_kippatches",
             "kosmos_updater",
             "kosmos_toolkit",
             "reinx_toolkit",
@@ -257,7 +254,7 @@
                       "Name": "Atmosphere",
                       "DisplayName": "Atmosphere (Kosmos)",
                       "Authors": "SciresM, tomGER, WerWolv, StevenMaterra, TuxSH, hexkyz",
-                      "Version": "v11.0/v0.7.4",
+                      "Version": "v11.0.1/v0.7.5",
                       "Source": "https://github.com/Atmosphere-NX/Atmosphere",
                       "DLSource": "https://github.com/Atmosphere-NX/Atmosphere",
                       "EnabledByDefault": false,
@@ -268,8 +265,7 @@
                       "Dependencies": [
                         "atmos_musthave",
                         "atmos_bootlogo",
-                        "atmos_fusee",
-                        "atmos_kippatches"
+                        "atmos_fusee"
                       ],
                       "Artifacts": []
                     }
@@ -290,7 +286,7 @@
             "reinx"
           ],
           "WhenMode": 1,
-          "Footer": "These modules are powered by <a href='https://github.com/AtlasNX/Kosmos'>Team AtlasNX's Kosmos v11.0</a>",
+          "Footer": "These modules are powered by <a href='https://github.com/AtlasNX/Kosmos'>Team AtlasNX's Kosmos v11.0.1</a>",
           "Categories": [
             {
               "ID": "reinx_options",
@@ -363,7 +359,7 @@
                       "Name": "Enable Signature Patches",
                       "DisplayName": "Enable Signature Patches",
                       "Authors": "Rajkosto",
-                      "Version": "2018.11.02",
+                      "Version": "2018.11.14",
                       "Source": "https://www.github.com/tumGER/SDFilesSwitch",
                       "DLSource": "",
                       "EnabledByDefault": false,
@@ -374,47 +370,47 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/7135C20E752183914606CCE81293F24B738C3AEF.ips",
                           "FileName": "7135C20E752183914606CCE81293F24B738C3AEF.ips"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips",
                           "FileName": "76935CA6235CA150D790D4DDF09CA3488AEF50D8.ips"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/9C1B205852731D054B070529D320AD9649E7796C.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/9C1B205852731D054B070529D320AD9649E7796C.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/9C1B205852731D054B070529D320AD9649E7796C.ips",
                           "FileName": "9C1B205852731D054B070529D320AD9649E7796C.ips"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips",
                           "FileName": "A6E7D98BD335371E1B9A96F6241EA3E83B0C36F4.ips"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/C0BFC6518707AC975295A0B656A051DA885A9045.ips",
                           "FileName": "C0BFC6518707AC975295A0B656A051DA885A9045.ips"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/CBF2D40A2210C4EE1137F80098DB776EAC7DDCC1.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/CBF2D40A2210C4EE1137F80098DB776EAC7DDCC1.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/CBF2D40A2210C4EE1137F80098DB776EAC7DDCC1.ips",
                           "FileName": "CBF2D40A2210C4EE1137F80098DB776EAC7DDCC1.ips"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/E581B1898637E5BC40DBC4AB8F0C6324447E05D1.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/E581B1898637E5BC40DBC4AB8F0C6324447E05D1.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/E581B1898637E5BC40DBC4AB8F0C6324447E05D1.ips",
                           "FileName": "E581B1898637E5BC40DBC4AB8F0C6324447E05D1.ips"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips",
                           "FileName": "F86D615F9FC6F0D16C3458BE58C64594DBDAB0DF.ips"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.02/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_sigpatch/2018.11.14/sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
                           "Directory": "sd/atmosphere/exefs_patches/Signature Patches by Rajkosto/F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips",
                           "FileName": "F92CFF283777465AFBCC6E160C10EFE7AADC4D3C.ips"
                         }
@@ -425,7 +421,7 @@
                       "Name": "Kosmos Toolbox",
                       "DisplayName": "Kosmos Toolbox",
                       "Authors": "WerWolv",
-                      "Version": "v11",
+                      "Version": "v11.0.1",
                       "Source": "https://github.com/AtlasNX/CFW-Settings",
                       "DLSource": "https://github.com/AtlasNX/CFW-Settings",
                       "EnabledByDefault": false,
@@ -436,7 +432,7 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/kosmos_toolkit/v11/sd/switch/CFWSettings.nro",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/kosmos_toolkit/v11.0.1/sd/switch/CFWSettings.nro",
                           "Directory": "sd/switch/CFWSettings.nro",
                           "FileName": "CFWSettings.nro"
                         }
@@ -447,7 +443,7 @@
                       "Name": "Kosmos Updater",
                       "DisplayName": "Kosmos Updater",
                       "Authors": "StevenMattera",
-                      "Version": "v11",
+                      "Version": "v11.0.1",
                       "Source": "https://github.com/AtlasNX/Kosmos-Updater",
                       "DLSource": "https://github.com/AtlasNX/Kosmos-Updater",
                       "EnabledByDefault": false,
@@ -458,17 +454,17 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/kosmos_updater/v11/sd/switch/KosmosUpdater/internal.db",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/kosmos_updater/v11.0.1/sd/switch/KosmosUpdater/internal.db",
                           "Directory": "sd/switch/KosmosUpdater/internal.db",
                           "FileName": "internal.db"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/kosmos_updater/v11/sd/switch/KosmosUpdater/KosmosUpdater.nro",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/kosmos_updater/v11.0.1/sd/switch/KosmosUpdater/KosmosUpdater.nro",
                           "Directory": "sd/switch/KosmosUpdater/KosmosUpdater.nro",
                           "FileName": "KosmosUpdater.nro"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/kosmos_updater/v11/sd/switch/KosmosUpdater/settings.cfg",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/kosmos_updater/v11.0.1/sd/switch/KosmosUpdater/settings.cfg",
                           "Directory": "sd/switch/KosmosUpdater/settings.cfg",
                           "FileName": "settings.cfg"
                         }
@@ -637,7 +633,7 @@
                       "Name": "Kosmos Bootlogo",
                       "DisplayName": "Kosmos Bootlogo",
                       "Authors": "Team AtlasNX",
-                      "Version": "v11",
+                      "Version": "v11.0.1",
                       "Source": "https://github.com/tumGER/SDFilesSwitch ",
                       "DLSource": "https://github.com/tumGER/SDFilesSwitch",
                       "EnabledByDefault": false,
@@ -650,7 +646,7 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_bootlogo/v11/sd/bootloader/bootlogo.bmp",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_bootlogo/v11.0.1/sd/bootloader/bootlogo.bmp",
                           "Directory": "sd/bootloader/bootlogo.bmp",
                           "FileName": "bootlogo.bmp"
                         }
@@ -661,7 +657,7 @@
                       "Name": "Must Have",
                       "DisplayName": "Must Have",
                       "Authors": "Team AtlasNX",
-                      "Version": "v11",
+                      "Version": "v11.0.1",
                       "Source": "https://github.com/AtlasNX/Kosmos",
                       "DLSource": "https://github.com/AtlasNX/Kosmos",
                       "EnabledByDefault": false,
@@ -674,171 +670,74 @@
                       "Dependencies": [],
                       "Artifacts": [
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/atmosphere/titles/0100000000000036/exefs.nsp",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/atmosphere/titles/0100000000000032/boot2.flag",
+                          "Directory": "sd/atmosphere/titles/0100000000000032/boot2.flag",
+                          "FileName": "boot2.flag"
+                        },
+                        {
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/atmosphere/titles/0100000000000032/exefs.nsp",
+                          "Directory": "sd/atmosphere/titles/0100000000000032/exefs.nsp",
+                          "FileName": "exefs.nsp"
+                        },
+                        {
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/atmosphere/titles/0100000000000036/exefs.nsp",
                           "Directory": "sd/atmosphere/titles/0100000000000036/exefs.nsp",
                           "FileName": "exefs.nsp"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/atmosphere/hbl.nsp",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/atmosphere/hbl.nsp",
                           "Directory": "sd/atmosphere/hbl.nsp",
                           "FileName": "hbl.nsp"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/atmosphere/loader.ini",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/atmosphere/loader.ini",
                           "Directory": "sd/atmosphere/loader.ini",
                           "FileName": "loader.ini"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/bootloader/sys/libsys_lp0.bso",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/bootloader/sys/libsys_lp0.bso",
                           "Directory": "sd/bootloader/sys/libsys_lp0.bso",
                           "FileName": "libsys_lp0.bso"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/bootloader/hekate_ipl.ini",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/bootloader/hekate_ipl.ini",
                           "Directory": "sd/bootloader/hekate_ipl.ini",
                           "FileName": "hekate_ipl.ini"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/bootloader/update.bin",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/bootloader/update.bin",
                           "Directory": "sd/bootloader/update.bin",
                           "FileName": "update.bin"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/config/nx-hbmenu/themes/theme.cfg",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/config/nx-hbmenu/themes/theme.cfg",
                           "Directory": "sd/config/nx-hbmenu/themes/theme.cfg",
                           "FileName": "theme.cfg"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/modules/required/exosphere.bin",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/modules/required/exosphere.bin",
                           "Directory": "sd/modules/required/exosphere.bin",
                           "FileName": "exosphere.bin"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/modules/required/fs_mitm.kip",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/modules/required/fs_mitm.kip",
                           "Directory": "sd/modules/required/fs_mitm.kip",
                           "FileName": "fs_mitm.kip"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/modules/required/loader.kip",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/modules/required/loader.kip",
                           "Directory": "sd/modules/required/loader.kip",
                           "FileName": "loader.kip"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/modules/required/pm.kip",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/modules/required/pm.kip",
                           "Directory": "sd/modules/required/pm.kip",
                           "FileName": "pm.kip"
                         },
                         {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11/sd/modules/required/sm.kip",
+                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_musthave/v11.0.1/sd/modules/required/sm.kip",
                           "Directory": "sd/modules/required/sm.kip",
                           "FileName": "sm.kip"
-                        }
-                      ]
-                    },
-                    {
-                      "ID": "atmos_kippatches",
-                      "Name": "kip patches",
-                      "DisplayName": "kip patches",
-                      "Authors": "SciresM, ReSwitched. WerWolv",
-                      "Version": "v10",
-                      "Source": "https://github.com/tumGER/SDFilesSwitch/",
-                      "DLSource": "https://github.com/tumGER/SDFilesSwitch/",
-                      "EnabledByDefault": false,
-                      "Visible": false,
-                      "Description": "",
-                      "When": [],
-                      "WhenMode": 0,
-                      "Dependencies": [],
-                      "Artifacts": [
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/02D5ABAAFD20C8B0633AA0DBAEE0377EF526CE6AD2AC6F2CAD7180CE69E74311.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/02D5ABAAFD20C8B0633AA0DBAEE0377EF526CE6AD2AC6F2CAD7180CE69E74311.ips",
-                          "FileName": "02D5ABAAFD20C8B0633AA0DBAEE0377EF526CE6AD2AC6F2CAD7180CE69E74311.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/06E90719595A010C6246FF70946F10FB367A00BBD8B7D8D1F25CCE0B458D7E89.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/06E90719595A010C6246FF70946F10FB367A00BBD8B7D8D1F25CCE0B458D7E89.ips",
-                          "FileName": "06E90719595A010C6246FF70946F10FB367A00BBD8B7D8D1F25CCE0B458D7E89.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/073099D7C6AD7D8983BC7ADD932BE3D1243193792E0920955DBC17F5794FDE28.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/073099D7C6AD7D8983BC7ADD932BE3D1243193792E0920955DBC17F5794FDE28.ips",
-                          "FileName": "073099D7C6AD7D8983BC7ADD932BE3D1243193792E0920955DBC17F5794FDE28.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/0D7005627B07767C0B963F9AFFDDE56628A27116CFC4D8B2AF42BDEEBF97205B.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/0D7005627B07767C0B963F9AFFDDE56628A27116CFC4D8B2AF42BDEEBF97205B.ips",
-                          "FileName": "0D7005627B07767C0B963F9AFFDDE56628A27116CFC4D8B2AF42BDEEBF97205B.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/10B2D81605488599DF2242CB6BAC2DF1E2BCAB3BC19DC5CD63DB6FAEC0947097.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/10B2D81605488599DF2242CB6BAC2DF1E2BCAB3BC19DC5CD63DB6FAEC0947097.ips",
-                          "FileName": "10B2D81605488599DF2242CB6BAC2DF1E2BCAB3BC19DC5CD63DB6FAEC0947097.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/330553F6B5FB55C4C2D7B736240276B3EAD664DA79826FA936F99803B6C28F3B.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/330553F6B5FB55C4C2D7B736240276B3EAD664DA79826FA936F99803B6C28F3B.ips",
-                          "FileName": "330553F6B5FB55C4C2D7B736240276B3EAD664DA79826FA936F99803B6C28F3B.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/3A574D436186191D1788EB2C0F076B11737132EBB1484CF906B6A8EB3B1BF459.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/3A574D436186191D1788EB2C0F076B11737132EBB1484CF906B6A8EB3B1BF459.ips",
-                          "FileName": "3A574D436186191D1788EB2C0F076B11737132EBB1484CF906B6A8EB3B1BF459.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/549B0F8D6F72C4E9F3FD1F19EACE4A5A1DA2D5C393F74224F8BC09DE4AAA4217.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/549B0F8D6F72C4E9F3FD1F19EACE4A5A1DA2D5C393F74224F8BC09DE4AAA4217.ips",
-                          "FileName": "549B0F8D6F72C4E9F3FD1F19EACE4A5A1DA2D5C393F74224F8BC09DE4AAA4217.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/57397C063F10B6313F4D837653CCC371BE2158BF6DD889326648D5C83D50CECF.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/57397C063F10B6313F4D837653CCC371BE2158BF6DD889326648D5C83D50CECF.ips",
-                          "FileName": "57397C063F10B6313F4D837653CCC371BE2158BF6DD889326648D5C83D50CECF.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/76F87402C9387C0F0A2FAB1B45CEBB93E3E9695C7CFD390F00509B1204101C24.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/76F87402C9387C0F0A2FAB1B45CEBB93E3E9695C7CFD390F00509B1204101C24.ips",
-                          "FileName": "76F87402C9387C0F0A2FAB1B45CEBB93E3E9695C7CFD390F00509B1204101C24.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/8096AF7C6A35AA8271F3916995413B0B64CE03BD9BBFEB26F2B3E01C5427C69E.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/8096AF7C6A35AA8271F3916995413B0B64CE03BD9BBFEB26F2B3E01C5427C69E.ips",
-                          "FileName": "8096AF7C6A35AA8271F3916995413B0B64CE03BD9BBFEB26F2B3E01C5427C69E.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/981C57E7F02F70F7BCDE753181D901A62A2452B04F5C5FB86500A2172CC44641.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/981C57E7F02F70F7BCDE753181D901A62A2452B04F5C5FB86500A2172CC44641.ips",
-                          "FileName": "981C57E7F02F70F7BCDE753181D901A62A2452B04F5C5FB86500A2172CC44641.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/A6F27AD9AC7C73AD419B63B23E785A0CD7AA9DC1A63C57D10049423DE7B77E2C.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/A6F27AD9AC7C73AD419B63B23E785A0CD7AA9DC1A63C57D10049423DE7B77E2C.ips",
-                          "FileName": "A6F27AD9AC7C73AD419B63B23E785A0CD7AA9DC1A63C57D10049423DE7B77E2C.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/A86DA5E87EF1097B23DAB5B4DBBAEFE780310AE643D319D6A7A149B9688651A5.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/A86DA5E87EF1097B23DAB5B4DBBAEFE780310AE643D319D6A7A149B9688651A5.ips",
-                          "FileName": "A86DA5E87EF1097B23DAB5B4DBBAEFE780310AE643D319D6A7A149B9688651A5.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/CD7BBE18D6130B28F62F19FA7945535B6829EFE64EF4AAF0DF8DA19885FE4A9A.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/CD7BBE18D6130B28F62F19FA7945535B6829EFE64EF4AAF0DF8DA19885FE4A9A.ips",
-                          "FileName": "CD7BBE18D6130B28F62F19FA7945535B6829EFE64EF4AAF0DF8DA19885FE4A9A.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/CE3ECBA2F2F062F575F8F360842B32B432340DD2C7590CDEFC03E51B844AE805.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/CE3ECBA2F2F062F575F8F360842B32B432340DD2C7590CDEFC03E51B844AE805.ips",
-                          "FileName": "CE3ECBA2F2F062F575F8F360842B32B432340DD2C7590CDEFC03E51B844AE805.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/DBD85FCACC193DA83051C664E6452D32FD4F7922E5E29A281695B578347F8161.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/DBD85FCACC193DA83051C664E6452D32FD4F7922E5E29A281695B578347F8161.ips",
-                          "FileName": "DBD85FCACC193DA83051C664E6452D32FD4F7922E5E29A281695B578347F8161.ips"
-                        },
-                        {
-                          "URL": "https://glcdn.githack.com/noahc3/sdsetupfiles/raw/master/atmos_kippatches/v10/sd/atmosphere/kip_patches/fs_patches/E76692DFAA0420E9FDD68E436316181814CBD72E915E153174332C6BEAA41FC3.ips",
-                          "Directory": "sd/atmosphere/kip_patches/fs_patches/E76692DFAA0420E9FDD68E436316181814CBD72E915E153174332C6BEAA41FC3.ips",
-                          "FileName": "E76692DFAA0420E9FDD68E436316181814CBD72E915E153174332C6BEAA41FC3.ips"
                         }
                       ]
                     },
