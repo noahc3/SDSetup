@@ -27,9 +27,28 @@ namespace SDSetupBlazor
         public static Dictionary<string, Dictionary<string, Package>> packages = new Dictionary<string, Dictionary<string, Package>>();
         public static Manifest manifest;
 
+        public static bool showWarning = false;
+        public static int scrollPosStore;
+        private static Warning _currentWarning;
+
         public static bool donotcontinue = false;
 
         private static List<string> oldPreSelects;
+
+        public static Warning GetCurrentWarning() {
+            return _currentWarning;
+        }
+
+        public static async void SetCurrentWarning(Warning warning) {
+            _currentWarning = warning;
+            if (warning != null) {
+                showWarning = true;
+                scrollPosStore = await ZipHelpers.GetScroll();
+                Shared.MainLayout.ForceUiRefresh();
+            } else {
+                await ZipHelpers.SetScroll(scrollPosStore); 
+            }
+        }
 
         [JSInvokable]
         public static void allowContinue() {

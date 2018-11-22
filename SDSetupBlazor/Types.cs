@@ -164,6 +164,7 @@ namespace SDSetupBlazor {
         public string Description = "";
         public List<string> When = new List<string>();
         public int WhenMode = 0; //0: all | 1: any
+        public Warning Warning;
         public List<string> Dependencies = new List<string>();
         public List<Artifact> Artifacts = new List<Artifact>();
 
@@ -173,7 +174,7 @@ namespace SDSetupBlazor {
 
         }
 
-        public Package(string iD, string name, string displayName, string authors, string version, string source, string dLSource, bool enabledByDefault, bool visible, string description, List<string> when, int whenMode, List<string> dependencies, List<Artifact> artifacts) {
+        public Package(string iD, string name, string displayName, string authors, string version, string source, string dLSource, bool enabledByDefault, bool visible, string description, List<string> when, int whenMode, Warning warning, List<string> dependencies, List<Artifact> artifacts) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
@@ -186,6 +187,7 @@ namespace SDSetupBlazor {
             Description = description;
             When = when;
             WhenMode = whenMode;
+            Warning = warning;
             Dependencies = dependencies;
             Artifacts = artifacts;
         }
@@ -249,6 +251,22 @@ namespace SDSetupBlazor {
         }
 
         public FAQ() {
+
+        }
+    }
+
+    public class Warning {
+        public string Title;
+        public string Content;
+        public string PackageID;
+
+        public Warning(string title, string content, string packageId) {
+            this.Title = title;
+            this.Content = content;
+            this.PackageID = packageId;
+        }
+
+        public Warning() {
 
         }
     }

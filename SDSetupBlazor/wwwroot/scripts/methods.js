@@ -35,7 +35,7 @@ function downloadZip() {
 				// close the writer
 				writer.close(function (blob) {
 
-                    if (getBrowserCompatInfo() == 3) {
+                    if (getBrowserCompatInfo() === 3) {
                         console.log("Firefox browser detected");
                         if (navigator.browserSpecs.version > 61) {
                             console.log("Firefox version " + navigator.browserSpecs.version + " supports zipjs blob download");
@@ -122,7 +122,7 @@ window.interop_addFile = (data) => {
 	var uuid = generateUUID();
 	return new Promise((resolve, reject) => {
 		return getFileBuffer_url(data[0], uuid).then(function (blob) {
-			if (blob != null) {
+			if (blob !== null) {
 				blobs[data[1] + "/" + data[2]] = blob;
 				retry = 0;
 				resolve(1);
@@ -156,6 +156,17 @@ window.mobileAndTabletcheck = function () {
 };
 
 window.scrollToTop = function () {
-	window.scrollTo(0,0);
-	return 0
-}
+	window.scrollTo(0, 0);
+	return 0;
+};
+
+window.getScrollPos = function () {
+	return window.scrollY;
+};
+
+window.setScrollPos = function (pos) {
+	console.log(pos);
+	console.log(window.innerHeight);
+	window.scrollTo(0, pos);
+	return 0;
+};

@@ -208,3 +208,84 @@ app {
 		visibility: collapse;
 	}
 }
+
+.flex-container {
+	height: 100%;
+	padding: 0;
+	margin: 0;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position:fixed;
+	left:0;
+	right:0;
+}
+
+.row {
+	width: auto;
+	border: 1px solid blue;
+}
+
+.flex-item {
+	background-color: tomato;
+	padding: 5px;
+	width: 20px;
+	height: 20px;
+	margin: 10px;
+	line-height: 20px;
+	color: white;
+	font-weight: bold;
+	font-size: 2em;
+	text-align: center;
+}
+
+@-webkit-keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@-moz-keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.fade-in {
+	opacity: 0; /* make things invisible upon start */
+	-webkit-animation: fadeIn ease-in 1; /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+	-moz-animation: fadeIn ease-in 1;
+	animation: fadeIn ease-in 1;
+	-webkit-animation-fill-mode: forwards; /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+	-moz-animation-fill-mode: forwards;
+	animation-fill-mode: forwards;
+	-webkit-animation-duration: 10ms;
+	-moz-animation-duration: 10ms;
+	animation-duration: 10ms;
+}
+
+.noscroll {
+	overflow:hidden;
+}

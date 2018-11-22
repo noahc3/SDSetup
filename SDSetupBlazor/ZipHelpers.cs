@@ -25,6 +25,14 @@ namespace SDSetupBlazor
             return JSRuntime.Current.InvokeAsync<string>("scrollToTop");
         }
 
+        public static Task<int> GetScroll() {
+            return JSRuntime.Current.InvokeAsync<int>("getScrollPos");
+        }
+
+        public static Task<string> SetScroll(int pos) {
+            return JSRuntime.Current.InvokeAsync<string>("setScrollPos", pos);
+        }
+
 
     }
 }
