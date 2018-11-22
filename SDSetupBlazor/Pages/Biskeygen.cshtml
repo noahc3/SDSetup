@@ -1,0 +1,133 @@
+﻿<!-- Copyright (c) 2018 noahc3
+   - This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+@page "/biskeygen"
+@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject HttpClient Http
+
+
+
+
+<div class="docs-example">
+	<h2 style="text-align:center">Derive BIS keys</h2>
+	<h6 style="text-align:center">Key deriver by Simon</h6>
+
+	<h4 style="margin-bottom:0.5em;text-align:center">Enter TSEC key</h4>
+	<div class="ui fluid input">
+		<input type="text" style="text-align:center" bind="@tsecIn" placeholder="00000000000000000000000000000000" />
+	</div>
+	<h4 style="margin-bottom:0.5em;text-align:center">Enter SBK key</h4>
+	<div class="ui fluid input" style="margin-bottom:2rem">
+		<input type="text" style="text-align:center" bind="@sbkIn" placeholder="00000000000000000000000000000000" />
+	</div>
+
+	<div class="divider" style="margin:auto;margin-bottom:3rem">
+		<hr class="left" /><label>OR</label><hr class="right" />
+		<h4 style="margin-bottom:0.5em;text-align:center">Upload Hekate fuses.bin</h4>
+		<div class="ui action input" style="margin-top:1rem">
+			<input type="file" id="fileUpload1" />
+		</div>
+		<h4 style="margin-bottom:0.5em;text-align:center">Upload Hekate tsec_keys.bin</h4>
+		<div class="ui action input" style="margin-top:1rem">
+			<input type="file" id="fileUpload2" />
+		</div>
+	</div>
+
+	
+
+	<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => deriveBisKeys())">Derive BIS Keys</button>
+
+	<h4 style="margin-bottom:0.5em;margin-top:2em;text-align:center">Output</h4>
+	<div class="ui form">
+		<div class="field">
+			<textarea style="text-align:center" bind="@output" readonly></textarea>
+		</div>
+	</div>
+
+</div>
+
+@functions {
+
+	private string tsecIn = "";
+	private string sbkIn = "";
+	private string output = "";
+
+	private void Navigate(string url) {
+		UriHelper.NavigateTo(url);
+	}
+
+	private async void deriveBisKeys() {
+		string fusesB64 = await ZipHelpers.GetFileData("fileUpload1");
+		string tsecB64 = await ZipHelpers.GetFileData("fileUpload2");
+
+		if (fusesB64 != "Problem parsing input file." && tsecB64 != "Problem parsing input file.") {
+			string _output = "";
+
+			byte[] tsec = Convert.FromBase64String(tsecB64);
+			byte[] fuses = Convert.FromBase64String(fusesB64);
+
+			//verify the lengths
+			bool errorFound = false;
+			if (tsec.Length != 48) {
+				errorFound = true;
+				_output += "ERROR: Your tsec_keys.bin isn't the right size.\n";
+			}
+
+			if (fuses.Length != 764) {
+				errorFound = true;
+				_output += "ERROR: Your fuses.bin isn't the right size.\n";
+			}
+
+			if (fuses[0x10] != 0x83) {
+				errorFound = true;
+				_output += "ERROR: Your fuses.bin is not valid.\n";
+			}
+
+			if (tsec.Skip(0x20).Take(0x10).ToArray().Count((byte current) => current == 0x00) != 16) {
+				errorFound = true;
+				_output += "ERROR: Your tsec_keys.bin is not valid.\n";
+			}
+
+
+			if (errorFound) {
+				output = _output;
+			}else {
+				tsecIn = BitConverter.ToString(tsec.Take(0x10).ToArray()).Replace("-", "");
+				sbkIn = BitConverter.ToString(fuses.Skip(0xA4).Take(0x10).ToArray()).Replace("-", "");
+				_output = biskeytool.deriveBisKeys(sbkIn, tsecIn);
+				output = _output.Substring(0, _output.Length - 2);
+			}
+		} else if (tsecIn.Length == 32 && sbkIn.Length == 32) {
+			string _output = biskeytool.deriveBisKeys(sbkIn, tsecIn);
+			output = _output.Substring(0, _output.Length - 2);
+		} else {
+			string _output = "";
+
+			//something is wrong, start figuring out what.
+			if (fusesB64 == "Problem parsing input file." && tsecB64 == "Problem parsing input file.") {
+				//user didn't upload any files
+				if (tsecIn.Length != 32) {
+					_output += "ERROR: Your TSEC key isn't the right length.\n";
+				}
+
+				if (sbkIn.Length != 32) {
+					_output += "ERROR: Your SBK key isn't the right length.\n";
+				}
+			} else {
+				//user did upload files
+				if (tsecB64 == "Problem parsing input file.") {
+					_output += "ERROR: Your tsec_keys.bin file is missing or corrupt.\n";
+				}
+
+				if (fusesB64 == "Problem parsing input file.") {
+					_output += "ERROR: Your fuses.bin file is missing or corrupt.\n";
+				}
+			}
+
+			output = _output;
+		}
+
+		StateHasChanged();
+	}
+}

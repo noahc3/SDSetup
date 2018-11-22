@@ -170,3 +170,33 @@ window.setScrollPos = function (pos) {
 	window.scrollTo(0, pos);
 	return 0;
 };
+
+const readUploadedFileAsText = (inputFile) => {
+	const temporaryFileReader = new FileReader();
+	return new Promise((resolve, reject) => {
+		temporaryFileReader.onerror = () => {
+			temporaryFileReader.abort();
+		};
+		temporaryFileReader.addEventListener("load", function () {
+			var data = {
+				content: temporaryFileReader.result.split(',')[1]
+			};
+			resolve(data);
+		}, false);
+		try {
+			temporaryFileReader.readAsDataURL(inputFile.files[0]);
+		} catch (err) {
+			temporaryFileReader.abort();
+			var data = {
+				content: "Problem parsing input file."
+			};
+			resolve(data);
+		}
+		
+	});
+};
+
+window.getFileData = function (inputFile) {
+	var expr = "#" + inputFile.replace(/"/g, '');
+	return readUploadedFileAsText($(expr)[0]);
+}

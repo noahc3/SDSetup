@@ -33,6 +33,12 @@ namespace SDSetupBlazor
             return JSRuntime.Current.InvokeAsync<string>("setScrollPos", pos);
         }
 
+        public static async Task<string> GetFileData(string fileInputRef) {
+            return (await JSRuntime.Current.InvokeAsync<StringHolder>("getFileData", fileInputRef)).Content;
+        }
 
+        private class StringHolder {
+            public string Content { get; set; }
+        }
     }
 }
