@@ -3,7 +3,7 @@
   "Copyright": "© 2018 noahc3$The Nintendo Switch and Nintendo 3DS names and logos are © Nintendo. This site is in no way affiliated with Nintendo or any of its partners.",
 	"Message": {
 		"Color": "red",
-		"InnerHTML": "<div style=\"text-align:center\"><div class=\"ui header\">Do not update to firmware 6.2.0+</div>Nintendo changed key derivation in firmware 6.2.0. No bootloaders are compatible with these changes. You will not be able to boot CFW with firmware 6.2.0+. Wait for developers to reverse engineer and reimplement the changes.</div>"
+		"InnerHTML": "<div style=\"text-align:center\"><div class=\"ui header\">!!! IMPORTANT !!!</div>Firmware 6.2.0 breaks everything. See <a href=\"https://guide.sdsetup.com/#/FW620\">Firmware 6.2.0 FAQ</a> on the guide for more information.</div>"
 	},
   "Platforms": {
     "switch": {
@@ -184,7 +184,11 @@
                       "Visible": true,
                       "Description": "A modular custom firmware for the Nintendo Switch. Includes sigpatches, homebrew via album, and more.",
                       "When": [],
-                      "WhenMode": 0,
+											"WhenMode": 0,
+											"Warning": {
+												"Title": "Warning",
+												"Content":  "ReiNX is missing vital anti-telemetry measures that are included in Atmosphere. This means you may be banned if you ever go online while or after using ReiNX without 90DNS."
+											},
                       "Dependencies": [],
                       "Artifacts": [
                         {

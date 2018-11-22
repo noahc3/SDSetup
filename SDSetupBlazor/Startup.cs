@@ -4,6 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 using Microsoft.AspNetCore.Blazor.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Blazor.Extensions.Storage;
 
 namespace SDSetupBlazor
 {
@@ -11,6 +12,7 @@ namespace SDSetupBlazor
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddStorage();
         }
 
         public void Configure(IBlazorApplicationBuilder app)

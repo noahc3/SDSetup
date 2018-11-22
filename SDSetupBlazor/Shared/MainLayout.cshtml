@@ -5,9 +5,11 @@
 @inherits BlazorLayoutComponent
 @inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
 @inject HttpClient Http
+@inject  LocalStorage localStorage
 
 @if (G.initialized) {
-	<div class="main" style="min-height:100%;height:auto;width:100%;min-width:100%">
+
+	<div class="main @(G.showWarning == true ? "noscroll" : "")" style="min-height:100%;height:auto;width:100%;min-width:100%">
 		<div class="pc-tablet-only" style="width:100%;min-width:100%">
 			<div class="ui menu @G.manifest.Platforms[G.consoleId].Color" style="width:100%;min-width:100%">
 				<a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
@@ -43,14 +45,14 @@
 				<a href="https://www.paypal.me/atlasnx" class="ui item">Donate with Paypal</a>
 			</div>
 		</div>
-		
+
 
 		<div class="container" style="padding-bottom:1.5rem">
 			<div class="content px-4">
 				@if (!String.IsNullOrEmpty(G.manifest.Message.InnerHTML)) {
-				<div class="ui @G.manifest.Message.Color message">
-					@((MarkupString)G.manifest.Message.InnerHTML)
-				</div>
+					<div class="ui @G.manifest.Message.Color message">
+						@((MarkupString)G.manifest.Message.InnerHTML)
+					</div>
 				}
 				@Body
 			</div>
@@ -65,7 +67,20 @@
 		</div>
 
 
+
 	</div>
+	if (G.showWarning == true) {
+		<div class="ui active dimmer fade-in" style="height:100%;width:100%">
+			<div class="ui segment" style="max-width:600px">
+				<h3>@G.GetCurrentWarning().Title</h3>
+				<p>@G.GetCurrentWarning().Content</p>
+				<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;margin-bottom:0.5rem" onclick="@(() => selectPackage(G.GetCurrentWarning().PackageID))">Select Anyways</button>
+				<button class="fluid ui gray button" onclick="@(() => hideWarning())">Don't Select</button>
+				<sub><i>This popup will no longer appear if you choose "Select Anyways"</i></sub>
+			</div>
+		</div>
+	}
+
 } else {
 	<div class="ui active dimmer" style="height:100%;width:100%">
 		<div class="ui massive text loader">Loading</div>
@@ -79,41 +94,69 @@
 	</div>
 }
 
+	@functions {
 
-@functions {
+		//public static int browserCompatStatus = 0;
 
-	//public static int browserCompatStatus = 0;
+		//public static bool edgeConfirmed = false;
 
-	//public static bool edgeConfirmed = false;
+		public static Action ForceUiRefresh;
+		private static bool ResetWarnState = false;
 
-	public static Action ForceUiRefresh;
-
-	protected override async Task OnInitAsync() {
-		if (ForceUiRefresh == null) {
-			ForceUiRefresh = new Action(() => StateHasChanged());
+		protected override void OnAfterRender() {
+			base.OnAfterRender();
+			if (ResetWarnState) {
+				G.SetCurrentWarning(null);
+				ResetWarnState = false;
+			}
 		}
-		if (!G.initialized) {
-			//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
-			G.manifest = await Http.GetJsonAsync<Manifest>("/manifest5.json");
-			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
-			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
-			G.isMobile = await JSRuntime.Current.InvokeAsync<bool>("mobileAndTabletcheck");
-			Console.WriteLine(UriHelper.GetAbsoluteUri());
-			G.Init(UriHelper.GetAbsoluteUri());
-			G.initialized = true;
-			if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
-			if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
+
+		protected override async Task OnInitAsync() {
+			if (ForceUiRefresh == null) {
+				ForceUiRefresh = new Action(() => StateHasChanged());
+			}
+
+			if (!G.initialized) {
+				//JSRuntime.Current.InvokeAsync<int>("compat.interop_BrowserCompatCheck");
+				G.manifest = await Http.GetJsonAsync<Manifest>("/manifest5.json");
+				if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
+				if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
+				G.isMobile = await JSRuntime.Current.InvokeAsync<bool>("mobileAndTabletcheck");
+				Console.WriteLine(UriHelper.GetAbsoluteUri());
+				G.Init(UriHelper.GetAbsoluteUri());
+				G.initialized = true;
+				if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
+				if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
+				StateHasChanged();
+			}
+		}
+
+		private string GetRelativePath() {
+			return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
+		}
+
+		private async void selectPackage(string id) {
+
+			//TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
+			//An ideal optimization would be to verify the page needs to refresh before refreshing.
+			await localStorage.SetItem<string>("warn-" + id, "true");
+			G.selectedPackages[G.consoleId][id] = !G.selectedPackages[G.consoleId][id];
+			if (G.WhenDependants[G.consoleId].ContainsKey(id) && G.WhenDependants[G.consoleId][id].Count > 0) Pages.Consoles.ForceUiRefresh();
+			G.SelectionRefreshes[id]();
+			G.showWarning = false;
+			ResetWarnState = true;
 			StateHasChanged();
 		}
-	}
 
-	private string GetRelativePath() {
-		return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
-	}
+		private void hideWarning() {
+			G.showWarning = false;
+			ResetWarnState = true;
+			StateHasChanged();
+		}
 
-	//[JSInvokable]
-	//public static void BrowserNotCompatible(int val) {
-	//	Console.WriteLine("Browser Compat Response: " + val);
-	//	browserCompatStatus = val;
-	//}
-}
+		//[JSInvokable]
+		//public static void BrowserNotCompatible(int val) {
+		//	Console.WriteLine("Browser Compat Response: " + val);
+		//	browserCompatStatus = val;
+		//}
+	}
