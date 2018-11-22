@@ -289,3 +289,22 @@ app {
 .noscroll {
 	overflow:hidden;
 }
+
+.divider {
+	width: 500px;
+	text-align: center;
+}
+
+	.divider hr {
+		margin-left: auto;
+		margin-right: auto;
+		width: 40%;
+	}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
