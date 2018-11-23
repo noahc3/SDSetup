@@ -51,8 +51,8 @@ namespace SDSetupBlazor {
 
         public static string deriveBisKeys(string sbk, string tsec) {
             byte[]
-            DevKF1 = EBC(KeyblobKeySrc, sbk.B()),
-            DevKF2 = EBC(DevKF1, tsec.B()),
+            DevKF1 = EBC(KeyblobKeySrc, tsec.B()),
+            DevKF2 = EBC(DevKF1, sbk.B()),
             DevKey = EBC(ConsoleKeySrc, DevKF2),
             S00Kek = EBC(RetailAesKekSrc, DevKey),
             S00Key = EBC(BisKeySrc0, S00Kek),
