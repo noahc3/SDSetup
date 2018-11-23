@@ -96,7 +96,7 @@
 				tsecIn = BitConverter.ToString(tsec.Take(0x10).ToArray()).Replace("-", "");
 				sbkIn = BitConverter.ToString(fuses.Skip(0xA4).Take(0x10).ToArray()).Replace("-", "");
 				_output = biskeytool.deriveBisKeys(sbkIn, tsecIn);
-				output = _output.Substring(0, _output.Length - 2);
+				output = _output.Substring(0, _output.Length - 1);
 			}
 		} else if (tsecIn.Length == 32 && sbkIn.Length == 32) {
 			string _output = biskeytool.deriveBisKeys(sbkIn, tsecIn);
