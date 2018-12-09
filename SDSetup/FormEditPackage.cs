@@ -183,7 +183,7 @@ namespace SDSetupManifestGenerator {
                 List<string> depends = new List<string>();
                 foreach (ListViewItem k in lvwDependencies.Items) depends.Add(k.Text);
 
-                ((PackageSubcategory)ddlSubcategories.SelectedItem).Packages.Add(new Package(txtId.Text, txtName.Text, txtDisplayName.Text, txtAuthors.Text, txtVersion.Text, txtSource.Text, txtDlSource.Text, cbxDefault.Checked, cbxVisible.Checked, txtDescription.Text, whens, (int)nudWhenMode.Value, depends, artifacts));
+                ((PackageSubcategory)ddlSubcategories.SelectedItem).Packages.Add(new Package(txtId.Text, txtName.Text, txtDisplayName.Text, txtAuthors.Text, txtVersion.Text, txtSource.Text, txtDlSource.Text, cbxDefault.Checked, cbxVisible.Checked, txtDescription.Text, whens, (int)nudWhenMode.Value, package != null ? package.Warning : new Warning("", "", null), depends, artifacts));
             } else {
                 string location = "";
                 bool exists = false;
