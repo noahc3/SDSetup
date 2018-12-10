@@ -92,7 +92,7 @@
 
 		</div>
 
-		@foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections) {
+		@foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections.Values) {
 			<UIPackageSection Section="@sec"></UIPackageSection>
 		}
 
@@ -103,14 +103,7 @@
 	} else {
 	<div class="ui active dimmer" style="height:100%;width:100%">
 		<div class="ui massive text loader">
-			<div id="infoh" style="margin-bottom:2rem">Downloading your ZIP, please wait...</div>
-			@if (barMode == true) {
-				<progress Max="@total" Value="@current"></progress>
-				<label style="margin-top:0.5rem">Fetching Files (@current/@total)</label>
-			} else {
-				<progress Max="@total" Value="@current" Color="Color.Success"></progress>
-				<label style="margin-top:0.5rem">Zipping Files (@current/@total)</label>
-			}
+			<div id="infoh" style="margin-bottom:2rem">Building your ZIP, please wait...</div>
 		</div>
 		<div class="ui negative message" style="width:90%;position:absolute;bottom:5%">
 			<div class="header fluid">
@@ -124,170 +117,170 @@
 
 	@functions {
 
-private static bool localInitialized = false;
+		private static bool localInitialized = false;
 
-public static Action ForceUiRefresh;
+		public static Action ForceUiRefresh;
 
-public static bool gettingZip = false;
+		public static bool gettingZip = false;
 
-private static bool zipDoneMessage = false;
-private static bool firefoxMessage = false;
-private static bool saveMessage = false;
-private static bool selectMore = false;
+		private static bool zipDoneMessage = false;
+		private static bool firefoxMessage = false;
+		private static bool saveMessage = false;
+		private static bool selectMore = false;
 
-private static List<string> gottenPackages;
+		private static List<string> gottenPackages;
 
-private static bool b = false;
+		private static bool b = false;
 
-private static string blobUrl = "";
-private static string saveUrl = "";
+		private static string blobUrl = "";
+		private static string saveUrl = "";
 
-private static List<string> preenabled;
+		private static List<string> preenabled;
 
-static int total = 3;
-static int current = 0;
-static bool barMode = true;
+		static int total = 3;
+		static int current = 0;
+		static bool barMode = true;
 
-protected override void OnInit() {
-	string a = UriHelper.GetAbsoluteUri().Split('?')[1];
-	if (a.Contains('#')) a = a.Split('#')[0];
-	G.consoleId = a;
-	Shared.MainLayout.ForceUiRefresh();
-	if (localInitialized == false) {
-		if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
-		if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
-	}
-}
+		protected override void OnInit() {
+			string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+			if (a.Contains('#')) a = a.Split('#')[0];
+			G.consoleId = a;
+			Shared.MainLayout.ForceUiRefresh();
+			if (localInitialized == false) {
+				if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
+				if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
+			}
+		}
 
-protected override async Task OnInitAsync() {
-	UriHelper.OnLocationChanged += OnLocationChanged;
-	if (ForceUiRefresh == null) {
-		ForceUiRefresh = new Action(() => StateHasChanged());
-	}
-	if (localInitialized == false) {
-		localInitialized = true;
-	}
-}
+		protected override async Task OnInitAsync() {
+			UriHelper.OnLocationChanged += OnLocationChanged;
+			if (ForceUiRefresh == null) {
+				ForceUiRefresh = new Action(() => StateHasChanged());
+			}
+			if (localInitialized == false) {
+				localInitialized = true;
+			}
+		}
 
-private void OnLocationChanged(object sender, string location) {
-	if (G.initialized) {
-		if (UriHelper.GetAbsoluteUri().Contains("/console?")) {
+		private void OnLocationChanged(object sender, string location) {
+			Console.WriteLine(UriHelper.GetAbsoluteUri());
+			if (G.initialized) {
+				if (UriHelper.GetAbsoluteUri().Contains("/console?")) {
+					zipDoneMessage = false;
+					firefoxMessage = false;
+					saveMessage = false;
+					selectMore = false;
+					string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+					if (a.Contains('#')) a = a.Split('#')[0];
+					G.consoleId = a;
+					G.SelectByUrl(UriHelper.GetAbsoluteUri());
+					StateHasChanged();
+					Shared.MainLayout.ForceUiRefresh();
+				}
+
+			}
+		}
+
+
+
+		private string SetConsoleId() {
+			string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+			if (a.Contains('#')) a = a.Split('#')[0];
+			G.consoleId = a;
+			return "";
+		}
+
+		private void checkClicked(string id) {
+			G.selectedPackages[G.consoleId][id] = !G.selectedPackages[G.consoleId][id];
+			StateHasChanged();
+		}
+
+		//TODO: Move this to package
+
+		private void RecursivelyFindDependencies(Package p) {
+			if (!gottenPackages.Contains(p.ID)) {
+				gottenPackages.Add(p.ID);
+			}
+			foreach (string k in p.Dependencies) RecursivelyFindDependencies(G.packages[G.consoleId][k]);
+		}
+
+		[JSInvokable]
+		public static void AddProgress() {
+			current++;
+			ForceUiRefresh();
+		}
+
+		// due to many issues, this has to go here and not in global :/
+		private async void downloadZip() {
+
+			gettingZip = true;
 			zipDoneMessage = false;
 			firefoxMessage = false;
 			saveMessage = false;
 			selectMore = false;
-			string a = UriHelper.GetAbsoluteUri().Split('?')[1];
-			if (a.Contains('#')) a = a.Split('#')[0];
-			G.consoleId = a;
-			G.SelectByUrl(UriHelper.GetAbsoluteUri());
-			StateHasChanged();
-			Shared.MainLayout.ForceUiRefresh();
+			current = 0;
+
+			gottenPackages = new List<string>();
+
+			foreach (KeyValuePair<string, bool> k in G.selectedPackages[G.consoleId]) {
+				if (k.Value && G.CanDownload(G.packages[G.consoleId][k.Key].When, G.packages[G.consoleId][k.Key].WhenMode)) {
+					//finalArtifacts.AddRange(getArtifacts(G.packages[G.consoleId][k.Key]));
+					RecursivelyFindDependencies(G.packages[G.consoleId][k.Key]);
+				}
+			}
+
+			if (gottenPackages.Count == 0) {
+				selectMore = true;
+				gettingZip = false;
+				StateHasChanged();
+				await ZipHelpers.ScrollToTop();
+			}
+
+			string packages = "";
+			foreach (string k in gottenPackages) {
+				packages += k + ";";
+			}
+
+			string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
+
+			saveUrl = UriHelper.GetBaseUri() + "console?" + G.consoleId + "#" + packages;
+			string getUrl = "http://vps1.sdsetup.com:5000/api/v1/fetch/zip/" + uuid + "/" + G.packageset + "/" + G.channel + "/" + packages;
+
+
+			HttpClient client = new HttpClient();
+
+			HttpResponseMessage resp = await client.GetAsync(getUrl);
+			string tresp = await resp.Content.ReadAsStringAsync();
+			if (tresp == "READY") {
+				UriHelper.NavigateTo("http://vps1.sdsetup.com:5000/api/v1/fetch/generatedzip/" + uuid);
+
+				saveMessage = true;
+				gettingZip = false;
+				StateHasChanged();
+			} else {
+				Console.WriteLine("Something went wrong when requesting the zip from the server");
+			}
+
+
 		}
 
-	}
-}
-
-private string SetConsoleId() {
-	string a = UriHelper.GetAbsoluteUri().Split('?')[1];
-	if (a.Contains('#')) a = a.Split('#')[0];
-	G.consoleId = a;
-	return "";
-}
-
-private void checkClicked(string id) {
-	G.selectedPackages[G.consoleId][id] = !G.selectedPackages[G.consoleId][id];
-	StateHasChanged();
-}
-
-//TODO: Move this to package
-
-private List<Tuple<string, string, string>> getArtifacts(Package p) {
-	List<Tuple<string, string, string>> artifacts = new List<Tuple<string, string, string>>();
-	if (!gottenPackages.Contains(p.ID)) {
-		foreach (Artifact a in p.Artifacts) {
-			FileInfo fi = new FileInfo(a.Directory);
-			string path = fi.DirectoryName;
-			if (path.StartsWith("\\") || path.StartsWith("/")) path = path.Substring(1);
-			artifacts.Add(new Tuple<string, string, string>(a.URL, path, fi.Name));
+		private string UUID() {
+			return new Guid().ToString();
 		}
-		gottenPackages.Add(p.ID);
-	}
-	foreach (string k in p.Dependencies) artifacts.AddRange(getArtifacts(G.packages[G.consoleId][k]));
-	return artifacts;
-}
 
-[JSInvokable]
-public static void AddProgress() {
-	current++;
-	ForceUiRefresh();
-}
+		private async void GetZip(string getUrl) {
+			using (HttpClientDownloadWithProgress client = new HttpClientDownloadWithProgress(getUrl, "bundle.zip")) {
 
-// due to many issues, this has to go here and not in global :/
-private async void downloadZip() {
+				client.ProgressChangedAction = new Action(() => {
+					total = 100;
+					current = client.percentage;
+					barMode = false;
+					StateHasChanged();
+				});
 
-	gettingZip = true;
-	zipDoneMessage = false;
-	firefoxMessage = false;
-	saveMessage = false;
-	selectMore = false;
-	barMode = true;
-	current = 0;
-
-	gottenPackages = new List<string>();
-
-	List<Tuple<string, string, string>> finalArtifacts = new List<Tuple<string, string, string>>();
-
-	foreach (KeyValuePair<string, bool> k in G.selectedPackages[G.consoleId]) {
-		if (k.Value && G.CanDownload(G.packages[G.consoleId][k.Key].When, G.packages[G.consoleId][k.Key].WhenMode)) {
-			finalArtifacts.AddRange(getArtifacts(G.packages[G.consoleId][k.Key]));
+				await client.StartDownload();
+			}
 		}
-	}
 
-	if (gottenPackages.Count == 0) {
-		selectMore = true;
-		gettingZip = false;
-		StateHasChanged();
-		await ZipHelpers.ScrollToTop();
-	}
 
-	total = finalArtifacts.Count;
-
-	foreach (Tuple<string, string, string> k in finalArtifacts) {
-		int result = await ZipHelpers.AddFile(k.Item1, k.Item2, k.Item3);
-		if (result == 2) {
-			Console.WriteLine("File download failed, aborting...");
-			gettingZip = false;
-			zipDoneMessage = true;
-			StateHasChanged();
-			return;
-		}
-		current++;
-		StateHasChanged();
-	}
-
-	barMode = false;
-	current = 0;
-	StateHasChanged();
-
-	string response = await ZipHelpers.AwaitableGenerateZip("SD Setup (" + G.manifest.Platforms[G.consoleId].Name + " " + DateTime.Now.ToShortDateString().Replace('/', '.') + ").zip");
-
-	saveUrl = UriHelper.GetBaseUri() + "console?" + G.consoleId + "#";
-	foreach (string k in gottenPackages) {
-		saveUrl += k + ";";
-	}
-
-	if (String.IsNullOrEmpty(response)) {
-		zipDoneMessage = true;
-	} else {
-		blobUrl = response;
-		firefoxMessage = true;
-	}
-	saveMessage = true;
-	gettingZip = false;
-	StateHasChanged();
-}
-
-private string UUID() {
-	return new Guid().ToString();
-}
 	}
