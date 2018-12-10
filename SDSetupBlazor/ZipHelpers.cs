@@ -17,8 +17,8 @@ namespace SDSetupBlazor
             return Promises.ExecuteAsync<int>("interop_addFile", new string[] { url, path, filename });
         }
 
-        public static Task<string> AwaitableGenerateZip(string outputName) {
-            return Promises.ExecuteAsync<string>("interop_generateZip", outputName);
+        public static Task<string> AwaitableGenerateZip(string url) {
+            return Promises.ExecuteAsync<string>("interop_generateZip", url);
         }
 
         public static Task<string> ScrollToTop() {

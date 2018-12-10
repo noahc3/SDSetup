@@ -30,7 +30,7 @@
 						<tr>
 							<th scope="row">@p.Name</th>
 							<td>@p.Authors</td>
-							<td>@p.Version</td>
+							<td>@p.Versions[G.channel]</td>
 							<td>@if (@p.Source.Contains("https://") || p.Source.Contains("http://")) {<a href="@p.Source">@p.Source</a>} else {@p.Source}</td>
 						</tr>
 					}

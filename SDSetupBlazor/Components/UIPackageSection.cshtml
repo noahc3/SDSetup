@@ -3,7 +3,7 @@
         <div class="docs-example">
             <h3 style="margin-bottom:0.5em">@Section.DisplayName</h3>
             <Card CardType="CardType.Deck" Class="justify-content-center">
-                @foreach (PackageCategory cat in Section.Categories) {
+                @foreach (PackageCategory cat in Section.Categories.Values) {
                     if (!G.CanShow(cat.Visible, cat.When, cat.WhenMode)) {
                         continue;
                     }
@@ -11,20 +11,20 @@
                     <Card style="margin-bottom:2rem">
                         <Card CardType="CardType.Body">
                             <Card CardType="CardType.Title">@cat.DisplayName</Card>
-                            @foreach (PackageSubcategory sub in cat.Subcategories) {
+                            @foreach (PackageSubcategory sub in cat.Subcategories.Values) {
                                 if (!G.CanShow(sub.Visible, sub.When, sub.WhenMode)) {
                                     continue;
                                 }
                                 <Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@sub.DisplayName</Card>
                                 <div class="ui form">
-                                    @foreach (Package p in sub.Packages) {
+                                    @foreach (Package p in sub.Packages.Values) {
                                         if (!G.CanShow(p.Visible, p.When, p.WhenMode)) {
                                             continue;
                                         }
 
                                         <div class="inline field" style="margin:0 0 0 1rem">
                                             <div class="nc3_hover">
-                                                <PackageCheckbox PID="@p.ID" Name="@p.Name" Version="@p.Version"></PackageCheckbox>
+                                                <PackageCheckbox PID="@p.ID" Name="@p.Name" Version="@p.Versions[G.channel]"></PackageCheckbox>
                                                 @if (!G.isMobile) {
                                                     <div class="nc3_tooltip">
                                                         <h4 style="margin:0">@p.Name</h4>
@@ -49,11 +49,11 @@
         <div class="docs-example markup">
             <h3>@Section.DisplayName</h3>
             <div class="ui @GetMenuSize(Section) item menu" style="margin-bottom:2rem">
-                @foreach (PackageCategory cat in Section.Categories) {
-                    @foreach (PackageSubcategory sub in cat.Subcategories) {
-                        @foreach (Package k in sub.Packages) {
+                @foreach (PackageCategory cat in Section.Categories.Values) {
+                    @foreach (PackageSubcategory sub in cat.Subcategories.Values) {
+                        @foreach (Package k in sub.Packages.Values) {
                             @if (G.CanShow(k.Visible, k.When, k.WhenMode)) {
-                                <PackageMenuItem PID="@k.ID" Version="@k.Version" DisplayName="@k.DisplayName"></PackageMenuItem>
+                                <PackageMenuItem PID="@k.ID" Version="@k.Versions[G.channel]" DisplayName="@k.DisplayName"></PackageMenuItem>
                             }
                         }
                     }
@@ -80,7 +80,7 @@
 
     private string GetMenuSize(PackageSection sec) {
         int num = 0;
-        foreach (PackageCategory cat in Section.Categories) foreach (PackageSubcategory sub in cat.Subcategories) foreach (Package pac in sub.Packages) num++;
+        foreach (PackageCategory cat in Section.Categories.Values) foreach (PackageSubcategory sub in cat.Subcategories.Values) foreach (Package pac in sub.Packages.Values) num++;
 
         switch (num) {
             case 1: return "one";
