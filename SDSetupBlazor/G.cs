@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Blazor.Services;
 namespace SDSetupBlazor
 {
     public static class G {
+        public static string packageset = "default";
+        public static string channel = "latest";
+        
         public static string consoleId = "switch";
 
         public static bool initialized = false;
@@ -60,10 +63,10 @@ namespace SDSetupBlazor
                 packages[k.ID] = new Dictionary<string, Package>();
                 selectedPackages[k.ID] = new Dictionary<string, bool>();
                 WhenDependants[k.ID] = new Dictionary<string, List<string>>();
-                foreach (PackageSection sec in k.PackageSections) {
-                    foreach (PackageCategory c in sec.Categories) {
-                        foreach (PackageSubcategory s in c.Subcategories) {
-                            foreach (Package p in s.Packages) {
+                foreach (PackageSection sec in k.PackageSections.Values) {
+                    foreach (PackageCategory c in sec.Categories.Values) {
+                        foreach (PackageSubcategory s in c.Subcategories.Values) {
+                            foreach (Package p in s.Packages.Values) {
                                 selectedPackages[k.ID][p.ID] = p.EnabledByDefault;
                                 packages[k.ID][p.ID] = p;
                                 foreach (string w in p.When) {
