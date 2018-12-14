@@ -241,18 +241,55 @@
 				packages += k + ";";
 			}
 
-			string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
+			//string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
+			string uuid = "cc";
 
 			saveUrl = UriHelper.GetBaseUri() + "console?" + G.consoleId + "#" + packages;
-			string getUrl = "http://vps1.sdsetup.com:5000/api/v1/fetch/zip/" + uuid + "/" + G.packageset + "/" + G.channel + "/" + packages;
+			string getUrl = "https://files.sdsetup.com/api/v1/fetch/zip";
 
 
 			HttpClient client = new HttpClient();
+			HttpResponseMessage resp;
+			try {
+				HttpRequestMessage message = new HttpRequestMessage {
+					Method = HttpMethod.Get,
+					RequestUri = new Uri(getUrl),
+					Headers = {
+						{ "SDSETUP-UUID", uuid },
+						{ "SDSETUP-PACKAGESET", G.packageset },
+						{ "SDSETUP-CHANNEL", G.channel },
+						{ "SDSETUP-PACKAGES", packages }
+					}
+				};
 
-			HttpResponseMessage resp = await client.GetAsync(getUrl);
+
+				resp = await client.SendAsync(message);
+			} catch (Exception e) {
+				Console.WriteLine("Failed: \n" + e.Message + "\n\n" + e.StackTrace);
+				Shared.MainLayout.downloadFailed = true;
+				gettingZip = false;
+				StateHasChanged();
+				Shared.MainLayout.ForceUiRefresh();
+				return;
+			}
+			if (!resp.IsSuccessStatusCode) {
+				if ((int) resp.StatusCode == 429) {
+					Shared.MainLayout.rateLimited = true;
+					gettingZip = false;
+					Shared.MainLayout.ForceUiRefresh();
+					StateHasChanged();
+					return;
+				} else {
+					Shared.MainLayout.downloadFailed = true;
+					gettingZip = false;
+					Shared.MainLayout.ForceUiRefresh();
+					StateHasChanged();
+					return;
+				}
+			}
 			string tresp = await resp.Content.ReadAsStringAsync();
 			if (tresp == "READY") {
-				UriHelper.NavigateTo("http://vps1.sdsetup.com:5000/api/v1/fetch/generatedzip/" + uuid);
+				UriHelper.NavigateTo("https://files.sdsetup.com/api/v1/fetch/generatedzip/" + uuid);
 
 				saveMessage = true;
 				gettingZip = false;
