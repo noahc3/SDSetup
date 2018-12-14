@@ -241,8 +241,7 @@
 				packages += k + ";";
 			}
 
-			//string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
-			string uuid = "cc";
+			string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
 
 			saveUrl = UriHelper.GetBaseUri() + "console?" + G.consoleId + "#" + packages;
 			string getUrl = "https://files.sdsetup.com/api/v1/fetch/zip";
