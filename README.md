@@ -49,8 +49,6 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 ## Todo
 * The project needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
 
-* I'd also like the project to drop pretty much all JavaScript interop, minus browser compatibility checks. Unfortunately, SharpZipLib, the only .Net Standard 2.0 compliant ZIP library I could find, has major problems in the virtualized browser environment, making JS interop necessary.
-
 ## Contributing
 Feel free to make pull requests where you see fit!
 
