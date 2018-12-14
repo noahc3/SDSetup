@@ -1,4 +1,4 @@
-var blobs = [];
+var finalBlob;
 var dl = null
 var rateLimit = null;
 var rateLimited = false;
@@ -76,6 +76,7 @@ function getFileBuffer_url(url, name) {
 	console.log("Downloading " + url);
 	return fetch(url).then((Response) => {
 		if (Response.ok) {
+			console.log("Response OK!");
 			return Response.blob();
 		} else {
 			console.log("e1 js");
@@ -118,14 +119,15 @@ window.js_interop = {
 	}
 };
 
-window.interop_addFile = (data) => {
+window.interop_generateZip = (url) => {
 	var uuid = generateUUID();
 	return new Promise((resolve, reject) => {
-		return getFileBuffer_url(data[0], uuid).then(function (blob) {
+		return getFileBuffer_url(url, uuid).then(function (blob) {
 			if (blob !== null) {
-				blobs[data[1] + "/" + data[2]] = blob;
+				finalBlob = blob;
+				finalURL = URL.createObjectURL(finalBlob);
 				retry = 0;
-				resolve(1);
+				resolve(finalURL);
 			}
 		}).catch(function () {
 			if (retry < 3) {
@@ -139,15 +141,6 @@ window.interop_addFile = (data) => {
 		});
 	});
 };
-
-window.interop_generateZip = (filename) => {
-    outputName = filename;
-    return downloadZip();
-}
-
-window.interop_downloadZip = () => {
-	return dl;
-}
 
 window.mobileAndTabletcheck = function () {
 	var check = false;
