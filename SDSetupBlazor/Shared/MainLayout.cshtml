@@ -2,8 +2,10 @@
    - This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
-@inherits BlazorLayoutComponent
-@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inherits LayoutComponentBase
+@inject IJSRuntime jsRuntime
+
+@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
 @inject HttpClient Http
 @inject LocalStorage localStorage
 
@@ -123,87 +125,88 @@
 
 @functions {
 
-//public static int browserCompatStatus = 0;
+	//public static int browserCompatStatus = 0;
 
-//public static bool edgeConfirmed = false;
+	//public static bool edgeConfirmed = false;
 
-public static Action ForceUiRefresh;
-private static bool ResetWarnState = false;
+	public static Action ForceUiRefresh;
+	private static bool ResetWarnState = false;
 
-private static bool loadFailed = false;
-public static bool downloadFailed = false;
-public static bool rateLimited = false;
+	private static bool loadFailed = false;
+	public static bool downloadFailed = false;
+	public static bool rateLimited = false;
 
-protected override void OnAfterRender() {
-	base.OnAfterRender();
-	if (ResetWarnState) {
-		G.SetCurrentWarning(null);
-		ResetWarnState = false;
-	}
-}
-
-protected override async Task OnInitAsync() {
-	if (ForceUiRefresh == null) {
-		ForceUiRefresh = new Action(() => StateHasChanged());
+	protected override void OnAfterRender() {
+		base.OnAfterRender();
+		if (ResetWarnState) {
+			G.SetCurrentWarning(jsRuntime, null);
+			ResetWarnState = false;
+		}
 	}
 
-	if (!G.initialized) {
-		string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
-
-		HttpResponseMessage resp;
-
-		try {
-			resp = await Http.GetAsync("https://files.sdsetup.com/api/v1/get/latestpackageset");
-		} catch (Exception) {
-			loadFailed = true;
-			StateHasChanged();
-			return;
+	protected override async Task OnInitAsync() {
+		if (ForceUiRefresh == null) {
+			ForceUiRefresh = new Action(() => StateHasChanged());
 		}
-		if (!resp.IsSuccessStatusCode) {
-			loadFailed = true;
+
+		if (!G.initialized) {
+			string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
+
+			HttpResponseMessage resp;
+
+			try {
+				resp = await Http.GetAsync("https://files.sdsetup.com/api/v1/get/latestpackageset");
+			} catch (Exception) {
+				loadFailed = true;
+				StateHasChanged();
+				return;
+			}
+			if (!resp.IsSuccessStatusCode) {
+				loadFailed = true;
+				StateHasChanged();
+				return;
+			}
+			//G.packageset = await Http.GetStringAsync("https://files.sdsetup.com/api/v1/get/latestpackageset");
+			G.packageset = "default11";
+			G.manifest = await Http.GetJsonAsync<Manifest>("https://testing.files.sdsetup.com/api/v1/fetch/manifest/" + uuid + "/" + G.packageset);
+			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
+			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
+			G.isMobile = await jsRuntime.InvokeAsync<bool>("mobileAndTabletcheck");
+			Console.WriteLine(UriHelper.GetAbsoluteUri());
+			G.Init(UriHelper.GetAbsoluteUri());
+			G.initialized = true;
+			if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
+			if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
 			StateHasChanged();
-			return;
 		}
-		G.packageset = await Http.GetStringAsync("https://files.sdsetup.com/api/v1/get/latestpackageset");
-		G.manifest = await Http.GetJsonAsync<Manifest>("https://files.sdsetup.com/api/v1/fetch/manifest/" + uuid + "/" + G.packageset);
-		if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
-		if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
-		G.isMobile = await JSRuntime.Current.InvokeAsync<bool>("mobileAndTabletcheck");
-		Console.WriteLine(UriHelper.GetAbsoluteUri());
-		G.Init(UriHelper.GetAbsoluteUri());
-		G.initialized = true;
-		if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
-		if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
+	}
+
+	private string GetRelativePath() {
+		return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
+	}
+
+	private async void selectPackage(string id) {
+
+		//TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
+		//An ideal optimization would be to verify the page needs to refresh before refreshing.
+		await localStorage.SetItem<string>("warn-" + id, "true");
+		G.selectedPackages[G.consoleId][id] = !G.selectedPackages[G.consoleId][id];
+		if (G.WhenDependants[G.consoleId].ContainsKey(id) && G.WhenDependants[G.consoleId][id].Count > 0) Pages.Consoles.ForceUiRefresh();
+		G.SelectionRefreshes[id]();
+		G.showWarning = false;
+		ResetWarnState = true;
 		StateHasChanged();
 	}
-}
 
-private string GetRelativePath() {
-	return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
-}
+	private void hideWarning() {
+		G.showWarning = false;
+		ResetWarnState = true;
+		StateHasChanged();
+	}
 
-private async void selectPackage(string id) {
-
-	//TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
-	//An ideal optimization would be to verify the page needs to refresh before refreshing.
-	await localStorage.SetItem<string>("warn-" + id, "true");
-	G.selectedPackages[G.consoleId][id] = !G.selectedPackages[G.consoleId][id];
-	if (G.WhenDependants[G.consoleId].ContainsKey(id) && G.WhenDependants[G.consoleId][id].Count > 0) Pages.Consoles.ForceUiRefresh();
-	G.SelectionRefreshes[id]();
-	G.showWarning = false;
-	ResetWarnState = true;
-	StateHasChanged();
-}
-
-private void hideWarning() {
-	G.showWarning = false;
-	ResetWarnState = true;
-	StateHasChanged();
-}
-
-//[JSInvokable]
-//public static void BrowserNotCompatible(int val) {
-//	Console.WriteLine("Browser Compat Response: " + val);
-//	browserCompatStatus = val;
-//}
+	//[JSInvokable]
+	//public static void BrowserNotCompatible(int val) {
+	//	Console.WriteLine("Browser Compat Response: " + val);
+	//	browserCompatStatus = val;
+	//}
 }

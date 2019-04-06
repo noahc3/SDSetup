@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
-using Microsoft.AspNetCore.Blazor.Services;
+using Microsoft.AspNetCore.Components.Services;
 
 namespace SDSetupBlazor
 {
@@ -42,14 +42,14 @@ namespace SDSetupBlazor
             return _currentWarning;
         }
 
-        public static async void SetCurrentWarning(Warning warning) {
+        public static async void SetCurrentWarning(IJSRuntime jsRuntime, Warning warning) {
             _currentWarning = warning;
             if (warning != null) {
                 showWarning = true;
-                scrollPosStore = await ZipHelpers.GetScroll();
+                scrollPosStore = await ZipHelpers.GetScroll(jsRuntime);
                 Shared.MainLayout.ForceUiRefresh();
             } else {
-                await ZipHelpers.SetScroll(scrollPosStore); 
+                await ZipHelpers.SetScroll(jsRuntime, scrollPosStore); 
             }
         }
 

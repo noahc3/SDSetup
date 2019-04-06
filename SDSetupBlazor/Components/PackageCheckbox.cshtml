@@ -1,4 +1,6 @@
 ﻿@inject LocalStorage localStorage
+@inject IJSRuntime  jsRuntime
+
 <div class="ui checkbox @(G.selectedPackages[G.consoleId][PID] == true ? "checked" : "")" onclick="@(() => checkClicked(PID))">
 	<input type="checkbox" tabindex="0" class="hidden" checked="@(G.selectedPackages[G.consoleId][PID] == true)">
 	<label>@Name@if (!String.IsNullOrEmpty(Version)) {<sub style="color:#b7b7b7"> (@Version)</sub>}</label>
@@ -21,7 +23,7 @@ private async void checkClicked(string id) {
 	if (G.packages[G.consoleId][PID].Warning != null && G.selectedPackages[G.consoleId][PID] == false && await localStorage.GetItem<string>("warn-" + PID) == null) {
 		Warning warn = G.packages[G.consoleId][PID].Warning;
 		warn.PackageID = PID;
-		G.SetCurrentWarning(warn);
+		G.SetCurrentWarning(jsRuntime, warn);
 	} else {
 		G.selectedPackages[G.consoleId][PID] = !G.selectedPackages[G.consoleId][PID];
 		if (G.WhenDependants[G.consoleId].ContainsKey(PID) && G.WhenDependants[G.consoleId][PID].Count > 0) Pages.Consoles.ForceUiRefresh();
