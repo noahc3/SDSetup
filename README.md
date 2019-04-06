@@ -44,12 +44,10 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 
 ## Included Projects
 * **SD Setup Blazor:** The web application itself, written in C# (and a little bit of JavaScript).
-* **SD Setup Manifest Generator:** A GUI authoring tool for generating a valid manifest file with package information and where to retrieve files for download. It has some quirks, and not yet feature complete.
+* **SD Setup Manifest Generator (No longer used):** A GUI authoring tool for generating a valid manifest file with package information and where to retrieve files for download. It has some quirks, and not yet feature complete.
 
 ## Todo
 * The project needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
-
-* I'd also like the project to drop pretty much all JavaScript interop, minus browser compatibility checks. Unfortunately, SharpZipLib, the only .Net Standard 2.0 compliant ZIP library I could find, has major problems in the virtualized browser environment, making JS interop necessary.
 
 ## Contributing
 Feel free to make pull requests where you see fit!
