@@ -69,7 +69,7 @@
 
 			//verify the lengths
 			bool errorFound = false;
-			if (tsec.Length != 48) {
+			if (tsec.Length != 32) {
 				errorFound = true;
 				_output += "ERROR: Your tsec_keys.bin isn't the right size.\n";
 			}
@@ -84,19 +84,19 @@
 				_output += "ERROR: Your fuses.bin is not valid.\n";
 			}
 
-			if (tsec.Skip(0x20).Take(0x10).ToArray().Count((byte current) => current == 0x00) != 16) {
-				errorFound = true;
-				_output += "ERROR: Your tsec_keys.bin is not valid.\n";
-			}
-
 
 			if (errorFound) {
 				output = _output;
 			}else {
-				tsecIn = BitConverter.ToString(tsec.Take(0x10).ToArray()).Replace("-", "");
-				sbkIn = BitConverter.ToString(fuses.Skip(0xA4).Take(0x10).ToArray()).Replace("-", "");
-				_output = biskeytool.deriveBisKeys(sbkIn, tsecIn);
-				output = _output.Substring(0, _output.Length - 1);
+				try {
+					tsecIn = BitConverter.ToString(tsec.Take(0x10).ToArray()).Replace("-", "");
+					sbkIn = BitConverter.ToString(fuses.Skip(0xA4).Take(0x10).ToArray()).Replace("-", "");
+					_output = biskeytool.deriveBisKeys(sbkIn, tsecIn);
+					output = _output.Substring(0, _output.Length - 1);
+				} catch (Exception e) {
+					output = e.Message;
+				}
+				
 			}
 		} else if (tsecIn.Length == 32 && sbkIn.Length == 32) {
 			string _output = biskeytool.deriveBisKeys(sbkIn, tsecIn);
