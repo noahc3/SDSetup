@@ -13,28 +13,28 @@ namespace SDSetupBlazor
 {
     public static class ZipHelpers
     {
-        public static Task<int> AddFile(string url, string path, string filename) {
-            return Promises.ExecuteAsync<int>("interop_addFile", new string[] { url, path, filename });
+        public static Task<int> AddFile(IJSRuntime jsRuntime, string url, string path, string filename) {
+            return Promises.ExecuteAsync<int>(jsRuntime, "interop_addFile", new string[] { url, path, filename });
         }
 
-        public static Task<string> AwaitableGenerateZip(string url) {
-            return Promises.ExecuteAsync<string>("interop_generateZip", url);
+        public static Task<string> AwaitableGenerateZip(IJSRuntime jsRuntime, string url) {
+            return Promises.ExecuteAsync<string>(jsRuntime, "interop_generateZip", url);
         }
 
-        public static Task<string> ScrollToTop() {
-            return JSRuntime.Current.InvokeAsync<string>("scrollToTop");
+        public static Task<string> ScrollToTop(IJSRuntime jsRuntime) {
+            return jsRuntime.InvokeAsync<string>("scrollToTop");
         }
 
-        public static Task<int> GetScroll() {
-            return JSRuntime.Current.InvokeAsync<int>("getScrollPos");
+        public static Task<int> GetScroll(IJSRuntime jsRuntime) {
+            return jsRuntime.InvokeAsync<int>("getScrollPos");
         }
 
-        public static Task<string> SetScroll(int pos) {
-            return JSRuntime.Current.InvokeAsync<string>("setScrollPos", pos);
+        public static Task<string> SetScroll(IJSRuntime jsRuntime, int pos) {
+            return jsRuntime.InvokeAsync<string>("setScrollPos", pos);
         }
 
-        public static async Task<string> GetFileData(string fileInputRef) {
-            return (await JSRuntime.Current.InvokeAsync<StringHolder>("getFileData", fileInputRef)).Content;
+        public static async Task<string> GetFileData(IJSRuntime jsRuntime, string fileInputRef) {
+            return (await jsRuntime.InvokeAsync<StringHolder>("getFileData", fileInputRef)).Content;
         }
 
         private class StringHolder {

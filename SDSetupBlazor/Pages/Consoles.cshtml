@@ -3,8 +3,9 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 @page  "/console"
+@inject IJSRuntime jsRuntime
 @inject HttpClient Http
-@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
 
 @if (!gettingZip) {
 
@@ -233,7 +234,7 @@
 				selectMore = true;
 				gettingZip = false;
 				StateHasChanged();
-				await ZipHelpers.ScrollToTop();
+				await ZipHelpers.ScrollToTop(jsRuntime);
 			}
 
 			string packages = "";
@@ -248,6 +249,7 @@
 
 
 			HttpClient client = new HttpClient();
+			client.Timeout = TimeSpan.FromSeconds(120);
 			HttpResponseMessage resp;
 			try {
 				HttpRequestMessage message = new HttpRequestMessage {

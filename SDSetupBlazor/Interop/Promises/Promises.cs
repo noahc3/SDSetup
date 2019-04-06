@@ -34,7 +34,7 @@ namespace PromiseBlazorTest
             }
         }
 
-        public static Task<TResult> ExecuteAsync<TResult>(string fnName, object data = null)
+        public static Task<TResult> ExecuteAsync<TResult>(IJSRuntime jsRuntime, string fnName, object data = null)
         {
             var tcs = new TaskCompletionSource<TResult>();
             
@@ -43,11 +43,11 @@ namespace PromiseBlazorTest
             {
                 if (data == null)
                 {
-                    JSRuntime.Current.InvokeAsync<bool>("runFunction", callbackId, fnName);
+                    jsRuntime.InvokeAsync<bool>("runFunction", callbackId, fnName);
                 }
                 else
                 {
-                    JSRuntime.Current.InvokeAsync<bool>("runFunction", callbackId, fnName, data);
+                    jsRuntime.InvokeAsync<bool>("runFunction", callbackId, fnName, data);
                 }
 
                 return tcs.Task;

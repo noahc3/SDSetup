@@ -3,7 +3,8 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 @page "/biskeygen"
-@inject Microsoft.AspNetCore.Blazor.Services.IUriHelper UriHelper
+@inject IJSRuntime jsRuntime
+@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
 @inject HttpClient Http
 
 
@@ -58,8 +59,8 @@
 	}
 
 	private async void deriveBisKeys() {
-		string fusesB64 = await ZipHelpers.GetFileData("fileUpload1");
-		string tsecB64 = await ZipHelpers.GetFileData("fileUpload2");
+		string fusesB64 = await ZipHelpers.GetFileData(jsRuntime, "fileUpload1");
+		string tsecB64 = await ZipHelpers.GetFileData(jsRuntime, "fileUpload2");
 
 		if (fusesB64 != "Problem parsing input file." && tsecB64 != "Problem parsing input file.") {
 			string _output = "";
