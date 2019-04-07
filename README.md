@@ -43,11 +43,14 @@ Please feel free [submit an issue](https://www.github.com/noahc3/sdsetup/issues)
 Clone the repository and open the solution in Visual Studio. Build from there.
 
 ## Included Projects
-* **SD Setup Blazor:** The web application itself, written in C# (and a little bit of JavaScript).
-* **SD Setup Manifest Generator (No longer used):** A GUI authoring tool for generating a valid manifest file with package information and where to retrieve files for download. It has some quirks, and not yet feature complete.
+* **SDSetup Blazor:** The web application itself, written in C# (and a little bit of JavaScript).
+* **SDSetup Backend:** The backend server which the frontend communicates with. Upon request, generates zip bundles based on the client selection. Also provides manifest data and download statistics.
+* **SDSetup Backend Control Panel:** Control panel to manage functionality of the backend server(s). Also for managing the Homebrew Guide.
 
 ## Todo
-* The project needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
+* The frontend needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
+* The frontend badly needs code cleanup. Like, basically everywhere.
+* The backend needs to be refactored to conform to ASP.Net Core standards.
 
 ## Contributing
 Feel free to make pull requests where you see fit!
@@ -56,8 +59,7 @@ Feel free to make pull requests where you see fit!
 Please see https://www.sdsetup.com/credits for an up-to-date list of credits and sources for each package available.
 
 Other credits:
-* tomGER for working with me to keep this project up to date.
-*   Steve Sanderson and contributors for making this great thing called  [Blazor](https://blazor.net/)
-*   Rikumax25 / Jorgev259 for JSZip wrapper functions used in  [3SDSetup](https://github.com/jorgev259/3SDSetup)/[WiiuSetup](https://github.com/jorgev259/wiiusetup), ultimately making my life much easier
-*   Chanan Braunstein for  [BlazorStrap](https://github.com/chanan/BlazorStrap)
-*   Joonas W. for  [Using C# await against JS Promises in Blazor](https://joonasw.net/view/csharp-await-and-js-promises-in-blazor)
+* tomGER and the rest of Team AtlasNX for working with me to keep this project up to date.
+* the ASP.NET Core team for making this great thing called [Blazor](https://blazor.net/)
+* Chanan Braunstein for  [BlazorStrap](https://github.com/chanan/BlazorStrap)
+* Joonas W. for  [Using C# await against JS Promises in Blazor](https://joonasw.net/view/csharp-await-and-js-promises-in-blazor)
