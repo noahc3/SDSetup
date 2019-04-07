@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components.Services;
 
+using SDSetupCommon;
+
 namespace SDSetupBlazor
 {
     public static class G {

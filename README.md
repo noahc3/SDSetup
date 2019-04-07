@@ -46,6 +46,7 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 * **SDSetup Blazor:** The web application itself, written in C# (and a little bit of JavaScript).
 * **SDSetup Backend:** The backend server which the frontend communicates with. Upon request, generates zip bundles based on the client selection. Also provides manifest data and download statistics.
 * **SDSetup Backend Control Panel:** Control panel to manage functionality of the backend server(s). Also for managing the Homebrew Guide.
+* **SDSetup Common:** Common utilities and types shared between two or more of the above projects.
 
 ## Todo
 * The frontend needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
