@@ -139,7 +139,13 @@ namespace sdsetup_backend {
                 validChannels = _validChannels;
                 Manifests = _Manifests;
 
-                dlstats.VerifyStatisticsIntegrity();
+                List<string> packages = new List<string>();
+
+                foreach (string k in Directory.EnumerateDirectories(Program.Files + "/" + Program.latestPackageset)) {
+                    packages.Add(k.Split('/').Last());
+                }
+
+                dlstats.VerifyStatisticsIntegrity(packages);
 
             } catch (Exception e) {
                 return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
