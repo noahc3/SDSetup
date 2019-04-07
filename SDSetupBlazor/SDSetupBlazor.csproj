@@ -21,6 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SDSetupCommon\SDSetupCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Blazor.Extensions.Storage">
       <HintPath>..\..\BlazorExtensions.Storage\src\Blazor.Extensions.Storage\bin\Release\netstandard2.0\Blazor.Extensions.Storage.dll</HintPath>
     </Reference>

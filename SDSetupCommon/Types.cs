@@ -7,9 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
-namespace sdsetup_backend {
+namespace SDSetupCommon {
 
     public class Message {
         public string Color = "info";

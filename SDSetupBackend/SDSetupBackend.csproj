@@ -31,4 +31,8 @@
     <PackageReference Include="SharpZipLib" Version="1.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SDSetupCommon\SDSetupCommon.csproj" />
+  </ItemGroup>
+
 </Project>

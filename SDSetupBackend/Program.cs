@@ -11,6 +11,8 @@ using Microsoft.Extensions.Logging.Console;
 using Newtonsoft.Json;
 using System.Net;
 
+using SDSetupCommon;
+
 namespace sdsetup_backend {
     public class Program {
 
