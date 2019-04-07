@@ -15,18 +15,12 @@ namespace sdsetup_backend
 
         const int _hoursToStore = 720;
 
-        public void VerifyStatisticsIntegrity() {
+        public void VerifyStatisticsIntegrity(List<string> packages) {
             CurrentDateTime = GetSanitizedDateTime();
             CurrentDateTimeString = CurrentDateTime.ToString();
 
             if (GranularStats == null) GranularStats = new Dictionary<string, Dictionary<string, int>>();
             if (AllTimeStats == null) AllTimeStats = new Dictionary<string, long>(); 
-
-            List<string> packages = new List<string>();
-
-            foreach (string k in Directory.EnumerateDirectories(Program.Files + "/" + Program.latestPackageset)) {
-                packages.Add(k.Split('/').Last());
-            }
 
             foreach(string k in packages) {
                 if (!AllTimeStats.ContainsKey(k)) {
@@ -98,7 +92,7 @@ namespace sdsetup_backend
             return stats;
         }
 
-        public string ToDataBinary() {
+        public string ToDataBinary(List<string> packages) {
             string binary = "";
             
             binary = binary.NewLine(AllTimeBundles);
@@ -108,12 +102,6 @@ namespace sdsetup_backend
                 info += k + ".";
             }
             binary = binary.NewLine(info.Remove(info.Length - 1));
-
-            List<string> packages = new List<string>();
-
-            foreach (string k in Directory.EnumerateDirectories(Program.Files + "/" + Program.latestPackageset)) {
-                packages.Add(k.Split('/').Last());
-            }
 
             Dictionary<string, string> infos = new Dictionary<string, string>();
 
