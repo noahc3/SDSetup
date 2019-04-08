@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Timers;
 
-namespace sdsetup_backend
+namespace SDSetupBackend
 {
     public class DeletingFileStream : FileStream {
         Timer timeoutTimer;

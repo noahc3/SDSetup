@@ -10,7 +10,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 
-namespace sdsetup_backend.Controllers {
+namespace SDSetupBackend.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class v1 : ControllerBase {
@@ -45,12 +45,12 @@ namespace sdsetup_backend.Controllers {
                 return new ObjectResult("UUID " + uuid + " locked");
             } else if (!Program.validChannels.Contains(channel)) {
                 return new ObjectResult("Invalid channel");
-            } else if (!Directory.Exists(Program.Files + "/" + packageset)) {
+            } else if (!Directory.Exists((Program.Files + "/" + packageset).AsPath())) {
                 return new ObjectResult("Invalid packageset");
-            } else if (System.IO.File.Exists(Program.Files + "/" + packageset + "/.PRIVILEGED.FLAG") && !Program.IsUuidPriveleged(uuid)) {
+            } else if (System.IO.File.Exists((Program.Files + "/" + packageset + "/.PRIVILEGED.FLAG").AsPath()) && !Program.IsUuidPriveleged(uuid)) {
                 return new ObjectResult("You do not have access to that packageset");
             } else {
-                string tempdir = Program.Temp + "/" + uuid;
+                string tempdir = (Program.Temp + "/" + uuid).AsPath();
                 try {
                     Program.uuidLocks.Add(uuid);
 
@@ -58,19 +58,19 @@ namespace sdsetup_backend.Controllers {
                     List<KeyValuePair<string, string>> files = new List<KeyValuePair<string, string>>();
                     foreach (string k in requestedPackages) {
                         //sanitize input
-                        if (k.Contains("/") || k.Contains("/") || k.Contains("..") || k.Contains("~") || k.Contains("%")) {
+                        if (k.Contains("/") || k.Contains("\\") || k.Contains("..") || k.Contains("~") || k.Contains("%")) {
                             Program.uuidLocks.Remove(uuid);
                             return new ObjectResult("hackerman");
                         }
 
-                        if (Directory.Exists(Program.Files + "/" + packageset + "/" + k + "/" + channel)) {
-                            foreach (string f in EnumerateAllFiles(Program.Files + "/" + packageset + "/" + k + "/" + channel)) {
+                        if (Directory.Exists((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath())) {
+                            foreach (string f in EnumerateAllFiles((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath())) {
                                 if (client == "hbswitch") {
-                                    if (f.StartsWith(Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd")) {
-                                        files.Add(new KeyValuePair<string, string>(f.Replace(Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd", ""), f));
+                                    if (f.StartsWith((Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath())) {
+                                        files.Add(new KeyValuePair<string, string>(f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath(), ""), f));
                                     }
                                 } else {
-                                    files.Add(new KeyValuePair<string, string>(f.Replace(Program.Files + "/" + packageset + "/" + k + "/" + channel, ""), f));
+                                    files.Add(new KeyValuePair<string, string>(f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath(), ""), f));
                                 }
                             }
                         }
@@ -108,18 +108,18 @@ namespace sdsetup_backend.Controllers {
                 } else {
                     return new ObjectResult("Expired");
                 }
-            } catch (Exception) {
+            } catch (Exception e) {
                 Program.generatedZips[uuid] = null;
-                return new ObjectResult("Expired");
+                return new ObjectResult("Something went wrong (the zip may have expired): \n\n" + e.Message);
             }
             
         }
 
         [HttpGet("fetch/manifest/{uuid}/{packageset}")]
         public ActionResult FetchManifest(string uuid, string packageset) {
-            if (!Directory.Exists(Program.Files + "/" + packageset)) {
+            if (!Directory.Exists((Program.Files + "/" + packageset).AsPath())) {
                 return new ObjectResult(packageset);
-            } else if (System.IO.File.Exists(Program.Files + "/" + packageset + "/.PRIVILEGED.FLAG") && !Program.IsUuidPriveleged(uuid)) {
+            } else if (System.IO.File.Exists((Program.Files + "/" + packageset + "/.PRIVILEGED.FLAG").AsPath()) && !Program.IsUuidPriveleged(uuid)) {
                 return new ObjectResult("You do not have access to that packageset");
             }
 
@@ -129,13 +129,13 @@ namespace sdsetup_backend.Controllers {
         [HttpGet("fetch/dlstats")]
         public ActionResult GetDownloadStats() {
             //TODO: dont do this
-            return new ObjectResult(Program.dlstats.ToDataBinary());
+            return new ObjectResult(Program.dlstats.ToDataBinary(U.GetPackageListInLatestPackageset()));
         }
 
         [HttpGet("fetch/dlstatsdebug")]
         public ActionResult GetDownloadStatsDebug() {
             //TODO: dont do this
-            return new ObjectResult(JsonConvert.SerializeObject(DownloadStats.FromDataBinary(Program.dlstats.ToDataBinary()), Formatting.Indented));
+            return new ObjectResult(JsonConvert.SerializeObject(DownloadStats.FromDataBinary(Program.dlstats.ToDataBinary(U.GetPackageListInLatestPackageset())), Formatting.Indented));
         }
 
         [HttpGet("get/latestpackageset")]
@@ -152,7 +152,7 @@ namespace sdsetup_backend.Controllers {
         public ActionResult GetLatestAppDownload() {
             string zipname = "sdsetup-switch.nro";
             Response.Headers["Content-Disposition"] = "filename=" + zipname;
-            return new FileStreamResult(new FileStream(Program.Config + "/sdsetup-switch.nro", FileMode.Open, FileAccess.Read, FileShare.ReadWrite), "application/octet-stream");
+            return new FileStreamResult(new FileStream((Program.Config + "/sdsetup-switch.nro").AsPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite), "application/octet-stream");
         }
 
         [HttpGet("set/latestpackageset/{uuid}/{packageset}")]
@@ -191,7 +191,7 @@ namespace sdsetup_backend.Controllers {
 
         public static Stream ZipFromFilestreams(KeyValuePair<string, string>[] files, string uuid) {
 
-            DeletingFileStream outputMemStream = new DeletingFileStream(Program.Temp + "/" + Guid.NewGuid().ToString().Replace("-", "").ToLower(), FileMode.Create, uuid);
+            DeletingFileStream outputMemStream = new DeletingFileStream((Program.Temp + "/" + Guid.NewGuid().ToString().Replace("-", "").ToLower()).AsPath(), FileMode.Create, uuid);
             ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
 
             zipStream.SetLevel(3); //0-9, 9 being the highest level of compression

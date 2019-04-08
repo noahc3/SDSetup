@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace sdsetup_backend
+namespace SDSetupBackend
 {
     public class DownloadStats {
         public DateTime CurrentDateTime;
