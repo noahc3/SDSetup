@@ -1,5 +1,15 @@
+dist: xenial
+addons:
+  snaps:
+  - name: dotnet-sdk
+    classic: true
+    channel: latest/beta
+sudo: required
 language: csharp
 mono: none
-dotnet: 3.0.100-preview3-010431
 script:
- - dotnet restore
+  - sudo snap alias dotnet-sdk.dotnet dotnet
+  - dotnet --version
+  - dotnet publish SDSetupCommon
+  - dotnet publish SDSetupBackend -c Release -r linux-x64
+  - dotnet publish SDSetupBlazor -c Release
