@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using AspNetCoreRateLimit;
 
-namespace sdsetup_backend {
+namespace SDSetupBackend {
     public class Startup {
         LoggerFactory loggerFactory = new LoggerFactory();
 

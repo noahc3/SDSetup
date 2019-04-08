@@ -167,7 +167,7 @@
 				return;
 			}
 			//G.packageset = await Http.GetStringAsync("https://files.sdsetup.com/api/v1/get/latestpackageset");
-			G.packageset = "default11";
+			G.packageset = "default15";
 			G.manifest = await Http.GetJsonAsync<Manifest>("https://testing.files.sdsetup.com/api/v1/fetch/manifest/" + uuid + "/" + G.packageset);
 			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
 			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");

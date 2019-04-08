@@ -13,7 +13,7 @@ using System.Net;
 
 using SDSetupCommon;
 
-namespace sdsetup_backend {
+namespace SDSetupBackend {
     public class Program {
 
         public static Dictionary<string, string> Manifests;
@@ -52,16 +52,18 @@ namespace sdsetup_backend {
 
         public static void Main(string[] args) {
 
+            Console.WriteLine("Working Directory: " + AppContext.BaseDirectory);
+
             ReloadEverything();
 
             Console.WriteLine(Config);
 
-            string[] hostConf = File.ReadAllLines(Config + "/host.txt");
+            string[] hostConf = File.ReadAllLines((Config + "/host.txt").AsPath());
             ip = hostConf[0];
             httpPort = Convert.ToInt32(hostConf[1]);
             httpsPort = Convert.ToInt32(hostConf[2]);
 
-            string[] certInfo = File.ReadAllLines(Config + "/https.txt");
+            string[] certInfo = File.ReadAllLines((Config + "/https.txt").AsPath());
             httpsCertLocation = certInfo[0];
             httpsCertKey = certInfo[1];
 
@@ -75,9 +77,9 @@ namespace sdsetup_backend {
             WebHost.CreateDefaultBuilder(args)
                 .UseKestrel(options => {
                     options.Listen(IPAddress.Parse(ip), httpPort);
-                    options.Listen(IPAddress.Parse(ip), httpsPort, listenOptions => {
-                        listenOptions.UseHttps(httpsCertLocation, httpsCertKey);
-                    });
+                    //options.Listen(IPAddress.Parse(ip), httpsPort, listenOptions => {
+                    //    listenOptions.UseHttps(httpsCertLocation, httpsCertKey);
+                    //});
                 })
                 .UseStartup<Startup>();
 
@@ -93,37 +95,37 @@ namespace sdsetup_backend {
         }
 
         public static string ReloadEverything() {
-            try {
+            //try {
                 //use temporary variables so if anything goes wrong, values wont be out of sync.
                 Dictionary<string, string> _Manifests = new Dictionary<string, string>();
 
-                string _Temp = Environment.CurrentDirectory + "/temp";
-                string _Files = Environment.CurrentDirectory + "/files";
-                string _Config = Environment.CurrentDirectory + "/config";
+                string _Temp = (AppContext.BaseDirectory + "/temp").AsPath();
+                string _Files = (AppContext.BaseDirectory + "/files").AsPath();
+                string _Config = (AppContext.BaseDirectory + "/config").AsPath();
 
                 if (!Directory.Exists(_Temp)) Directory.CreateDirectory(_Temp);
                 if (!Directory.Exists(_Files)) Directory.CreateDirectory(_Files);
                 if (!Directory.Exists(_Config)) Directory.CreateDirectory(_Config);
-                if (!File.Exists(_Config + "/latestpackageset.txt")) File.WriteAllText(_Config + "/latestpackageset.txt", "default");
-                if (!File.Exists(_Config + "/latestappversion.txt")) File.WriteAllText(_Config + "/latestappversion.txt", "NO VERSION");
-                if (!File.Exists(_Config + "/validchannels.txt")) File.WriteAllLines(_Config + "/validchannels.txt", new string[] { "latest", "nightly" });
+                if (!File.Exists((_Config + "/latestpackageset.txt").AsPath())) File.WriteAllText((_Config + "/latestpackageset.txt").AsPath(), "default");
+                if (!File.Exists((_Config + "/latestappversion.txt").AsPath())) File.WriteAllText((_Config + "/latestappversion.txt").AsPath(), "NO VERSION");
+                if (!File.Exists((_Config + "/validchannels.txt").AsPath())) File.WriteAllLines((_Config + "/validchannels.txt").AsPath(), new string[] { "latest", "nightly" });
 
                 foreach(string n in Directory.EnumerateDirectories(_Files )) {
-                    string k = n.Split('/').Last();
-                    if (!File.Exists(_Files + "/" + k + "/manifest6.json")) File.WriteAllText(_Files + "/" + k + "/manifest6.json", "{}");
+                    string k = n.Split(Path.DirectorySeparatorChar).Last();
+                    if (!File.Exists((_Files + "/" + k + "/manifest6.json").AsPath())) File.WriteAllText(_Files + "/" + k + "/manifest6.json", "{}");
                 }
 
-                string _latestPackageset = File.ReadAllText(_Config + "/latestpackageset.txt");
-                string _latestAppVersion = File.ReadAllText(_Config + "/latestappversion.txt");
-                string[] _validChannels = File.ReadAllLines(_Config + "/validchannels.txt");
+                string _latestPackageset = File.ReadAllText((_Config + "/latestpackageset.txt").AsPath());
+                string _latestAppVersion = File.ReadAllText((_Config + "/latestappversion.txt").AsPath());
+                string[] _validChannels = File.ReadAllLines((_Config + "/validchannels.txt").AsPath());
 
                 //look away
                 foreach (string n in Directory.EnumerateDirectories(_Files)) {
-                    string k = n.Split('/').Last();
-                    Manifest m = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(_Files + "/" + k + "/manifest6.json"));
-                    foreach (string c in Directory.EnumerateDirectories(_Files + "/" + k)) {
-                        string f = c.Split('/').Last();
-                        Package p = JsonConvert.DeserializeObject<Package>(File.ReadAllText(_Files + "/" + k + "/" + f + "/info.json"));
+                    string k = n.Split(Path.DirectorySeparatorChar).Last();
+                    Manifest m = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText((_Files + "/" + k + "/manifest6.json").AsPath()));
+                    foreach (string c in Directory.EnumerateDirectories((_Files + "/" + k).AsPath())) {
+                        string f = c.Split(Path.DirectorySeparatorChar).Last();
+                        Package p = JsonConvert.DeserializeObject<Package>(File.ReadAllText((_Files + "/" + k + "/" + f + "/info.json").AsPath()));
                         m.Platforms[p.Platform].PackageSections[p.Section].Categories[p.Category].Subcategories[p.Subcategory].Packages[p.ID] = p;
                     }
                     _Manifests[k] = JsonConvert.SerializeObject(m, Formatting.Indented);
@@ -139,24 +141,18 @@ namespace sdsetup_backend {
                 validChannels = _validChannels;
                 Manifests = _Manifests;
 
-                List<string> packages = new List<string>();
+                dlstats.VerifyStatisticsIntegrity(U.GetPackageListInLatestPackageset());
 
-                foreach (string k in Directory.EnumerateDirectories(Program.Files + "/" + Program.latestPackageset)) {
-                    packages.Add(k.Split('/').Last());
-                }
-
-                dlstats.VerifyStatisticsIntegrity(packages);
-
-            } catch (Exception e) {
-                return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
-            }
+            //} catch (Exception e) {
+            //    return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
+            //}
             return "Success";
         }
 
         public static bool OverridePrivelegedUuid() {
-            if (File.Exists(Config + "/uuidoverride.txt")) {
-                privelegedUUID = File.ReadAllText(Config + "/uuidoverride.txt");
-                File.Delete(Config + "/uuidoverride.txt");
+            if (File.Exists((Config + "/uuidoverride.txt").AsPath())) {
+                privelegedUUID = File.ReadAllText((Config + "/uuidoverride.txt").AsPath());
+                File.Delete((Config + "/uuidoverride.txt").AsPath());
                 return true;
             }
             return false;
