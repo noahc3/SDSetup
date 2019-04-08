@@ -26,10 +26,10 @@
 
   <ItemGroup>
     <Reference Include="Blazor.Extensions.Storage">
-      <HintPath>..\..\BlazorExtensions.Storage\src\Blazor.Extensions.Storage\bin\Release\netstandard2.0\Blazor.Extensions.Storage.dll</HintPath>
+      <HintPath>..\libraries\Blazor.Extensions.Storage.dll</HintPath>
     </Reference>
     <Reference Include="Blazor.Extensions.Storage.JS">
-      <HintPath>..\..\BlazorExtensions.Storage\src\Blazor.Extensions.Storage\bin\Release\netstandard2.0\Blazor.Extensions.Storage.JS.dll</HintPath>
+      <HintPath>..\libraries\Blazor.Extensions.Storage.JS.dll</HintPath>
     </Reference>
   </ItemGroup>
 
