@@ -9,6 +9,8 @@ using ICSharpCode.SharpZipLib.Core;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
+using SDSetupCommon;
+
 
 namespace SDSetupBackend.Controllers {
     [Route("api/[controller]")]
@@ -73,9 +75,14 @@ namespace SDSetupBackend.Controllers {
                                     files.Add(new KeyValuePair<string, string>(f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath(), ""), f));
                                 }
                             }
+
+                            
                         }
+
+                        Program.dlStats.IncrementPackageDownloadCount(k);
                     }
 
+                    Program.dlStats.AllTimeBundles++;
                     DeletingFileStream stream = (DeletingFileStream) ZipFromFilestreams(files.ToArray(), uuid);
 
                     Program.generatedZips[uuid] = stream;
@@ -129,13 +136,13 @@ namespace SDSetupBackend.Controllers {
         [HttpGet("fetch/dlstats")]
         public ActionResult GetDownloadStats() {
             //TODO: dont do this
-            return new ObjectResult(Program.dlstats.ToDataBinary(U.GetPackageListInLatestPackageset()));
+            return new ObjectResult(Program.dlStats.ToDataBinary(U.GetPackageListInLatestPackageset()));
         }
 
         [HttpGet("fetch/dlstatsdebug")]
         public ActionResult GetDownloadStatsDebug() {
             //TODO: dont do this
-            return new ObjectResult(JsonConvert.SerializeObject(DownloadStats.FromDataBinary(Program.dlstats.ToDataBinary(U.GetPackageListInLatestPackageset())), Formatting.Indented));
+            return new ObjectResult(JsonConvert.SerializeObject(DownloadStats.FromDataBinary(Program.dlStats.ToDataBinary(U.GetPackageListInLatestPackageset())), Formatting.Indented));
         }
 
         [HttpGet("get/latestpackageset")]

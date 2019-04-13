@@ -4,18 +4,27 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace SDSetupBackend
+namespace SDSetupCommon
 {
     public class DownloadStats {
-        public DateTime CurrentDateTime;
-        public string CurrentDateTimeString;
+        public string StatisticsTrackingInitDate = DateTime.UtcNow.ToLongDateString() + " " + DateTime.UtcNow.ToLongTimeString();
+        public bool initialized = false;
+        private DateTime CurrentDateTime;
+        private string CurrentDateTimeString;
         public long AllTimeBundles = 0;
         public Dictionary<string, Dictionary<string, int>> GranularStats; //<[DateTime.tostring], <[pkg name], downloads>>, last 30 days of data
         public Dictionary<string, long> AllTimeStats; //<[pkg name], alltime downloads>
 
-        const int _hoursToStore = 720;
+        public const int _hoursToStore = 720;
 
-        public void VerifyStatisticsIntegrity(List<string> packages) {
+        public void IncrementPackageDownloadCount(string package) {
+            if (!AllTimeStats.ContainsKey(package)) return;
+
+            AllTimeStats[package]++;
+            GranularStats[CurrentDateTimeString][package]++;
+        }
+
+        public void VerifyStatisticsIntegrity(List<string> packages, Manifest manifestToUpdate = null) {
             CurrentDateTime = GetSanitizedDateTime();
             CurrentDateTimeString = CurrentDateTime.ToString();
 
@@ -36,7 +45,7 @@ namespace SDSetupBackend
                 }
                 foreach (string k in packages) {
                     if (!GranularStats[sPoint].ContainsKey(k)) {
-                        GranularStats[sPoint][k] = -1 * i + 1;
+                        GranularStats[sPoint][k] = 0;
                     }
                 }
             }
@@ -47,6 +56,25 @@ namespace SDSetupBackend
                     string sPoint = point.ToString();
                     if (!GranularStats.ContainsKey(sPoint)) {
                         GranularStats.Remove(sPoint);
+                    }
+                }
+            }
+
+            if (manifestToUpdate != null) {
+                foreach(Platform plat in manifestToUpdate.Platforms.Values) {
+                    foreach(PackageSection sec in plat.PackageSections.Values) {
+                        foreach(PackageCategory cat in sec.Categories.Values) {
+                            foreach(PackageSubcategory sub in cat.Subcategories.Values) {
+                                foreach(Package p in sub.Packages.Values) {
+                                    if (AllTimeStats.ContainsKey(p.ID)) {
+                                        p.Downloads = AllTimeStats[p.ID];
+                                    } else {
+                                        p.Downloads = 0;
+                                    }
+                                    
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -65,7 +93,8 @@ namespace SDSetupBackend
             stats.CurrentDateTime = stats.GetSanitizedDateTime();
             stats.CurrentDateTimeString = stats.CurrentDateTime.ToString();
 
-            stats.AllTimeBundles = Convert.ToInt64(binary[0]);
+            stats.StatisticsTrackingInitDate = binary[0].Split('|')[0];
+            stats.AllTimeBundles = Convert.ToInt64(binary[0].Split('|').Last());
 
             stats.GranularStats = new Dictionary<string, Dictionary<string, int>>();
             stats.AllTimeStats = new Dictionary<string, long>();
@@ -95,7 +124,7 @@ namespace SDSetupBackend
         public string ToDataBinary(List<string> packages) {
             string binary = "";
             
-            binary = binary.NewLine(AllTimeBundles);
+            binary = binary.NewLine(StatisticsTrackingInitDate + "|" + AllTimeBundles);
 
             string info = "";
             foreach (string k in GranularStats.Keys) {
@@ -118,7 +147,8 @@ namespace SDSetupBackend
             }
 
             foreach (string k in packages) {
-                infos[k] = k + "|" + AllTimeStats[k] + "|" + infos[k];
+                infos[k] = (k + "|" + AllTimeStats[k] + "|" + infos[k]);
+                infos[k] = infos[k].Remove(infos[k].Length - 1); //remove trailing '.'
                 binary = binary.NewLine(infos[k]);
             }
 

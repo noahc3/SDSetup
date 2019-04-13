@@ -14,6 +14,12 @@ using SDSetupCommon;
 namespace SDSetupBlazor
 {
     public static class G {
+#if (DEBUG)
+        public static string hostname = "http://localhost:58109";
+#else
+        public static string hostname = "https://files.sdsetup.com";
+#endif
+
         public static string packageset = "default";
         public static string channel = "latest";
         
@@ -31,6 +37,7 @@ namespace SDSetupBlazor
         public static Dictionary<string, Dictionary<string, bool>> selectedPackages = new Dictionary<string, Dictionary<string, bool>>();
         public static Dictionary<string, Dictionary<string, Package>> packages = new Dictionary<string, Dictionary<string, Package>>();
         public static Manifest manifest;
+        public static DownloadStats downloadStats;
 
         public static bool showWarning = false;
         public static int scrollPosStore;

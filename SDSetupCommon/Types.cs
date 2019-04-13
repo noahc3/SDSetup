@@ -190,6 +190,7 @@ namespace SDSetupCommon {
         public string Category = "";
         public string Subcategory = "";
         public string Authors = "";
+        public long Downloads = 0;
         public Dictionary<string, string> Versions = new Dictionary<string, string>();
         public string Source = "";
         public string DLSource = "";
@@ -211,7 +212,7 @@ namespace SDSetupCommon {
 
         }
 
-        public Package(string iD, string name, string displayName, string platform, string section, string category, string subcategory, string authors, Dictionary<string, string> versions, string source, string dLSource, int size, int priority, bool enabledByDefault, bool visible, bool showsInCredits, string description, List<string> when, int whenMode, Warning warning, List<string> dependencies, List<string> deleteOnUpdate) {
+        public Package(string iD, string name, string displayName, string platform, string section, string category, string subcategory, string authors, long downloads, Dictionary<string, string> versions, string source, string dLSource, int size, int priority, bool enabledByDefault, bool visible, bool showsInCredits, string description, List<string> when, int whenMode, Warning warning, List<string> dependencies, List<string> deleteOnUpdate) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
@@ -220,6 +221,7 @@ namespace SDSetupCommon {
             Category = category;
             Subcategory = subcategory;
             Authors = authors;
+            Downloads = downloads;
             Versions = versions;
             Source = source;
             DLSource = dLSource;

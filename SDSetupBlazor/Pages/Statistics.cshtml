@@ -1,0 +1,91 @@
+﻿<!-- Copyright (c) 2018 noahc3
+- This Source Code Form is subject to the terms of the Mozilla Public
+- License, v. 2.0. If a copy of the MPL was not distributed with this
+- file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
+@page "/stats"
+@inject HttpClient Http
+<h1 style="text-align:center">Download Statistics</h1>
+@if (G.initialized && localInit) {
+
+    <h3 style="text-align:center;font-style:italic;margin-top:-1rem">Download statistics tracked since @G.downloadStats.StatisticsTrackingInitDate UTC</h3>
+    <h3 style="text-align:center">Total bundles downloaded from SDSetup to date: <b>@G.downloadStats.AllTimeBundles</b></h3>
+
+    <div class="ui styled fluid accordion" style="margin-top:1.5em">
+
+        @foreach (Platform plat in G.manifest.Platforms.Values) {
+            if (!plat.Visible) { continue; }
+            <div class="title @(opened[plat.ID] == true ? "active" : "")" onclick="@(() => opened[plat.ID] = !opened[plat.ID])">
+                <i class="dropdown icon"></i>
+                @plat.Name
+            </div>
+            <div class="content @(opened[plat.ID] == true ? "active" : "")">
+                <BlazorTable Class="sortable" IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
+                    <thead>
+                        <tr>
+                            <th scope="col">Package Name</th>
+                            <th scope="col">Author(s)</th>
+                            <th scope="col">Downloads (Last 7 Days)</th>
+                            <th scope="col">Downloads (Last 30 Days)</th>
+                            <th scope="col">Downloads (All Time)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Package p in G.packages[plat.ID].Values) {
+                            if (!calculatedStats.ContainsKey(p.ID)) { continue; }
+                            <tr>
+                                <th scope="row">@p.Name</th>
+                                <td>@p.Authors</td>
+                                <td>@calculatedStats[p.ID][0]</td>
+                                <td>@calculatedStats[p.ID][1]</td>
+                                <td>@calculatedStats[p.ID][2]</td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </BlazorTable>
+            </div>
+        }
+    </div>
+} else {
+    <div class="ui active dimmer" style="height:100%;width:100%">
+        <div class="ui massive text loader">Loading</div>
+    </div>
+}
+
+@functions {
+    Dictionary<string, bool> opened = new Dictionary<string, bool>();
+    public static Action ForceUiUpdate;
+    private bool localInit = false;
+    private Dictionary<string, int>[] granularStats;
+    private Dictionary<string, long[]> calculatedStats = new Dictionary<string, long[]>();
+
+    protected override async Task OnInitAsync() {
+        string dlStats = await Http.GetStringAsync(G.hostname + "/api/v1/fetch/dlstats");
+        G.downloadStats = DownloadStats.FromDataBinary(dlStats);
+        granularStats = G.downloadStats.GranularStats.Values.ToArray();
+        foreach (Platform plat in G.manifest.Platforms.Values) {
+            opened[plat.ID] = false;
+            if (!plat.Visible) { continue; }
+            foreach (Package p in G.packages[plat.ID].Values) {
+                if (String.IsNullOrEmpty(p.Authors) || !p.Visible || !G.downloadStats.AllTimeStats.ContainsKey(p.ID)) { continue; }
+                calculatedStats[p.ID] = new long[3];
+                calculatedStats[p.ID][0] = CalcHours(p.ID, 168);
+                calculatedStats[p.ID][1] = CalcHours(p.ID, 720);
+                calculatedStats[p.ID][2] = G.downloadStats.AllTimeStats[p.ID];
+            }
+            Console.WriteLine("Done");
+        }
+
+        ForceUiUpdate = new Action(() => StateHasChanged());
+        localInit = true;
+    }
+
+    private long CalcHours(string package, int hours) {
+        if (!G.downloadStats.AllTimeStats.ContainsKey(package)) return 0;
+        int dl = 0;
+        for (int i = 0; i < hours; i++) {
+            dl += granularStats[i][package];
+        }
+        return dl;
+    }
+}

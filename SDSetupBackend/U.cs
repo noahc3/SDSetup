@@ -4,6 +4,8 @@ using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
 
+using SDSetupCommon;
+
 namespace SDSetupBackend {
     public class U {
         public static List<string> GetPackageListInLatestPackageset() {

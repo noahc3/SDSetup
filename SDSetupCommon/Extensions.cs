@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SDSetupBackend
+namespace SDSetupCommon
 {
     public static class Extensions {
         public static string NewLine(this string str, object line) {
