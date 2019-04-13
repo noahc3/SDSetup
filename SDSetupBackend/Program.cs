@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using Newtonsoft.Json;
 using System.Net;
+using System.Timers;
 
 using SDSetupCommon;
 
@@ -20,9 +21,6 @@ namespace SDSetupBackend {
 
         private static string ip;
         private static int httpPort;
-        private static int httpsPort;
-        private static string httpsCertLocation;
-        private static string httpsCertKey;
 
         public static string Temp;
         public static string Files;
@@ -36,7 +34,9 @@ namespace SDSetupBackend {
         public static string latestPackageset = "default";
         public static string latestAppVersion = "NO VERSION";
 
-        public static DownloadStats dlstats = new DownloadStats();
+        public static DownloadStats dlStats;
+        private static bool dlStatsInitialized = false;
+        private static Timer dlStatsSaveTimer;
 
         private static string _privelegedUUID;
         private static string privelegedUUID {
@@ -61,11 +61,8 @@ namespace SDSetupBackend {
             string[] hostConf = File.ReadAllLines((Config + "/host.txt").AsPath());
             ip = hostConf[0];
             httpPort = Convert.ToInt32(hostConf[1]);
-            httpsPort = Convert.ToInt32(hostConf[2]);
 
             string[] certInfo = File.ReadAllLines((Config + "/https.txt").AsPath());
-            httpsCertLocation = certInfo[0];
-            httpsCertKey = certInfo[1];
 
             privelegedUUID = Guid.NewGuid().ToString().Replace("-", "").ToLower();
 
@@ -95,7 +92,13 @@ namespace SDSetupBackend {
         }
 
         public static string ReloadEverything() {
-            //try {
+            try {
+
+                //if dlstats was initialized, write them to disk before reloading.
+                if (dlStatsInitialized) {
+                    File.WriteAllText((Config + "/dlstats.bin").AsPath(), dlStats.ToDataBinary(U.GetPackageList(latestPackageset)));
+                }
+
                 //use temporary variables so if anything goes wrong, values wont be out of sync.
                 Dictionary<string, string> _Manifests = new Dictionary<string, string>();
 
@@ -110,7 +113,7 @@ namespace SDSetupBackend {
                 if (!File.Exists((_Config + "/latestappversion.txt").AsPath())) File.WriteAllText((_Config + "/latestappversion.txt").AsPath(), "NO VERSION");
                 if (!File.Exists((_Config + "/validchannels.txt").AsPath())) File.WriteAllLines((_Config + "/validchannels.txt").AsPath(), new string[] { "latest", "nightly" });
 
-                foreach(string n in Directory.EnumerateDirectories(_Files )) {
+                foreach(string n in Directory.EnumerateDirectories(_Files)) {
                     string k = n.Split(Path.DirectorySeparatorChar).Last();
                     if (!File.Exists((_Files + "/" + k + "/manifest6.json").AsPath())) File.WriteAllText(_Files + "/" + k + "/manifest6.json", "{}");
                 }
@@ -131,21 +134,46 @@ namespace SDSetupBackend {
                     _Manifests[k] = JsonConvert.SerializeObject(m, Formatting.Indented);
                 }
 
-                
+                //this must be set before GetPackageListInLatestPackageset() is called
+                Files = _Files;
+
+                DownloadStats _dlStats;
+
+                if (File.Exists((_Config + "/dlstats.bin").AsPath())) {
+                    _dlStats = DownloadStats.FromDataBinary(File.ReadAllText((_Config + "/dlstats.bin").AsPath()));
+                } else {
+                    _dlStats = new DownloadStats();
+                }
+
+                Manifest latestManifest = JsonConvert.DeserializeObject<Manifest>(_Manifests[_latestPackageset]);
+                _dlStats.VerifyStatisticsIntegrity(U.GetPackageList(_latestPackageset), latestManifest);
+                _Manifests[_latestPackageset] = JsonConvert.SerializeObject(latestManifest);
+
+                if (dlStatsSaveTimer != null) dlStatsSaveTimer.Stop();
+                dlStatsSaveTimer = new Timer();
+                dlStatsSaveTimer.Interval = 10000; //10 minutes
+                dlStatsSaveTimer.AutoReset = true;
+                dlStatsSaveTimer.Elapsed += (sender, e) => {
+                    Console.WriteLine("[ SAVE ] Wrote download stats to file (" + DateTime.Now.ToShortDateString() + " | " + DateTime.Now.ToShortTimeString() + ").");
+                    File.WriteAllText((Config + "/dlstats.bin").AsPath(), dlStats.ToDataBinary(U.GetPackageList(latestPackageset)));
+                };
+                dlStatsSaveTimer.Start();
+
                 //update the real variables
                 Temp = _Temp;
-                Files = _Files;
                 Config = _Config;
                 latestPackageset = _latestPackageset;
                 latestAppVersion = _latestAppVersion;
                 validChannels = _validChannels;
                 Manifests = _Manifests;
+                dlStats = _dlStats;
 
-                dlstats.VerifyStatisticsIntegrity(U.GetPackageListInLatestPackageset());
+                dlStatsInitialized = true;
 
-            //} catch (Exception e) {
-            //    return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
-            //}
+            } catch (Exception e) {
+                throw e;
+                return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
+            }
             return "Success";
         }
 

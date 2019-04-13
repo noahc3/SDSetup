@@ -245,7 +245,7 @@
 			string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
 
 			saveUrl = UriHelper.GetBaseUri() + "console?" + G.consoleId + "#" + packages;
-			string getUrl = "https://testing.files.sdsetup.com/api/v1/fetch/zip";
+			string getUrl = G.hostname + "/api/v1/fetch/zip";
 
 
 			HttpClient client = new HttpClient();
@@ -290,7 +290,7 @@
 			}
 			string tresp = await resp.Content.ReadAsStringAsync();
 			if (tresp == "READY") {
-				UriHelper.NavigateTo("https://testing.files.sdsetup.com/api/v1/fetch/generatedzip/" + uuid);
+				UriHelper.NavigateTo(G.hostname + "/api/v1/fetch/generatedzip/" + uuid);
 
 				saveMessage = true;
 				gettingZip = false;
