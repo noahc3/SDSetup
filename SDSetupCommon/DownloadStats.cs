@@ -37,7 +37,7 @@ namespace SDSetupCommon
                 }
             }
 
-            for (int i = 0; i > -1 * _hoursToStore; i--) {
+            for (int i = -1 * _hoursToStore + 1; i <= 0; i++) {
                 DateTime point = CurrentDateTime.AddHours(i);
                 string sPoint = point.ToString();
                 if (!GranularStats.ContainsKey(sPoint)) {
@@ -50,14 +50,8 @@ namespace SDSetupCommon
                 }
             }
 
-            if (GranularStats.Keys.Count > _hoursToStore) {
-                for (int i = _hoursToStore; i > -1 * GranularStats.Keys.Count; i--) {
-                    DateTime point = CurrentDateTime.AddHours(i);
-                    string sPoint = point.ToString();
-                    if (!GranularStats.ContainsKey(sPoint)) {
-                        GranularStats.Remove(sPoint);
-                    }
-                }
+            while (GranularStats.Keys.Count > _hoursToStore) {
+                GranularStats.Remove(GranularStats.ElementAt(0).Key);
             }
 
             if (manifestToUpdate != null) {

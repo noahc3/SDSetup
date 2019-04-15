@@ -92,10 +92,11 @@ namespace SDSetupBackend {
         }
 
         public static string ReloadEverything() {
-            try {
+            //try {
 
                 //if dlstats was initialized, write them to disk before reloading.
                 if (dlStatsInitialized) {
+                    dlStats.VerifyStatisticsIntegrity(U.GetPackageListInLatestPackageset());
                     File.WriteAllText((Config + "/dlstats.bin").AsPath(), dlStats.ToDataBinary(U.GetPackageList(latestPackageset)));
                 }
 
@@ -154,8 +155,9 @@ namespace SDSetupBackend {
                 dlStatsSaveTimer.Interval = 10000; //10 minutes
                 dlStatsSaveTimer.AutoReset = true;
                 dlStatsSaveTimer.Elapsed += (sender, e) => {
-                    Console.WriteLine("[ SAVE ] Wrote download stats to file (" + DateTime.Now.ToShortDateString() + " | " + DateTime.Now.ToShortTimeString() + ").");
+                    dlStats.VerifyStatisticsIntegrity(U.GetPackageListInLatestPackageset());
                     File.WriteAllText((Config + "/dlstats.bin").AsPath(), dlStats.ToDataBinary(U.GetPackageList(latestPackageset)));
+                    Console.WriteLine("[ SAVE ] Wrote download stats to file (" + DateTime.Now.ToShortDateString() + " | " + DateTime.Now.ToShortTimeString() + ").");
                 };
                 dlStatsSaveTimer.Start();
 
@@ -170,10 +172,10 @@ namespace SDSetupBackend {
 
                 dlStatsInitialized = true;
 
-            } catch (Exception e) {
-                throw e;
-                return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
-            }
+            //} catch (Exception e) {
+            //    throw e;
+            //    return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
+            //}
             return "Success";
         }
 
