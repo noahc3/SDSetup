@@ -168,8 +168,8 @@
 				StateHasChanged();
 				return;
 			}
-			//G.packageset = await Http.GetStringAsync(G.hostname + "/api/v1/get/latestpackageset");
-			G.packageset = "default15";
+			G.packageset = await Http.GetStringAsync(G.hostname + "/api/v1/get/latestpackageset");
+			//G.packageset = "default15";
 			G.manifest = await Http.GetJsonAsync<Manifest>(G.hostname + "/api/v1/fetch/manifest/" + uuid + "/" + G.packageset);
 			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
 			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
