@@ -92,8 +92,9 @@ namespace SDSetupBackend {
         }
 
         public static string ReloadEverything() {
-            //try {
-
+#if (!DEBUG)
+            try {
+#endif
                 //if dlstats was initialized, write them to disk before reloading.
                 if (dlStatsInitialized) {
                     dlStats.VerifyStatisticsIntegrity(U.GetPackageListInLatestPackageset());
@@ -152,7 +153,11 @@ namespace SDSetupBackend {
 
                 if (dlStatsSaveTimer != null) dlStatsSaveTimer.Stop();
                 dlStatsSaveTimer = new Timer();
-                dlStatsSaveTimer.Interval = 10000; //10 minutes
+#if (DEBUG)
+                dlStatsSaveTimer.Interval = 10000; //10 seconds
+#else
+                dlStatsSaveTimer.Interval = 600000; //10 minutes
+#endif
                 dlStatsSaveTimer.AutoReset = true;
                 dlStatsSaveTimer.Elapsed += (sender, e) => {
                     dlStats.VerifyStatisticsIntegrity(U.GetPackageListInLatestPackageset());
@@ -171,11 +176,11 @@ namespace SDSetupBackend {
                 dlStats = _dlStats;
 
                 dlStatsInitialized = true;
-
-            //} catch (Exception e) {
-            //    throw e;
-            //    return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
-            //}
+#if (!DEBUG)
+            } catch (Exception e) {
+                return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
+            }
+#endif
             return "Success";
         }
 
