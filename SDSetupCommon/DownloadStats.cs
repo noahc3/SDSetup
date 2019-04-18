@@ -81,6 +81,7 @@ namespace SDSetupCommon
         }
 
         public static DownloadStats FromDataBinary(string raw) {
+
             string[] binary = raw.Split('\n');
 
             DownloadStats stats = new DownloadStats();
@@ -116,6 +117,9 @@ namespace SDSetupCommon
         }
 
         public string ToDataBinary(List<string> packages) {
+
+            VerifyStatisticsIntegrity(packages);
+
             string binary = "";
             
             binary = binary.NewLine(StatisticsTrackingInitDate + "|" + AllTimeBundles);
