@@ -128,7 +128,7 @@ namespace SDSetupBackend {
                 foreach (string n in Directory.EnumerateDirectories(_Files)) {
                     string k = n.Split(Path.DirectorySeparatorChar).Last();
                     Manifest m = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText((_Files + "/" + k + "/manifest6.json").AsPath()));
-                    foreach (string c in Directory.EnumerateDirectories((_Files + "/" + k).AsPath())) {
+                    foreach (string c in Directory.EnumerateDirectories((_Files + "/" + k).AsPath()).OrderBy(filename => filename)) {
                         string f = c.Split(Path.DirectorySeparatorChar).Last();
                         Package p = JsonConvert.DeserializeObject<Package>(File.ReadAllText((_Files + "/" + k + "/" + f + "/info.json").AsPath()));
                         m.Platforms[p.Platform].PackageSections[p.Section].Categories[p.Category].Subcategories[p.Subcategory].Packages[p.ID] = p;
