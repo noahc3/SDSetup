@@ -86,7 +86,7 @@ namespace SDSetupBackend.Controllers {
                     DeletingFileStream stream = (DeletingFileStream) ZipFromFilestreams(files.ToArray(), uuid);
 
                     Program.generatedZips[uuid] = stream;
-                    stream.Timeout(180000);
+                    stream.Timeout(30000);
 
                     Program.uuidLocks.Remove(uuid);
                     return new ObjectResult("READY");
