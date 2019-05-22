@@ -249,7 +249,7 @@
 
 
 			HttpClient client = new HttpClient();
-			client.Timeout = TimeSpan.FromSeconds(200);
+			client.Timeout = TimeSpan.FromSeconds(120);
 			HttpResponseMessage resp;
 			try {
 				HttpRequestMessage message = new HttpRequestMessage {
