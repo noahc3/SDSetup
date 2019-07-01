@@ -31,8 +31,10 @@
                                                         <h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
                                                         <p>@((MarkupString)p.Description)</p>
                                                         <br />
-                                                        <p>Downloads: @p.Downloads<br />
-                                                        Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a></p>
+                                                        <p>
+                                                            Downloads: @p.Downloads<br />
+                                                            Retrieved from:<br /><a style="color:#DB2828" href="@p.Source">@p.Source</a>
+                                                        </p>
                                                     </div>
                                                 }
                                             </div>
@@ -67,13 +69,14 @@
 }
 
 
-@functions {
+@code {
     [Parameter]
     private PackageSection Section { get; set; }
 
     public Action ForceUiRefresh;
 
     protected override async Task OnInitAsync() {
+        Console.WriteLine("yeet2");
         if (ForceUiRefresh == null) {
             ForceUiRefresh = new Action(() => StateHasChanged());
             G.SectionRefreshes[Section.ID] = ForceUiRefresh;

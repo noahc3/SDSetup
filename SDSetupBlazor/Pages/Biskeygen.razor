@@ -4,7 +4,7 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 @page "/biskeygen"
 @inject IJSRuntime jsRuntime
-@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
 @inject HttpClient Http
 
 
@@ -37,7 +37,7 @@
 
 	
 
-	<button class="fluid ui red button" style="margin-bottom:1.5rem;" onclick="@(() => deriveBisKeys())">Derive BIS Keys</button>
+	<button class="fluid ui red button" style="margin-bottom:1.5rem;" @onclick="@(() => deriveBisKeys())">Derive BIS Keys</button>
 
 	<h4 style="margin-bottom:0.5em;margin-top:2em;text-align:center">Output</h4>
 	<div class="ui form">

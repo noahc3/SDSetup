@@ -10,49 +10,49 @@
 
 <h4>For users</h4>
 <div class="ui styled fluid accordion" style="margin-top:1.5em">
-	<div class="title @(active[0] == true ? "active" : "")" onclick="@(() => active[0] = !active[0])">
+	<div class="title @(active[0] == true ? "active" : "")" @onclick="@(() => active[0] = !active[0])">
 		<i class="dropdown icon"></i>
 		What do I do with the ZIP file downloaded?
 	</div>
 	<div class="content @(active[0] == true ? "active" : "")">
 		<p>Extract <b>the contents</b> of the compressed folder named sd to the root of your SD card. The PC folder will contain the tools and payloads you selected. THe readmes folder will contain useful readmes for using the PC tools. the licenses folder contains licenses requried to comply with redistribution requirements.</p>
 	</div>
-	<div class="title @(active[7] == true ? "active" : "")" onclick="@(() => active[7] = !active[7])">
+	<div class="title @(active[7] == true ? "active" : "")" @onclick="@(() => active[7] = !active[7])">
 		<i class="dropdown icon"></i>
 		How do you determine the version numbers displayed on the website?
 	</div>
 	<div class="content @(active[7] == true ? "active" : "")">
 		<p>Here is how versions are determined and presented:<ul><li>If the version is a full release, the version from the release title is used. If there is no version specified, the version from the release tag is used.</li><li>If the release is a specific commit, the commit is specified with c.xxxxxxxx where xxxxxxxx is the first 8 characters of the commit hash.</li><li>If none of the above can be determined, the date the package was retrieved is used (YYYY.MM.DD). Reasons this may be done include:</li><ul><li>The release tag is not helpful (something strange that doesn't really specify a version. This is rare).</li><li>An included package differs enough from a build or release that using a commit hash or release version would be misleading (for example, our copy of Atmosphere uses an entirely different bootloader than the one built from the repo).</li><li>The build was retrieved from a (trusted) third party.</li></ul></ul></p>
 	</div>
-	<div class="title @(active[8] == true ? "active" : "")" onclick="@(() => active[8] = !active[8])">
+	<div class="title @(active[8] == true ? "active" : "")" @onclick="@(() => active[8] = !active[8])">
 		<i class="dropdown icon"></i>
 		Are packages updated automatically?
 	</div>
 	<div class="content @(active[8] == true ? "active" : "")">
 		<p>Packages are updated and tested manually because:<ul><li>Commits pushed directly to repos may not be ready for general use and therefore should be tested (and full releases should be prioritized).</li><li>File directories and structures of released archives or builds might change so it is unsafe to assume they can be automatically added the same way as a previous release.</li></ul></p>
 	</div>
-	<div class="title @(active[1] == true ? "active" : "")" onclick="@(() => active[1] = !active[1])">
+	<div class="title @(active[1] == true ? "active" : "")" @onclick="@(() => active[1] = !active[1])">
 		<i class="dropdown icon"></i>
 		Why do files take so long to download? / Why are there so many files to download?
 	</div>
 	<div class="content @(active[1] == true ? "active" : "")">
 		<p>Due to the virtualized nature of web browsers, and the wide array of devices and levels of hardware that run them, downloading smaller files but having to decompress them can often take longer than just downloading the uncompressed version. As such, all files being downloaded are uncompressed and unarchived. For the same reason, the resulting ZIP file has no compression applied.</p>
 	</div>
-	<div class="title @(active[9] == true ? "active" : "")" onclick="@(() => active[9] = !active[9])">
+	<div class="title @(active[9] == true ? "active" : "")" @onclick="@(() => active[9] = !active[9])">
 		<i class="dropdown icon"></i>
 		Why are the resulting ZIP files so huge?
 	</div>
 	<div class="content @(active[9] == true ? "active" : "")">
 		<p>Due to the virtualized nature of web browsers, and the wide array of devices and levels of hardware that run them, compressing a ZIP file can take a very long time (often several minutes, even on desktop, depending on the browser). As such, resulting ZIP files have no compression applied. Downloaded files aren't compressed in the first place anyways (see above), so there isn't really any point in compressing the result.</p>
 	</div>
-	<div class="title @(active[2] == true ? "active" : "")" onclick="@(() => active[2] = !active[2])">
+	<div class="title @(active[2] == true ? "active" : "")" @onclick="@(() => active[2] = !active[2])">
 		<i class="dropdown icon"></i>
 		I want another package to be listed here! / I want to see another feature!
 	</div>
 	<div class="content @(active[2] == true ? "active" : "")">
 		<p>Make an issue on <a href="https://github.com/noahc3/SDSetup/issues">GitHub</a> saying what changes you would like made.</p>
 	</div>
-	<div class="title @(active[4] == true ? "active" : "")" onclick="@(() => active[4] = !active[4])">
+	<div class="title @(active[4] == true ? "active" : "")" @onclick="@(() => active[4] = !active[4])">
 		<i class="dropdown icon"></i>
 		A package on here is outdated!
 	</div>
@@ -62,7 +62,7 @@
 </div>
 <h4>For homebrew creators</h4>
 <div class="ui styled fluid accordion" style="margin-top:1.5em">
-	<div class="title @(active[3] == true ? "active" : "")" onclick="@(() => active[3] = !active[3])">
+	<div class="title @(active[3] == true ? "active" : "")" @onclick="@(() => active[3] = !active[3])">
 		<i class="dropdown icon"></i>
 		I am a developer of a package rehosted here and I would like it removed. / You are violating the redistribution rights of my softwares license.
 	</div>
@@ -72,7 +72,7 @@
 </div>
 <h4>For developers</h4>
 <div class="ui styled fluid accordion" style="margin-top:1.5em">
-	<div class="title @(active[5] == true ? "active" : "")" onclick="@(() => active[5] = !active[5])">
+	<div class="title @(active[5] == true ? "active" : "")" @onclick="@(() => active[5] = !active[5])">
 		<i class="dropdown icon"></i>
 		Why Blazor?
 	</div>
@@ -80,7 +80,7 @@
 		<p>Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!</p>
 	</div>
 
-	<div class="title @(active[6] == true ? "active" : "")" onclick="@(() => active[6] = !active[6])">
+	<div class="title @(active[6] == true ? "active" : "")" @onclick="@(() => active[6] = !active[6])">
 		<i class="dropdown icon"></i>
 		You know Blazor is experimental and isn't meant for production, right?
 	</div>
