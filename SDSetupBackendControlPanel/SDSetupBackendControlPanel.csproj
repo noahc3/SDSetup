@@ -38,7 +38,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,8 +51,8 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="WinSCPnet, Version=1.6.2.9136, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\WinSCP.5.14.4-rc\lib\net\WinSCPnet.dll</HintPath>
+    <Reference Include="WinSCPnet, Version=1.6.4.9590, Culture=neutral, PublicKeyToken=2271ec4a3c56d0bf, processorArchitecture=MSIL">
+      <HintPath>..\packages\WinSCP.5.15.2\lib\net\WinSCPnet.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -147,11 +147,11 @@
     <Folder Include="Types\Exceptions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\WinSCP.5.14.4-rc\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.14.4-rc\build\WinSCP.targets')" />
+  <Import Project="..\packages\WinSCP.5.15.2\build\WinSCP.targets" Condition="Exists('..\packages\WinSCP.5.15.2\build\WinSCP.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\WinSCP.5.14.4-rc\build\WinSCP.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinSCP.5.14.4-rc\build\WinSCP.targets'))" />
+    <Error Condition="!Exists('..\packages\WinSCP.5.15.2\build\WinSCP.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinSCP.5.15.2\build\WinSCP.targets'))" />
   </Target>
 </Project>
