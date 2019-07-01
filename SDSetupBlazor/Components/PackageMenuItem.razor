@@ -1,7 +1,7 @@
 ﻿@inject LocalStorage localStorage
 @inject IJSRuntime  jsRuntime
 
-<a class="item @(G.selectedPackages[G.consoleId][PID] == true ? "active" : "")" onclick="@(() => checkClicked(PID))">@DisplayName@if (!String.IsNullOrEmpty(Version)) {<div style="color:#b7b7b7">(@Version)</div>}</a>
+<a class="item @(G.selectedPackages[G.consoleId][PID] == true ? "active" : "")" @onclick="@(() => checkClicked(PID))">@DisplayName@if (!String.IsNullOrEmpty(Version)) {<div style="color:#b7b7b7">(@Version)</div>}</a>
 
 @functions  {
 

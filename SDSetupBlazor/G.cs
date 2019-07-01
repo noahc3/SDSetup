@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
-using Microsoft.AspNetCore.Components.Services;
+using Microsoft.AspNetCore.Components;
 
 using SDSetupCommon;
 
@@ -21,7 +21,7 @@ namespace SDSetupBlazor
         public static string hostname = "https://files.sdsetup.com";
 #endif
 
-        public static string packageset = "default";
+        public static string packageset = "default24";
         public static string channel = "latest";
         
         public static string consoleId = "switch";

@@ -14,7 +14,7 @@
 
         @foreach (Platform plat in G.manifest.Platforms.Values) {
             if (!plat.Visible) { continue; }
-            <div class="title @(opened[plat.ID] == true ? "active" : "")" onclick="@(() => opened[plat.ID] = !opened[plat.ID])">
+            <div class="title @(opened[plat.ID] == true ? "active" : "")" @onclick="@(() => opened[plat.ID] = !opened[plat.ID])">
                 <i class="dropdown icon"></i>
                 @plat.Name
             </div>

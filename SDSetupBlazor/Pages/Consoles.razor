@@ -3,9 +3,10 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 @page  "/console"
+
 @inject IJSRuntime jsRuntime
 @inject HttpClient Http
-@inject Microsoft.AspNetCore.Components.Services.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
 
 @if (!gettingZip) {
 
@@ -19,7 +20,7 @@
 
 	@if (zipDoneMessage == true) {
 		<div class="ui success message">
-			<i class="close icon" onclick="@(() => zipDoneMessage = false)"></i>
+			<i class="close icon" @onclick="@(() => zipDoneMessage = false)"></i>
 			<div class="header">
 				Operation Completed
 			</div>
@@ -29,7 +30,7 @@
 
 	@if (firefoxMessage == true) {
 		<div class="ui success message">
-			<i class="close icon" onclick="@(() => firefoxMessage = false)"></i>
+			<i class="close icon" @onclick="@(() => firefoxMessage = false)"></i>
 			<div class="header">
 				Firefox Notice:
 			</div>
@@ -45,7 +46,7 @@
 
 	@if (saveMessage) {
 		<div class="ui success message">
-			<i class="close icon" onclick="@(() => saveMessage = false)"></i>
+			<i class="close icon" @onclick="@(() => saveMessage = false)"></i>
 			<div class="header">
 				Want to redownload in the future?
 			</div>
@@ -64,7 +65,7 @@
 
 	@if (selectMore) {
 		<div class="ui negative message">
-			<i class="close icon" onclick="@(() => selectMore = false)"></i>
+			<i class="close icon" @onclick="@(() => selectMore = false)"></i>
 			<div class="header">
 				No packages are selected.
 			</div>
@@ -86,7 +87,7 @@
 							<Card CardType="CardType.Title">@b.Name</Card>
 							@b.Description
 						</Card>
-						<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin:1.2rem;margin-top:0;width:auto" onclick="@(() => G.SelectByList(b.Packages))">Select</button>
+						<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin:1.2rem;margin-top:0;width:auto" @onclick="@(() => G.SelectByList(b.Packages))">Select</button>
 					</Card>
 				}
 			</Card>
@@ -94,10 +95,11 @@
 		</div>
 
 		@foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections.Values) {
-			<UIPackageSection Section="@sec"></UIPackageSection>
-		}
+            <UIPackageSection Section="@sec"></UIPackageSection>
+            Console.WriteLine("Yeet3");
+        }
 
-		<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-bottom:1.5rem;" onclick="@(() => downloadZip())">Download your ZIP</button>
+		<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-bottom:1.5rem;" @onclick="@(() => downloadZip())">Download your ZIP</button>
 	}
 
 </div>
@@ -163,8 +165,9 @@
 			}
 		}
 
-		private void OnLocationChanged(object sender, string location) {
+		private void OnLocationChanged(object sender, LocationChangedEventArgs e) {
 			Console.WriteLine(UriHelper.GetAbsoluteUri());
+            
 			if (G.initialized) {
 				if (UriHelper.GetAbsoluteUri().Contains("/console?")) {
 					zipDoneMessage = false;
