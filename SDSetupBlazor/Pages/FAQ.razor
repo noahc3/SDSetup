@@ -31,20 +31,6 @@
 	<div class="content @(active[8] == true ? "active" : "")">
 		<p>Packages are updated and tested manually because:<ul><li>Commits pushed directly to repos may not be ready for general use and therefore should be tested (and full releases should be prioritized).</li><li>File directories and structures of released archives or builds might change so it is unsafe to assume they can be automatically added the same way as a previous release.</li></ul></p>
 	</div>
-	<div class="title @(active[1] == true ? "active" : "")" @onclick="@(() => active[1] = !active[1])">
-		<i class="dropdown icon"></i>
-		Why do files take so long to download? / Why are there so many files to download?
-	</div>
-	<div class="content @(active[1] == true ? "active" : "")">
-		<p>Due to the virtualized nature of web browsers, and the wide array of devices and levels of hardware that run them, downloading smaller files but having to decompress them can often take longer than just downloading the uncompressed version. As such, all files being downloaded are uncompressed and unarchived. For the same reason, the resulting ZIP file has no compression applied.</p>
-	</div>
-	<div class="title @(active[9] == true ? "active" : "")" @onclick="@(() => active[9] = !active[9])">
-		<i class="dropdown icon"></i>
-		Why are the resulting ZIP files so huge?
-	</div>
-	<div class="content @(active[9] == true ? "active" : "")">
-		<p>Due to the virtualized nature of web browsers, and the wide array of devices and levels of hardware that run them, compressing a ZIP file can take a very long time (often several minutes, even on desktop, depending on the browser). As such, resulting ZIP files have no compression applied. Downloaded files aren't compressed in the first place anyways (see above), so there isn't really any point in compressing the result.</p>
-	</div>
 	<div class="title @(active[2] == true ? "active" : "")" @onclick="@(() => active[2] = !active[2])">
 		<i class="dropdown icon"></i>
 		I want another package to be listed here! / I want to see another feature!
@@ -78,14 +64,6 @@
 	</div>
 	<div class="content @(active[5] == true ? "active" : "")">
 		<p>Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!</p>
-	</div>
-
-	<div class="title @(active[6] == true ? "active" : "")" @onclick="@(() => active[6] = !active[6])">
-		<i class="dropdown icon"></i>
-		You know Blazor is experimental and isn't meant for production, right?
-	</div>
-	<div class="content @(active[6] == true ? "active" : "")">
-		<p>Since this app is entirely client-side (static), there is no security involved anywhere, and compatibility is fine with major web browsers, I didn't see any reason not to use Blazor.</p>
 	</div>
 </div>
 
