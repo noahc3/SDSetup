@@ -26,7 +26,7 @@
                                             <div class="nc3_hover">
                                                 <PackageCheckbox PID="@p.ID" Name="@p.Name" Version="@p.Versions[G.channel]"></PackageCheckbox>
                                                 @if (!G.isMobile) {
-                                                    <div class="nc3_tooltip pc-tablet-only">
+                                                    <div class="nc3_tooltip">
                                                         <h4 style="margin:0">@p.Name</h4>
                                                         <h6 style="margin-top:0;margin-bottom:0.5rem">by @p.Authors</h6>
                                                         <p>@((MarkupString)p.Description)</p>
