@@ -18,7 +18,6 @@
     },
     "sdsetup_backend": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "api/v1/fetch",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

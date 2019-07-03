@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -57,7 +59,8 @@ namespace SDSetupBackend.Controllers {
                     Program.uuidLocks.Add(uuid);
 
                     string[] requestedPackages = packages.Split(';');
-                    List<KeyValuePair<string, string>> files = new List<KeyValuePair<string, string>>();
+                    //List<KeyValuePair<string, string>> files = new List<KeyValuePair<string, string>>();
+                    OrderedDictionary files = new OrderedDictionary();
                     foreach (string k in requestedPackages) {
                         //sanitize input
                         if (k.Contains("/") || k.Contains("\\") || k.Contains("..") || k.Contains("~") || k.Contains("%")) {
@@ -69,29 +72,27 @@ namespace SDSetupBackend.Controllers {
                             foreach (string f in EnumerateAllFiles((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath())) {
                                 if (client == "hbswitch") {
                                     if (f.StartsWith((Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath())) {
-                                        files.Add(new KeyValuePair<string, string>(f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath(), ""), f));
+                                        files[f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath(), "")] = f;
                                     }
                                 } else {
-                                    files.Add(new KeyValuePair<string, string>(f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath(), ""), f));
+                                    files[f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath(), "")] = f;
                                 }
                             }
 
                             
                         }
-
-                        Program.dlStats.IncrementPackageDownloadCount(k);
                     }
 
-                    Program.dlStats.AllTimeBundles++;
-                    DeletingFileStream stream = (DeletingFileStream) ZipFromFilestreams(files.ToArray(), uuid);
+                    DeletingFileStream stream = (DeletingFileStream) ZipFromFilestreams(files, uuid);
 
                     Program.generatedZips[uuid] = stream;
                     stream.Timeout(30000);
 
                     Program.uuidLocks.Remove(uuid);
                     return new ObjectResult("READY");
-                } catch (Exception) {
+                } catch (Exception e) {
                     Program.uuidLocks.Remove(uuid);
+                    Console.WriteLine(e.Message);
                     return new ObjectResult("Internal server error occurred");
                 }
             }
@@ -136,13 +137,15 @@ namespace SDSetupBackend.Controllers {
         [HttpGet("fetch/dlstats")]
         public ActionResult GetDownloadStats() {
             //TODO: dont do this
-            return new ObjectResult(Program.dlStats.ToDataBinary(U.GetPackageListInLatestPackageset()));
+            //return new ObjectResult(Program.dlStats.ToDataBinary(U.GetPackageListInLatestPackageset()));
+            return null;
         }
 
         [HttpGet("fetch/dlstatsdebug")]
         public ActionResult GetDownloadStatsDebug() {
             //TODO: dont do this
-            return new ObjectResult(JsonConvert.SerializeObject(DownloadStats.FromDataBinary(Program.dlStats.ToDataBinary(U.GetPackageListInLatestPackageset())), Formatting.Indented));
+            //return new ObjectResult(JsonConvert.SerializeObject(DownloadStats.FromDataBinary(Program.dlStats.ToDataBinary(U.GetPackageListInLatestPackageset())), Formatting.Indented));
+            return null;
         }
 
         [HttpGet("get/latestpackageset")]
@@ -196,18 +199,17 @@ namespace SDSetupBackend.Controllers {
         }
 
 
-        public static Stream ZipFromFilestreams(KeyValuePair<string, string>[] files, string uuid) {
+        public static Stream ZipFromFilestreams(OrderedDictionary files, string uuid) {
 
             DeletingFileStream outputMemStream = new DeletingFileStream((Program.Temp + "/" + Guid.NewGuid().ToString().Replace("-", "").ToLower()).AsPath(), FileMode.Create, uuid);
             ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
 
             zipStream.SetLevel(3); //0-9, 9 being the highest level of compression
-
-            foreach(KeyValuePair<string, string> f in files) {
-                ZipEntry newEntry = new ZipEntry(f.Key);
+            foreach(DictionaryEntry f in files) {
+                ZipEntry newEntry = new ZipEntry((string) f.Key);
                 newEntry.DateTime = DateTime.Now;
                 zipStream.PutNextEntry(newEntry);
-                FileStream fs = new FileStream(f.Value, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                FileStream fs = new FileStream((string) f.Value, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                 fs.CopyTo(zipStream, 4096);
                 //StreamUtils.Copy(fs, zipStream, new byte[4096]);
                 fs.Close();
