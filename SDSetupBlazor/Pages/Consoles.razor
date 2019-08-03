@@ -53,13 +53,13 @@
 			<p>
 				Save the following URL somewhere to immediately have the same packages pre-selected in the future:<br />
 			</p>
-			<BlazorTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
+			<BSTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
 				<tbody>
 					<tr>
 						<th scope="row">@saveUrl</th>
 					</tr>
 				</tbody>
-			</BlazorTable>
+			</BSTable>
 		</div>
 	}
 
@@ -80,17 +80,17 @@
 
 		<div class="docs-example">
 			<h3 style="margin-bottom:0.5em">Pre-configured bundles</h3>
-			<Card CardType="CardType.Deck" Class="justify-content-center">
+			<BSCard CardType="CardType.Deck" Class="justify-content-center">
 				@foreach (Bundle b in G.manifest.Platforms[G.consoleId].Bundles) {
-					<Card style="margin-bottom:2rem">
-						<Card CardType="CardType.Body">
-							<Card CardType="CardType.Title">@b.Name</Card>
+					<BSCard style="margin-bottom:2rem">
+						<BSCard CardType="CardType.Body">
+							<BSCard CardType="CardType.Title">@b.Name</BSCard>
 							@b.Description
-						</Card>
+						</BSCard>
 						<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin:1.2rem;margin-top:0;width:auto" @onclick="@(() => G.SelectByList(b.Packages))">Select</button>
-					</Card>
+					</BSCard>
 				}
-			</Card>
+			</BSCard>
 
 		</div>
 

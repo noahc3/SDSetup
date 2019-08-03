@@ -2,20 +2,20 @@
     if (Section.ListingMode == 0) {
         <div class="docs-example">
             <h3 style="margin-bottom:0.5em">@Section.DisplayName</h3>
-            <Card CardType="CardType.Deck" Class="justify-content-center">
+            <BSCard CardType="CardType.Deck" Class="justify-content-center">
                 @foreach (PackageCategory cat in Section.Categories.Values) {
                     if (!G.CanShow(cat.Visible, cat.When, cat.WhenMode)) {
                         continue;
                     }
 
-                    <Card style="margin-bottom:2rem">
-                        <Card CardType="CardType.Body">
-                            <Card CardType="CardType.Title">@cat.DisplayName</Card>
+                    <BSCard style="margin-bottom:2rem">
+                        <BSCard CardType="CardType.Body">
+                            <BSCard CardType="CardType.Title">@cat.DisplayName</BSCard>
                             @foreach (PackageSubcategory sub in cat.Subcategories.Values) {
                                 if (!G.CanShow(sub.Visible, sub.When, sub.WhenMode)) {
                                     continue;
                                 }
-                                <Card CardType="CardType.Subtitle" style="margin-top:0.5rem">@sub.DisplayName</Card>
+                                <BSCard CardType="CardType.Subtitle" style="margin-top:0.5rem">@sub.DisplayName</BSCard>
                                 <div class="ui form">
                                     @foreach (Package p in sub.Packages.Values) {
                                         if (!G.CanShow(p.Visible, p.When, p.WhenMode)) {
@@ -42,10 +42,10 @@
                                     }
                                 </div>
                             }
-                        </Card>
-                    </Card>
+                        </BSCard>
+                    </BSCard>
                 }
-            </Card>
+            </BSCard>
             <p style="text-align:center;color:#808080"><b>@((MarkupString)Section.Footer)</b></p>
         </div>
     } else {
