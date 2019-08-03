@@ -16,16 +16,16 @@
 
 	<h4 style="margin-bottom:0.5em;text-align:center">Enter TSEC key</h4>
 	<div class="ui fluid input">
-		<input type="text" style="text-align:center" bind="@tsecIn" placeholder="00000000000000000000000000000000" />
+		<input type="text" style="text-align:center" @bind-value="tsecIn" placeholder="00000000000000000000000000000000" />
 	</div>
 	<h4 style="margin-bottom:0.5em;text-align:center">Enter SBK key</h4>
 	<div class="ui fluid input" style="margin-bottom:2rem">
-		<input type="text" style="text-align:center" bind="@sbkIn" placeholder="00000000000000000000000000000000" />
+		<input type="text" style="text-align:center" @bind-value="sbkIn" placeholder="00000000000000000000000000000000" />
 	</div>
 
 	<div class="divider" style="margin:auto;margin-bottom:3rem">
 		<hr class="left" /><label>OR</label><hr class="right" />
-		<h4 style="margin-bottom:0.5em;text-align:center">Upload Hekate fuses.bin</h4>
+		<h4 style="margin-bottom:0.5em;text-align:center">Upload Hekate fuse_cached.bin</h4>
 		<div class="ui action input" style="margin-top:1rem">
 			<input type="file" id="fileUpload1" />
 		</div>
@@ -42,7 +42,7 @@
 	<h4 style="margin-bottom:0.5em;margin-top:2em;text-align:center">Output</h4>
 	<div class="ui form">
 		<div class="field">
-			<textarea style="text-align:center" bind="@output" readonly></textarea>
+			<textarea style="text-align:center" @bind="output" readonly></textarea>
 		</div>
 	</div>
 
@@ -75,14 +75,14 @@
 				_output += "ERROR: Your tsec_keys.bin isn't the right size.\n";
 			}
 
-			if (fuses.Length != 764) {
+			if (fuses.Length != 768) {
 				errorFound = true;
-				_output += "ERROR: Your fuses.bin isn't the right size.\n";
+				_output += "ERROR: Your fuse_cached.bin isn't the right size.\n";
 			}
 
 			if (fuses[0x10] != 0x83) {
 				errorFound = true;
-				_output += "ERROR: Your fuses.bin is not valid.\n";
+				_output += "ERROR: Your fuse_cached.bin is not valid.\n";
 			}
 
 
@@ -100,6 +100,7 @@
 				
 			}
 		} else if (tsecIn.Length == 32 && sbkIn.Length == 32) {
+            Console.WriteLine("yes");
 			string _output = biskeytool.deriveBisKeys(sbkIn, tsecIn);
 			output = _output.Substring(0, _output.Length - 1);
 		} else {
