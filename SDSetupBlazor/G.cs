@@ -15,8 +15,8 @@ namespace SDSetupBlazor
 {
     public static class G {
 #if (DEBUG)
-        public static string hostname = "http://localhost:5000";
-        //public static string hostname = "https://files.sdsetup.com";
+        //public static string hostname = "http://localhost:5000";
+        public static string hostname = "https://files.sdsetup.com";
 #else
         public static string hostname = "https://files.sdsetup.com";
 #endif
