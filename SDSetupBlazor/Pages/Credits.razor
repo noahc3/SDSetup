@@ -59,7 +59,7 @@
 	public static Action ForceUiUpdate;
 	private bool localInit = false;
 
-	protected override async Task OnInitAsync() {
+	protected override async Task OnInitializedAsync() {
 		foreach (Platform plat in G.manifest.Platforms.Values) opened[plat.ID] = false;
 		ForceUiUpdate = new Action(() => StateHasChanged());
 		localInit = true;

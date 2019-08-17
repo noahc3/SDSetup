@@ -144,7 +144,7 @@
         static int current = 0;
         static bool barMode = true;
 
-        protected override void OnInit() {
+        protected override void OnInitialized() {
             string a = UriHelper.GetAbsoluteUri().Split('?')[1];
             if (a.Contains('#')) a = a.Split('#')[0];
             G.consoleId = a;
@@ -155,7 +155,7 @@
             }
         }
 
-        protected override async Task OnInitAsync() {
+        protected override async Task OnInitializedAsync() {
             UriHelper.OnLocationChanged += OnLocationChanged;
             if (ForceUiRefresh == null) {
                 ForceUiRefresh = new Action(() => StateHasChanged());

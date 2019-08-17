@@ -19,30 +19,30 @@
                 @plat.Name
             </div>
             <div class="content @(opened[plat.ID] == true ? "active" : "")">
-                <BlazorTable Class="sortable" IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
-                    <thead>
-                        <tr>
-                            <th scope="col">Package Name</th>
-                            <th scope="col">Author(s)</th>
-                            <th scope="col">Downloads (Last 7 Days)</th>
-                            <th scope="col">Downloads (Last 30 Days)</th>
-                            <th scope="col">Downloads (All Time)</th>
-                        </tr>
-                    </thead>
+                <BSTable Class="sortable" IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
+                    <BSTableHead>
+                        <BSTableRow>
+                            <BSTableHead scope="col">Package Name</BSTableHead>
+                            <BSTableHead scope="col">Author(s)</BSTableHead>
+                            <BSTableHead scope="col">Downloads (Last 7 Days)</BSTableHead>
+                            <BSTableHead scope="col">Downloads (Last 30 Days)</BSTableHead>
+                            <BSTableHead scope="col">Downloads (All Time)</BSTableHead>
+                        </BSTableRow>
+                    </BSTableHead>
                     <tbody>
                         @foreach (Package p in G.packages[plat.ID].Values) {
                             if (!calculatedStats.ContainsKey(p.ID)) { continue; }
-                            <tr>
-                                <th scope="row">@p.Name</th>
-                                <td>@p.Authors</td>
-                                <td>@calculatedStats[p.ID][0]</td>
-                                <td>@calculatedStats[p.ID][1]</td>
-                                <td>@calculatedStats[p.ID][2]</td>
-                            </tr>
+                            <BSTableRow>
+                                <BSTableCell scope="row">@p.Name</BSTableCell>
+                                <BSTableCell>@p.Authors</BSTableCell>
+                                <BSTableCell>@calculatedStats[p.ID][0]</BSTableCell>
+                                <BSTableCell>@calculatedStats[p.ID][1]</BSTableCell>
+                                <BSTableCell>@calculatedStats[p.ID][2]</BSTableCell>
+                            </BSTableRow>
                         }
 
                     </tbody>
-                </BlazorTable>
+                </BSTable>
             </div>
         }
     </div>
@@ -59,7 +59,7 @@
     private Dictionary<string, int>[] granularStats;
     private Dictionary<string, long[]> calculatedStats = new Dictionary<string, long[]>();
 
-    protected override async Task OnInitAsync() {
+    protected override async Task OnInitializedAsync() {
         string dlStats = await Http.GetStringAsync(G.hostname + "/api/v1/fetch/dlstats");
         G.downloadStats = DownloadStats.FromDataBinary(dlStats);
         granularStats = G.downloadStats.GranularStats.Values.ToArray();

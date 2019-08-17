@@ -70,11 +70,11 @@
 
 @code {
     [Parameter]
-    private PackageSection Section { get; set; }
+    public PackageSection Section { get; set; }
 
     public Action ForceUiRefresh;
 
-    protected override async Task OnInitAsync() {
+    protected override async Task OnInitializedAsync() {
         Console.WriteLine("yeet2");
         if (ForceUiRefresh == null) {
             ForceUiRefresh = new Action(() => StateHasChanged());

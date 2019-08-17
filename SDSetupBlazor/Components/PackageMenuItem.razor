@@ -8,10 +8,10 @@
 	private string _DisplayName;
 
 	[Parameter]
-	private string PID { get; set; }
+	public string PID { get; set; }
 
 	[Parameter]
-	private string DisplayName {
+	public string DisplayName {
 		get {
 			return _DisplayName;
 		}
@@ -21,7 +21,7 @@
 	}
 
 	[Parameter]
-	private string Version { get; set; }
+	public string Version { get; set; }
 
 	private async void checkClicked(string id) {
 
@@ -38,7 +38,7 @@
 		}
 	}
 
-	protected override async Task OnInitAsync() {
+	protected override async Task OnInitializedAsync() {
 		G.SelectionRefreshes[PID] = new Action(() => StateHasChanged());
 	}
 }

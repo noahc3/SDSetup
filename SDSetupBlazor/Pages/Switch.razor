@@ -6,7 +6,7 @@
 @inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
 
 @functions {
-	protected override async Task OnInitAsync() {
+	protected override async Task OnInitializedAsync() {
 		string extension = "";
 		if (UriHelper.GetAbsoluteUri().Contains("#")) extension = "#" + UriHelper.GetAbsoluteUri().Split('#').Last();
 		UriHelper.NavigateTo("console?switch" + extension);

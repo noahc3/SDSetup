@@ -1,4 +1,4 @@
-var finalBlob;
+var finalBlob = null;
 var dl = null
 var rateLimit = null;
 var rateLimited = false;
@@ -7,7 +7,6 @@ var finishedSteps = 0;
 var setupList;
 var donotcontinue = false;
 var retry = 0;
-var finalBlob = null;
 var outputName = "SDSetup.zip";
 
 
