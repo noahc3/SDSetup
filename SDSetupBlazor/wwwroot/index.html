@@ -16,33 +16,34 @@
     <meta name="theme-color" content="#ffffff">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="scripts/compat.js" charset="utf-8" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.6.4/dist/semantic.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.6.4/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="/css/formantic-modified.css">
     <link href="css/site.css" rel="stylesheet" />
+    <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
 </head>
-<body style="background-color:#F7F7F7;height:100%">
+<body style="height:auto">
 	<script>checkIE(); checkMobileFirefox();</script>
-	<app style="height:100%;">
-		<div class="ui active dimmer" style="height:100%;width:100%">
-			<div class="ui massive text loader">Loading</div>
-			<div style="width:90%;position:absolute;bottom:5%">
-				<div class="ui negative message">
-					<div class="header fluid">
-						Some anti-viruses like AVG and Avast might block this site due to a domain reputation (DRep) problem. This should resolve itself in the future, but for now you'll need to disable your anti-virus to use this site if it gets blocked.
-					</div>
-				</div>
-				<div class="ui negative message">
-					<div class="header fluid">
-						If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<p></p>
-		<p></p>
-		<p></p>
-	</app>
+    <div class="background-shade" style="min-height:100vh;">
+        <app style="height:100%;">
+            <div class="ui active dimmer" style="height:100vh;width:100vw;position:absolute;margin:0;top:0;left:0;right:0;bottom:0">
+                <div class="ui massive text loader">Loading</div>
+                <div style="width:90%;position:absolute;bottom:5%">
+                    <div class="ui negative message">
+                        <div class="header fluid">
+                            Some anti-viruses like AVG and Avast might block this site due to a domain reputation (DRep) problem. This should resolve itself in the future, but for now you'll need to disable your anti-virus to use this site if it gets blocked.
+                        </div>
+                    </div>
+                    <div class="ui negative message">
+                        <div class="header fluid">
+                            If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+            <p></p>
+            <p></p>
+        </app>
+    </div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
 	<script src="scripts/methods.js"></script>

@@ -4,7 +4,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using Blazor.Extensions.Storage;
+using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
+using BlazorStrap;
 
 namespace SDSetupBlazor
 {
@@ -13,6 +14,7 @@ namespace SDSetupBlazor
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddStorage();
+            services.AddBootstrapCSS();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

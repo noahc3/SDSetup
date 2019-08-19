@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorStrap" Version="1.0.0-preview8-01" />
+    <PackageReference Include="Cloudcrate.AspNetCore.Blazor.Browser.Storage" Version="3.0.0-preview7.19365.7" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.0.0-preview8.19405.7" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.0.0-preview8.19405.7" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.0.0-preview8.19405.7" />
@@ -22,15 +23,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SDSetupCommon\SDSetupCommon.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Reference Include="Blazor.Extensions.Storage">
-      <HintPath>..\libraries\Blazor.Extensions.Storage.dll</HintPath>
-    </Reference>
-    <Reference Include="Blazor.Extensions.Storage.JS">
-      <HintPath>..\libraries\Blazor.Extensions.Storage.JS.dll</HintPath>
-    </Reference>
   </ItemGroup>
 
   <ItemGroup>
