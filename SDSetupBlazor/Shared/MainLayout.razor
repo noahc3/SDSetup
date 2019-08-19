@@ -4,208 +4,177 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 @inherits LayoutComponentBase
 @inject IJSRuntime jsRuntime
-
+@inject IBootstrapCSS BootstrapCSS
 @inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
 @inject HttpClient Http
 @inject LocalStorage localStorage
+@inject IUriHelper uriHelper
 
 @if (G.initialized) {
 
-	<div class="main @(G.showWarning == true ? "noscroll" : "")" style="min-height:100%;height:auto;width:100%;min-width:100%">
-		<div class="pc-tablet-only" style="width:100%;min-width:100%">
-            <div class="ui menu @G.manifest.Platforms[G.consoleId].Color" style="width:100%;min-width:100%">
-                <a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
-                @foreach (Platform k in G.manifest.Platforms.Values) {
-                    if (!k.Visible) { continue; }
-                    <a href="/console?@k.ID" class="@(GetRelativePath().ToLower().StartsWith("console?" + k.ID) ? "active" : "") item">@k.MenuName</a>
+    <div class="main @(G.showWarning == true ? "noscroll" : "")" style="min-height:100%;height:auto;width:100%;min-width:100%">
+        <SiteNavMenu></SiteNavMenu>
+
+        <div class="container" style="padding-bottom:1.5rem">
+            <div class="content px-4">
+                @if (!String.IsNullOrEmpty(G.manifest.Message.InnerHTML)) {
+                    <BSAlert Color="Color.Success">
+                        @((MarkupString)G.manifest.Message.InnerHTML)
+                    </BSAlert>
                 }
-                <a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
-                <a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
-                <div class="right menu">
-                    <a href="https://switch.homebrew.guide/donate" class="ui item">Donate</a>
-                    <a href="https://switch.homebrew.guide" class="ui item">Official Guide</a>
-                    <a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
-                    <a href="https://github.com/noahc3/SDSetup" class="ui item"><i class="big github icon"></i></a>
-                </div>
+                @Body
             </div>
-		</div>
+        </div>
+        <div style="text-align:center;color:#808080;">
 
-		<div class="mobile-only" style="width:100%">
-            <div class="ui vertical menu @G.manifest.Platforms[G.consoleId].Color" style="width:100%">
-                <a href="/" class="@(GetRelativePath().ToLower() == "" ? "active" : "") item"><img class="ui small image" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto" /></a>
-                @foreach (Platform k in G.manifest.Platforms.Values) {
-                    if (!k.Visible) { continue; }
-                    <a href="/console?@k.ID" class="@(GetRelativePath().ToLower().StartsWith("console?" + k.ID) ? "active" : "") item">@k.MenuName</a>
-                }
-                <a href="/faq" class="@(GetRelativePath().ToLower() == "faq" ? "active" : "") item">FAQ</a>
-                <a href="/credits" class="@(GetRelativePath().ToLower() == "credits" ? "active" : "") item">Credits</a>
-                <a href="https://switch.homebrew.guide/donate" class="ui item">Donate</a>
-                <a href="https://switch.homebrew.guide" class="ui item">Official Guide</a>
-                <a href="https://github.com/noahc3/SDSetup/issues" class="ui item">Issues</a>
-                <a href="https://github.com/noahc3/SDSetup" class="ui item">Source on Github</a>
+            @foreach (string k in G.manifest.Copyright.Split('$')) {
+                <b style="text-align:center">@k</b><br />
+            }
+            <h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em;margin-top:0">Manifest Version @G.manifest.Version</h5>
+
+        </div>
+
+
+
+    </div>
+    if (G.showWarning == true) {
+        <div class="ui active dimmer fade-in" style="height:100%;width:100%">
+            <div class="ui segment" style="max-width:600px">
+                <h3>@G.GetCurrentWarning().Title</h3>
+                <p>@G.GetCurrentWarning().Content</p>
+                <button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;margin-bottom:0.5rem" @onclick="@(() => selectPackage(G.GetCurrentWarning().PackageID))">Select Anyways</button>
+                <button class="fluid ui gray button" @onclick="@(() => hideWarning())">Don't Select</button>
+                <sub><i>This popup will no longer appear if you choose "Select Anyways"</i></sub>
             </div>
-		</div>
+        </div>
+    }
 
+    if (downloadFailed == true) {
+        <div class="ui active dimmer fade-in" style="height:100%;width:100%">
+            <div class="ui segment" style="max-width:600px">
+                <h3>Download Failed</h3>
+                <p>It looks like the backend server may have gone down while you were here. Try again later.</p>
+                <button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;margin-bottom:0.5rem" @onclick="@(() => downloadFailed = false)">OK</button>
+            </div>
+        </div>
+    }
 
-		<div class="container" style="padding-bottom:1.5rem">
-			<div class="content px-4">
-				@if (!String.IsNullOrEmpty(G.manifest.Message.InnerHTML)) {
-					<div class="ui @G.manifest.Message.Color message">
-						@((MarkupString)G.manifest.Message.InnerHTML)
-					</div>
-				}
-				@Body
-			</div>
-		</div>
-		<div style="text-align:center;color:#808080;">
-
-			@foreach (string k in G.manifest.Copyright.Split('$')) {
-				<b style="text-align:center">@k</b><br />
-			}
-			<h5 style="text-align:center;color:#d4d4d4;margin-bottom:1.5em;margin-top:0">Manifest Version @G.manifest.Version</h5>
-
-		</div>
-
-
-
-	</div>
-	if (G.showWarning == true) {
-		<div class="ui active dimmer fade-in" style="height:100%;width:100%">
-			<div class="ui segment" style="max-width:600px">
-				<h3>@G.GetCurrentWarning().Title</h3>
-				<p>@G.GetCurrentWarning().Content</p>
-				<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;margin-bottom:0.5rem" @onclick="@(() => selectPackage(G.GetCurrentWarning().PackageID))">Select Anyways</button>
-				<button class="fluid ui gray button" @onclick="@(() => hideWarning())">Don't Select</button>
-				<sub><i>This popup will no longer appear if you choose "Select Anyways"</i></sub>
-			</div>
-		</div>
-	}
-
-	if (downloadFailed == true) {
-		<div class="ui active dimmer fade-in" style="height:100%;width:100%">
-			<div class="ui segment" style="max-width:600px">
-				<h3>Download Failed</h3>
-				<p>It looks like the backend server may have gone down while you were here. Try again later.</p>
-				<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;margin-bottom:0.5rem" @onclick="@(() => downloadFailed = false)">OK</button>
-			</div>
-		</div>
-	}
-
-	if (rateLimited == true) {
-		<div class="ui active dimmer fade-in" style="height:100%;width:100%">
-			<div class="ui segment" style="max-width:600px">
-				<h3>Download Failed</h3>
-				<p>You are trying to download too much, try again later.</p>
-				<p>We must limit how many downloads each user can perform to prevent resource abuse. Sorry for any inconvenience!</p>
-				<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;margin-bottom:0.5rem" @onclick="@(() => rateLimited = false)">OK</button>
-			</div>
-		</div>
-	}
+    if (rateLimited == true) {
+        <div class="ui active dimmer fade-in" style="height:100%;width:100%">
+            <div class="ui segment" style="max-width:600px">
+                <h3>Download Failed</h3>
+                <p>You are trying to download too much, try again later.</p>
+                <p>We must limit how many downloads each user can perform to prevent resource abuse. Sorry for any inconvenience!</p>
+                <button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;margin-bottom:0.5rem" @onclick="@(() => rateLimited = false)">OK</button>
+            </div>
+        </div>
+    }
 
 } else if (!loadFailed) {
-	<div class="ui active dimmer" style="height:100%;width:100%">
-		<div class="ui massive text loader">Loading</div>
-		<div style="width:90%;position:absolute;bottom:5%">
-			<div class="ui negative message">
-				<div class="header fluid">
-					If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="ui active dimmer" style="height:100vh;width:100vw;position:absolute;margin:0;top:0;left:0;right:0;bottom:0">
+        <div class="ui massive text loader">Loading</div>
+        <div style="width:90%;position:absolute;bottom:5%">
+            <div class="ui negative message">
+                <div class="header fluid">
+                    If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </div>
 } else {
-	<div class="ui active dimmer" style="height:100%;width:100%">
-		<img class="ui small image" src="/img/fail.png">
-		<h3 style="color:#ffffff;margin-top:1.5em">SDSetup is down right now</h3>
-		<h6 style="color:#ffffff">The backend server doesn't seem to be online, and may be in the process of being updated. Try again later.</h6>
-	</div>
+    <div class="ui active dimmer" style="height:100vh;width:100vw;position:absolute;margin:0;top:0;left:0;right:0;bottom:0">
+        <img class="ui small image" src="/img/fail.png">
+        <h3 style="color:#ffffff;margin-top:1.5em">SDSetup is down right now</h3>
+        <h6 style="color:#ffffff">The backend server doesn't seem to be online, and may be in the process of being updated. Try again later.</h6>
+    </div>
 }
 
 @functions {
 
-	//public static int browserCompatStatus = 0;
+    public static Action ForceUiRefresh;
+    private static bool ResetWarnState = false;
 
-	//public static bool edgeConfirmed = false;
+    private static bool loadFailed = false;
+    public static bool downloadFailed = false;
+    public static bool rateLimited = false;
 
-	public static Action ForceUiRefresh;
-	private static bool ResetWarnState = false;
+    protected override void OnAfterRender() {
+        base.OnAfterRender();
+        if (ResetWarnState) {
+            G.SetCurrentWarning(jsRuntime, null);
+            ResetWarnState = false;
+        }
+    }
 
-	private static bool loadFailed = false;
-	public static bool downloadFailed = false;
-	public static bool rateLimited = false;
+    protected override async Task OnInitializedAsync() {
 
-	protected override void OnAfterRender() {
-		base.OnAfterRender();
-		if (ResetWarnState) {
-			G.SetCurrentWarning(jsRuntime, null);
-			ResetWarnState = false;
-		}
-	}
+        string theme = localStorage.GetItem("theme");
+        if (String.IsNullOrWhiteSpace(theme)) theme = "flatly";
+        await BootstrapCSS.SetBootstrapCSS(theme, "4.3.1");
 
-	protected override async Task OnInitializedAsync() {
-		if (ForceUiRefresh == null) {
-			ForceUiRefresh = new Action(() => StateHasChanged());
-		}
+        if (ForceUiRefresh == null) {
+            ForceUiRefresh = new Action(() => StateHasChanged());
+        }
 
-		if (!G.initialized) {
-			string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
+        if (!G.initialized) {
+            string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
 
-			HttpResponseMessage resp;
+            HttpResponseMessage resp;
 
-			try {
-				resp = await Http.GetAsync(G.hostname + "/api/v1/get/latestpackageset");
-			} catch (Exception) {
-				loadFailed = true;
-				StateHasChanged();
-				return;
-			}
-			if (!resp.IsSuccessStatusCode) {
-				loadFailed = true;
-				StateHasChanged();
-				return;
-			}
-			G.packageset = await Http.GetStringAsync(G.hostname + "/api/v1/get/latestpackageset");
-			//G.packageset = "default15";
-			string sManifest = await Http.GetStringAsync(G.hostname + "/api/v1/fetch/manifest/" + uuid + "/" + G.packageset); //HACK: Wait for System.Text.Json to not be garbage
+            try {
+                resp = await Http.GetAsync(G.hostname + "/api/v1/get/latestpackageset");
+            } catch (Exception) {
+                loadFailed = true;
+                StateHasChanged();
+                return;
+            }
+            if (!resp.IsSuccessStatusCode) {
+                loadFailed = true;
+                StateHasChanged();
+                return;
+            }
+            G.packageset = await Http.GetStringAsync(G.hostname + "/api/v1/get/latestpackageset");
+            //G.packageset = "default15";
+            string sManifest = await Http.GetStringAsync(G.hostname + "/api/v1/fetch/manifest/" + uuid + "/" + G.packageset); //HACK: Wait for System.Text.Json to not be garbage
             G.manifest = Newtonsoft.Json.JsonConvert.DeserializeObject<Manifest>(sManifest);
-			if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
-			if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
-			G.isMobile = await jsRuntime.InvokeAsync<bool>("mobileAndTabletcheck");
-			Console.WriteLine(UriHelper.GetAbsoluteUri());
-			G.Init(UriHelper.GetAbsoluteUri());
-			G.initialized = true;
-			if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
-			if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
-			StateHasChanged();
-		}
-	}
+            if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
+            if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
+            G.isMobile = await jsRuntime.InvokeAsync<bool>("mobileAndTabletcheck");
+            Console.WriteLine(UriHelper.GetAbsoluteUri());
+            G.Init(UriHelper.GetAbsoluteUri());
+            G.initialized = true;
+            if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
+            if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
+            StateHasChanged();
+        }
+    }
 
-	private string GetRelativePath() {
-		return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
-	}
+    private string GetRelativePath() {
+        return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
+    }
 
-	private async void selectPackage(string id) {
+    private async void selectPackage(string id) {
 
-		//TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
-		//An ideal optimization would be to verify the page needs to refresh before refreshing.
-		await localStorage.SetItem<string>("warn-" + id, "true");
-		G.selectedPackages[G.consoleId][id] = !G.selectedPackages[G.consoleId][id];
-		if (G.WhenDependants[G.consoleId].ContainsKey(id) && G.WhenDependants[G.consoleId][id].Count > 0) Pages.Consoles.ForceUiRefresh();
-		G.SelectionRefreshes[id]();
-		G.showWarning = false;
-		ResetWarnState = true;
-		StateHasChanged();
-	}
+        //TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
+        //An ideal optimization would be to verify the page needs to refresh before refreshing.
+        localStorage.SetItem("warn-" + id, "true");
+        G.selectedPackages[G.consoleId][id] = !G.selectedPackages[G.consoleId][id];
+        if (G.WhenDependants[G.consoleId].ContainsKey(id) && G.WhenDependants[G.consoleId][id].Count > 0) Pages.Consoles.ForceUiRefresh();
+        G.SelectionRefreshes[id]();
+        G.showWarning = false;
+        ResetWarnState = true;
+        StateHasChanged();
+    }
 
-	private void hideWarning() {
-		G.showWarning = false;
-		ResetWarnState = true;
-		StateHasChanged();
-	}
+    private void hideWarning() {
+        G.showWarning = false;
+        ResetWarnState = true;
+        StateHasChanged();
+    }
 
-	//[JSInvokable]
-	//public static void BrowserNotCompatible(int val) {
-	//	Console.WriteLine("Browser Compat Response: " + val);
-	//	browserCompatStatus = val;
-	//}
+    //[JSInvokable]
+    //public static void BrowserNotCompatible(int val) {
+    //	Console.WriteLine("Browser Compat Response: " + val);
+    //	browserCompatStatus = val;
+    //}
 }

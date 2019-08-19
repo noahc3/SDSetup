@@ -1,7 +1,11 @@
 ﻿@inject LocalStorage localStorage
 @inject IJSRuntime  jsRuntime
 
-<a class="item @(G.selectedPackages[G.consoleId][PID] == true ? "active" : "")" @onclick="@(() => checkClicked(PID))">@DisplayName@if (!String.IsNullOrEmpty(Version)) {<div style="color:#b7b7b7">(@Version)</div>}</a>
+<BSNavItem>
+    <BSNavLink @onclick="@(() => checkClicked(PID))" IsActive="G.selectedPackages[G.consoleId][PID]">
+        @DisplayName@if (!String.IsNullOrEmpty(Version)) {<div style="color:#b7b7b7">(@Version)</div>}
+    </BSNavLink>
+</BSNavItem>
 
 @functions  {
 
@@ -24,10 +28,9 @@
 	public string Version { get; set; }
 
 	private async void checkClicked(string id) {
-
 		//TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
 		//An ideal optimization would be to verify the page needs to refresh before refreshing.
-		if (G.packages[G.consoleId][PID].Warning != null && G.selectedPackages[G.consoleId][PID] == false && await localStorage.GetItem<string>("warn-" + PID) == null) {
+		if (G.packages[G.consoleId][PID].Warning != null && G.selectedPackages[G.consoleId][PID] == false && localStorage.GetItem("warn-" + PID) == null) {
 			Warning warn = G.packages[G.consoleId][PID].Warning;
 			warn.PackageID = PID;
 			G.SetCurrentWarning(jsRuntime, warn);

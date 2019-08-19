@@ -8,111 +8,99 @@
 @inject HttpClient Http
 @inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
 
+
 @if (!gettingZip) {
 
-<div>
+    <div>
 
-	<div class="ui info message">
-		<p>
-			Want to hack your Switch but not sure what to do? Check out the official SDSetup guide: <a href="https://switch.homebrew.guide">https://switch.homebrew.guide</a>
-		</p>
-	</div>
+        <BSAlert Color="Color.Info">
+            Want to hack your Switch but not sure what to do? Check out the official SDSetup guide: <a href="https://switch.homebrew.guide">https://switch.homebrew.guide</a>
+        </BSAlert>
 
-	@if (zipDoneMessage == true) {
-		<div class="ui success message">
-			<i class="close icon" @onclick="@(() => zipDoneMessage = false)"></i>
-			<div class="header">
-				Operation Completed
-			</div>
-			<p>Your ZIP file should download within the next few seconds!</p>
-		</div>
-	}
+        <h1 style="text-align:center">@G.manifest.Platforms[G.consoleId].Name</h1>
 
-	@if (firefoxMessage == true) {
-		<div class="ui success message">
-			<i class="close icon" @onclick="@(() => firefoxMessage = false)"></i>
-			<div class="header">
-				Firefox Notice:
-			</div>
-			<p>
-				Your Firefox is outdated and has some issues. Do the following to get your ZIP:<br />
-				1. Copy the following URL: <b>@blobUrl</b><br />
-				2. Open a new tab (do not use this tab!)<br />
-				3. Paste the copied URL into the address bar<br />
-				You can avoid this in the future by updating Firefox to version 62 or higher.
-			</p>
-		</div>
-	}
-
-	@if (saveMessage) {
-		<div class="ui success message">
-			<i class="close icon" @onclick="@(() => saveMessage = false)"></i>
-			<div class="header">
-				Want to redownload in the future?
-			</div>
-			<p>
-				Save the following URL somewhere to immediately have the same packages pre-selected in the future:<br />
-			</p>
-			<BSTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
-				<tbody>
-					<tr>
-						<th scope="row">@saveUrl</th>
-					</tr>
-				</tbody>
-			</BSTable>
-		</div>
-	}
-
-	@if (selectMore) {
-		<div class="ui negative message">
-			<i class="close icon" @onclick="@(() => selectMore = false)"></i>
-			<div class="header">
-				No packages are selected.
-			</div>
-		</div>
-	}
-
-	<h1 style="text-align:center">@G.manifest.Platforms[G.consoleId].Name</h1>
-
-	@if (!G.initialized) {
-		<h2>Page is loading, please wait...</h2>
-	} else {
-
-		<div class="docs-example">
-			<h3 style="margin-bottom:0.5em">Pre-configured bundles</h3>
-			<BSCard CardType="CardType.Deck" Class="justify-content-center">
-				@foreach (Bundle b in G.manifest.Platforms[G.consoleId].Bundles) {
-					<BSCard style="margin-bottom:2rem">
-						<BSCard CardType="CardType.Body">
-							<BSCard CardType="CardType.Title">@b.Name</BSCard>
-							@b.Description
-						</BSCard>
-						<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin:1.2rem;margin-top:0;width:auto" @onclick="@(() => G.SelectByList(b.Packages))">Select</button>
-					</BSCard>
-				}
-			</BSCard>
-
-		</div>
-
-		@foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections.Values) {
-            <UIPackageSection Section="@sec"></UIPackageSection>
-            Console.WriteLine("Yeet3");
+        @if (zipDoneMessage == true) {
+            <BSAlert Color="Color.Success">
+                <a href="javascript:void(0);" style="position:absolute;right:1rem;top:1rem;margin-left:auto;margin-right:0" @onclick="@(() => zipDoneMessage = false)"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>
+                <h3 style="margin-top:1rem">ZIP Ready</h3>
+                Your ZIP file should download within the next few seconds!
+            </BSAlert>
         }
 
-		<button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-bottom:1.5rem;" @onclick="@(() => downloadZip())">Download your ZIP</button>
-	}
+        @if (firefoxMessage == true) {
+            <BSAlert Color="Color.Success">
+                <a href="javascript:void(0);" style="position:absolute;right:1rem;top:1rem;margin-left:auto;margin-right:0" @onclick="@(() => firefoxMessage = false)"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>
+                <h3 style="margin-top:1rem">Firefox Notice</h3>
+                Your Firefox is outdated and has some issues. Do the following to get your ZIP:
+                <ol>
+                    <li>Copy the following URL: <b>@blobUrl</b></li>
+                    <li>Open a new tab (do not use this tab!)</li>
+                    <li>Paste the copied URL into the address bar.</li>
+                </ol>
+                You can avoid this in the future by updating Firefox to version 64 or higher.
+            </BSAlert>
+        }
 
-</div>
+        @if (saveMessage) {
+
+            <BSAlert Color="Color.Success">
+                <a href="javascript:void(0);" style="position:absolute;right:1rem;top:1rem;margin-left:auto;margin-right:0" @onclick="@(() => saveMessage = false)"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>
+                <h3 style="margin-top:1rem">Want to redownload in the future?</h3>
+                Save the following URL somewhere to immediately have the same packages pre-selected in the future:
+                <BSTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
+                    <tbody>
+                        <BSTableRow>
+                            <BSTableHeadCell scope="row">@saveUrl</BSTableHeadCell>
+                        </BSTableRow>
+                    </tbody>
+                </BSTable>
+            </BSAlert>
+        }
+
+        @if (selectMore) {
+    <BSAlert Color="Color.Danger">
+        <a href="javascript:void(0);" style="position:absolute;right:1rem;top:1rem;margin-left:auto;margin-right:0" @onclick="@(() => selectMore = false)"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>
+        <h3 style="margin-top:0">No packages are selected</h3>
+    </BSAlert>
+        }
+
+        @if (!G.initialized) {
+            <h2>Page is loading, please wait...</h2>
+        } else {
+
+            <BSCard CardType="CardType.Card">
+                <BSCard CardType="CardType.Body">
+                    <h3 style="margin-bottom:0.5em">Pre-configured bundles</h3>
+                    <BSCard CardType="CardType.Deck" Class="justify-content-center">
+                        @foreach (Bundle b in G.manifest.Platforms[G.consoleId].Bundles) {
+                            <BSCard style="margin-bottom:2rem">
+                                <BSCard CardType="CardType.Body">
+                                    <BSCard CardType="CardType.Title">@b.Name</BSCard>
+                                    @b.Description
+                                </BSCard>
+                                <BSButton Color="Color.Danger" style="margin:1.2rem;margin-top:0;width:auto;" @onclick="@(() => G.SelectByList(b.Packages))">Select</BSButton>
+                            </BSCard>
+                        }
+                    </BSCard>
+                </BSCard>
+            </BSCard>
+
+            <br />
+
+            @foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections.Values) {
+                <UIPackageSection Section="@sec"></UIPackageSection>
+            }
+
+            <BSButton Color="Color.Danger" IsBlock="true" @onclick="@(() => downloadZip())">Download your ZIP</BSButton>
+        }
+
+    </div>
 	} else {
-	<div class="ui active dimmer" style="height:100%;width:100%">
+	<div class="ui active dimmer" style="height:100vh;width:100vw;position:absolute;margin:0;top:0;left:0;right:0;bottom:0">
 		<div class="ui massive text loader">
 			<div id="infoh" style="margin-bottom:2rem">Building your ZIP, please wait...</div>
 		</div>
-		<div class="ui negative message" style="width:90%;position:absolute;bottom:5%">
-			<div class="header fluid">
-				This might take a while. If the progress stalls for more than a minute, please report it on <a href="https://github.com/noahc3/SDSetup/issues">GitHub</a>
-			</div>
-		</div>
+        <BSAlert style="width:90%;position:absolute;bottom:5%" Color="Color.Danger">This might take a while. If the progress stalls for more than a minute, please report it on <a href="https://github.com/noahc3/SDSetup/issues">GitHub</a></BSAlert>
 	</div>
 	}
 
@@ -158,7 +146,7 @@
         protected override async Task OnInitializedAsync() {
             UriHelper.OnLocationChanged += OnLocationChanged;
             if (ForceUiRefresh == null) {
-                ForceUiRefresh = new Action(() => StateHasChanged());
+                ForceUiRefresh = new Action(() => { Console.WriteLine("test2"); StateHasChanged(); });
             }
             if (localInitialized == false) {
                 localInitialized = true;

@@ -8,37 +8,40 @@
 @if (G.initialized && localInit) {
 <div class="ui styled fluid accordion" style="margin-top:1.5em">
 
-	@foreach (Platform plat in G.manifest.Platforms.Values) {
+    @foreach (Platform plat in G.manifest.Platforms.Values) {
         if (!plat.Visible) { continue; }
-		<div class="title @(opened[plat.ID] == true ? "active" : "")" @onclick="@(() => opened[plat.ID] = !opened[plat.ID])">
-			<i class="dropdown icon"></i>
-			@plat.Name
-		</div>
-		<div class="content @(opened[plat.ID] == true ? "active" : "")">
-			<BSTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
-				<thead>
-					<tr>
-						<th scope="col">Package Name</th>
-						<th scope="col">Authors</th>
-						<th scope="col">Version</th>
-						<th scope="col">Source</th>
-					</tr>
-				</thead>
-				<tbody>
-					@foreach (Package p in G.packages[plat.ID].Values) {
-						if (String.IsNullOrEmpty(p.Authors) || !p.Visible) { continue; }
-						<tr>
-							<th scope="row">@p.Name</th>
-							<td>@p.Authors</td>
-							<td>@p.Versions[G.channel]</td>
-							<td>@if (@p.Source.Contains("https://") || p.Source.Contains("http://")) {<a href="@p.Source">@p.Source</a>} else {@p.Source}</td>
-						</tr>
-					}
+        <div class="accordion">
+            <BSCard CardType="CardType.Card">
+                <BSCard CardType="CardType.Header"><BSButton ButtonType="ButtonType.Button" OnClick="@(() => opened[plat.ID] = !opened[plat.ID])" Color="Color.None" Class="btn-link">@plat.Name</BSButton></BSCard>
+                <BSCollapse IsOpen="@opened[plat.ID]">
+                    <BSCard CardType="CardType.Body">
+                        <BSTable IsResponsive="true" IsSmall="true" IsStriped="true" IsBordered="true">
+                            <BSTableHead>
+                                <BSTableRow>
+                                    <BSTableHeadCell scope="col">Package Name</BSTableHeadCell>
+                                    <BSTableHeadCell scope="col">Authors</BSTableHeadCell>
+                                    <BSTableHeadCell scope="col">Version</BSTableHeadCell>
+                                    <BSTableHeadCell scope="col">Source</BSTableHeadCell>
+                                </BSTableRow>
+                            </BSTableHead>
+                            <tbody>
+                                @foreach (Package p in G.packages[plat.ID].Values) {
+                                    if (String.IsNullOrEmpty(p.Authors) || !p.Visible) { continue; }
+                                    <BSTableRow>
+                                        <BSTableHeadCell scope="row">@p.Name</BSTableHeadCell>
+                                        <BSTableCell>@p.Authors</BSTableCell>
+                                        <BSTableCell>@p.Versions[G.channel]</BSTableCell>
+                                        <BSTableCell>@if (@p.Source.Contains("https://") || p.Source.Contains("http://")) {<a href="@p.Source">@p.Source</a>} else {@p.Source}</BSTableCell>
+                                    </BSTableRow>
+                                }
 
-				</tbody>
-			</BSTable>
-		</div>
-	}
+                            </tbody>
+                        </BSTable>
+                    </BSCard>
+                </BSCollapse>
+            </BSCard>
+        </div>
+    }
 </div>
 	} else {
 	<h4>Loading, please wait...</h4>
@@ -48,9 +51,8 @@
 
 	<ul class="ui list">
         <li>The AtlasNX team.</li>
-		<li>Steve Sanderson and contributors for making this almost amazing thing called <a href="https://blazor.net/">Blazor</a></li>
-		<li>Rikumax25 / Jorgev259 for JSZip wrapper functions used in <a href="https://github.com/jorgev259/3SDSetup">3SDSetup</a>/<a href="https://github.com/jorgev259/wiiusetup">WiiuSetup</a>, ultimately making my life much easier</li>
-		<li>Chanan Braunstein for <a href="https://github.com/chanan/BlazorStrap">BlazorStrap</a></li>
+		<li>Steve Sanderson and Microsoft for <a href="https://blazor.net/">Blazor</a></li>
+        <li>Chanan Braunstein and jbomhold3 for <a href="https://github.com/chanan/BlazorStrap">BlazorStrap</a></li>
 		<li>Joonas W. for <a href="https://joonasw.net/view/csharp-await-and-js-promises-in-blazor">Using C# await against JS Promises in Blazor</a></li>
 	</ul>
 
