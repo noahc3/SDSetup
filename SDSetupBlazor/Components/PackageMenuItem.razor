@@ -2,46 +2,54 @@
 @inject IJSRuntime  jsRuntime
 
 <BSNavItem>
-    <BSNavLink @onclick="@(() => checkClicked(PID))" IsActive="G.selectedPackages[G.consoleId][PID]">
+    <BSNavLink @bind-IsActive="G.selectedPackages[G.consoleId][PID]" @onclick="@(() => checkClicked(PID))">
         @DisplayName@if (!String.IsNullOrEmpty(Version)) {<div style="color:#b7b7b7">(@Version)</div>}
     </BSNavLink>
 </BSNavItem>
 
 @functions  {
 
-	private string _DisplayName;
+    private string _DisplayName;
+    private bool hasBeenDone = false;
 
-	[Parameter]
-	public string PID { get; set; }
+    [Parameter]
+    public string PID { get; set; }
 
-	[Parameter]
-	public string DisplayName {
-		get {
-			return _DisplayName;
-		}
-		set {
-			_DisplayName = value + " ";
-		}
-	}
+    [Parameter]
+    public string DisplayName {
+        get {
+            return _DisplayName;
+        }
+        set {
+            _DisplayName = value + " ";
+        }
+    }
 
-	[Parameter]
-	public string Version { get; set; }
+    [Parameter]
+    public string Version { get; set; }
 
-	private async void checkClicked(string id) {
-		//TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
-		//An ideal optimization would be to verify the page needs to refresh before refreshing.
-		if (G.packages[G.consoleId][PID].Warning != null && G.selectedPackages[G.consoleId][PID] == false && localStorage.GetItem("warn-" + PID) == null) {
-			Warning warn = G.packages[G.consoleId][PID].Warning;
-			warn.PackageID = PID;
-			G.SetCurrentWarning(jsRuntime, warn);
-		} else {
-			G.selectedPackages[G.consoleId][PID] = !G.selectedPackages[G.consoleId][PID];
-			if (G.WhenDependants[G.consoleId].ContainsKey(PID) && G.WhenDependants[G.consoleId][PID].Count > 0) Pages.Consoles.ForceUiRefresh();
-			StateHasChanged();
-		}
-	}
+    protected override void OnAfterRender() {
+        if (!hasBeenDone) {
+            hasBeenDone = true;
+            StateHasChanged();
+        }
+    }
 
-	protected override async Task OnInitializedAsync() {
-		G.SelectionRefreshes[PID] = new Action(() => StateHasChanged());
-	}
+    private async void checkClicked(string id) {
+        //TODO: Currently this will always refresh the page UI if a package is when dependant on this one, whether or not it actually needs to.
+        //An ideal optimization would be to verify the page needs to refresh before refreshing.
+        if (G.packages[G.consoleId][PID].Warning != null && G.selectedPackages[G.consoleId][PID] == false && localStorage.GetItem("warn-" + PID) == null) {
+            Warning warn = G.packages[G.consoleId][PID].Warning;
+            warn.PackageID = PID;
+            G.SetCurrentWarning(jsRuntime, warn);
+        } else {
+            G.selectedPackages[G.consoleId][PID] = !G.selectedPackages[G.consoleId][PID];
+            if (G.WhenDependants[G.consoleId].ContainsKey(PID) && G.WhenDependants[G.consoleId][PID].Count > 0) Pages.Consoles.ForceUiRefresh();
+            StateHasChanged();
+        }
+    }
+
+    protected override async Task OnInitializedAsync() {
+        G.SelectionRefreshes[PID] = new Action(() => StateHasChanged());
+    }
 }

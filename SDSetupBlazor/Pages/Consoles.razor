@@ -58,10 +58,10 @@
         }
 
         @if (selectMore) {
-    <BSAlert Color="Color.Danger">
-        <a href="javascript:void(0);" style="position:absolute;right:1rem;top:1rem;margin-left:auto;margin-right:0" @onclick="@(() => selectMore = false)"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>
-        <h3 style="margin-top:0">No packages are selected</h3>
-    </BSAlert>
+            <BSAlert Color="Color.Danger">
+                <a href="javascript:void(0);" style="position:absolute;right:1rem;top:1rem;margin-left:auto;margin-right:0" @onclick="@(() => selectMore = false)"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>
+                <h3 style="margin-top:0">No packages are selected</h3>
+            </BSAlert>
         }
 
         @if (!G.initialized) {
@@ -88,21 +88,23 @@
             <br />
 
             @foreach (PackageSection sec in G.manifest.Platforms[G.consoleId].PackageSections.Values) {
-                <UIPackageSection Section="@sec"></UIPackageSection>
+                @if (G.CanShow(sec.Visible, sec.When, sec.WhenMode)) {
+                    <UIPackageSection Section="@sec"></UIPackageSection>
+                }
             }
 
             <BSButton Color="Color.Danger" IsBlock="true" @onclick="@(() => downloadZip())">Download your ZIP</BSButton>
         }
 
     </div>
-	} else {
+} else {
 	<div class="ui active dimmer" style="height:100vh;width:100vw;position:absolute;margin:0;top:0;left:0;right:0;bottom:0">
 		<div class="ui massive text loader">
 			<div id="infoh" style="margin-bottom:2rem">Building your ZIP, please wait...</div>
 		</div>
         <BSAlert style="width:90%;position:absolute;bottom:5%" Color="Color.Danger">This might take a while. If the progress stalls for more than a minute, please report it on <a href="https://github.com/noahc3/SDSetup/issues">GitHub</a></BSAlert>
 	</div>
-	}
+}
 
 
 
@@ -133,6 +135,7 @@
         static bool barMode = true;
 
         protected override void OnInitialized() {
+            Console.WriteLine("yote");
             string a = UriHelper.GetAbsoluteUri().Split('?')[1];
             if (a.Contains('#')) a = a.Split('#')[0];
             G.consoleId = a;
@@ -145,9 +148,7 @@
 
         protected override async Task OnInitializedAsync() {
             UriHelper.OnLocationChanged += OnLocationChanged;
-            if (ForceUiRefresh == null) {
-                ForceUiRefresh = new Action(() => { Console.WriteLine("test2"); StateHasChanged(); });
-            }
+            ForceUiRefresh = new Action(() => { Console.WriteLine("test2"); StateHasChanged(); });
             if (localInitialized == false) {
                 localInitialized = true;
             }
