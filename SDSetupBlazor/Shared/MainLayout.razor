@@ -122,14 +122,28 @@
             HttpResponseMessage resp;
 
             try {
+#if (DEBUG)
+                string _hostname = localStorage.GetItem("hostname");
+                if (!String.IsNullOrWhiteSpace(_hostname)) {
+                    G.hostname = _hostname;
+                }
+#endif
                 resp = await Http.GetAsync(G.hostname + "/api/v1/get/latestpackageset");
             } catch (Exception) {
                 loadFailed = true;
+                Console.WriteLine("Failed to connect to backend hostname " + G.hostname);
                 StateHasChanged();
                 return;
             }
             if (!resp.IsSuccessStatusCode) {
                 loadFailed = true;
+                Console.WriteLine("Failed to connect to backend hostname " + G.hostname);
+                StateHasChanged();
+                return;
+            }
+            if (resp.Content.ReadAsStringAsync().Result.Contains('<')) {
+                loadFailed = true;
+                Console.WriteLine("Got HTML when trying to connect to backend hostname " + G.hostname);
                 StateHasChanged();
                 return;
             }
