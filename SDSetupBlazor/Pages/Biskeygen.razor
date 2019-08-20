@@ -10,43 +10,38 @@
 
 
 
-<div class="docs-example">
-	<h2 style="text-align:center">Derive BIS keys</h2>
-	<h6 style="text-align:center">Key deriver by Simon</h6>
+<BSCard CardType="CardType.Card">
+    <BSCard CardType="CardType.Body">
+        <h2 style="text-align:center">Derive BIS keys</h2>
+        <h6 style="text-align:center">Key deriver by Simon</h6>
 
-	<h4 style="margin-bottom:0.5em;text-align:center">Enter TSEC key</h4>
-	<div class="ui fluid input">
-		<input type="text" style="text-align:center" @bind-value="tsecIn" placeholder="00000000000000000000000000000000" />
-	</div>
-	<h4 style="margin-bottom:0.5em;text-align:center">Enter SBK key</h4>
-	<div class="ui fluid input" style="margin-bottom:2rem">
-		<input type="text" style="text-align:center" @bind-value="sbkIn" placeholder="00000000000000000000000000000000" />
-	</div>
+        <h4 style="margin-bottom:0.5em;text-align:center">Enter TSEC key</h4>
+        <BSBasicInput InputType="InputType.Text" @bind-Value="tsecIn" style="text-align:center;font-family:monospace" placeholder="00000000000000000000000000000000"></BSBasicInput>
 
-	<div class="divider" style="margin:auto;margin-bottom:3rem">
-		<hr class="left" /><label>OR</label><hr class="right" />
-		<h4 style="margin-bottom:0.5em;text-align:center">Upload Hekate fuse_cached.bin</h4>
-		<div class="ui action input" style="margin-top:1rem">
-			<input type="file" id="fileUpload1" />
-		</div>
-		<h4 style="margin-bottom:0.5em;text-align:center">Upload Hekate tsec_keys.bin</h4>
-		<div class="ui action input" style="margin-top:1rem">
-			<input type="file" id="fileUpload2" />
-		</div>
-	</div>
+        <h4 style="margin-bottom:0.5em;text-align:center">Enter SBK key</h4>
+        <BSBasicInput InputType="InputType.Text" @bind-Value="sbkIn" style="text-align:center;font-family:monospace" placeholder="00000000000000000000000000000000"></BSBasicInput>
 
-	
+        <br />
 
-	<button class="fluid ui red button" style="margin-bottom:1.5rem;" @onclick="@(() => deriveBisKeys())">Derive BIS Keys</button>
+        <div class="divider" style="margin:auto;margin-bottom:3rem">
+            <hr class="left" /><label>OR</label><hr class="right" />
+            <h4 style="margin-bottom:0.5em;text-align:center">Upload Hekate fuse_cached.bin</h4>
+            <div class="ui action input" style="margin-top:1rem">
+                <input type="file" id="fileUpload1" />
+            </div>
+            <h4 style="margin-bottom:0.5em;text-align:center">Upload Hekate tsec_keys.bin</h4>
+            <div class="ui action input" style="margin-top:1rem">
+                <input type="file" id="fileUpload2" />
+            </div>
+        </div>
 
-	<h4 style="margin-bottom:0.5em;margin-top:2em;text-align:center">Output</h4>
-	<div class="ui form">
-		<div class="field">
-			<textarea style="text-align:center" @bind="output" readonly></textarea>
-		</div>
-	</div>
 
-</div>
+        <BSButton Color="Color.Danger" style="margin-bottom:1rem;" @onclick="@(() => deriveBisKeys())" IsBlock="true">Derive BIS Keys</BSButton>
+
+        <h4 style="margin-bottom:0.5em;margin-top:2em;text-align:center">Output</h4>
+        <BSBasicInput InputType="InputType.TextArea" style="text-align:center;height:12.6em;font-family:monospace" @bind-Value="output" IsReadonly="true"></BSBasicInput>
+    </BSCard>
+</BSCard>
 
 @functions {
 
