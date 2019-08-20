@@ -10,16 +10,13 @@ using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
 
 using SDSetupCommon;
+using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
 
 namespace SDSetupBlazor
 {
     public static class G {
-#if (DEBUG)
-        //public static string hostname = "http://localhost:5000";
+
         public static string hostname = "https://files.sdsetup.com";
-#else
-        public static string hostname = "https://files.sdsetup.com";
-#endif
 
         public static string packageset = "default24";
         public static string channel = "latest";
