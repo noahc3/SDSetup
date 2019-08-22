@@ -9,11 +9,13 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Http = Microsoft.AspNetCore.Http;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using ICSharpCode.SharpZipLib.Core;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+
 
 using SDSetupCommon;
 
@@ -50,12 +52,16 @@ namespace SDSetupBackend.Controllers {
 
 
             if (Program.uuidLocks.Contains(uuid)) {
+                Response.StatusCode = Http.StatusCodes.Status423Locked;
                 return new ObjectResult("UUID " + uuid + " locked");
             } else if (!Program.validChannels.Contains(channel)) {
+                Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
                 return new ObjectResult("Invalid channel");
             } else if (!Directory.Exists((Program.Files + "/" + packageset).AsPath())) {
+                Response.StatusCode = Http.StatusCodes.Status400BadRequest;
                 return new ObjectResult("Invalid packageset");
             } else if (System.IO.File.Exists((Program.Files + "/" + packageset + "/.PRIVILEGED.FLAG").AsPath()) && !Program.IsUuidPriveleged(uuid)) {
+                Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
                 return new ObjectResult("You do not have access to that packageset");
             } else {
                 string tempdir = (Program.Temp + "/" + uuid).AsPath();
@@ -69,6 +75,7 @@ namespace SDSetupBackend.Controllers {
                         //sanitize input
                         if (k.Contains("/") || k.Contains("\\") || k.Contains("..") || k.Contains("~") || k.Contains("%")) {
                             Program.uuidLocks.Remove(uuid);
+                            Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
                             return new ObjectResult("hackerman");
                         }
 
@@ -97,6 +104,7 @@ namespace SDSetupBackend.Controllers {
                 } catch (Exception e) {
                     Program.uuidLocks.Remove(uuid);
                     Console.WriteLine(e.Message);
+                    Response.StatusCode = Http.StatusCodes.Status500InternalServerError;
                     return new ObjectResult("Internal server error occurred");
                 }
             }
@@ -112,16 +120,19 @@ namespace SDSetupBackend.Controllers {
                     Program.generatedZips[uuid] = null;
                     Program.generatedZips.Remove(uuid);
                     if (stream == null) {
+                        Response.StatusCode = Http.StatusCodes.Status404NotFound;
                         return new ObjectResult("Expired");
                     }
                     string zipname = ("SDSetup(" + DateTime.Now.ToShortDateString() + ").zip").Replace("-", ".").Replace("_", ".");
                     Response.Headers["Content-Disposition"] = "filename=" + zipname;
                     return new FileStreamResult(stream, "application/zip");
                 } else {
+                    Response.StatusCode = Http.StatusCodes.Status404NotFound;
                     return new ObjectResult("Expired");
                 }
             } catch (Exception e) {
                 Program.generatedZips[uuid] = null;
+                Response.StatusCode = Http.StatusCodes.Status404NotFound;
                 return new ObjectResult("Something went wrong (the zip may have expired): \n\n" + e.Message);
             }
             
@@ -132,6 +143,7 @@ namespace SDSetupBackend.Controllers {
             if (!Directory.Exists((Program.Files + "/" + packageset).AsPath())) {
                 return new ObjectResult(packageset);
             } else if (System.IO.File.Exists((Program.Files + "/" + packageset + "/.PRIVILEGED.FLAG").AsPath()) && !Program.IsUuidPriveleged(uuid)) {
+                Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
                 return new ObjectResult("You do not have access to that packageset");
             }
 
@@ -171,7 +183,10 @@ namespace SDSetupBackend.Controllers {
 
         [HttpGet("set/latestpackageset/{uuid}/{packageset}")]
         public ActionResult SetLatestPackageset(string uuid, string packageset) {
-            if (!Program.IsUuidPriveleged(uuid)) return new ObjectResult("UUID not priveleged");
+            if (!Program.IsUuidPriveleged(uuid)) {
+                Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
+                return new ObjectResult("UUID not priveleged");
+            }
             Program.latestPackageset = packageset;
             System.IO.File.WriteAllText(Program.Config + "/latestpackageset.txt", packageset);
             return new ObjectResult("Success");
@@ -179,19 +194,24 @@ namespace SDSetupBackend.Controllers {
 
         [HttpGet("admin/reloadall/{uuid}")]
         public ActionResult ReloadEverything(string uuid) {
-            if (!Program.IsUuidPriveleged(uuid)) return new ObjectResult("UUID not priveleged");
+            if (!Program.IsUuidPriveleged(uuid)) {
+                Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
+                return new ObjectResult("UUID not priveleged");
+            }
             return new ObjectResult(Program.ReloadEverything());
         }
 
         [HttpGet("admin/overrideprivilegeduuid/")]
         public ActionResult OverridePrivilegedUuid(string uuid) {
             if (Program.OverridePrivilegedUuid()) return new ObjectResult("Success");
+            Response.StatusCode = Http.StatusCodes.Status500InternalServerError;
             return new ObjectResult("Failed");
         }
 
         [HttpGet("admin/checkuuidstatus/{uuid}")]
         public ActionResult CheckUuidStatus(string uuid) {
             if (Program.IsUuidPriveleged(uuid)) return new ObjectResult("UUID is priveleged");
+            Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
             return new ObjectResult("UUID not priveleged");
         }
 
@@ -199,7 +219,8 @@ namespace SDSetupBackend.Controllers {
         public ActionResult SetPrivelegedUuid(string oldUuid, string newUuid) {
 
             if (Program.SetPrivelegedUUID(oldUuid, newUuid)) return new ObjectResult("Success");
-            else return new ObjectResult("Old UUID invalid");
+            Response.StatusCode = Http.StatusCodes.Status400BadRequest;
+            return new ObjectResult("Old UUID invalid");
 
         }
 
