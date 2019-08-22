@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		libraries\Blazor.Extensions.Storage.JS.dll = libraries\Blazor.Extensions.Storage.JS.dll
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDSetupUpdater", "SDSetupUpdater\SDSetupUpdater.csproj", "{28EB6571-3546-457F-9733-6446924DC9ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28EB6571-3546-457F-9733-6446924DC9ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28EB6571-3546-457F-9733-6446924DC9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28EB6571-3546-457F-9733-6446924DC9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28EB6571-3546-457F-9733-6446924DC9ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
