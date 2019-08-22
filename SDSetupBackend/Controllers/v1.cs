@@ -173,6 +173,7 @@ namespace SDSetupBackend.Controllers {
         public ActionResult SetLatestPackageset(string uuid, string packageset) {
             if (!Program.IsUuidPriveleged(uuid)) return new ObjectResult("UUID not priveleged");
             Program.latestPackageset = packageset;
+            System.IO.File.WriteAllText(Program.Config + "/latestpackageset.txt", packageset);
             return new ObjectResult("Success");
         }
 
@@ -182,9 +183,9 @@ namespace SDSetupBackend.Controllers {
             return new ObjectResult(Program.ReloadEverything());
         }
 
-        [HttpGet("admin/overrideprivelegeduuid/")]
-        public ActionResult OverridePrivelegedUuid(string uuid) {
-            if (Program.OverridePrivelegedUuid()) return new ObjectResult("Success");
+        [HttpGet("admin/overrideprivilegeduuid/")]
+        public ActionResult OverridePrivilegedUuid(string uuid) {
+            if (Program.OverridePrivilegedUuid()) return new ObjectResult("Success");
             return new ObjectResult("Failed");
         }
 
