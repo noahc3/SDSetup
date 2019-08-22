@@ -206,7 +206,8 @@ namespace SDSetupCommon {
         public List<string> Dependencies = new List<string>();
         public List<string> DeleteOnUpdate = new List<string>();
 
-
+        public AutoUpdateType AutoUpdateType = AutoUpdateType.None;
+        public string AutoUpdateHint = "";
 
         public Package() {
 
@@ -237,5 +238,9 @@ namespace SDSetupCommon {
             Dependencies = dependencies;
             DeleteOnUpdate = deleteOnUpdate;
         }
+    }
+
+    public enum AutoUpdateType {
+        None = 0, LibGet = 1, Github = 2, Kosmos = 3, Custom = 4
     }
 }
