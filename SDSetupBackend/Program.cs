@@ -188,7 +188,7 @@ namespace SDSetupBackend {
             return "Success";
         }
 
-        public static bool OverridePrivelegedUuid() {
+        public static bool OverridePrivilegedUuid() {
             if (File.Exists((Config + "/uuidoverride.txt").AsPath())) {
                 privelegedUUID = File.ReadAllText((Config + "/uuidoverride.txt").AsPath());
                 File.Delete((Config + "/uuidoverride.txt").AsPath());
