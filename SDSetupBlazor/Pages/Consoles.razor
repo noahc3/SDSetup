@@ -135,7 +135,6 @@
         static bool barMode = true;
 
         protected override void OnInitialized() {
-            Console.WriteLine("yote");
             string a = UriHelper.GetAbsoluteUri().Split('?')[1];
             if (a.Contains('#')) a = a.Split('#')[0];
             G.consoleId = a;

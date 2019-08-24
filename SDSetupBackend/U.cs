@@ -19,7 +19,7 @@ namespace SDSetupBackend {
         public static List<string> GetPackageList(string packageset) {
             List<string> packages = new List<string>();
 
-            foreach (string k in Directory.EnumerateDirectories((Program.Files + "/" + packageset).AsPath())) {
+            foreach (string k in Directory.EnumerateDirectories((Program.FilesPath + "/" + packageset).AsPath())) {
                 packages.Add(k.Split(Path.DirectorySeparatorChar).Last());
             }
 
