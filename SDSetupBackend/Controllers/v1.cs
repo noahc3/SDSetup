@@ -57,14 +57,14 @@ namespace SDSetupBackend.Controllers {
             } else if (!Program.validChannels.Contains(channel)) {
                 Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
                 return new ObjectResult("Invalid channel");
-            } else if (!Directory.Exists((Program.Files + "/" + packageset).AsPath())) {
+            } else if (!Directory.Exists((Program.FilesPath + "/" + packageset).AsPath())) {
                 Response.StatusCode = Http.StatusCodes.Status400BadRequest;
                 return new ObjectResult("Invalid packageset");
-            } else if (System.IO.File.Exists((Program.Files + "/" + packageset + "/.PRIVILEGED.FLAG").AsPath()) && !Program.IsUuidPriveleged(uuid)) {
+            } else if (System.IO.File.Exists((Program.FilesPath + "/" + packageset + "/.PRIVILEGED.FLAG").AsPath()) && !Program.IsUuidPriveleged(uuid)) {
                 Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
                 return new ObjectResult("You do not have access to that packageset");
             } else {
-                string tempdir = (Program.Temp + "/" + uuid).AsPath();
+                string tempdir = (Program.TempPath + "/" + uuid).AsPath();
                 try {
                     Program.uuidLocks.Add(uuid);
 
@@ -79,14 +79,14 @@ namespace SDSetupBackend.Controllers {
                             return new ObjectResult("hackerman");
                         }
 
-                        if (Directory.Exists((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath())) {
-                            foreach (string f in EnumerateAllFiles((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath())) {
+                        if (Directory.Exists((Program.FilesPath + "/" + packageset + "/" + k + "/" + channel).AsPath())) {
+                            foreach (string f in EnumerateAllFiles((Program.FilesPath + "/" + packageset + "/" + k + "/" + channel).AsPath())) {
                                 if (client == "hbswitch") {
-                                    if (f.StartsWith((Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath())) {
-                                        files[f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath(), "")] = f;
+                                    if (f.StartsWith((Program.FilesPath + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath())) {
+                                        files[f.Replace((Program.FilesPath + "/" + packageset + "/" + k + "/" + channel + "/sd").AsPath(), "")] = f;
                                     }
                                 } else {
-                                    files[f.Replace((Program.Files + "/" + packageset + "/" + k + "/" + channel).AsPath(), "")] = f;
+                                    files[f.Replace((Program.FilesPath + "/" + packageset + "/" + k + "/" + channel).AsPath(), "")] = f;
                                 }
                             }
 
@@ -140,9 +140,9 @@ namespace SDSetupBackend.Controllers {
 
         [HttpGet("fetch/manifest/{uuid}/{packageset}")]
         public ActionResult FetchManifest(string uuid, string packageset) {
-            if (!Directory.Exists((Program.Files + "/" + packageset).AsPath())) {
+            if (!Directory.Exists((Program.FilesPath + "/" + packageset).AsPath())) {
                 return new ObjectResult(packageset);
-            } else if (System.IO.File.Exists((Program.Files + "/" + packageset + "/.PRIVILEGED.FLAG").AsPath()) && !Program.IsUuidPriveleged(uuid)) {
+            } else if (System.IO.File.Exists((Program.FilesPath + "/" + packageset + "/.PRIVILEGED.FLAG").AsPath()) && !Program.IsUuidPriveleged(uuid)) {
                 Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
                 return new ObjectResult("You do not have access to that packageset");
             }
@@ -178,7 +178,7 @@ namespace SDSetupBackend.Controllers {
         public ActionResult GetLatestAppDownload() {
             string zipname = "sdsetup-switch.nro";
             Response.Headers["Content-Disposition"] = "filename=" + zipname;
-            return new FileStreamResult(new FileStream((Program.Config + "/sdsetup-switch.nro").AsPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite), "application/octet-stream");
+            return new FileStreamResult(new FileStream((Program.ConfigPath + "/sdsetup-switch.nro").AsPath(), FileMode.Open, FileAccess.Read, FileShare.ReadWrite), "application/octet-stream");
         }
 
         [HttpGet("set/latestpackageset/{uuid}/{packageset}")]
@@ -188,7 +188,7 @@ namespace SDSetupBackend.Controllers {
                 return new ObjectResult("UUID not priveleged");
             }
             Program.latestPackageset = packageset;
-            System.IO.File.WriteAllText(Program.Config + "/latestpackageset.txt", packageset);
+            System.IO.File.WriteAllText(Program.ConfigPath + "/latestpackageset.txt", packageset);
             return new ObjectResult("Success");
         }
 
@@ -227,7 +227,7 @@ namespace SDSetupBackend.Controllers {
 
         public static Stream ZipFromFilestreams(OrderedDictionary files, string uuid) {
 
-            DeletingFileStream outputMemStream = new DeletingFileStream((Program.Temp + "/" + Guid.NewGuid().ToString().Replace("-", "").ToLower()).AsPath(), FileMode.Create, uuid);
+            DeletingFileStream outputMemStream = new DeletingFileStream((Program.TempPath + "/" + Guid.NewGuid().ToString().Replace("-", "").ToLower()).AsPath(), FileMode.Create, uuid);
             ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
 
             zipStream.SetLevel(3); //0-9, 9 being the highest level of compression

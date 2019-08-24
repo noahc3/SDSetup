@@ -70,6 +70,15 @@
         </div>
     }
 
+    if (discordBadge) {
+        <a href="https://discord.teamatlasnx.com" style="color:#fff" target="_blank">
+            <div class="discord-overlay">
+                <div class="discord-text"><span class="iconify" style="margin-right:0.3rem;max-width:2rem;max-height:2rem;" data-icon="simple-icons:discord" data-inline="false" data-width="2rem" data-height="2rem"></span>Need help? Join us on Discord!</div>
+                <a href="javascript:void(0);" style="max-width:1.5rem;max-height:1.5rem;position:absolute;right:3px;top:3px;color:#fff" @onclick="hideDiscordOverlay"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>
+            </div>
+        </a>
+    }
+
 } else if (!loadFailed) {
     <div class="ui active dimmer" style="height:100vh;width:100vw;position:absolute;margin:0;top:0;left:0;right:0;bottom:0">
         <div class="ui massive text loader">Loading</div>
@@ -94,6 +103,7 @@
     public static Action ForceUiRefresh;
     private static bool ResetWarnState = false;
 
+    private static bool discordBadge = false;
     private static bool loadFailed = false;
     public static bool downloadFailed = false;
     public static bool rateLimited = false;
@@ -111,6 +121,16 @@
         string theme = localStorage.GetItem("theme");
         if (String.IsNullOrWhiteSpace(theme)) theme = "flatly";
         await BootstrapCSS.SetBootstrapCSS(theme, "4.3.1");
+
+        string discordClosed = localStorage.GetItem("discord-overlay");
+        if (!String.IsNullOrWhiteSpace(discordClosed)) {
+            if (DateTime.UtcNow.Subtract(DateTime.Parse(discordClosed)).TotalDays > 7) {
+                localStorage.RemoveItem("discord-overlay");
+                discordBadge = true;
+            }
+        } else {
+            discordBadge = true;
+        }
 
         if (ForceUiRefresh == null) {
             ForceUiRefresh = new Action(() => StateHasChanged());
@@ -184,6 +204,11 @@
         G.showWarning = false;
         ResetWarnState = true;
         StateHasChanged();
+    }
+
+    private void hideDiscordOverlay() {
+        discordBadge = false;
+        localStorage.SetItem("discord-overlay", DateTime.UtcNow.ToString());
     }
 
     //[JSInvokable]

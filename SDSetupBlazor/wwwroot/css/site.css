@@ -334,3 +334,39 @@ a.nav-item.nav-link.active {
     background-color: #c82323 !important;
 }
 
+.discord-overlay {
+    max-width: 500px;
+    max-height: 100px;
+    min-width: 280px;
+    width: 280px;
+    height: 3rem;
+    background-color: #7289DA;
+    border-radius: 0.25rem;
+}
+
+.discord-text {
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width:100%;
+    text-align:center;
+}
+
+
+@media only screen and (min-width: 769px) {
+    .discord-overlay {
+        position: fixed;
+        right: 20px;
+        bottom: 20px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .discord-overlay {
+        position: fixed;
+        bottom: 5px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

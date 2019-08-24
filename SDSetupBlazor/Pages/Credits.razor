@@ -22,16 +22,24 @@
                                     <BSTableHeadCell scope="col">Authors</BSTableHeadCell>
                                     <BSTableHeadCell scope="col">Version</BSTableHeadCell>
                                     <BSTableHeadCell scope="col">Source</BSTableHeadCell>
+                                    <BSTableHeadCell scope="col">Auto Updates</BSTableHeadCell>
                                 </BSTableRow>
                             </BSTableHead>
                             <tbody>
                                 @foreach (Package p in G.packages[plat.ID].Values) {
-                                    if (String.IsNullOrEmpty(p.Authors) || !p.Visible) { continue; }
+                                    if (String.IsNullOrEmpty(p.Authors) || !p.Visible || !p.ShowsInCredits) { continue; }
                                     <BSTableRow>
                                         <BSTableHeadCell scope="row">@p.Name</BSTableHeadCell>
                                         <BSTableCell>@p.Authors</BSTableCell>
                                         <BSTableCell>@p.Versions[G.channel]</BSTableCell>
                                         <BSTableCell>@if (@p.Source.Contains("https://") || p.Source.Contains("http://")) {<a href="@p.Source">@p.Source</a>} else {@p.Source}</BSTableCell>
+                                        <BSTableCell style="text-align:center">
+                                            @if (p.AutoUpdateType > 0) {
+                                                <span style="color:#00ff90">✓</span>
+                                            } else {
+                                                <span style="color:#c83030">✗</span>
+                                            }
+                                        </BSTableCell>
                                     </BSTableRow>
                                 }
 
