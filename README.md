@@ -50,7 +50,6 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 
 ## Todo
 * The frontend needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
-* The frontend badly needs code cleanup. Like, basically everywhere.
 * The backend needs to be refactored to conform to ASP.Net Core standards.
 
 ## Contributing
