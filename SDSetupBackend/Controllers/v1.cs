@@ -224,6 +224,15 @@ namespace SDSetupBackend.Controllers {
 
         }
 
+        [HttpGet("admin/toggleautoupdates/{uuid}")]
+        public ActionResult ToggleAutoUpdates(string uuid) {
+            if (!Program.IsUuidPriveleged(uuid)) {
+                Response.StatusCode = Http.StatusCodes.Status401Unauthorized;
+                return new ObjectResult("UUID not priveleged");
+            }
+            return new ObjectResult("Success: " + Program.ToggleAutoUpdates());
+        }
+
 
         public static Stream ZipFromFilestreams(OrderedDictionary files, string uuid) {
 

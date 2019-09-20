@@ -11,5 +11,7 @@ namespace SDSetupUpdater {
         public string LibGetRepo { get; set; }
         public string KosmosUpdaterScriptPath { get; set; }
         public long KosmosRepositoryId { get; set; }
+        public string KosmosMasterUrl { get; set; }
+        public List<string> OldPackagesets { get; set; }
     }
 }
