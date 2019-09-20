@@ -16,13 +16,12 @@
     <meta name="theme-color" content="#ffffff">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="scripts/compat.js" charset="utf-8" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.6.4/dist/semantic.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/fomantic-ui@2.6.4/dist/semantic.min.js"></script>
+    <link rel="stylesheet" href="/css/formantic-modified.css">
     <link href="css/site.css" rel="stylesheet" />
+    <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
 </head>
-<body style="background-color:#F7F7F7;height:100%">
-<!-- Start Single Page Apps for GitHub Pages -->
+<body style="height:auto">
+    <!-- Start Single Page Apps for GitHub Pages -->
     <script type="text/javascript">
         // Single Page Apps for GitHub Pages
         // https://github.com/rafrex/spa-github-pages
@@ -53,60 +52,62 @@
         }(window.location))
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
-	<script>checkIE(); checkMobileFirefox();</script>
-	<app style="height:100%;">
-		<div class="ui active dimmer" style="height:100%;width:100%">
-			<div class="ui massive text loader">Loading</div>
-			<div style="width:90%;position:absolute;bottom:5%">
-				<div class="ui negative message">
-					<div class="header fluid">
-						Some anti-viruses like AVG and Avast might block this site due to a domain reputation (DRep) problem. This should resolve itself in the future, but for now you'll need to disable your anti-virus to use this site if it gets blocked.
-					</div>
-				</div>
-				<div class="ui negative message">
-					<div class="header fluid">
-						If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<p></p>
-		<p></p>
-		<p></p>
-	</app>
+    <script>checkIE(); checkMobileFirefox();</script>
+    <div class="background-shade" style="min-height:100vh;">
+        <app style="height:100%;">
+            <div class="ui active dimmer" style="height:100vh;width:100vw;position:absolute;margin:0;top:0;left:0;right:0;bottom:0">
+                <div class="ui massive text loader">Loading</div>
+                <div style="width:90%;position:absolute;bottom:5%">
+                    <div class="ui negative message">
+                        <div class="header fluid">
+                            Some anti-viruses like AVG and Avast might block this site due to a domain reputation (DRep) problem. This should resolve itself in the future, but for now you'll need to disable your anti-virus to use this site if it gets blocked.
+                        </div>
+                    </div>
+                    <div class="ui negative message">
+                        <div class="header fluid">
+                            If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p></p>
+            <p></p>
+            <p></p>
+        </app>
+    </div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
-	<script src="scripts/methods.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <script src="scripts/methods.js"></script>
 
-	<script src="_framework/blazor.webassembly.js"></script>
+    <script src="_framework/blazor.webassembly.js"></script>
 
-	<script type="text/javascript">
-		const assemblyName = 'SDSetupBlazor';
-		const methodName = 'PromiseCallback';
-		const errorMethodName = 'PromiseError';
+    <script type="text/javascript">
+        const assemblyName = 'SDSetupBlazor';
+        const methodName = 'PromiseCallback';
+        const errorMethodName = 'PromiseError';
 
 
-		window.runFunction = (callbackId, fnName, data) => {
+        window.runFunction = (callbackId, fnName, data) => {
 
-			let promise = window[fnName](data);
+            let promise = window[fnName](data);
 
-			promise.then(value => {
-				if (value === undefined) {
-					value = null;
-				}
-				const result = JSON.stringify(value);
-				DotNet.invokeMethodAsync(assemblyName, methodName, callbackId, result);
-			}).catch(reason => {
-				if (!reason) {
-					reason = "Something went wrong";
-				}
-				const result = reason.toString();
-				DotNet.invokeMethodAsync(assemblyName, errorMethodName, callbackId, result);
-			});
+            promise.then(value => {
+                if (value === undefined) {
+                    value = null;
+                }
+                const result = JSON.stringify(value);
+                DotNet.invokeMethodAsync(assemblyName, methodName, callbackId, result);
+            }).catch(reason => {
+                if (!reason) {
+                    reason = "Something went wrong";
+                }
+                const result = reason.toString();
+                DotNet.invokeMethodAsync(assemblyName, errorMethodName, callbackId, result);
+            });
 
-			// Your function currently has to return something.
-			return true;
-		};
-	</script>
+            // Your function currently has to return something.
+            return true;
+        };
+    </script>
 </body>
 </html>
