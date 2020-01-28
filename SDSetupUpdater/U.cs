@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace SDSetupUpdater {
     public static class U {
@@ -35,6 +36,25 @@ namespace SDSetupUpdater {
                     DirectoryCopy(subdir.FullName, temppath, copySubDirs);
                 }
             }
+        }
+
+        public static string ExecuteAsBash(this string cmd) {
+            var escapedArgs = cmd.Replace("\"", "\\\"");
+
+            var process = new Process() {
+                StartInfo = new ProcessStartInfo {
+                    FileName = "/bin/bash",
+                    Arguments = $"-c \"{escapedArgs}\"",
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                }
+            };
+            process.Start();
+            string result = process.StandardOutput.ReadToEnd();
+            process.WaitForExit();
+            return result;
         }
     }
 }

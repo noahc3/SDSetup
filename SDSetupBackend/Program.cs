@@ -90,7 +90,7 @@ namespace SDSetupBackend {
                         process.Start();
                     }
                 }
-            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(10));
+            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(720));
 
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
                 Console.WriteLine("[WARN] Updater has been disabled as non-Linux platforms are not supported!");
