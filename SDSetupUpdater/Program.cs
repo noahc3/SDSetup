@@ -111,6 +111,7 @@ namespace SDSetupUpdater {
                     U.DirectoryCopy(f.FullName, Path.Join(f.Parent.Parent.FullName, f.Name), true);
                 }
                 Directory.Delete(scriptMasterFolder, true);
+                ("chmod -R 775 " + kosmosScriptPath).ExecuteAsBash();
                 Log("Done!");
                 Log("");
 
