@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Cloudcrate.AspNetCore.Blazor.Browser.Storage;
 using BlazorStrap;
+using CurrieTechnologies.Razor.Clipboard;
 
 namespace SDSetupBlazor
 {
@@ -15,6 +16,7 @@ namespace SDSetupBlazor
         {
             services.AddStorage();
             services.AddBootstrapCSS();
+            services.AddClipboard();
         }
 
         public void Configure(IComponentsApplicationBuilder app)
