@@ -42,8 +42,7 @@
             </BSAlert>
         }
 
-        @if (!saveMessage) {
-            saveUrl = "http://localhost:51860/console?switch#atmosphere;atmos_musthave;atmos_bootlogo;kosmos_toolkit;kosmos_updater;atmos_emuiibo;atmos_sys-clk;atmos_sysftpd;ldn_mitm;appstorenx;hbmenu;edizon;goldleaf;nxdumptool;lockpick;hekate;lockpick_rcm;";
+        @if (saveMessage) {
             <BSAlert Color="Color.Success">
                 <a href="javascript:void(0);" style="position:absolute;right:1rem;top:1rem;margin-left:auto;margin-right:0" @onclick="@(() => saveMessage = false)"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>
                 <h3 style="margin-top:1rem">Want to redownload in the future?</h3>
