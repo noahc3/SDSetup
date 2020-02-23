@@ -3,12 +3,12 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 @page "/switch"
-@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
 
 @functions {
 	protected override async Task OnInitializedAsync() {
 		string extension = "";
-		if (UriHelper.GetAbsoluteUri().Contains("#")) extension = "#" + UriHelper.GetAbsoluteUri().Split('#').Last();
+		if (UriHelper.Uri.Contains("#")) extension = "#" + UriHelper.Uri.Split('#').Last();
 		UriHelper.NavigateTo("console?switch" + extension);
 	}
 }

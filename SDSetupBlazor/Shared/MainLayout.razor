@@ -5,10 +5,10 @@
 @inherits LayoutComponentBase
 @inject IJSRuntime jsRuntime
 @inject IBootstrapCSS BootstrapCSS
-@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
 @inject HttpClient Http
 @inject LocalStorage localStorage
-@inject IUriHelper uriHelper
+@inject NavigationManager uriHelper
 
 @if (G.initialized) {
 
@@ -108,8 +108,8 @@
     public static bool downloadFailed = false;
     public static bool rateLimited = false;
 
-    protected override void OnAfterRender() {
-        base.OnAfterRender();
+    protected override void OnAfterRender(bool firstRender) {
+        base.OnAfterRender(firstRender);
         if (ResetWarnState) {
             G.SetCurrentWarning(jsRuntime, null);
             ResetWarnState = false;
@@ -174,8 +174,8 @@
             if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
             if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
             G.isMobile = await jsRuntime.InvokeAsync<bool>("mobileAndTabletcheck");
-            Console.WriteLine(UriHelper.GetAbsoluteUri());
-            G.Init(UriHelper.GetAbsoluteUri());
+            Console.WriteLine(UriHelper.Uri);
+            G.Init(UriHelper.Uri);
             G.initialized = true;
             if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
             if (Pages.Credits.ForceUiUpdate != null) Pages.Credits.ForceUiUpdate();
@@ -184,7 +184,7 @@
     }
 
     private string GetRelativePath() {
-        return UriHelper.ToBaseRelativePath(UriHelper.GetBaseUri(), UriHelper.GetAbsoluteUri());
+        return UriHelper.ToBaseRelativePath(UriHelper.Uri);
     }
 
     private async void selectPackage(string id) {

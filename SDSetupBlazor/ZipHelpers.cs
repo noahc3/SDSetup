@@ -21,15 +21,15 @@ namespace SDSetupBlazor
             return Promises.ExecuteAsync<string>(jsRuntime, "interop_generateZip", url);
         }
 
-        public static Task<string> ScrollToTop(IJSRuntime jsRuntime) {
+        public static ValueTask<string> ScrollToTop(IJSRuntime jsRuntime) {
             return jsRuntime.InvokeAsync<string>("scrollToTop");
         }
 
-        public static Task<int> GetScroll(IJSRuntime jsRuntime) {
+        public static ValueTask<int> GetScroll(IJSRuntime jsRuntime) {
             return jsRuntime.InvokeAsync<int>("getScrollPos");
         }
 
-        public static Task<string> SetScroll(IJSRuntime jsRuntime, int pos) {
+        public static ValueTask<string> SetScroll(IJSRuntime jsRuntime, int pos) {
             return jsRuntime.InvokeAsync<string>("setScrollPos", pos);
         }
 

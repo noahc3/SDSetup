@@ -10,7 +10,6 @@
 @functions  {
 
     private string _DisplayName;
-    private bool hasBeenDone = false;
 
     [Parameter]
     public string PID { get; set; }
@@ -28,9 +27,10 @@
     [Parameter]
     public string Version { get; set; }
 
-    protected override void OnAfterRender() {
-        if (!hasBeenDone) {
-            hasBeenDone = true;
+
+
+    protected override void OnAfterRender(bool firstRender) {
+        if (firstRender) {
             StateHasChanged();
         }
     }

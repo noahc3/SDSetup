@@ -6,7 +6,7 @@
 
 @inject IJSRuntime jsRuntime
 @inject HttpClient Http
-@inject Microsoft.AspNetCore.Components.IUriHelper UriHelper
+@inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
 
 
 @if (!gettingZip) {
@@ -135,7 +135,7 @@
         static bool barMode = true;
 
         protected override void OnInitialized() {
-            string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+            string a = UriHelper.Uri.Split('?')[1];
             if (a.Contains('#')) a = a.Split('#')[0];
             G.consoleId = a;
             Shared.MainLayout.ForceUiRefresh();
@@ -146,7 +146,7 @@
         }
 
         protected override async Task OnInitializedAsync() {
-            UriHelper.OnLocationChanged += OnLocationChanged;
+            UriHelper.LocationChanged += OnLocationChanged;
             ForceUiRefresh = new Action(() => { Console.WriteLine("test2"); StateHasChanged(); });
             if (localInitialized == false) {
                 localInitialized = true;
@@ -154,18 +154,18 @@
         }
 
         private void OnLocationChanged(object sender, LocationChangedEventArgs e) {
-            Console.WriteLine(UriHelper.GetAbsoluteUri());
+            Console.WriteLine(UriHelper.Uri);
 
             if (G.initialized) {
-                if (UriHelper.GetAbsoluteUri().Contains("/console?")) {
+                if (UriHelper.Uri.Contains("/console?")) {
                     zipDoneMessage = false;
                     firefoxMessage = false;
                     saveMessage = false;
                     selectMore = false;
-                    string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+                    string a = UriHelper.Uri.Split('?')[1];
                     if (a.Contains('#')) a = a.Split('#')[0];
                     G.consoleId = a;
-                    G.SelectByUrl(UriHelper.GetAbsoluteUri());
+                    G.SelectByUrl(UriHelper.Uri);
                     StateHasChanged();
                     Shared.MainLayout.ForceUiRefresh();
                 }
@@ -176,7 +176,7 @@
 
 
         private string SetConsoleId() {
-            string a = UriHelper.GetAbsoluteUri().Split('?')[1];
+            string a = UriHelper.Uri.Split('?')[1];
             if (a.Contains('#')) a = a.Split('#')[0];
             G.consoleId = a;
             return "";
@@ -237,7 +237,7 @@
 
             string uuid = Guid.NewGuid().ToString().Replace("-", "").ToLower();
 
-            saveUrl = UriHelper.GetBaseUri() + "console?" + G.consoleId + "#" + packages;
+            saveUrl = UriHelper.BaseUri + "console?" + G.consoleId + "#" + packages;
             string getUrl = G.hostname + "/api/v1/fetch/zip";
 
 
