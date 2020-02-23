@@ -1,3 +1,5 @@
+// Copyright (c) cloudcrate solutions UG (haftungsbeschraenkt)
+
 var storageAssembly = 'Cloudcrate_AspNetCore_Blazor_Browser';
 var storageNamespace = storageAssembly + "_Storage";
 var storages = {

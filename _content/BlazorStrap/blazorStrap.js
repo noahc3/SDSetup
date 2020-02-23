@@ -1,16 +1,58 @@
 ﻿var link;
 
+// MDN String.include polyfill
+if (!String.prototype.includes) {
+    String.prototype.includes = function(search, start) {
+        'use strict';
+        if (search instanceof RegExp) {
+            throw TypeError('first argument must not be a RegExp');
+        }
+        if (start === undefined) { start = 0; }
+        return this.indexOf(search, start) !== -1;
+    };
+}
+
 window.blazorStrap = {
+    animationEvent: function (event) {
+        if (event.target.hasAttributes()) {
+            var name = "";
+            var attrs = event.target.attributes;
+            for (var i = 0; i < attrs.length; ++i) {
+                 name = attrs[i].name;
+                if (name.includes("_bl_")) {
+                    name = name.replace("_bl_", "");
+                    break;
+                }
+            }
+            DotNet.invokeMethodAsync("BlazorStrap", "OnAnimationEnd", name);
+        }
+        else {
+            DotNet.invokeMethodAsync("BlazorStrap", "OnAnimationEnd", event.target.id);
+        }
+    },
     log: function (message) {
         console.log("message: ", message);
         return true;
     },
-    changeBody: function (classname) {
-        document.body.className = classname;
+    addBodyClass: function (Classname) {
+        if (Classname == "modal-open") {
+            this.changeBodyPaddingRight("17px");
+        }
+        document.body.classList.add(Classname);
         return true;
     },
-    changeBodyModal: function (padding) {
-        document.body.style.paddingRight = padding;
+    removeBodyClass: function (Classname) {
+        if (Classname == "modal-open") {
+            this.changeBodyPaddingRight("");
+        }
+        document.body.classList.remove(Classname);
+        return true;
+    },
+    changeBodyPaddingRight: function (padding) {
+        var dpi = window.devicePixelRatio;
+        if (dpi == 1 || !padding) {
+            document.body.style.paddingRight = padding;
+        }
         return true;
     },
     popper: function (target, popperId, arrow, placement) {
@@ -59,9 +101,9 @@ window.blazorStrap = {
             link.rel = 'stylesheet';
         }
         if (theme === 'bootstrap') {
-            link.href = `https://stackpath.bootstrapcdn.com/bootstrap/${version}/css/bootstrap.min.css`;
+            link.href = "https://stackpath.bootstrapcdn.com/bootstrap/" + version + "/css/bootstrap.min.css";
         } else {
-            link.href = `https://stackpath.bootstrapcdn.com/bootswatch/${version}/${theme}/bootstrap.min.css`;
+            link.href = "https://stackpath.bootstrapcdn.com/bootswatch/" + version + "/" + theme + "/bootstrap.min.css";
         }
         return true;
     }
@@ -91,3 +133,4 @@ function showPopper(reference, popper, arrow, placement) {
     );
     return thePopper;
 }
+
