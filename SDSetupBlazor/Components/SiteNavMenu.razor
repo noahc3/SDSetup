@@ -1,4 +1,4 @@
-﻿@inject IUriHelper uriHelper
+﻿@inject NavigationManager uriHelper
 @inject IBootstrapCSS BootstrapCSS
 @inject LocalStorage localStorage
 
@@ -56,7 +56,7 @@
         InvokeAsync(StateHasChanged);
     }
 
-    void MenuOpenClick(UIMouseEventArgs e) {
+    void MenuOpenClick(MouseEventArgs e) {
         MenuOpen = !MenuOpen;
         StateHasChanged();
     }
@@ -68,7 +68,7 @@
         InvokeAsync(StateHasChanged);
     }
 
-    void ThemeDropdownOpenClick(UIMouseEventArgs e) {
+    void ThemeDropdownOpenClick(MouseEventArgs e) {
         ThemeDropdownOpen = !ThemeDropdownOpen;
         StateHasChanged();
     }
