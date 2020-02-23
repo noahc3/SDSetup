@@ -149,15 +149,14 @@
 
     protected override async Task OnInitializedAsync() {
         UriHelper.LocationChanged += OnLocationChanged;
-        ForceUiRefresh = new Action(() => { Console.WriteLine("test2"); StateHasChanged(); });
+        ForceUiRefresh = new Action(() => { StateHasChanged(); });
         if (localInitialized == false) {
             localInitialized = true;
         }
     }
 
     private void OnLocationChanged(object sender, LocationChangedEventArgs e) {
-        Console.WriteLine(UriHelper.Uri);
-
+        Console.WriteLine("[INFO] Caught URL change event: " + UriHelper.Uri);
         if (G.initialized) {
             if (UriHelper.Uri.Contains("/console?")) {
                 zipDoneMessage = false;
@@ -261,7 +260,7 @@
 
             resp = await client.SendAsync(message);
         } catch (Exception e) {
-            Console.WriteLine("Failed: \n" + e.Message + "\n\n" + e.StackTrace);
+            Console.WriteLine("[ERROR] Failed to retrieve bundle: \n" + e.Message + "\n\n" + e.StackTrace);
             Shared.MainLayout.downloadFailed = true;
             gettingZip = false;
             StateHasChanged();
@@ -291,7 +290,7 @@
             gettingZip = false;
             StateHasChanged();
         } else {
-            Console.WriteLine("Something went wrong when requesting the zip from the server");
+            Console.WriteLine("[ERROR] Bundle was never ready: " + tresp);
         }
 
 

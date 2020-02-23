@@ -151,19 +151,19 @@
                 resp = await Http.GetAsync(G.hostname + "/api/v1/get/latestpackageset");
             } catch (Exception) {
                 loadFailed = true;
-                Console.WriteLine("Failed to connect to backend hostname " + G.hostname);
+                Console.WriteLine("[ERROR] Failed to connect to backend hostname " + G.hostname);
                 StateHasChanged();
                 return;
             }
             if (!resp.IsSuccessStatusCode) {
                 loadFailed = true;
-                Console.WriteLine("Failed to connect to backend hostname " + G.hostname);
+                Console.WriteLine("[ERROR] Failed to connect to backend hostname " + G.hostname);
                 StateHasChanged();
                 return;
             }
             if (resp.Content.ReadAsStringAsync().Result.Contains('<')) {
                 loadFailed = true;
-                Console.WriteLine("Got HTML when trying to connect to backend hostname " + G.hostname);
+                Console.WriteLine("[ERROR] Got HTML when trying to connect to backend hostname " + G.hostname);
                 StateHasChanged();
                 return;
             }
@@ -174,7 +174,7 @@
             if (!G.selectedPackages.ContainsKey(G.consoleId)) G.selectedPackages[G.consoleId] = new Dictionary<string, bool>();
             if (!G.manifest.Platforms.ContainsKey(G.consoleId)) UriHelper.NavigateTo("");
             G.isMobile = await jsRuntime.InvokeAsync<bool>("mobileAndTabletcheck");
-            Console.WriteLine(UriHelper.Uri);
+            Console.WriteLine("[INFO] Initial URL: " + UriHelper.Uri);
             G.Init(UriHelper.Uri);
             G.initialized = true;
             if (Pages.Consoles.ForceUiRefresh != null) Pages.Consoles.ForceUiRefresh();
