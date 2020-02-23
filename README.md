@@ -1,6 +1,6 @@
 [![Homebrew SD Setup](https://www.sdsetup.com/img/logo.png)](https://www.sdsetup.com)
 
-[https://www.sdsetup.com](https://www.sdsetup.com)
+<p align='center'><a href='https://www.sdsetup.com'>https://www.sdsetup.com</a><br><br><a href='https://github.com/noahc3/SDSetup/actions'><img src='https://github.com/noahc3/SDSetup/workflows/.NET%20Core%20CI/badge.svg'></img></a></p>
 
 Homebrew SD Setup is a web application written in C# (and a little bit of JavaScript) running on Blazor. The app lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
 
@@ -46,11 +46,11 @@ Clone the repository and open the solution in Visual Studio. Build from there.
 * **SDSetup Blazor:** The web application itself, written in C# (and a little bit of JavaScript).
 * **SDSetup Backend:** The backend server which the frontend communicates with. Upon request, generates zip bundles based on the client selection. Also provides manifest data and download statistics.
 * **SDSetup Backend Control Panel:** Control panel to manage functionality of the backend server(s). Also for managing the Homebrew Guide.
+* **SDSetup Updater:** A tool to autoupdate a number of homebrew packages present on SDSetup through various means. Designed specifically for SDSetup packages, not dynamic.
 * **SDSetup Common:** Common utilities and types shared between two or more of the above projects.
 
 ## Todo
 * The frontend needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
-* The frontend badly needs code cleanup. Like, basically everywhere.
 * The backend needs to be refactored to conform to ASP.Net Core standards.
 
 ## Contributing
