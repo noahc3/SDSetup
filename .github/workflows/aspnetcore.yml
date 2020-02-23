@@ -12,7 +12,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 3.0.100-preview8-013656
+        dotnet-version: 3.1.102
     - name: Build Backend
       run: dotnet build -c Release -r linux-x64 SDSetupBackend
     - name: Build Updater
