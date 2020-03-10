@@ -281,7 +281,7 @@ app {
 
     .card-body .nav .nav-item {
         border-radius: 0px;
-	cursor: pointer;
+        cursor: pointer;
     }
 
     .card-body .nav .nav-item:hover:not(.active) {
