@@ -235,7 +235,7 @@ namespace SDSetupUpdater {
                     Log($"Detected {OutdatedPackagesLibGet.Count} outdated libget packages. Updating...");
 
                     foreach (string k in OutdatedPackagesLibGet) {
-                        string packageFilesDirectory = Path.Join(nPackagesetDirectory, k, "latest", "sd");
+                        string packageFilesDirectory = Path.Join(nPackagesetDirectory, k, "latest", String.IsNullOrWhiteSpace(SDPackages[k].AutoUpdatePathOverride) ? "sd" : SDPackages[k].AutoUpdatePathOverride);
                         Directory.Delete(packageFilesDirectory, true);
                         Directory.CreateDirectory(packageFilesDirectory);
                         repo.DownloadPackageToDisk(SDPackages[k].AutoUpdateHint, packageFilesDirectory, true);
@@ -262,7 +262,7 @@ namespace SDSetupUpdater {
 
                     foreach (string k in OutdatedPackagesKosmos.Keys) {
                         string kosmosAutoPackageDirectory = Path.Join(new FileInfo(config.KosmosUpdaterScriptPath).Directory.FullName, "out", SDPackages[k].AutoUpdateHint);
-                        string packageFilesDirectory = Path.Join(nPackagesetDirectory, k, "latest", "sd");
+                        string packageFilesDirectory = Path.Join(nPackagesetDirectory, k, "latest", String.IsNullOrWhiteSpace(SDPackages[k].AutoUpdatePathOverride) ? "sd" : SDPackages[k].AutoUpdatePathOverride);
 
                         Directory.Delete(packageFilesDirectory, true);
                         U.DirectoryCopy(kosmosAutoPackageDirectory, packageFilesDirectory, true);
