@@ -208,6 +208,7 @@ namespace SDSetupCommon {
 
         public AutoUpdateType AutoUpdateType = AutoUpdateType.None;
         public string AutoUpdateHint = "";
+        public string AutoUpdatePathOverride = "";
 
         public Package() {
 
