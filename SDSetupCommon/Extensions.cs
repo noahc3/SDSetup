@@ -23,5 +23,9 @@ namespace SDSetupCommon
                 return path.Replace("\\", "/").Replace("//", "/");
             }
         }
+
+        public static string ToCleanString(this Guid guid) {
+            return guid.ToString().Replace("-", "").ToLower();
+        }
     }
 }

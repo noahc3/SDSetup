@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupBlazor", "SDSetupBla
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupBackend", "SDSetupBackend\SDSetupBackend.csproj", "{01E53ED3-6C96-4199-AC12-E0040B0327D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDSetupBackendControlPanel", "SDSetupBackendControlPanel\SDSetupBackendControlPanel.csproj", "{70CDEABB-C288-49BF-9BB5-E8BF2AE7C04F}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupCommon", "SDSetupCommon\SDSetupCommon.csproj", "{008EBE72-29B1-425B-93A0-13CA061F8BB9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B47C36A-849E-4560-9E3C-3726068E184B}"
@@ -18,7 +16,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		libraries\Blazor.Extensions.Storage.JS.dll = libraries\Blazor.Extensions.Storage.JS.dll
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDSetupUpdater", "SDSetupUpdater\SDSetupUpdater.csproj", "{28EB6571-3546-457F-9733-6446924DC9ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupUpdater", "SDSetupUpdater\SDSetupUpdater.csproj", "{28EB6571-3546-457F-9733-6446924DC9ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupBackendRewrite", "SDSetupBackendRewrite\SDSetupBackendRewrite.csproj", "{996D394C-5DE9-4B7A-B96A-66150DE44D5F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDSetupWorkbench", "SDSetupWorkbench\SDSetupWorkbench.csproj", "{14BD984B-CFB8-43CC-BD98-292F0958D7CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,10 +36,6 @@ Global
 		{01E53ED3-6C96-4199-AC12-E0040B0327D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01E53ED3-6C96-4199-AC12-E0040B0327D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01E53ED3-6C96-4199-AC12-E0040B0327D6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{70CDEABB-C288-49BF-9BB5-E8BF2AE7C04F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{70CDEABB-C288-49BF-9BB5-E8BF2AE7C04F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{70CDEABB-C288-49BF-9BB5-E8BF2AE7C04F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{70CDEABB-C288-49BF-9BB5-E8BF2AE7C04F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -46,6 +44,14 @@ Global
 		{28EB6571-3546-457F-9733-6446924DC9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28EB6571-3546-457F-9733-6446924DC9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28EB6571-3546-457F-9733-6446924DC9ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{996D394C-5DE9-4B7A-B96A-66150DE44D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{996D394C-5DE9-4B7A-B96A-66150DE44D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{996D394C-5DE9-4B7A-B96A-66150DE44D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{996D394C-5DE9-4B7A-B96A-66150DE44D5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{14BD984B-CFB8-43CC-BD98-292F0958D7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14BD984B-CFB8-43CC-BD98-292F0958D7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14BD984B-CFB8-43CC-BD98-292F0958D7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14BD984B-CFB8-43CC-BD98-292F0958D7CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
