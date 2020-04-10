@@ -9,11 +9,11 @@ using SDSetupCommon.Data;
 namespace SDSetupBackendRewrite.Controllers {
     [ApiController]
     [Route("api/v2")]
-    public class general : ControllerBase {
+    public class GeneralController : ControllerBase {
 
-        private readonly ILogger<general> _logger;
+        private readonly ILogger<GeneralController> _logger;
 
-        public general(ILogger<general> logger) {
+        public GeneralController(ILogger<GeneralController> logger) {
             _logger = logger;
         }
 

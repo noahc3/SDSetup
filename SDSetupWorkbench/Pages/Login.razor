@@ -1,0 +1,20 @@
+﻿@page "/login"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager  
+
+<h1>Login to SDSetup Manager</h1>
+
+@foreach (SignInProviderViewModel provider in loginProviders) {
+    <BSBasicForm action="@CommsUtilities.FullApiEndpoint(AccountEndpoints.ExternalLoginEndpoint)" method="post">
+        <BSButton type="submit" name="provider" Value="@provider.Name" title="@("Login using your " + provider.DisplayName + " account")">@provider.DisplayName</BSButton>
+    </BSBasicForm>
+}
+
+@code {
+    IEnumerable<SignInProviderViewModel> loginProviders = new SignInProviderViewModel[0];
+
+    protected override async Task OnInitializedAsync() {
+        loginProviders = await AccountEndpoints.LoginProviders();
+        StateHasChanged();
+    }
+}

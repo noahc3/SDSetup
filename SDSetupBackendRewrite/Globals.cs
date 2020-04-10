@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
+using SDSetupBackendRewrite.Data;
 
 namespace SDSetupBackendRewrite {
     public class Globals {

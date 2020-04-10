@@ -21,5 +21,9 @@ namespace SDSetupBackendRewrite.Data {
         public string LatestPackageset = "default";
         public string LatestAppVersion = "v1.0";
         public string LatestAppPath = (Globals.RootDirectory + "/config/sdsetup.nro").AsPath();
+
+        public string ManagerFrontendUrl = "http://manager.sdsetup.com";
+        public string OauthClientId = "";
+        public string OauthClientSecret = "";
     }
 }

@@ -1,0 +1,37 @@
+﻿@page "/account/confirmregistration"
+@inject HttpClient HttpClient
+@inject NavigationManager NavigationManager
+
+<h4>Complete Registration</h4>
+<hr />
+
+<p>
+    Confirm that you wish to register with SDSetup Manager using your <strong>@model.ProviderDisplayName</strong> account.
+</p>
+
+<BSTable>
+    <tbody>
+        <tr>
+            <th scope="row">Provider</th>
+            <td>@model.ProviderDisplayName</td>
+        </tr>
+        <tr>
+            <th scope="row">Username</th>
+            <td>@model.Username</td>
+        </tr>
+        <tr>
+            <th scope="row">Email</th>
+            <td>@model.Email</td>
+        </tr>
+    </tbody>
+</BSTable>
+
+
+@code {
+
+    ExternalRegistrationConfirmationModel model = new ExternalRegistrationConfirmationModel();
+    protected override async Task OnInitializedAsync() {
+        model = await AccountEndpoints.ExternalRegistrationDetails();
+        StateHasChanged();
+    }
+}

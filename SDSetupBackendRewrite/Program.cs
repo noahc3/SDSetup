@@ -25,9 +25,10 @@ namespace SDSetupBackendRewrite {
         public static Runtime ActiveRuntime { get; private set; }
 
         public static void Main(string[] args) {
-            var host = CreateHostBuilder(args).Build();
-            logger = host.Services.GetRequiredService<ILogger<Program>>();
-
+            logger = LoggerFactory.Create(o => {
+                o.ClearProviders();
+                o.AddConsole();
+            }).CreateLogger("SDSetupBackend Application Output");
             logger.LogInformation("The backend server has begun initialization.");
 
             //attempt to load the configuration file from disk.
@@ -48,7 +49,7 @@ namespace SDSetupBackendRewrite {
             }
 
 
-
+            var host = CreateHostBuilder(args).Build();
             host.Run();
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SDSetupCommon.Data {
     public class ServerInformation {
-        public string Hostname { get; set; } = "";
+        public string Hostname { get; set; } = "http://files.sdsetup.com";
         public string UUID { get; set; } = "";
         public string Name { get; set; } = "";
         public string Version { get; set; } = "";

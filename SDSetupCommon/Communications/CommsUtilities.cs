@@ -8,7 +8,11 @@ using System.Net;
 using System.IO;
 
 namespace SDSetupCommon.Communications {
-    public class AbstractCommunications {
+    public class CommsUtilities {
+        public static string FullApiEndpoint(string endpoint) {
+            return EndpointSettings.serverInformation.Hostname + endpoint;
+        }
+
         public static async Task<ReturnType> GetAsync<ReturnType>(string endpoint) {
             HttpResponseMessage response = await EndpointSettings.HttpClient.GetAsync(new Uri(endpoint));
             if (response.IsSuccessStatusCode) {

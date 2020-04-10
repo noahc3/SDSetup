@@ -11,11 +11,11 @@ using System.Runtime.InteropServices;
 namespace SDSetupBackendRewrite.Controllers {
     [ApiController]
     [Route("api/v2/admin")]
-    public class admin : ControllerBase {
+    public class AdminController : ControllerBase {
 
-        private readonly ILogger<general> _logger;
+        private readonly ILogger<GeneralController> _logger;
 
-        public admin(ILogger<general> logger) {
+        public AdminController(ILogger<GeneralController> logger) {
             _logger = logger;
         }
 

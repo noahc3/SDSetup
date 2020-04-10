@@ -8,7 +8,7 @@ namespace SDSetupCommon.Communications {
     public class AdminEndpoints {
         private static string PopulateUUIDPrivilegedEndpoint = "/api/v2/admin/populateuuidstatus";
         public static async Task<ServerInformation> PopulateUUIDStatus() {
-            return await AbstractCommunications.PostJsonAsync<ServerInformation, ServerInformation>(EndpointSettings.serverInformation.Hostname + PopulateUUIDPrivilegedEndpoint, EndpointSettings.serverInformation);
+            return await CommsUtilities.PostJsonAsync<ServerInformation, ServerInformation>(EndpointSettings.serverInformation.Hostname + PopulateUUIDPrivilegedEndpoint, EndpointSettings.serverInformation);
         }
     }
 }
