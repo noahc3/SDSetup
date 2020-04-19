@@ -90,28 +90,29 @@ namespace SDSetupUpdater {
                 Log("============================================================");
                 Log("");
                 Log("Downloading latest Kosmos update script...");
-                string kosmosScriptPath = new FileInfo(config.KosmosUpdaterScriptPath).Directory.FullName;
-                Directory.Delete(kosmosScriptPath, true);
-                Directory.CreateDirectory(kosmosScriptPath);
+                string kosmosExtractPath = new FileInfo(config.KosmosScriptPath).Directory.FullName;
+                Directory.Delete(kosmosExtractPath, true);
+                Directory.CreateDirectory(kosmosExtractPath);
                 using (var client = new HttpClient()) {
-                    File.WriteAllBytes(Path.Join(kosmosScriptPath, "master.zip"), client.GetByteArrayAsync(config.KosmosMasterUrl).Result);
+                    File.WriteAllBytes(Path.Join(kosmosExtractPath, "master.zip"), client.GetByteArrayAsync(config.KosmosMasterUrl).Result);
                     FastZip zip = new FastZip();
-                    zip.ExtractZip(Path.Join(kosmosScriptPath, "master.zip"), kosmosScriptPath, null);
-                    File.Delete(Path.Join(kosmosScriptPath, "master.zip"));
+                    zip.ExtractZip(Path.Join(kosmosExtractPath, "master.zip"), kosmosExtractPath, null);
+                    File.Delete(Path.Join(kosmosExtractPath, "master.zip"));
                 }
-                string scriptMasterFolder = Directory.EnumerateDirectories(kosmosScriptPath).First();
-                foreach (string k in Directory.EnumerateFiles(scriptMasterFolder)) {
+                string masterFolder = Directory.EnumerateDirectories(kosmosExtractPath).First();
+                string scriptFolder = Path.Join(masterFolder, config.KosmosUpdaterBuilderSubdirectory);
+                foreach (string k in Directory.EnumerateFiles(scriptFolder)) {
                     FileInfo f = new FileInfo(k);
                     if (f.Name.StartsWith('.')) continue;
-                    File.Move(f.FullName, Path.Join(f.Directory.Parent.FullName, f.Name));
+                    File.Move(f.FullName, Path.Join(kosmosExtractPath, f.Name));
                 }
-                foreach (string k in Directory.EnumerateDirectories(scriptMasterFolder)) {
+                foreach (string k in Directory.EnumerateDirectories(scriptFolder)) {
                     DirectoryInfo f = new DirectoryInfo(k);
                     if (f.Name.StartsWith('.')) continue;
-                    U.DirectoryCopy(f.FullName, Path.Join(f.Parent.Parent.FullName, f.Name), true);
+                    U.DirectoryCopy(f.FullName, Path.Join(kosmosExtractPath, f.Name), true);
                 }
-                Directory.Delete(scriptMasterFolder, true);
-                ("chmod -R 775 " + kosmosScriptPath).ExecuteAsBash();
+                Directory.Delete(masterFolder, true);
+                ("chmod -R 775 " + kosmosExtractPath).ExecuteAsBash();
                 Log("Done!");
                 Log("");
 
@@ -179,7 +180,7 @@ namespace SDSetupUpdater {
                 } else {
                     KosmosOutdated = true;
                     Log($"Kosmos is outdated! Running auto script...");
-                    Dictionary<string, string> kosmos = RunKosmosAutoScript();
+                    Dictionary<string, string> kosmos = RunKosmosAutoScript(latestKosmos);
 
                     foreach (SDSetupCommon.Package sdPackage in SDPackages.Values) {
                         if (sdPackage.AutoUpdateType == AutoUpdateType.Kosmos) {
@@ -261,7 +262,7 @@ namespace SDSetupUpdater {
                     Log($"Detected {OutdatedPackagesKosmos.Count} outdated Kosmos packages. Updating...");
 
                     foreach (string k in OutdatedPackagesKosmos.Keys) {
-                        string kosmosAutoPackageDirectory = Path.Join(new FileInfo(config.KosmosUpdaterScriptPath).Directory.FullName, "out", SDPackages[k].AutoUpdateHint);
+                        string kosmosAutoPackageDirectory = Path.Join(new FileInfo(config.KosmosScriptPath).Directory.FullName, "out", SDPackages[k].AutoUpdateHint);
                         string packageFilesDirectory = Path.Join(nPackagesetDirectory, k, "latest", String.IsNullOrWhiteSpace(SDPackages[k].AutoUpdatePathOverride) ? "sd" : SDPackages[k].AutoUpdatePathOverride);
 
                         Directory.Delete(packageFilesDirectory, true);
@@ -364,16 +365,24 @@ namespace SDSetupUpdater {
             }
         }
 
-        static Dictionary<string, string> RunKosmosAutoScript() {
-            string scriptDirectory = new FileInfo(config.KosmosUpdaterScriptPath).Directory.FullName;
-            string scriptPath = new FileInfo(config.KosmosUpdaterScriptPath).FullName;
+        static Dictionary<string, string> RunKosmosAutoScript(string KosmosVersion) {
+            string scriptDirectory = new FileInfo(config.KosmosScriptPath).Directory.FullName;
+            string scriptPath = new FileInfo(config.KosmosScriptPath).FullName;
             if (Directory.Exists(Path.Join(scriptDirectory, "out"))) {
                 Directory.Delete(Path.Join(scriptDirectory, "out"), true);
             }
+
+            File.WriteAllLines((scriptDirectory + "/config.py").AsPath(), new string[] { 
+                $"version = '{KosmosVersion}'\n",
+                $"github_username = '" + config.GithubUsername + "'\n",
+                $"github_password = '{config.GithubAuthToken}'\n",
+                $"gitlab_private_access_token = '{config.GitlabAuthToken}'"
+            });
+
             Process process = new Process {
                 StartInfo = new ProcessStartInfo {
                     FileName = scriptPath,
-                    Arguments = $"{Path.Join(scriptDirectory, "out")} {config.GithubUsername} {config.GithubAuthToken} auto",
+                    Arguments = $"sdsetup {Path.Join(scriptDirectory, "out")} --auto",
                     RedirectStandardOutput = true,
                     UseShellExecute = false,
                     CreateNoWindow = true,
