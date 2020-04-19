@@ -1,0 +1,10 @@
+﻿@inherits ComponentBase
+
+@if (!Globals.Authenticated) {
+    @ChildContent
+}
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

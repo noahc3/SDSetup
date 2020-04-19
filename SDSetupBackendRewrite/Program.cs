@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using Newtonsoft.Json;
 using SDSetupBackendRewrite.Data;
+using SDSetupBackendRewrite.Data.Accounts;
 using SDSetupCommon;
 
 namespace SDSetupBackendRewrite {
@@ -23,6 +24,8 @@ namespace SDSetupBackendRewrite {
 
         public static Config ActiveConfig { get; private set; }
         public static Runtime ActiveRuntime { get; private set; }
+
+        public static IUserDatabase Users = new JsonUserDatabase();
 
         public static void Main(string[] args) {
             logger = LoggerFactory.Create(o => {
@@ -55,7 +58,7 @@ namespace SDSetupBackendRewrite {
 
         public static bool LoadRuntime() {
             Runtime runtime = new Runtime();
-            runtime.privilegedUuid = Utilities.createCryptographicallySecureGuid().ToCleanString();
+            runtime.privilegedUuid = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
             ActiveRuntime = runtime;
             return true;
         }

@@ -23,7 +23,9 @@ namespace SDSetupBackendRewrite.Data {
         public string LatestAppPath = (Globals.RootDirectory + "/config/sdsetup.nro").AsPath();
 
         public string ManagerFrontendUrl = "http://manager.sdsetup.com";
-        public string OauthClientId = "";
-        public string OauthClientSecret = "";
+        public string GithubClientId = "";
+        public string GithubClientSecret = "";
+        public string GitlabClientId = "";
+        public string GitlabClientSecret = "";
     }
 }

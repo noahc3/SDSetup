@@ -2,88 +2,24 @@
 
 <h1>SDSetup Workbench</h1>
 
-<BSRow>
-    <BSCol XS="4">
-        <BSBasicForm>
-            <BSRow>
-                <BSLabel For="txt-hostname">Hostname</BSLabel>
-                <BSBasicInput Id="txt-hostname" InputType="InputType.Url" PlaceHolder="URL of the SDSetup backend server" @bind-Value="EndpointSettings.serverInformation.Hostname"></BSBasicInput>
-            </BSRow>
+<Unauthenticated>
+    <p>Please login to continue.</p>
+    <a href="http://files.sdsetup.com/api/v2/account/githublogin">
+        <BSButton title="Login using your GitHub account">GitHub</BSButton>
+    </a>
 
-            <BSRow>
-                <BSLabel For="txt-uuid">UUID</BSLabel>
-                <BSBasicInput Id="txt-uuid" InputType="InputType.Url" PlaceHolder="Leave blank to generate a new unprivileged UUID" @bind-Value="EndpointSettings.serverInformation.UUID"></BSBasicInput>
-            </BSRow>
-        </BSBasicForm>
+    <a href="http://files.sdsetup.com/api/v2/account/gitlablogin">
+        <BSButton title="Login using your GitLab account">GitLab</BSButton>
+    </a>
+</Unauthenticated>
 
-        <BSRow>
-            <BSButton @onclick="ConnectToServer">Connect</BSButton>
-        </BSRow>
-    </BSCol>
+<Authenticated>
+    <p>You are logged in!</p>
 
-    <BSCol XS="4">
-        <BSTable>
-            <thead>
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">Hostname</th>
-                    <td>@EndpointSettings.serverInformation.Hostname</td>
-                </tr>
-                <tr>
-                    <th scope="row">UUID</th>
-                    <td>@EndpointSettings.serverInformation.UUID</td>
-                </tr>
-                <tr>
-                    <th scope="row">Name</th>
-                    <td>@EndpointSettings.serverInformation.Name</td>
-                </tr>
-                <tr>
-                    <th scope="row">Version</th>
-                    <td>@EndpointSettings.serverInformation.Version</td>
-                </tr>
-                <tr>
-                    <th scope="row">Commit</th>
-                    <td>@EndpointSettings.serverInformation.Commit</td>
-                </tr>
-                <tr>
-                    <th scope="row">Status</th>
-                    <td>@EndpointSettings.serverInformation.Status</td>
-                </tr>
-                <tr>
-                    <th scope="row">UUID Is Privileged</th>
-                    <td>@EndpointSettings.serverInformation.PrivilegedUUID</td>
-                </tr>
-            </tbody>
-        </BSTable>
-    </BSCol>
-</BSRow>
+    <h4>Linked Accounts:</h4>
 
-@code {
-    private async void ConnectToServer() {
-        ServerInformation info = await GeneralEndpoints.Probe();
-
-        if (!String.IsNullOrWhiteSpace(EndpointSettings.serverInformation.UUID)) {
-            info.PrivilegedUUID = (await AdminEndpoints.PopulateUUIDStatus()).PrivilegedUUID;
-        } else {
-            info.UUID = SDSetupCommon.Utilities.createCryptographicallySecureGuid().ToCleanString();
-        }
-
-        if (info.Name == ServerInformation.getPopulatedServerInformation().Name) {
-            EndpointSettings.serverInformation = new ServerInformation() {
-                Hostname = EndpointSettings.serverInformation.Hostname,
-                UUID = EndpointSettings.serverInformation.UUID,
-                Name = info.Name,
-                Version = info.Version,
-                Commit = info.Commit,
-                Status = info.Status
-            };
-        }
-
-        StateHasChanged();
-    }
-}
+    <BSCard CardType="CardType.Deck">
+        <LinkedProfileDisplay ServiceName="GitHub" Profile="@(Globals.UserProfile.githubProfile)"></LinkedProfileDisplay>
+        <LinkedProfileDisplay ServiceName="GitLab" Profile="@(Globals.UserProfile.gitlabProfile)"></LinkedProfileDisplay>
+    </BSCard>
+</Authenticated>

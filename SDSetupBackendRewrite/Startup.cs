@@ -36,19 +36,10 @@ namespace SDSetupBackendRewrite {
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddLogging(builder => {
-                builder.SetMinimumLevel(LogLevel.Trace);
-                builder.AddFilter("Microsoft", LogLevel.Trace);
-                builder.AddFilter("System", LogLevel.Trace);
-                builder.AddFilter("Engine", LogLevel.Trace);
-            });
             services.Configure<ForwardedHeadersOptions>(options => {
                 options.ForwardedHeaders =
                     ForwardedHeaders.XForwardedProto | ForwardedHeaders.XForwardedHost;
             });
-
-            services.AddIdentity<SDSetupUser, IdentityRole>(o => {
-            }).AddUserStore<SDSetupUserStore>().AddRoleStore<SDSetupRoleStore>();
 
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
@@ -60,34 +51,14 @@ namespace SDSetupBackendRewrite {
 
             services.AddControllers();
 
+            services.AddHttpClient();
+
             //services.AddCors(options => {
             //    options.AddPolicy("AllowedOrigins", builder => {
             //        builder.AllowAnyOrigin();
             //        builder.AllowAnyHeader();
             //    });
             //});
-
-            services.AddAuthentication().AddGitHub(o => {
-                o.ClientId = Program.ActiveConfig.OauthClientId;
-                o.ClientSecret = Program.ActiveConfig.OauthClientSecret;
-                o.CallbackPath = "/api/v2/account/externallogincallback";
-            });
-
-            services.ConfigureApplicationCookie(o => {
-                o.Events.OnRedirectToAccessDenied =
-                o.Events.OnRedirectToLogin = c => {
-                    c.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    return Task.FromResult<object>(null);
-                };
-            });
-
-            services.ConfigureExternalCookie(o => {
-                o.Events.OnRedirectToAccessDenied =
-                o.Events.OnRedirectToLogin = c => {
-                    c.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                    return Task.FromResult<object>(null);
-                };
-            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -108,10 +79,6 @@ namespace SDSetupBackendRewrite {
             app.UseRouting();
 
             //app.UseCors("AllowedOrigins");
-
-            app.UseAuthentication();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
