@@ -23,5 +23,16 @@ namespace SDSetupCommon.Communications {
         public static async Task<SDSetupProfile> Profile() {
             return await CommsUtilities.GetAsync<SDSetupProfile>(CommsUtilities.FullApiEndpoint(ProfileEndpoint));
         }
+
+        public static string GetLoginEndpoint(LinkedService service) {
+            switch (service) {
+                case LinkedService.GitHub:
+                    return CommsUtilities.FullApiEndpoint("/api/v2/account/githublogin");
+                case LinkedService.GitLab:
+                    return CommsUtilities.FullApiEndpoint("/api/v2/account/gitlablogin");
+                default:
+                    return "";
+            }
+        }
     }
 }

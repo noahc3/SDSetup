@@ -24,6 +24,10 @@ namespace SDSetupCommon
             }
         }
 
+        public static bool IsNullOrWhiteSpace(this string str) {
+            return String.IsNullOrWhiteSpace(str);
+        }
+
         public static string ToCleanString(this Guid guid) {
             return guid.ToString().Replace("-", "").ToLower();
         }

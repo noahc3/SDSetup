@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace SDSetupCommon.Data.Account {
     public class GithubProfile : ILinkedProfile {
 
-        public GithubProfile(string userId, string username, string email, string bio, string avatarUrl) 
-            : base("GitHub", userId, username, email, bio, avatarUrl) {
+        public GithubProfile(string userId, string username, string email, string bio, string avatarUrl, bool isPrimary) 
+            : base(LinkedService.GitHub, userId, username, email, bio, avatarUrl, isPrimary) {
         }
     }
 }

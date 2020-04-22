@@ -1,0 +1,17 @@
+﻿@inherits ComponentBase
+
+<Unauthenticated>
+    <div class="global-center">
+        <img class="login-logo" src="/img/logo.png" />
+        <p class="text-center">Login or register with an external account to continue</p>
+        
+        <div class="login-buttons">
+            <a href="@AccountEndpoints.GetLoginEndpoint(LinkedService.GitHub)">
+                <BSButton title="Login using your GitHub account">GitHub</BSButton>
+            </a>
+            <a href="@AccountEndpoints.GetLoginEndpoint(LinkedService.GitLab)">
+                <BSButton title="Login using your GitLab account">GitLab</BSButton>
+            </a>
+        </div>
+    </div>
+</Unauthenticated>

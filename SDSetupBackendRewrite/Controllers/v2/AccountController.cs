@@ -65,9 +65,22 @@ namespace SDSetupBackendRewrite.Controllers {
             SDSetupUser user = new SDSetupUser();
             await user.AuthenticateGithub(code, state);
 
+            //check if the account is already linked to a user
             string id = await Program.Users.GetSDSetupIdByGithubId(user.GetGithubUserId());
-            if (String.IsNullOrWhiteSpace(id)) {
-                if (!(await Program.Users.RegisterUserFromGithub(user))) return new StatusCodeResult(401);
+            if (id.IsNullOrWhiteSpace()) {
+                //if not, check if there is a session token in the request
+                if (!Request.Cookies["session"].IsNullOrWhiteSpace()) {
+                    //try to link the new login with the current user identified by the session token
+                    if (!(await Program.Users.LinkUserFromGithub(Request.Cookies["session"], user))) {
+                        //if that fails (because the session token is invalid or the user already has a linked github account)
+                        //try to register a new user
+                        if (!(await Program.Users.RegisterUserFromGithub(user))) return new StatusCodeResult(401);
+                    } else {
+                        //if that succeeds set to the existing user
+                        user = await Program.Users.GetSDSetupUserBySessionToken(Request.Cookies["session"]);
+                    }
+                }
+                
             } else {
                 SDSetupUser existingUser = await Program.Users.GetSDSetupUserById(id);
                 existingUser.UpdateGithubAuthentication(user);
@@ -87,9 +100,21 @@ namespace SDSetupBackendRewrite.Controllers {
             SDSetupUser user = new SDSetupUser();
             await user.AuthenticateGitlab(code, state);
 
+            //check if the account is already linked to a user
             string id = await Program.Users.GetSDSetupIdByGitlabId(user.GetGitlabUserId());
-            if (String.IsNullOrWhiteSpace(id)) {
-                if (!(await Program.Users.RegisterUserFromGitlab(user))) return new StatusCodeResult(401);
+            if (id.IsNullOrWhiteSpace()) {
+                //if not, check if there is a session token in the request
+                if (!Request.Cookies["session"].IsNullOrWhiteSpace()) {
+                    //try to link the new login with the current user identified by the session token
+                    if (!(await Program.Users.LinkUserFromGitlab(Request.Cookies["session"], user))) {
+                        //if that fails (because the session token is invalid or the user already has a linked gitlab account)
+                        //try to register a new user
+                        if (!(await Program.Users.RegisterUserFromGitlab(user))) return new StatusCodeResult(401);
+                    } else {
+                        //if that succeeds set to the existing user
+                        user = await Program.Users.GetSDSetupUserBySessionToken(Request.Cookies["session"]);
+                    }
+                }
             } else {
                 SDSetupUser existingUser = await Program.Users.GetSDSetupUserById(id);
                 existingUser.UpdateGitlabAuthentication(user);

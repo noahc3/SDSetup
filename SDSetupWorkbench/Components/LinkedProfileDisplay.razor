@@ -5,7 +5,7 @@
             <BSRow NoGutters="true">
                 <BSCol XS="2"><img src="@Profile.avatarUrl" /></BSCol>
                 <BSCol XS="8">
-                    <h5>@ServiceName</h5>
+                    <h5>@Service.ToString("G")</h5>
                     <p>@Profile.username</p>
                 </BSCol>
                 <BSCol XS="2"><img src="@ServiceIcon" /></BSCol>
@@ -13,15 +13,22 @@
             <hr />
             <BSRow NoGutters="true">
                 <BSButtonGroup Size="Size.Small">
-                    <BSButton Color="Color.Info" IsDisabled="true">Make Primary</BSButton>
-                    <BSButton Color="Color.Danger" IsDisabled="true">Unlink</BSButton>
+                    @if (Profile.isPrimary) {
+                    <div class="icon-with-text text-success">
+                        <span class="oi oi-circle-check" aria-hidden="true"></span>
+                        <span>Primary Profile</span>
+                    </div>
+                    } else {
+                        <BSButton Color="Color.Info" IsDisabled="true">Make Primary</BSButton>
+                        <BSButton Color="Color.Danger" IsDisabled="true">Unlink</BSButton>
+                    }
                 </BSButtonGroup>
             </BSRow>
         } else {
             <BSRow NoGutters="true">
                 <BSCol XS="2"><img src="https://image.flaticon.com/icons/png/512/36/36601.png" /></BSCol>
                 <BSCol XS="8">
-                    <h5>@ServiceName</h5>
+                    <h5>@Service.ToString("G")</h5>
                     <p>Not Linked</p>
                 </BSCol>
                 <BSCol XS="2"><img src="@ServiceIcon" /></BSCol>
@@ -29,7 +36,9 @@
             <hr />
             <BSRow NoGutters="true">
                 <BSButtonGroup Size="Size.Small">
-                    <BSButton Color="Color.Info" IsDisabled="true">Link Account</BSButton>
+                    <a href="@AccountEndpoints.GetLoginEndpoint(Service)">
+                        <BSButton Size="Size.Small" Color="Color.Info">Link Account</BSButton>
+                    </a>
                 </BSButtonGroup>
             </BSRow>
         }
@@ -37,7 +46,7 @@
 
 @code {
     [Parameter]
-    public string ServiceName { get; set; }
+    public LinkedService Service { get; set; }
 
     [Parameter]
     public ILinkedProfile Profile { get; set; }
@@ -45,11 +54,11 @@
     private string ServiceIcon { get; set; }
 
     protected override Task OnInitializedAsync() {
-        switch (ServiceName) {
-            case "GitHub":
+        switch (Service) {
+            case LinkedService.GitHub:
                 ServiceIcon = "https://image.flaticon.com/icons/svg/25/25231.svg";
                 break;
-            case "GitLab":
+            case LinkedService.GitLab:
                 ServiceIcon = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/GitLab_Logo.svg/1200px-GitLab_Logo.svg.png";
                 break;
             default:

@@ -10,5 +10,7 @@ namespace SDSetupCommon.Data.Account {
         public bool hasLinkedGitlab { get; set; }
         public GithubProfile githubProfile { get; set; }
         public GitlabProfile gitlabProfile { get; set; }
+        public ILinkedProfile primaryProfile { get; set; }
+        public LinkedService primaryService { get; set; }
     }
 }

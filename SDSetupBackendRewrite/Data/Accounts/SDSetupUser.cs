@@ -31,6 +31,8 @@ namespace SDSetupBackendRewrite.Data {
         private GitHubClient GithubClient;
         private GitLabClient GitlabClient;
 
+        private LinkedService PrimaryService;
+
         public string CreateSessionToken() {
             SessionToken = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
             return SessionToken;
@@ -139,15 +141,19 @@ namespace SDSetupBackendRewrite.Data {
             return LinkedGitlabId;
         }
 
+        public void SetPrimaryService(LinkedService service) {
+            this.PrimaryService = service;
+        }
+
         public async Task<GithubProfile> GetGithubProfile() {
             if (!(await IsAuthenticatedWithGithub())) return null;
             User user = await GithubClient.User.Current();
-            return new GithubProfile(user.Id.ToString(), user.Name, user.Email, user.Bio, user.AvatarUrl);
+            return new GithubProfile(user.Id.ToString(), user.Name, user.Email, user.Bio, user.AvatarUrl, this.PrimaryService == LinkedService.GitHub);
         }
         public async Task<GitlabProfile> GetGitlabProfile() {
             if (!(await IsAuthenticatedWithGitlab())) return null;
             var user = await GitlabClient.Users.GetCurrentSessionAsync();
-            return new GitlabProfile(user.Id.ToString(), user.Name, user.Email, user.Bio, user.AvatarUrl);
+            return new GitlabProfile(user.Id.ToString(), user.Name, user.Email, user.Bio, user.AvatarUrl, this.PrimaryService == LinkedService.GitLab);
         }
 
         public async Task<SDSetupProfile> GetProfile() {
@@ -156,8 +162,18 @@ namespace SDSetupBackendRewrite.Data {
                 hasLinkedGitlab = !String.IsNullOrWhiteSpace(LinkedGitlabId),
                 userid = SDSetupUserId,
                 githubProfile = await GetGithubProfile(),
-                gitlabProfile = await GetGitlabProfile()
+                gitlabProfile = await GetGitlabProfile(),
+                primaryService = this.PrimaryService
             };
+
+            switch (profile.primaryService) {
+                case LinkedService.GitHub:
+                    profile.primaryProfile = profile.githubProfile;
+                    break;
+                case LinkedService.GitLab:
+                    profile.primaryProfile = profile.gitlabProfile;
+                    break;
+            }
 
             return profile;
         }

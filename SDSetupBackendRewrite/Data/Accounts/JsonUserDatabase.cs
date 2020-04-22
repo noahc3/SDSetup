@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters.Xml;
+using SDSetupCommon;
+using SDSetupCommon.Data.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -54,6 +56,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
 
             if (await user.IsAuthenticatedWithGithub()) {
                 users.Add(user);
+                await SetPrimaryService(user.GetSDSetupUserId(), LinkedService.GitHub);
                 return true;
             }
 
@@ -66,6 +69,45 @@ namespace SDSetupBackendRewrite.Data.Accounts {
 
             if (await user.IsAuthenticatedWithGitlab()) {
                 users.Add(user);
+                await SetPrimaryService(user.GetSDSetupUserId(), LinkedService.GitHub);
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task<bool> LinkUserFromGithub(string sessionToken, SDSetupUser user) {
+            SDSetupUser existingUser = await GetSDSetupUserBySessionToken(sessionToken);
+            if (existingUser != default(SDSetupUser)) {
+                if (existingUser.GetGithubUserId().IsNullOrWhiteSpace()) {
+                    if (await user.IsAuthenticatedWithGithub()) {
+                        existingUser.UpdateGithubAuthentication(user);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<bool> LinkUserFromGitlab(string sessionToken, SDSetupUser user) {
+            SDSetupUser existingUser = await GetSDSetupUserBySessionToken(sessionToken);
+            if (existingUser != default(SDSetupUser)) {
+                if (existingUser.GetGitlabUserId().IsNullOrWhiteSpace()) {
+                    if (await user.IsAuthenticatedWithGitlab()) {
+                        existingUser.UpdateGitlabAuthentication(user);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public async Task<bool> SetPrimaryService(string userId, LinkedService service) {
+            SDSetupUser user = await GetSDSetupUserById(userId);
+            if (user != default(SDSetupUser)) {
+                user.SetPrimaryService(service);
                 return true;
             }
 

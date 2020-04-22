@@ -1,7 +1,5 @@
 ﻿@page "/"
 
-<h1>SDSetup Workbench</h1>
-
 <Unauthenticated>
     <p>Please login to continue.</p>
     <a href="http://files.sdsetup.com/api/v2/account/githublogin">
@@ -14,12 +12,14 @@
 </Unauthenticated>
 
 <Authenticated>
+    <h2>Dashboard</h2>
+
     <p>You are logged in!</p>
 
     <h4>Linked Accounts:</h4>
 
     <BSCard CardType="CardType.Deck">
-        <LinkedProfileDisplay ServiceName="GitHub" Profile="@(Globals.UserProfile.githubProfile)"></LinkedProfileDisplay>
-        <LinkedProfileDisplay ServiceName="GitLab" Profile="@(Globals.UserProfile.gitlabProfile)"></LinkedProfileDisplay>
+        <LinkedProfileDisplay Service="@LinkedService.GitHub" Profile="@(Globals.UserProfile.githubProfile)"></LinkedProfileDisplay>
+        <LinkedProfileDisplay Service="@LinkedService.GitLab" Profile="@(Globals.UserProfile.gitlabProfile)"></LinkedProfileDisplay>
     </BSCard>
 </Authenticated>

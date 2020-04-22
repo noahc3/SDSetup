@@ -13,12 +13,10 @@ namespace SDSetupWorkbench.Data {
 
         public static async Task GlobalInit() {
             Authenticated = await TryGetProfile();
-            Console.WriteLine(Authenticated);
         }
 
         public static async Task<bool> TryGetProfile() {
             UserProfile = await AccountEndpoints.Profile();
-            if (UserProfile != default(SDSetupProfile)) Console.WriteLine(UserProfile.userid);
             return UserProfile != default(SDSetupProfile);
         }
     }

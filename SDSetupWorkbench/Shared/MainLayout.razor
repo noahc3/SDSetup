@@ -2,15 +2,20 @@
 @inject IBootstrapCss BootstrapCss
 
 @if (Initialized) {
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <div class="main">
-        <div class="content px-4">
-            @Body
+    <Authenticated>
+        <div class="sidebar">
+            <NavMenu />
         </div>
-    </div>
+
+        <div class="main">
+            <div class="content px-4">
+                @Body
+            </div>
+        </div>
+    </Authenticated>
+    <Unauthenticated>
+        <Login></Login>
+    </Unauthenticated>
 }
 
 @code {
