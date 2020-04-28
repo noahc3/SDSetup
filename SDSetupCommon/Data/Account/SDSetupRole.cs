@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SDSetupBackendRewrite.Data.Accounts {
+namespace SDSetupCommon.Data.Account {
     public enum SDSetupRole {
-        None = 0, Developer = 1, Moderator = 2, Administrator = 3, Owner = 4
+        None = 0, Developer = 100, Moderator = 200, Administrator = 300, Owner = 400
     }
 }

@@ -9,7 +9,7 @@ using SDSetupCommon.Communications;
 using BlazorStrap;
 using SDSetupCommon.Data;
 
-namespace SDSetupWorkbench {
+namespace SDSetupManager {
     public class Program {
         public static async Task Main(string[] args) {
 

@@ -159,8 +159,8 @@ namespace SDSetupUpdater {
 
                         LibGetDownloader.Package lgPackage = repo.GetPackage(sdPackage.AutoUpdateHint);
 
-                        if (sdPackage.Versions["latest"] != lgPackage.Version && sdPackage.Versions["latest"] != "v" + lgPackage.Version) {
-                            Log($"**[Update Detected]** '{sdPackage.ID}' {sdPackage.Versions["latest"]} -> {lgPackage.Version}");
+                        if (sdPackage.Channels["latest"] != lgPackage.Version && sdPackage.Channels["latest"] != "v" + lgPackage.Version) {
+                            Log($"**[Update Detected]** '{sdPackage.ID}' {sdPackage.Channels["latest"]} -> {lgPackage.Version}");
                             OutdatedPackagesLibGet.Add(sdPackage.ID);
                         }
                     }
@@ -175,7 +175,7 @@ namespace SDSetupUpdater {
 
                 string latestKosmos = ghClient.Repository.Release.GetLatest(config.KosmosRepositoryId).Result.TagName;
 
-                if (latestKosmos == SDPackages["atmos_musthave"].Versions["latest"]) {
+                if (latestKosmos == SDPackages["atmos_musthave"].Channels["latest"]) {
                     Log($"Kosmos is already up-to-date ({latestKosmos})!");
                 } else {
                     KosmosOutdated = true;
@@ -186,7 +186,7 @@ namespace SDSetupUpdater {
                         if (sdPackage.AutoUpdateType == AutoUpdateType.Kosmos) {
                             //musthave needs special handling because im too lazy to fix my setup for how Atmosphere is packaged by SDSetup.
                             if (sdPackage.ID == "atmos_musthave") {
-                                Log($"**[Update Detected]** '{sdPackage.ID}' {sdPackage.Versions["latest"]} -> {latestKosmos}");
+                                Log($"**[Update Detected]** '{sdPackage.ID}' {sdPackage.Channels["latest"]} -> {latestKosmos}");
                                 OutdatedPackagesKosmos[sdPackage.ID] = kosmos[sdPackage.AutoUpdateHint];
                                 continue;
                             }
@@ -195,8 +195,8 @@ namespace SDSetupUpdater {
                                 Log($"**[Warning]** Kosmos auto package output named '{sdPackage.AutoUpdateHint}' for SDSetup package {sdPackage.ID} doesn't exist. Skipping...");
                                 continue;
                             }
-                            if (kosmos[sdPackage.AutoUpdateHint] != sdPackage.Versions["latest"]) {
-                                Log($"**[Update Detected]** '{sdPackage.ID}' {sdPackage.Versions["latest"]} -> {kosmos[sdPackage.AutoUpdateHint]}");
+                            if (kosmos[sdPackage.AutoUpdateHint] != sdPackage.Channels["latest"]) {
+                                Log($"**[Update Detected]** '{sdPackage.ID}' {sdPackage.Channels["latest"]} -> {kosmos[sdPackage.AutoUpdateHint]}");
                                 OutdatedPackagesKosmos[sdPackage.ID] = kosmos[sdPackage.AutoUpdateHint];
                             }
                         }
@@ -242,12 +242,12 @@ namespace SDSetupUpdater {
                         repo.DownloadPackageToDisk(SDPackages[k].AutoUpdateHint, packageFilesDirectory, true);
                         if (File.Exists(Path.Join(packageFilesDirectory, "info.json"))) File.Delete(Path.Join(packageFilesDirectory, "info.json"));
                         if (File.Exists(Path.Join(packageFilesDirectory, "manifest.install"))) File.Delete(Path.Join(packageFilesDirectory, "manifest.install"));
-                        string oVersion = SDPackages[k].Versions["latest"];
+                        string oVersion = SDPackages[k].Channels["latest"];
                         string nVersion;
                         string lgVersion = repo.GetPackage(SDPackages[k].AutoUpdateHint).Version;
                         if (Char.IsNumber(lgVersion[0])) nVersion = "v" + lgVersion;
                         else nVersion = lgVersion;
-                        SDPackages[k].Versions["latest"] = nVersion;
+                        SDPackages[k].Channels["latest"] = nVersion;
                         File.WriteAllText(Path.Join(nPackagesetDirectory, k, "info.json"), JsonConvert.SerializeObject(SDPackages[k], Formatting.Indented));
                         Log($"**[Package Updated]** '{k}' {oVersion} -> {nVersion}");
                     }
@@ -267,7 +267,7 @@ namespace SDSetupUpdater {
 
                         Directory.Delete(packageFilesDirectory, true);
                         U.DirectoryCopy(kosmosAutoPackageDirectory, packageFilesDirectory, true);
-                        string oVersion = SDPackages[k].Versions["latest"];
+                        string oVersion = SDPackages[k].Channels["latest"];
                         string nVersion;
 
                         if (SDPackages[k].ID == "atmos_musthave") {
@@ -276,12 +276,12 @@ namespace SDSetupUpdater {
                             nVersion = OutdatedPackagesKosmos[k];
                         }
 
-                        SDPackages[k].Versions["latest"] = nVersion;
+                        SDPackages[k].Channels["latest"] = nVersion;
                         File.WriteAllText(Path.Join(nPackagesetDirectory, k, "info.json"), JsonConvert.SerializeObject(SDPackages[k], Formatting.Indented));
                         Log($"**[Package Updated]** '{k}' {oVersion} -> {nVersion}");
                     }
                     //update public facing "atmosphere" package with new atmos/kosmos version.
-                    SDPackages["atmosphere"].Versions["latest"] = $"{OutdatedPackagesKosmos["atmos_musthave"]}/{latestKosmos}";
+                    SDPackages["atmosphere"].Channels["latest"] = $"{OutdatedPackagesKosmos["atmos_musthave"]}/{latestKosmos}";
                     File.WriteAllText(Path.Join(nPackagesetDirectory, "atmosphere", "info.json"), JsonConvert.SerializeObject(SDPackages["atmosphere"], Formatting.Indented));
                 }
 

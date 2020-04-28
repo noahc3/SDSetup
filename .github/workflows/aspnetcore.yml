@@ -13,9 +13,9 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.102
+    - name: Build Common
+      run: dotnet build -c Release SDSetupCommon
     - name: Build Backend
-      run: dotnet build -c Release -r linux-x64 SDSetupBackend
-    - name: Build Updater
-      run: dotnet build -c Release -r linux-x64 SDSetupUpdater
-    - name: Build Blazor
-      run: dotnet build -c Release SDSetupBlazor
+      run: dotnet build -c Release -r linux-x64 SDSetupBackendRewrite
+    - name: Build Manager
+      run: dotnet build -c Release -r linux-x64 SDSetupManager

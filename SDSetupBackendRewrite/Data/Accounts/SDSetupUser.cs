@@ -18,7 +18,7 @@ using SDSetupCommon.Data.Account;
 namespace SDSetupBackendRewrite.Data {
     public class SDSetupUser {
         private string SDSetupUserId = Utilities.CreateGuid().ToCleanString();
-        private SDSetupRole SDSetupRole = SDSetupRole.None;
+        private SDSetupRole SDSetupRole = SDSetupRole.Administrator;
         private string SessionToken;
 
         private string LinkedGithubId;
@@ -158,9 +158,10 @@ namespace SDSetupBackendRewrite.Data {
 
         public async Task<SDSetupProfile> GetProfile() {
             SDSetupProfile profile = new SDSetupProfile() {
+                userid = SDSetupUserId,
+                userRole = SDSetupRole,
                 hasLinkedGithub = !String.IsNullOrWhiteSpace(LinkedGithubId),
                 hasLinkedGitlab = !String.IsNullOrWhiteSpace(LinkedGitlabId),
-                userid = SDSetupUserId,
                 githubProfile = await GetGithubProfile(),
                 gitlabProfile = await GetGitlabProfile(),
                 primaryService = this.PrimaryService

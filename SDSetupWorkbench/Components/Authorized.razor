@@ -1,0 +1,15 @@
+﻿@inherits ComponentBase
+
+@if (Globals.Authenticated) {
+    if (Globals.UserProfile.userRole >= MinRole) {
+        @ChildContent
+    }
+}
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public SDSetupRole MinRole { get; set; }
+}

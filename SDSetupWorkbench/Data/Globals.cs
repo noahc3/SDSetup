@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using SDSetupCommon.Communications;
 
-namespace SDSetupWorkbench.Data {
+namespace SDSetupManager.Data {
     public class Globals {
         public static bool Authenticated;
         public static SDSetupProfile UserProfile;

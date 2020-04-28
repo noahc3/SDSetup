@@ -63,6 +63,23 @@ app {
         padding:0;
     }
 
+    .sidebar .navbar-header {
+        font-size: 1.0rem;
+        background-color: rgba(0,0,0,0.4);
+        height: 2.5rem;
+        display: flex;
+        align-items: center;
+        color: #ffffff;
+        padding-left: 1.5rem !important;
+    }
+        .sidebar .navbar-header + .nav-item {
+            padding-top: 1rem;
+        }
+
+        .sidebar .nav-item + .navbar-header {
+            margin-top: 0.5rem;
+        }
+
     .sidebar .oi {
         width: 2rem;
         font-size: 1.1rem;

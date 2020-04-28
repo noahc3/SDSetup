@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 namespace SDSetupCommon.Data.Account {
     public class SDSetupProfile {
         public string userid { get; set; }
+        public SDSetupRole userRole { get; set; }
         public bool hasLinkedGithub { get; set; }
         public bool hasLinkedGitlab { get; set; }
         public GithubProfile githubProfile { get; set; }
