@@ -11,7 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupCommon", "SDSetupCom
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B47C36A-849E-4560-9E3C-3726068E184B}"
 	ProjectSection(SolutionItems) = preProject
-		.travis.yml = .travis.yml
 		libraries\Blazor.Extensions.Storage.dll = libraries\Blazor.Extensions.Storage.dll
 		libraries\Blazor.Extensions.Storage.JS.dll = libraries\Blazor.Extensions.Storage.JS.dll
 	EndProjectSection
@@ -20,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupUpdater", "SDSetupUp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupBackendRewrite", "SDSetupBackendRewrite\SDSetupBackendRewrite.csproj", "{996D394C-5DE9-4B7A-B96A-66150DE44D5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupManager", "SDSetupWorkbench\SDSetupManager.csproj", "{14BD984B-CFB8-43CC-BD98-292F0958D7CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupManager", "SDSetupManager\SDSetupManager.csproj", "{14BD984B-CFB8-43CC-BD98-292F0958D7CB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

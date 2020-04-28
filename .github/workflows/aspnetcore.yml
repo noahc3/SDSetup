@@ -18,4 +18,4 @@ jobs:
     - name: Build Backend
       run: dotnet build -c Release -r linux-x64 SDSetupBackendRewrite
     - name: Build Manager
-      run: dotnet build -c Release -r linux-x64 SDSetupManager
+      run: dotnet build -c Release -r SDSetupManager
