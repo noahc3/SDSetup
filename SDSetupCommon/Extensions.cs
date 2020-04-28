@@ -4,6 +4,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,6 +31,26 @@ namespace SDSetupCommon
 
         public static string ToCleanString(this Guid guid) {
             return guid.ToString().Replace("-", "").ToLower();
+        }
+
+        //src: https://stackoverflow.com/a/468131, originally MSDN.
+        public static long SizeRecursive(this DirectoryInfo d) {
+            try {
+                long size = 0;
+                // Add file sizes.
+                FileInfo[] fis = d.GetFiles();
+                foreach (FileInfo fi in fis) {
+                    size += fi.Length;
+                }
+                // Add subdirectory sizes.
+                DirectoryInfo[] dis = d.GetDirectories();
+                foreach (DirectoryInfo di in dis) {
+                    size += di.SizeRecursive();
+                }
+                return size;
+            } catch {
+                return 0;
+            }
         }
     }
 }

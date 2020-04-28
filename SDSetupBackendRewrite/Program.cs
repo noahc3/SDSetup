@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -28,11 +30,11 @@ namespace SDSetupBackendRewrite {
         public static IUserDatabase Users = new JsonUserDatabase();
 
         public static void Main(string[] args) {
-            logger = LoggerFactory.Create(o => {
-                o.ClearProviders();
-                o.AddConsole();
-            }).CreateLogger("SDSetupBackend Application Output");
+            var host = CreateHostBuilder(args).Build();
+            logger = host.Services.GetRequiredService<ILogger<Program>>();
+
             logger.LogInformation("The backend server has begun initialization.");
+            logger.LogDebug("Test");
 
             //attempt to load the configuration file from disk.
             if (!LoadConfigFromDisk()) {
@@ -51,8 +53,12 @@ namespace SDSetupBackendRewrite {
                 logger.LogInformation("The runtime was configured without errors.");
             }
 
+            if (!LoadPackageSets()) {
+                logger.LogError("Errors were detected while loading packagesets and initialization cannot continue. View the log for more details.");
+            } else {
+                logger.LogInformation("Packagesets were loaded without errors.");
+            }
 
-            var host = CreateHostBuilder(args).Build();
             host.Run();
         }
 
@@ -118,14 +124,105 @@ namespace SDSetupBackendRewrite {
 
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureLogging(logging => {
-                    logging.ClearProviders();
-                    logging.AddConsole();
-                })
+        public static bool LoadPackageSets() {
+            Dictionary<string, Manifest> manifests = new Dictionary<string, Manifest>();
+            foreach (DirectoryInfo packagesetDirectory in new DirectoryInfo(ActiveConfig.FilesPath).GetDirectories()) {
+                logger.LogDebug("Processing packageset at " + packagesetDirectory.FullName);
+                FileInfo manifestFile = new FileInfo((packagesetDirectory.FullName + "/manifest6.json").AsPath());
+                Manifest manifest;
+                string packagesetName = packagesetDirectory.Name;
+                List<Package> packages = new List<Package>();
+                try {
+                    manifest = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(manifestFile.FullName));
+                } catch (Exception e) {
+                    logger.LogError("Failed to parse the manifest found at '" + manifestFile.FullName + "', the following exception was thrown:\n" + e.Message + "\n" + e.StackTrace);
+                    return false;
+                }
+
+                foreach (DirectoryInfo packageDirectory in packagesetDirectory.GetDirectories()) {
+                    bool dirty = false;
+                    FileInfo packageFile = new FileInfo((packageDirectory.FullName + "/info.json").AsPath());
+                    Package package;
+
+                    try {
+                        package = JsonConvert.DeserializeObject<Package>(File.ReadAllText(packageFile.FullName));
+                        logger.LogDebug("Processing package '" + package.ID + "'");
+                        if (package.Channels.Count == 0) throw new JsonSerializationException("Package format is outdated.");
+                    } catch (JsonSerializationException e) {
+                        //Something is wrong with the package information, it's likely either using the legacy format
+                        //or has no defined channels. Find out which.
+
+#pragma warning disable CS0618 // Type or member is obsolete
+                        LegacyPackageV1 oldFormat = JsonConvert.DeserializeObject<LegacyPackageV1>(File.ReadAllText(packageFile.FullName));
+#pragma warning restore CS0618 // Type or member is obsolete
+
+                        if (oldFormat.Versions.Count == 0) {
+                            logger.LogError("The package '" + oldFormat.ID + "' has no channels defined. Please define at least the 'latest' channel.");
+                            return false;
+                        } else {
+                            // DATAFIXER:
+                            // Old package information files did not use the VersionInfo object. Convert
+                            // the old format to the new format using VersionInfo.
+                            logger.LogInformation("Found outdated package format for package '" + oldFormat.ID + "', this package will be updated.");
+                            package = oldFormat.UpgradeFormat();
+                            dirty = true;
+                        }
+                    }
+
+                    foreach (KeyValuePair<string, VersionInfo> v in package.Channels) {
+                        DirectoryInfo versionDirectory = new DirectoryInfo((packageDirectory.FullName + "/" + v.Value.Version).AsPath());
+
+                        // DATAFIXER:
+                        // Old package directories will have the version directories named with the channel
+                        // they are for. The new format is for the directories to be named with the version.
+                        if (!versionDirectory.Exists) {
+                            DirectoryInfo oldVersionDirectory = new DirectoryInfo((packageDirectory.FullName + "/" + v.Key).AsPath());
+                            if (oldVersionDirectory.Exists) {
+                                logger.LogInformation("Found outdated version format for package '" + package.ID + "', this package will be updated.");
+                                oldVersionDirectory.MoveTo(versionDirectory.FullName);
+                            }
+                        }
+
+                        // DATAFIXER:
+                        // IF the size data for the version is missing or invalid, calculate the size of
+                        // the package.
+                        if (v.Value.Size <= 0) {
+                            logger.LogInformation("Found missing or invalid size data for package '" + package.ID + "' version '" + v.Value.Version + "', this information will be updated.");
+                            package.Channels[v.Key].Size = versionDirectory.SizeRecursive();
+                            dirty = true;
+                        }
+                    }
+
+                    if (dirty) File.WriteAllText(packageFile.FullName, JsonConvert.SerializeObject(package, Formatting.Indented));
+
+                    packages.Add(package);
+                }
+
+                foreach (Package p in packages) {
+                    logger.LogDebug("Registering package '" + p.ID + "' with packageset '" + packagesetName + "'");
+                    manifest
+                        .Platforms[p.Platform]
+                        .PackageSections[p.Section]
+                        .Categories[p.Category]
+                        .Subcategories[p.Subcategory]
+                        .Packages
+                        .Add(p.ID, p);
+                }
+
+                manifests.Add(packagesetName, manifest);
+
+            }
+
+            ActiveRuntime.Manifests = manifests;
+
+            return true;
+        }
+
+        public static IHostBuilder CreateHostBuilder(string[] args) {
+            return Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder => {
                     webBuilder.UseStartup<Startup>();
                 });
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SDSetupCommon;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,8 @@ namespace SDSetupBackendRewrite.Data {
                 _privilegedUuid = value;
             }
         }
-        public string latestPackageSet;
-        public string latestAppVersion;
+        public string latestPackageSet = "";
+        public string latestAppVersion = "";
+        public Dictionary<string, Manifest> Manifests = new Dictionary<string, Manifest>();
     }
 }

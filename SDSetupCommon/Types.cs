@@ -11,27 +11,16 @@ using System.Threading.Tasks;
 namespace SDSetupCommon {
 
     public class Message {
-        public string Color = "info";
-        public string InnerHTML = "Welcome to Homebrew SD Setup!";
-
-        public Message(string color, string innerHTML) {
-            Color = color;
-            InnerHTML = innerHTML;
-        }
+        public string Color { get; set; } = "info";
+        public string InnerHTML { get; set; } = "Welcome to Homebrew SD Setup!";
 
         public Message() { }
     }
 
     public class Bundle {
-        public string Name;
-        public string Description;
-        public List<string> Packages;
-
-        public Bundle(string name, string description, List<string> packages) {
-            Name = name;
-            Description = description;
-            this.Packages = packages;
-        }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public List<string> Packages { get; set; }
 
         public Bundle() {
 
@@ -39,15 +28,9 @@ namespace SDSetupCommon {
     }
 
     public class Warning {
-        public string Title;
-        public string Content;
-        public string PackageID;
-
-        public Warning(string title, string content, string packageId) {
-            this.Title = title;
-            this.Content = content;
-            this.PackageID = packageId;
-        }
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string PackageID { get; set; }
 
         public Warning() {
 
@@ -55,17 +38,10 @@ namespace SDSetupCommon {
     }
 
     public class Manifest {
-        public string Version = "";
-        public string Copyright = "";
-        public Message Message = new Message();
-        public Dictionary<string, Platform> Platforms = new Dictionary<string, Platform>();
-
-        public Manifest(string version, string copyright, Dictionary<string, Platform> platforms, Message message) {
-            Version = version;
-            Copyright = copyright;
-            Platforms = platforms;
-            Message = message;
-        }
+        public string Version { get; set; } = "";
+        public string Copyright { get; set; } = "";
+        public Message Message { get; set; } = new Message();
+        public Dictionary<string, Platform> Platforms { get; set; } = new Dictionary<string, Platform>();
 
         public Manifest() {
 
@@ -73,115 +49,104 @@ namespace SDSetupCommon {
     }
 
     public class Platform {
-        public string Name = "";
-        public string MenuName = "";
-        public string HomeIcon = "";
-        public string ID = "";
-        public string Color = "";
-        public bool Visible = true;
-        public Dictionary<string, PackageSection> PackageSections = new Dictionary<string, PackageSection>();
-        public List<Bundle> Bundles = new List<Bundle>();
+        public string Name { get; set; } = "";
+        public string MenuName { get; set; } = "";
+        public string HomeIcon { get; set; } = "";
+        public string ID { get; set; } = "";
+        public string Color { get; set; } = "";
+        public bool Visible { get; set; } = true;
+        public Dictionary<string, PackageSection> PackageSections { get; set; } = new Dictionary<string, PackageSection>();
+        public List<Bundle> Bundles { get; set; } = new List<Bundle>();
 
 
 
         public Platform() {
 
         }
-
-        public Platform(string name, string menuName, string homeIcon, string iD, string color, bool visible, Dictionary<string, PackageSection> packageSections, List<Bundle> bundles) {
-            Name = name;
-            MenuName = menuName;
-            HomeIcon = homeIcon;
-            ID = iD;
-            Color = color;
-            Visible = visible;
-            PackageSections = packageSections;
-            Bundles = bundles;
-        }
     }
 
     public class PackageSection {
-        public string ID = "";
-        public string Name = "";
-        public string DisplayName = "";
-        public int ListingMode = 0;
-        public bool Visible = true;
-        public List<string> When = new List<string>();
-        public int WhenMode = 0; //0: all | 1: any
-        public string Footer;
-        public Dictionary<string, PackageCategory> Categories = new Dictionary<string, PackageCategory>();
+        public string ID { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string DisplayName { get; set; } = "";
+        public int ListingMode { get; set; } = 0;
+        public bool Visible { get; set; } = true;
+        public List<string> When { get; set; } = new List<string>();
+        public int WhenMode { get; set; } = 0; //0: all | 1: any
+        public string Footer { get; set; } = "";
+        public Dictionary<string, PackageCategory> Categories { get; set; } = new Dictionary<string, PackageCategory>();
 
 
 
         public PackageSection() {
 
         }
-
-        public PackageSection(string iD, string name, string displayName, int listingMode, bool visible, List<string> when, int whenMode, Dictionary<string, PackageCategory> categories, string footer) {
-            ID = iD;
-            Name = name;
-            DisplayName = displayName;
-            ListingMode = listingMode;
-            Visible = visible;
-            When = when;
-            WhenMode = whenMode;
-            Categories = categories;
-            Footer = footer;
-        }
     }
 
     public class PackageCategory {
-        public string ID = "";
-        public string Name = "";
-        public string DisplayName = "";
-        public bool Visible = true;
-        public List<string> When = new List<string>();
-        public int WhenMode = 0; //0: all | 1: any
-        public Dictionary<string, PackageSubcategory> Subcategories = new Dictionary<string, PackageSubcategory>();
-
-
+        public string ID { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string DisplayName { get; set; } = "";
+        public bool Visible { get; set; } = true;
+        public List<string> When { get; set; } = new List<string>();
+        public int WhenMode { get; set; } = 0; //0: all | 1: any
+        public Dictionary<string, PackageSubcategory> Subcategories { get; set; } = new Dictionary<string, PackageSubcategory>();
 
         public PackageCategory() {
 
         }
-
-        public PackageCategory(string iD, string name, string displayName, bool visible, List<string> when, int whenMode, Dictionary<string, PackageSubcategory> subcategories) {
-            ID = iD;
-            Name = name;
-            DisplayName = displayName;
-            Visible = visible;
-            When = when;
-            WhenMode = whenMode;
-            Subcategories = subcategories;
-        }
     }
 
     public class PackageSubcategory {
-        public string ID = "";
-        public string Name = "";
-        public string DisplayName = "";
-        public bool Visible = true;
-        public List<string> When = new List<string>();
-        public int WhenMode = 0; //0: all | 1: any
-        public Dictionary<string, Package> Packages = new Dictionary<string, Package>();
+        public string ID { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string DisplayName { get; set; } = "";
+        public bool Visible { get; set; } = true;
+        public List<string> When { get; set; } = new List<string>();
+        public int WhenMode { get; set; } = 0; //0: all | 1: any
+        public Dictionary<string, Package> Packages { get; set; } = new Dictionary<string, Package>();
 
 
         public PackageSubcategory() {
 
         }
-
-        public PackageSubcategory(string iD, string name, string displayName, bool visible, List<string> when, int whenMode, Dictionary<string, Package> packages) {
-            ID = iD;
-            Name = name;
-            DisplayName = displayName;
-            Visible = visible;
-            When = when;
-            WhenMode = whenMode;
-            Packages = packages;
-        }
     }
 
     public class Package {
+        public string ID { get; set; } = "";
+        public string Name { get; set; } = "";
+        public string DisplayName { get; set; } = "";
+        public string Platform { get; set; } = "";
+        public string Section { get; set; } = "";
+        public string Category { get; set; } = "";
+        public string Subcategory { get; set; } = "";
+        public string Authors { get; set; } = "";
+        public long Downloads { get; set; } = 0;
+        public Dictionary<string, VersionInfo> Channels { get; set; } = new Dictionary<string, VersionInfo>();
+        public string Source { get; set; } = "";
+        public string DLSource { get; set; } = "";
+        public int Priority { get; set; } = 0;
+        public bool EnabledByDefault { get; set; } = false;
+        public bool Visible { get; set; } = true;
+        public bool ShowsInCredits { get; set; } = true;
+        public string Description { get; set; } = "";
+        public List<string> When { get; set; } = new List<string>();
+        public int WhenMode { get; set; } = 0; //0: all | 1: any
+        public Warning Warning { get; set; }
+        public List<string> Dependencies { get; set; } = new List<string>();
+        public List<string> DeleteOnUpdate { get; set; } = new List<string>();
+
+        public AutoUpdateType AutoUpdateType { get; set; } = AutoUpdateType.None;
+        public string AutoUpdateHint { get; set; } = "";
+        public string AutoUpdatePathOverride { get; set; } = "";
+
+        public Package() {
+
+        }
+    }
+
+    [Obsolete("Start using the new Package class. This class is only provided for purposes of conerting the old format to the new format.")]
+    public class LegacyPackageV1 {
         public string ID = "";
         public string Name = "";
         public string DisplayName = "";
@@ -210,11 +175,11 @@ namespace SDSetupCommon {
         public string AutoUpdateHint = "";
         public string AutoUpdatePathOverride = "";
 
-        public Package() {
+        public LegacyPackageV1() {
 
         }
 
-        public Package(string iD, string name, string displayName, string platform, string section, string category, string subcategory, string authors, long downloads, Dictionary<string, string> versions, string source, string dLSource, int size, int priority, bool enabledByDefault, bool visible, bool showsInCredits, string description, List<string> when, int whenMode, Warning warning, List<string> dependencies, List<string> deleteOnUpdate) {
+        public LegacyPackageV1(string iD, string name, string displayName, string platform, string section, string category, string subcategory, string authors, long downloads, Dictionary<string, string> versions, string source, string dLSource, int size, int priority, bool enabledByDefault, bool visible, bool showsInCredits, string description, List<string> when, int whenMode, Warning warning, List<string> dependencies, List<string> deleteOnUpdate) {
             ID = iD;
             Name = name;
             DisplayName = displayName;
@@ -238,6 +203,49 @@ namespace SDSetupCommon {
             Warning = warning;
             Dependencies = dependencies;
             DeleteOnUpdate = deleteOnUpdate;
+        }
+
+        public Package UpgradeFormat() {
+            Package p = new Package() {
+                ID = ID,
+                Name = Name,
+                DisplayName = DisplayName,
+                Platform = Platform,
+                Section = Section,
+                Category = Category,
+                Subcategory = Subcategory,
+                Authors = Authors,
+                Downloads = Downloads,
+                Source = Source,
+                DLSource = DLSource,
+                Priority = Priority,
+                EnabledByDefault = EnabledByDefault,
+                Visible = Visible,
+                ShowsInCredits = ShowsInCredits,
+                Description = Description,
+                When = When,
+                WhenMode = WhenMode,
+                Warning = Warning,
+                Dependencies = Dependencies,
+                DeleteOnUpdate = DeleteOnUpdate
+            };
+
+            foreach(KeyValuePair<string, string> v in Versions) {
+                p.Channels[v.Key] = new VersionInfo() {
+                    Version = v.Value,
+                    Size = 0
+                };
+            }
+
+            return p;
+        }
+    }
+
+    public class VersionInfo {
+        public string Version { get; set; } = "v0";
+        public long Size { get; set; } = 0;
+
+        public VersionInfo() {
         }
     }
 
