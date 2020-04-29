@@ -8,7 +8,7 @@ namespace SDSetupCommon.Communications {
     public class GeneralEndpoints {
         private static string ProbeEndpoint = "/api/v2/probe";
         public static async Task<ServerInformation> Probe() {
-            return await CommsUtilities.GetAsync<ServerInformation>(EndpointSettings.serverInformation.Hostname + ProbeEndpoint);
+            return await CommsUtilities.GetJsonAsync<ServerInformation>(EndpointSettings.serverInformation.Hostname + ProbeEndpoint);
         }
     }
 }

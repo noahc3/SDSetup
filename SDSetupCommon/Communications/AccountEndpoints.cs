@@ -13,15 +13,15 @@ namespace SDSetupCommon.Communications {
         public static readonly string ExternalRegistrationDetailsEndpoint = "/api/v2/account/externalregistrationdetails";
         public static readonly string ProfileEndpoint = "/api/v2/account/profile";
         public static async Task<List<SignInProviderViewModel>> LoginProviders() {
-            return await CommsUtilities.GetAsync<List<SignInProviderViewModel>>(CommsUtilities.FullApiEndpoint(LoginProvidersEndpoint));
+            return await CommsUtilities.GetJsonAsync<List<SignInProviderViewModel>>(CommsUtilities.FullApiEndpoint(LoginProvidersEndpoint));
         }
 
         public static async Task<ExternalRegistrationConfirmationModel> ExternalRegistrationDetails() {
-            return await CommsUtilities.GetAsync<ExternalRegistrationConfirmationModel>(CommsUtilities.FullApiEndpoint(ExternalRegistrationDetailsEndpoint));
+            return await CommsUtilities.GetJsonAsync<ExternalRegistrationConfirmationModel>(CommsUtilities.FullApiEndpoint(ExternalRegistrationDetailsEndpoint));
         }
 
         public static async Task<SDSetupProfile> Profile() {
-            return await CommsUtilities.GetAsync<SDSetupProfile>(CommsUtilities.FullApiEndpoint(ProfileEndpoint));
+            return await CommsUtilities.GetJsonAsync<SDSetupProfile>(CommsUtilities.FullApiEndpoint(ProfileEndpoint));
         }
 
         public static string GetLoginEndpoint(LinkedService service) {

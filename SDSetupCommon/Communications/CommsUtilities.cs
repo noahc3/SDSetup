@@ -13,7 +13,16 @@ namespace SDSetupCommon.Communications {
             return EndpointSettings.serverInformation.Hostname + endpoint;
         }
 
-        public static async Task<ReturnType> GetAsync<ReturnType>(string endpoint) {
+        public static async Task<string> GetStringAsync(string endpoint) {
+            HttpResponseMessage response = await EndpointSettings.HttpClient.GetAsync(new Uri(endpoint));
+            if (response.IsSuccessStatusCode) {
+                return await response.Content.ReadAsStringAsync();
+            } else {
+                return default;
+            }
+        }
+
+        public static async Task<ReturnType> GetJsonAsync<ReturnType>(string endpoint) {
             HttpResponseMessage response = await EndpointSettings.HttpClient.GetAsync(new Uri(endpoint));
             if (response.IsSuccessStatusCode) {
                 return await Task.Run<ReturnType>(async () => {
