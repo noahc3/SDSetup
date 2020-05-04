@@ -27,7 +27,7 @@ namespace SDSetupBackendRewrite {
         public static Config ActiveConfig { get; private set; }
         public static Runtime ActiveRuntime { get; private set; }
 
-        public static IUserDatabase Users = new JsonUserDatabase();
+        public static IUserDatabase Users;
 
         public static void Main(string[] args) {
             var host = CreateHostBuilder(args).Build();
@@ -66,6 +66,8 @@ namespace SDSetupBackendRewrite {
             Runtime runtime = new Runtime();
             runtime.privilegedUuid = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
             ActiveRuntime = runtime;
+            if (ActiveConfig.UseMongoDB) Users = new MongoUserDatabase();
+            else Users = new JsonUserDatabase();
             return true;
         }
 

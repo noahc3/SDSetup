@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters.Xml;
+﻿using MongoDB.Driver;
+using MongoDB.Bson;
 using SDSetupCommon;
 using SDSetupCommon.Data.Account;
 using System;
@@ -7,25 +8,34 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace SDSetupBackendRewrite.Data.Accounts {
-    /// <summary>
-    /// Implementation of IUserDatabase that writes all data to a specified json file. 
-    /// Designed only for development environments and should not be used in production for many reasons!
-    /// </summary>
-    public class JsonUserDatabase : IUserDatabase {
+    public class MongoUserDatabase : IUserDatabase {
 
-        List<SDSetupUser> users = new List<SDSetupUser>();
+        private static MongoClient MongoClient;
+        private static IMongoDatabase MongoDatabase;
+        public static IMongoCollection<SDSetupUser> Users;
+
+        public MongoUserDatabase() {
+            MongoClient = new MongoClient(new MongoClientSettings() {
+                UseTls = true,
+                Credential = MongoCredential.CreateCredential(Program.ActiveConfig.MongoDBDatabase, Program.ActiveConfig.MongoDBUsername, Program.ActiveConfig.MongoDBPassword),
+                Server = new MongoServerAddress(Program.ActiveConfig.MongoDBHostname)
+            });
+
+            MongoDatabase = MongoClient.GetDatabase(Program.ActiveConfig.MongoDBDatabase);
+            Users = MongoDatabase.GetCollection<SDSetupUser>("Users");
+        }
 
         public async Task<string> GetSDSetupIdByGithubId(string githubId) {
             return await Task.Run(() => {
-                SDSetupUser user = users.FirstOrDefault(x => githubId == x.GetGithubUserId());
+                SDSetupUser user = Users.Find(Builders<SDSetupUser>.Filter.Eq(x => x.LinkedGithubId, githubId)).FirstOrDefault();
                 if (user == default(SDSetupUser)) return "";
-                else return user.GetSDSetupUserId(); 
+                else return user.GetSDSetupUserId();
             });
         }
 
         public async Task<string> GetSDSetupIdByGitlabId(string gitlabId) {
             return await Task.Run(() => {
-                SDSetupUser user = users.FirstOrDefault(x => gitlabId == x.GetGitlabUserId());
+                SDSetupUser user = Users.Find(Builders<SDSetupUser>.Filter.Eq(x => x.LinkedGitlabId, gitlabId)).FirstOrDefault();
                 if (user == default(SDSetupUser)) return "";
                 else return user.GetSDSetupUserId();
             });
@@ -33,14 +43,14 @@ namespace SDSetupBackendRewrite.Data.Accounts {
 
         public async Task<SDSetupUser> GetSDSetupUserById(string sdsetupId) {
             return await Task.Run(() => {
-                SDSetupUser user = users.FirstOrDefault(x => sdsetupId == x.GetSDSetupUserId());
+                SDSetupUser user = Users.Find(Builders<SDSetupUser>.Filter.Eq(x => x.SDSetupUserId, sdsetupId)).FirstOrDefault();
                 return user;
             });
         }
 
         public async Task<SDSetupUser> GetSDSetupUserBySessionToken(string token) {
             return await Task.Run(() => {
-                SDSetupUser user = users.FirstOrDefault(x => x.ValidSessionToken(token));
+                SDSetupUser user = Users.Find(Builders<SDSetupUser>.Filter.Eq(x => x.SessionToken, token)).FirstOrDefault();
                 return user;
             });
         }
@@ -55,7 +65,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
                 return false;
 
             if (await user.IsAuthenticatedWithGithub()) {
-                users.Add(user);
+                await Users.InsertOneAsync(user);
                 await SetPrimaryService(user.GetSDSetupUserId(), LinkedService.GitHub);
                 return true;
             }
@@ -68,7 +78,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
                 return false;
 
             if (await user.IsAuthenticatedWithGitlab()) {
-                users.Add(user);
+                await Users.InsertOneAsync(user);
                 await SetPrimaryService(user.GetSDSetupUserId(), LinkedService.GitHub);
                 return true;
             }
@@ -108,6 +118,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
             SDSetupUser user = await GetSDSetupUserById(userId);
             if (user != default(SDSetupUser)) {
                 user.SetPrimaryService(service);
+
                 return true;
             }
 
@@ -127,7 +138,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
         }
 
         public async Task<bool> UpdateUser(SDSetupUser user) {
-            return true;
+            return (await Users.ReplaceOneAsync(x => x.SDSetupUserId == user.SDSetupUserId, user)).MatchedCount > 0;
         }
     }
 }

@@ -67,9 +67,9 @@ namespace SDSetupBackendRewrite.Controllers {
 
             //check if the account is already linked to a user
             string id = await Program.Users.GetSDSetupIdByGithubId(user.GetGithubUserId());
-            if (id.IsNullOrWhiteSpace()) {
+            if (id.NullOrWhiteSpace()) {
                 //if not, check if there is a session token in the request
-                if (!Request.Cookies["session"].IsNullOrWhiteSpace()) {
+                if (!Request.Cookies["session"].NullOrWhiteSpace()) {
                     //try to link the new login with the current user identified by the session token
                     if (!(await Program.Users.LinkUserFromGithub(Request.Cookies["session"], user))) {
                         //if that fails (because the session token is invalid or the user already has a linked github account)
@@ -102,9 +102,9 @@ namespace SDSetupBackendRewrite.Controllers {
 
             //check if the account is already linked to a user
             string id = await Program.Users.GetSDSetupIdByGitlabId(user.GetGitlabUserId());
-            if (id.IsNullOrWhiteSpace()) {
+            if (id.NullOrWhiteSpace()) {
                 //if not, check if there is a session token in the request
-                if (!Request.Cookies["session"].IsNullOrWhiteSpace()) {
+                if (!Request.Cookies["session"].NullOrWhiteSpace()) {
                     //try to link the new login with the current user identified by the session token
                     if (!(await Program.Users.LinkUserFromGitlab(Request.Cookies["session"], user))) {
                         //if that fails (because the session token is invalid or the user already has a linked gitlab account)

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using GitLabApiClient;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using Octokit;
 using SDSetupBackendRewrite.Data.Accounts;
@@ -17,24 +19,32 @@ using SDSetupCommon.Data.Account;
 
 namespace SDSetupBackendRewrite.Data {
     public class SDSetupUser {
-        private string SDSetupUserId = Utilities.CreateGuid().ToCleanString();
-        private SDSetupRole SDSetupRole = SDSetupRole.Administrator;
-        private string SessionToken;
 
-        private string LinkedGithubId;
-        private string GithubAccessToken;
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        private string _bsonid { get; set; }
 
-        private string LinkedGitlabId;
-        private string GitlabAccessToken;
-        private string GitlabRefreshToken;
+        public string SDSetupUserId { get; private set; } = Utilities.CreateGuid().ToCleanString();
+        public SDSetupRole SDSetupRole { get; private set; } = SDSetupRole.Administrator;
+        public string SessionToken { get; private set; }
 
+        public string LinkedGithubId { get; private set; }
+        public string GithubAccessToken { get; private set; }
+
+        public string LinkedGitlabId { get; private set; }
+        public string GitlabAccessToken { get; private set; }
+        public string GitlabRefreshToken { get; private set; }
+
+        [BsonIgnore]
         private GitHubClient GithubClient;
+        [BsonIgnore]
         private GitLabClient GitlabClient;
 
-        private LinkedService PrimaryService;
+        public LinkedService PrimaryService { get; private set; }
 
         public string CreateSessionToken() {
             SessionToken = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
+            Program.Users.UpdateUser(this);
             return SessionToken;
         }
 
@@ -50,6 +60,7 @@ namespace SDSetupBackendRewrite.Data {
                 Credentials credentials = new Credentials(GithubAccessToken);
                 GithubClient.Credentials = credentials;
                 if (String.IsNullOrWhiteSpace(this.LinkedGithubId)) this.LinkedGithubId = (await GetGithubProfile()).userId;
+                await Program.Users.UpdateUser(this);
                 return true;
             } catch {
                 throw new AuthenticationException("Failed to authenticate with GitHub.");
@@ -80,7 +91,10 @@ namespace SDSetupBackendRewrite.Data {
 
                     GitlabClient = new GitLabClient("https://gitlab.com/", GitlabAccessToken);
 
-                    if (String.IsNullOrWhiteSpace(this.LinkedGitlabId)) this.LinkedGitlabId = (await GitlabClient.Users.GetCurrentSessionAsync()).Id.ToString();
+                    if (String.IsNullOrWhiteSpace(this.LinkedGitlabId)) 
+                        this.LinkedGitlabId = (await GitlabClient.Users.GetCurrentSessionAsync()).Id.ToString();
+                    
+                    await Program.Users.UpdateUser(this);
                 }
                 return true;
             } catch {
@@ -110,7 +124,7 @@ namespace SDSetupBackendRewrite.Data {
             if (String.IsNullOrWhiteSpace(GitlabAccessToken)) return false;
             try {
                 if (GitlabClient == null) {
-                    GitlabClient = new GitLabClient(GitlabAccessToken);
+                    GitlabClient = new GitLabClient("https://gitlab.com", GitlabAccessToken);
                 }
                 return ((await GitlabClient.Users.GetCurrentSessionAsync()).Id.ToString() == LinkedGitlabId || String.IsNullOrWhiteSpace(LinkedGitlabId));
             } catch {
@@ -121,12 +135,14 @@ namespace SDSetupBackendRewrite.Data {
         public void UpdateGithubAuthentication(SDSetupUser user) {
             this.GithubAccessToken = user.GithubAccessToken;
             this.GithubClient = user.GithubClient;
+            Program.Users.UpdateUser(this);
         }
 
         public void UpdateGitlabAuthentication(SDSetupUser user) {
             this.GitlabAccessToken = user.GitlabAccessToken;
             this.GitlabRefreshToken = user.GitlabRefreshToken;
             this.GitlabClient = user.GitlabClient;
+            Program.Users.UpdateUser(this);
         }
 
         public string GetSDSetupUserId() {
@@ -143,6 +159,7 @@ namespace SDSetupBackendRewrite.Data {
 
         public void SetPrimaryService(LinkedService service) {
             this.PrimaryService = service;
+            Program.Users.UpdateUser(this);
         }
 
         public async Task<GithubProfile> GetGithubProfile() {

@@ -25,7 +25,7 @@ namespace SDSetupCommon
             }
         }
 
-        public static bool IsNullOrWhiteSpace(this string str) {
+        public static bool NullOrWhiteSpace(this string str) {
             return String.IsNullOrWhiteSpace(str);
         }
 

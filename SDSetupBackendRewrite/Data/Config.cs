@@ -27,5 +27,12 @@ namespace SDSetupBackendRewrite.Data {
         public string GithubClientSecret = "";
         public string GitlabClientId = "";
         public string GitlabClientSecret = "";
+
+        public bool UseMongoDB = false;
+        public string MongoDBHostname = "";
+        public string MongoDBUsername = "";
+        public string MongoDBPassword = "";
+        public string MongoDBDatabase = "";
+
     }
 }

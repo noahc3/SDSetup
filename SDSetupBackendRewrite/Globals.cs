@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SDSetupBackendRewrite.Data;
+using MongoDB.Driver;
 
 namespace SDSetupBackendRewrite {
     public class Globals {

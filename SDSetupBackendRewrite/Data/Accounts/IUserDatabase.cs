@@ -21,6 +21,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
         Task<bool> RegisterUserFromGitlab(SDSetupUser user);
         Task<bool> LinkUserFromGithub(string sessionToken, SDSetupUser user);
         Task<bool> LinkUserFromGitlab(string sessionToken, SDSetupUser user);
+        Task<bool> UpdateUser(SDSetupUser user);
 
         public Task<bool> SetPrimaryService(string userId, LinkedService service);
 
