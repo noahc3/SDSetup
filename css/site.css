@@ -300,10 +300,10 @@ app {
 }
 
 .logo-blend-nc3 {
-    margin-top:-0.5rem;
-    margin-bottom:-0.5rem;
-    height:4rem;
-    width:auto;
+    margin-top:-0.5rem !important;
+    margin-bottom:-0.5rem !important;
+    height:4rem !important;
+    width:auto !important;
 }
 
 .background-shade {
