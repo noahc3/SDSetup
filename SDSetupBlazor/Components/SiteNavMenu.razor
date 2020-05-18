@@ -4,7 +4,7 @@
 
 <BSNavbar IsExpand="true" Color="Color.Danger" IsDark="true">
     <BSNavbarToggler @onclick="MenuOpenClick" />
-    <BSNavbarBrand Href="/"><img class="ui small image logo-blend-nc3" src="/img/logo.png" style="display:block;margin-left:auto;margin-right:auto;"></BSNavbarBrand>
+    <BSNavbarBrand Href="/"><img class="ui small image navbar-icon" src="/img/logo.png"></BSNavbarBrand>
     <BSCollapse isOpen="@MenuOpen" IsNavbar="true" IsOpenChanged="OpenMenu">
         <BSNav IsList="true" Class="mr-auto" IsNavbar="true">
             @foreach (Platform k in G.manifest.Platforms.Values) {
@@ -24,12 +24,20 @@
                     <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetTheme("darkly"); })">Dark</BSDropdownItem>
                 </BSDropdownMenu>
             </BSNavItem>
+            <BSNavItem IsDropdown="true">
+                <BSDropdownToggle IsOpen="ToolsDropdownOpen" OnClick="ToolsDropdownClick">Tools</BSDropdownToggle>
+                <BSDropdownMenu IsOpen="ToolsDropdownOpen" AutoClose="true">
+                    <BSDropdownItem Href="/biskeygen" OnClick="CloseToolsDropdown">BIS Key Generator</BSDropdownItem>
+                    <BSDropdownItem Href="https://pegascape.sdsetup.com">PegaScape</BSDropdownItem>
+                    <BSDropdownItem Href="https://status.sdsetup.com">Service Status</BSDropdownItem>
+                </BSDropdownMenu>
+            </BSNavItem>
             <BSNavItem><BSNavLink Href="https://switch.homebrew.guide/donate">Donate</BSNavLink></BSNavItem>
             <BSNavItem><BSNavLink Href="https://switch.homebrew.guide/">Guide</BSNavLink></BSNavItem>
             <BSNavItem><BSNavLink Href="https://github.com/noahc3/SDSetup/issues">Issues</BSNavLink></BSNavItem>
         </BSNav>
         <BSNav IsList="true" IsNavbar="true" Class="my-2 my-lg-0">
-            <BSNavItem><BSNavLink Href="https://discord.teamatlasnx.com"><span class="iconify" style="max-width:2rem;max-height:2rem" data-icon="simple-icons:discord" data-inline="false" data-width="2rem" data-height="2rem"></span></BSNavLink></BSNavItem>
+            <BSNavItem><BSNavLink Href="https://discord.sdsetup.com"><span class="iconify" style="max-width:2rem;max-height:2rem" data-icon="simple-icons:discord" data-inline="false" data-width="2rem" data-height="2rem"></span></BSNavLink></BSNavItem>
         </BSNav>
         <BSNav IsList="true" IsNavbar="true" Class="my-2 my-lg-0">
             <BSNavItem><BSNavLink Href="https://github.com/noahc3/SDSetup/"><span class="iconify" style="max-width:2rem;max-height:2rem" data-icon="bytesize:github" data-inline="false" data-width="2rem" data-height="2rem"></span></BSNavLink></BSNavItem>
@@ -62,6 +70,7 @@
     }
 
     bool ThemeDropdownOpen { get; set; } = false;
+    bool ToolsDropdownOpen { get; set; } = false;
 
     void ThemeDropdownOpenChanged(bool e) {
         ThemeDropdownOpen = e;
@@ -71,6 +80,15 @@
     void ThemeDropdownOpenClick(MouseEventArgs e) {
         ThemeDropdownOpen = !ThemeDropdownOpen;
         StateHasChanged();
+    }
+
+    void ToolsDropdownClick(MouseEventArgs e) {
+        ToolsDropdownOpen = !ToolsDropdownOpen;
+        StateHasChanged();
+    }
+
+    void CloseToolsDropdown() {
+        ToolsDropdownOpen = false;
     }
 
     void SetTheme(string theme) {

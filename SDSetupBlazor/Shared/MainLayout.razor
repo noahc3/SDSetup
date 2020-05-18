@@ -12,15 +12,15 @@
 
 @if (G.initialized) {
 
-    <div class="main @(G.showWarning == true ? "noscroll" : "")" style="min-height:100%;height:auto;width:100%;min-width:100%">
+    <div class="main @(G.showWarning == true ? "noscroll" : "")" style="min-height:100%;height:auto;width:100%;min-width:100%;">
         <SiteNavMenu></SiteNavMenu>
 
         <div class="container" style="padding-bottom:1.5rem">
             <div class="content px-4">
                 @if (!String.IsNullOrEmpty(G.manifest.Message.InnerHTML)) {
-                    <BSAlert Color="Color.Success">
+                    <div class="alert @G.manifest.Message.Color">
                         @((MarkupString)G.manifest.Message.InnerHTML)
-                    </BSAlert>
+                    </div>
                 }
                 @Body
             </div>
@@ -71,7 +71,7 @@
     }
 
     if (discordBadge) {
-        <a href="https://discord.teamatlasnx.com" style="color:#fff" target="_blank">
+        <a href="https://discord.sdsetup.com" style="color:#fff" target="_blank">
             <div class="discord-overlay">
                 <div class="discord-text"><span class="iconify" style="margin-right:0.3rem;max-width:2rem;max-height:2rem;" data-icon="simple-icons:discord" data-inline="false" data-width="2rem" data-height="2rem"></span>Need help? Join us on Discord!</div>
                 <a href="javascript:void(0);" style="max-width:1.5rem;max-height:1.5rem;position:absolute;right:3px;top:3px;color:#fff" @onclick="hideDiscordOverlay"><span class="iconify" data-icon="fe:close" data-inline="false" data-width="1.5rem" data-height="1.5rem"></span></a>

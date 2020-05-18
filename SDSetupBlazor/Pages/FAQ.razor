@@ -20,13 +20,13 @@
     <BSCard CardType="CardType.Card">
         <BSCard CardType="CardType.Header"><BSButton ButtonType="ButtonType.Button" OnClick="@(() => active[1] = !active[1])" Color="Color.None" Class="btn-link">How do you determine the version numbers displayed on the website?</BSButton></BSCard>
         <BSCollapse IsOpen="@active[1]">
-            <BSCard CardType="CardType.Body">Here is how versions are determined and presented:<ul><li>If the version is a full release, the version from the release title is used. If there is no version specified, the version from the release tag is used.</li><li>If the release is a specific commit, the commit is specified with c.xxxxxxxx where xxxxxxxx is the first 8 characters of the commit hash.</li><li>If none of the above can be determined, the date the package was retrieved is used (YYYY.MM.DD). Reasons this may be done include:</li><ul><li>The release tag is not helpful (something strange that doesn't really specify a version. This is rare).</li><li>An included package differs enough from a build or release that using a commit hash or release version would be misleading (for example, our copy of Atmosphere uses an entirely different bootloader than the one built from the repo).</li><li>The build was retrieved from a (trusted) third party.</li></ul></ul></BSCard>
+            <BSCard CardType="CardType.Body">Here is how versions are determined and presented:<ul><li>If the version is a full release, the version from the release title is used. If there is no version specified, the version from the release tag is used.</li><li>If the release is a specific commit, the commit is specified with c.xxxxxxxx where xxxxxxxx is the first 4 bytes of the commit hash.</li><li>If none of the above can be determined, the date the package was retrieved is used (YYYY.MM.DD). Reasons this may be done include:</li><ul><li>The release tag is not helpful (something strange that doesn't really specify a version. This is rare).</li><li>An included package differs enough from a build or release that using a commit hash or release version would be misleading (for example, our copy of Atmosphere uses an entirely different bootloader than the one built from the repo).</li><li>The build was retrieved from a (trusted) third party.</li></ul></ul></BSCard>
         </BSCollapse>
     </BSCard>
     <BSCard CardType="CardType.Card">
         <BSCard CardType="CardType.Header"><BSButton ButtonType="ButtonType.Button" OnClick="@(() => active[2] = !active[2])" Color="Color.None" Class="btn-link">Are packages updated automatically?</BSButton></BSCard>
         <BSCollapse IsOpen="@active[2]">
-            <BSCard CardType="CardType.Body">No. This feature will be added in the near future.</BSCard>
+            <BSCard CardType="CardType.Body">Most packages available on SDSetup are automatically updated. See the credits section to see exactly which packages automatically update.</BSCard>
         </BSCollapse>
     </BSCard>
     <BSCard CardType="CardType.Card">
@@ -38,7 +38,7 @@
     <BSCard CardType="CardType.Card">
         <BSCard CardType="CardType.Header"><BSButton ButtonType="ButtonType.Button" OnClick="@(() => active[4] = !active[4])" Color="Color.None" Class="btn-link">A package on here is outdated!</BSButton></BSCard>
         <BSCollapse IsOpen="@active[4]">
-            <BSCard CardType="CardType.Body">We try our best to make sure packages are up to date as often as possible. Please let us know in a <a href="https://github.com/noahc3/SDSetup/issues">GitHub issue</a> if something is outdated.</BSCard>
+            <BSCard CardType="CardType.Body">We try our best to make sure packages are up to date as often as possible if they don't automatically update. Please let us know in a <a href="https://github.com/noahc3/SDSetup/issues">GitHub issue</a> if something is outdated.</BSCard>
         </BSCollapse>
     </BSCard>
 </div>
@@ -50,17 +50,6 @@
         <BSCard CardType="CardType.Header"><BSButton ButtonType="ButtonType.Button" OnClick="@(() => active[5] = !active[5])" Color="Color.None" Class="btn-link">I am a developer of a package rehosted here and I would like it removed. / You are violating the redistribution rights of my softwares license.</BSButton></BSCard>
         <BSCollapse IsOpen="@active[5]">
             <BSCard CardType="CardType.Body">We've tried our best to make sure we am complying with licenses correctly! If something is wrong or you would simply like your software removed, please let us know in a <a href="https://github.com/noahc3/SDSetup/issues">GitHub issue</a> and I'll handle it ASAP!</BSCard>
-        </BSCollapse>
-    </BSCard>
-</div>
-
-<h4>For Developers</h4>
-
-<div class="accordion">
-    <BSCard CardType="CardType.Card">
-        <BSCard CardType="CardType.Header"><BSButton ButtonType="ButtonType.Button" OnClick="@(() => active[6] = !active[6])" Color="Color.None" Class="btn-link">Why Blazor?</BSButton></BSCard>
-        <BSCollapse IsOpen="@active[6]">
-            <BSCard CardType="CardType.Body">Most of my programming experience is in C# and Java, as such, I prefered to stick to what I know when making this (though I knew some JS interop would be necessary regardless). Plus I get to try out some cool new stuff!</BSCard>
         </BSCollapse>
     </BSCard>
 </div>
