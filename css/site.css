@@ -281,6 +281,7 @@ app {
 
     .card-body .nav .nav-item {
         border-radius: 0px;
+        cursor: pointer;
     }
 
     .card-body .nav .nav-item:hover:not(.active) {
@@ -300,10 +301,6 @@ app {
 }
 
 .logo-blend-nc3 {
-    margin-top:-0.5rem !important;
-    margin-bottom:-0.5rem !important;
-    height:4rem !important;
-    width:auto !important;
 }
 
 .background-shade {
@@ -373,4 +370,11 @@ a.nav-item.nav-link.active {
         left: 50%;
         transform: translate(-50%, -50%);
     }
+}
+
+.navbar-icon {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin:-0.5rem;
 }
