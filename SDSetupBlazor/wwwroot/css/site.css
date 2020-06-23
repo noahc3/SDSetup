@@ -371,3 +371,10 @@ a.nav-item.nav-link.active {
         transform: translate(-50%, -50%);
     }
 }
+
+.navbar-icon {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin:-0.5rem;
+}
