@@ -94,10 +94,9 @@ namespace SDSetupBackend.Controllers {
                         }
                     }
 
-                    DeletingFileStream stream = (DeletingFileStream) ZipFromFilestreams(files, uuid);
+                    ResultFile file = ZipFromFilestreams(files, uuid);
 
-                    Program.generatedZips[uuid] = stream;
-                    stream.Timeout(30000);
+                    Program.generatedZips[uuid] = file;
 
                     Program.uuidLocks.Remove(uuid);
                     return new ObjectResult("READY");
@@ -115,15 +114,13 @@ namespace SDSetupBackend.Controllers {
         public ActionResult FetchGeneratedZip(string uuid) {
             try {
                 if (Program.generatedZips.ContainsKey(uuid)) {
-                    Program.generatedZips[uuid].StopTimeout();
-                    DeletingFileStream stream = Program.generatedZips[uuid];
-                    Program.generatedZips[uuid] = null;
-                    Program.generatedZips.Remove(uuid);
+                    FileStream stream = Program.generatedZips[uuid].GetHandle();
                     if (stream == null) {
+                        Program.generatedZips.Remove(uuid);
                         Response.StatusCode = Http.StatusCodes.Status404NotFound;
                         return new ObjectResult("Expired");
                     }
-                    string zipname = ("SDSetup(" + DateTime.Now.ToShortDateString() + ").zip").Replace("-", ".").Replace("_", ".");
+                    string zipname = ("SDSetup(" + DateTime.Now.ToShortDateString() + ").zip").Replace("-", ".").Replace("_", ".").Replace(" ", ".");
                     Response.Headers["Content-Disposition"] = "filename=" + zipname;
                     return new FileStreamResult(stream, "application/zip");
                 } else {
@@ -234,9 +231,9 @@ namespace SDSetupBackend.Controllers {
         }
 
 
-        public static Stream ZipFromFilestreams(OrderedDictionary files, string uuid) {
+        public static ResultFile ZipFromFilestreams(OrderedDictionary files, string uuid) {
 
-            DeletingFileStream outputMemStream = new DeletingFileStream((Program.TempPath + "/" + Guid.NewGuid().ToString().Replace("-", "").ToLower()).AsPath(), FileMode.Create, uuid);
+            FileStream outputMemStream = new FileStream((Program.TempPath + "/" + Guid.NewGuid().ToString().Replace("-", "").ToLower()).AsPath(), FileMode.Create);
             ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
 
             zipStream.SetLevel(3); //0-9, 9 being the highest level of compression
@@ -256,8 +253,9 @@ namespace SDSetupBackend.Controllers {
             zipStream.Close();          // Must finish the ZipOutputStream before using outputMemStream.
 
             outputMemStream.Position = 0;
-            
-            return outputMemStream;
+            ResultFile file = new ResultFile(outputMemStream.Name, uuid, 180000);
+            outputMemStream.Close();
+            return file;
         }
 
         private static string[] EnumerateAllFiles(string dir) {

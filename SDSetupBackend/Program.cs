@@ -40,7 +40,7 @@ namespace SDSetupBackend {
         public static string[] validChannels;
         public static List<string> uuidLocks = new List<string>();
 
-        public static Dictionary<string, DeletingFileStream> generatedZips = new Dictionary<string, DeletingFileStream>();
+        public static Dictionary<string, ResultFile> generatedZips = new Dictionary<string, ResultFile>();
 
         public static string latestPackageset = "default";
         public static string latestAppVersion = "NO VERSION";
