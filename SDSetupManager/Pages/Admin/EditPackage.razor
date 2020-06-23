@@ -1,0 +1,41 @@
+﻿@page "/admin/packages/{PackageId}"
+
+<Authorized MinRole="SDSetupRole.Administrator">
+
+    <div class="panel-with-bottom-rows" style="display:flex;flex-direction:column">
+        <div>
+            <h2>Edit Package</h2>
+            <p>You are in an administrative view. You have unrestricted control this package here. Be careful!</p>
+            <PackageEditorInterface Package="EditedPackage" />
+        </div>
+
+        <div>
+            <BSButtonGroup Class="wide-btn-group">
+                <BSButton Color="Color.Secondary">Cancel Edit</BSButton>
+                <BSButton Color="Color.Success">Submit Changes for Approval</BSButton>
+                <BSButton Color="Color.Danger">Push Changes Now</BSButton>
+            </BSButtonGroup>
+        </div>
+    </div>
+
+</Authorized>
+
+@code {
+
+    private string _packageId;
+
+    [Parameter]
+    public string PackageId {
+        get { return _packageId; }
+        set {
+            _packageId = value;
+            EditedPackage = Globals.Manifest.FindPackageById(value);
+        }
+    }
+
+    private Package _editedPackage;
+    public Package EditedPackage {
+        get { return _editedPackage; }
+        set { _editedPackage = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(value)); }
+    }
+}

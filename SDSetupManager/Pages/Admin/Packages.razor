@@ -10,7 +10,7 @@
         @foreach (Platform _plat in Globals.Manifest.Platforms.Values) {
             Platform plat = _plat;
             <h3>@plat.Name</h3>
-            <BSTable IsSmall="true">
+            <BSTable IsSmall="true" IsResponsive="true" IsStriped="true" >
                 <thead>
                     <tr>
                         <th scope="col">Display Name</th>
@@ -31,7 +31,7 @@
                                         <td>@p.Channels["latest"].Version</td>
                                         <td>@p.Authors</td>
                                         <td>
-                                            <BSButton Size="Size.Small" Color="Color.Warning">Edit</BSButton>
+                                            <a href="/admin/packages/@p.ID"><BSButton Size="Size.Small" Color="Color.Warning">Edit</BSButton></a>
                                         </td>
                                     </tr>
                                 }
@@ -50,7 +50,9 @@
     private bool initialized = false;
 
     protected override async Task OnInitializedAsync() {
+        Globals.LockInput = true;
         initialized = await Globals.TryUpdateManifest();
         await base.OnInitializedAsync();
+        Globals.LockInput = false;
     }
 }

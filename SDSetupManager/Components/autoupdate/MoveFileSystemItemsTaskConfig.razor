@@ -1,0 +1,77 @@
+﻿@using SDSetupCommon.Data.UpdaterModels
+@inherits ComponentBase
+
+@if (Globals.Authenticated) {
+    <BSCard CardType="CardType.Card">
+        <a href="javascript:void(0);" @onclick="@ToggleCollapse">
+            <BSCard CardType="CardType.Header">
+                #@TaskNumber: Move Items
+            </BSCard>
+        </a>
+        <BSCard CardType="CardType.Body" Class="@(collapsed ? "collapse" : "")">
+            <BSBasicForm>
+                <BSFormLabel>Match File System Item Type</BSFormLabel>
+                <BSDropdown>
+                    <BSDropdownToggle>@Component.filter.matchFileSystemItemType </BSDropdownToggle>
+                    <BSDropdownMenu>
+                        @foreach (FileSystemItemType _type in (FileSystemItemType[])Enum.GetValues(typeof(FileSystemItemType))) {
+                            FileSystemItemType type = _type;
+                            string k = type.ToString();
+                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetFilterFileSystemMatchType(type); })">@k</BSDropdownItem>
+                        }
+                    </BSDropdownMenu>
+                </BSDropdown>
+
+                <BSFormLabel>Filter Directory</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Component.filter.filterDirectory"></BSBasicInput>
+
+0                <BSFormLabel>Match Type</BSFormLabel>
+                <BSDropdown>
+                    <BSDropdownToggle>@Component.filter.matchType </BSDropdownToggle>
+                    <BSDropdownMenu>
+                        @foreach (MatchType _type in (MatchType[])Enum.GetValues(typeof(MatchType))) {
+                            MatchType type = _type;
+                            string k = type.ToString();
+                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetFilterMatchType(type); })">@k</BSDropdownItem>
+                        }
+                    </BSDropdownMenu>
+                </BSDropdown>
+
+                <BSFormLabel>Match Pattern</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Component.filter.matchParameter"></BSBasicInput>
+
+                <BSFormLabel>Target Directory</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Component.targetDirectory"></BSBasicInput>
+
+                <BSFormGroup IsCheck="true">
+                    <BSBasicInput InputType="InputType.Checkbox" @bind-Value="@Component.createTargetDirectoryIfMissing" />
+                    <BSLabel IsCheck="true">Create Target Directory If Missing</BSLabel>
+                </BSFormGroup>
+            </BSBasicForm>
+        </BSCard>
+    </BSCard>
+}
+
+@code {
+    [Parameter]
+    public MoveFileSystemItemsTask Component { get; set; }
+
+    [Parameter]
+    public int TaskNumber { get; set; }
+
+    private bool collapsed = true;
+
+    private void ToggleCollapse() {
+        collapsed = !collapsed;
+    }
+
+    private void SetFilterFileSystemMatchType(FileSystemItemType type) {
+        Component.filter.matchFileSystemItemType = type;
+        StateHasChanged();
+    }
+
+    private void SetFilterMatchType(MatchType type) {
+        Component.filter.matchType = type;
+        StateHasChanged();
+    }
+}

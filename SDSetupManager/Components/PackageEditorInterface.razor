@@ -1,0 +1,366 @@
+﻿@inherits ComponentBase
+
+    <BSTabGroup>
+        <BSTabList>
+            <BSTab>
+                <BSTabLabel>Metadata</BSTabLabel>
+                <BSTabContent>
+                    <BSBasicForm>
+                        <BSRow>
+                            <BSCol XS="4">
+                                <BSFormLabel>Package ID</BSFormLabel>
+                                <BSBasicInput InputType="InputType.Text" @bind-Value="@Package.ID" IsDisabled="true"></BSBasicInput>
+                                <sub>If you want this ID changed, please submit a support ticket.</sub><br />
+
+                                <BSFormLabel>Short Name</BSFormLabel>
+                                <BSBasicInput InputType="InputType.Text" @bind-Value="@Package.Name"></BSBasicInput>
+                                <sub>Displayed in sections with tight margins such as the credits page.</sub><br />
+
+                                <BSFormLabel>Name</BSFormLabel>
+                                <BSBasicInput InputType="InputType.Text" @bind-Value="@Package.DisplayName"></BSBasicInput>
+
+                                <BSFormLabel>Authors</BSFormLabel>
+                                <BSBasicInput InputType="InputType.Text" @bind-Value="@Package.Authors"></BSBasicInput>
+
+                                <BSFormLabel>Source</BSFormLabel>
+                                <BSBasicInput InputType="InputType.Text" @bind-Value="@Package.Source"></BSBasicInput>
+                                <sub>Preferably a link to source code, otherwise a link to binary downloads.</sub><br />
+
+                                <BSFormLabel>License</BSFormLabel>
+                                <BSBasicInput InputType="InputType.Text" @bind-Value="@Package.License"></BSBasicInput>
+                                <sub>A link to a plaintext (ie. no HTML) copy of the software's license that can be included in SDSetup downloads as a txt file.</sub><br />
+
+                                <BSFormLabel>Description (HTML)</BSFormLabel>
+                                <BSBasicInput InputType="InputType.TextArea" @bind-Value="@Package.Description"></BSBasicInput>
+                            </BSCol>
+                            <BSCol XS="4">
+                                <BSFormLabel>Platform</BSFormLabel>
+                                <BSDropdown>
+                                    <BSDropdownToggle>@Package.Platform</BSDropdownToggle>
+                                    <BSDropdownMenu>
+                                        @foreach (string _k in Globals.Manifest.Platforms.Keys) {
+                                            string k = _k;
+                                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetPlatform(k); })">@k</BSDropdownItem>
+                                        }
+                                    </BSDropdownMenu>
+                                </BSDropdown>
+
+                                <BSFormLabel>Section</BSFormLabel>
+                                <BSDropdown>
+                                    <BSDropdownToggle>@Package.Section</BSDropdownToggle>
+                                    <BSDropdownMenu>
+                                        @foreach (string _k in Globals.Manifest.Platforms[Package.Platform].PackageSections.Keys) {
+                                            string k = _k;
+                                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetSection(k); })">@k</BSDropdownItem>
+                                        }
+                                    </BSDropdownMenu>
+                                </BSDropdown>
+
+                                @if (!String.IsNullOrWhiteSpace(Package.Section)) {
+                                    <BSFormLabel>Category</BSFormLabel>
+                                    <BSDropdown>
+                                        <BSDropdownToggle>@Package.Category</BSDropdownToggle>
+                                        <BSDropdownMenu>
+                                            @foreach (string _k in Globals.Manifest.Platforms[Package.Platform].PackageSections[Package.Section].Categories.Keys) {
+                                                string k = _k;
+                                                <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetCategory(k); })">@k</BSDropdownItem>
+                                            }
+                                        </BSDropdownMenu>
+                                    </BSDropdown>
+                                }
+
+                                @if (!String.IsNullOrWhiteSpace(Package.Category)) {
+                                    <BSFormLabel>Subcategory</BSFormLabel>
+                                    <BSDropdown>
+                                        <BSDropdownToggle>@Package.Subcategory</BSDropdownToggle>
+                                        <BSDropdownMenu>
+                                            @foreach (string _k in Globals.Manifest.Platforms[Package.Platform].PackageSections[Package.Section].Categories[Package.Category].Subcategories.Keys) {
+                                                string k = _k;
+                                                <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetSubcategory(k); })">@k</BSDropdownItem>
+                                            }
+                                        </BSDropdownMenu>
+                                    </BSDropdown>
+                                }
+
+                                <BSFormGroup IsCheck="true">
+                                    <BSBasicInput InputType="InputType.Checkbox" @bind-Value="@Package.Visible" />
+                                    <BSLabel IsCheck="true">Visible on SDSetup</BSLabel>
+                                </BSFormGroup>
+
+                                <BSFormGroup IsCheck="true">
+                                    <BSBasicInput InputType="InputType.Checkbox" @bind-Value="@Package.ShowsInCredits" />
+                                    <BSLabel IsCheck="true">Show in SDSetup Credits</BSLabel>
+                                </BSFormGroup>
+
+                                <BSFormGroup IsCheck="true">
+                                    <BSBasicInput InputType="InputType.Checkbox" @bind-Value="@Package.AutoUpdates" />
+                                    <BSLabel IsCheck="true">Automatically Updates</BSLabel>
+                                </BSFormGroup>
+                            </BSCol>
+                            <BSCol XS="4">
+                                <span><BSFormLabel>Tooltip Preview</BSFormLabel> <a href="javascript:void(0)" @onclick="@(() => StateHasChanged())">(refresh)</a></span>
+                                <div class="tooltip-preview">
+                                    <h4>@Package.DisplayName</h4>
+                                    <h6>by @Package.Authors</h6>
+                                    <p>@((MarkupString)Package.Description)</p>
+                                    <br />
+                                    <p>
+                                        Retrieved from:<br /><a href="@Package.Source">@Package.Source</a>
+                                    </p>
+                                </div>
+                            </BSCol>
+                        </BSRow>
+                    </BSBasicForm>
+                </BSTabContent>
+            </BSTab>
+            <BSTab>
+                <BSTabLabel>Automatic Update Config</BSTabLabel>
+                <BSTabContent>
+                    <BSRow style="padding:0.5rem;height:calc(100vh - 196px - 2rem)">
+                        <BSCol XS="6" style="overflow-y:auto;height:inherit">
+                            <h5>Automatic Update Triggers</h5>
+                            <BSButtonGroup>
+                                <BSDropdown>
+                                    <BSDropdownToggle>
+                                        @triggerTypes[selectedAddTriggerType]
+                                    </BSDropdownToggle>
+                                    <BSDropdownMenu>
+                                        @for (int _i = 0; _i < triggerTypes.Length; _i++) {
+                                            int i = _i;
+                                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetSelectedAddTriggerType(i); })">@triggerTypes[i]</BSDropdownItem>
+                                        }
+                                    </BSDropdownMenu>
+                                </BSDropdown>
+                                <BSButton OnClick="AddTrigger">Add Trigger</BSButton>
+                            </BSButtonGroup>
+                            <div style="margin:1rem" />
+                            <div class="accordion">
+                                <BSCollapseGroup>
+                                    @foreach (UpdaterTrigger _k in Package.AutoUpdateTriggers) {
+                                        UpdaterTrigger k = _k;
+                                        if (k is WebhookTrigger) {
+                                            <WebhookTriggerConfig Trigger="k as WebhookTrigger" />
+                                        } else if (k is TimedScanTrigger) {
+                                            <TimedScanTriggerConfig Trigger="k as TimedScanTrigger" />
+                                        }
+                                    }
+                                </BSCollapseGroup>
+                            </div>
+                        </BSCol>
+                        <BSCol XS="6" style="overflow-y:auto;height:inherit">
+                            <h5>Automatic Update Condition</h5>
+                            <BSDropdown>
+                                <BSDropdownToggle>
+                                    @conditionTypes[selectedConditionType]
+                                </BSDropdownToggle>
+                                <BSDropdownMenu>
+                                    @for (int _i = 0; _i < conditionTypes.Length; _i++) {
+                                        int i = _i;
+                                        <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetSelectedConditionType(i); })">@conditionTypes[i]</BSDropdownItem>
+                                    }
+                                </BSDropdownMenu>
+                            </BSDropdown>
+                            <div style="margin:1rem" />
+                            <div class="accordion">
+                                <BSCollapseGroup>
+                                    @foreach (UpdaterCondition _k in Package.AutoUpdateConditions) {
+                                        UpdaterCondition k = _k;
+                                        if (k is GitReleaseTagCondition) {
+                                            <GitReleaseTagConditionConfig Condition="k as GitReleaseTagCondition" />
+                                        }
+                                    }
+                                </BSCollapseGroup>
+                            </div>
+                        </BSCol>
+                    </BSRow>
+                </BSTabContent>
+            </BSTab>
+            <BSTab>
+                <BSTabLabel IsDisabled="@(!Package.AutoUpdates)">Automatic Update Tasks</BSTabLabel>
+                <BSTabContent>
+                    <BSRow style="padding:0.5rem;height:calc(100vh - 196px - 2rem)">
+                        <BSCol XS="8" style="overflow-y:auto;height:inherit">
+                            <BSButtonGroup>
+                                <BSDropdown>
+                                    <BSDropdownToggle>
+                                        @taskTypes[selectedAddTaskType]
+                                    </BSDropdownToggle>
+                                    <BSDropdownMenu>
+                                        @for (int _i = 0; _i < taskTypes.Length; _i++) {
+                                            int i = _i;
+                                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetSelectedAddTaskType(i); })">@taskTypes[i]</BSDropdownItem>
+                                        }
+                                    </BSDropdownMenu>
+                                </BSDropdown>
+                                <BSButton OnClick="AddTask">Add Item</BSButton>
+                            </BSButtonGroup>
+
+                            <div style="margin:1rem" />
+
+                            <div class="accordion">
+                                <BSCollapseGroup>
+                                    @{int _i = 0;}
+                                    @foreach (UpdaterTask _k in Package.AutoUpdateTasks) {
+                                        _i++;
+                                        int i = _i;
+                                        UpdaterTask k = _k;
+                                        if (k is GitReleaseDownloadTask) {
+                                            <GitReleaseDownloadTaskConfig Component="k as GitReleaseDownloadTask" TaskNumber="@i" />
+                                        } else if (k is MoveFileSystemItemsTask) {
+                                            <MoveFileSystemItemsTaskConfig Component="k as MoveFileSystemItemsTask" TaskNumber="@i" />
+                                        } else if (k is DeleteFileSystemItemsTask) {
+                                            <DeleteFileSystemItemsTaskConfig Component="k as DeleteFileSystemItemsTask" TaskNumber="@i" />
+                                        }
+                                    }
+                                </BSCollapseGroup>
+                            </div>
+                            <br />
+                            <BSButton OnClick="DryRunTasks">Test Tasks</BSButton>
+                            <small style="display:block">Note: Tests run fully in your browser and use your GitHub/GitLab API keys for release downloads, counting towards your own API limit.</small>
+                        </BSCol>
+                        <BSCol XS="4" style="overflow:auto;height:inherit">
+                            @if (files != null) {
+                                <div class="filetree">
+                                    <ul>
+                                        @GetTree(files)
+                                    </ul>
+                                </div>
+                            }
+                        </BSCol>
+                    </BSRow>
+                </BSTabContent>
+            </BSTab>
+        </BSTabList>
+        <BSTabSelectedContent/>
+    </BSTabGroup>
+
+@code {
+
+    private Package _package;
+
+    private int selectedAddTaskType;
+    private string[] taskTypes = new string[] { "Git Release Artifact Download", "Move File System Items", "Delete File System Items" };
+
+    private int selectedAddTriggerType;
+    private string[] triggerTypes = new string[] { "Webook Trigger", "Timed Scan Trigger" };
+
+    private int selectedConditionType;
+    private string[] conditionTypes = new string[] { "Git Release Tag Condition" };
+
+    private FileSystemItem files;
+
+    [Parameter]
+    public Package Package {
+        get { return _package; }
+        set {
+            _package = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(value));
+            if (_package.AutoUpdateConditions == null || _package.AutoUpdateConditions.Count == 0) {
+                _package.AutoUpdateConditions = new List<UpdaterCondition>() { new GitReleaseTagCondition() };
+            }
+
+            if (_package.AutoUpdateConditions.First() is GitReleaseTagCondition) {
+                selectedConditionType = 0;
+            }
+        }
+    }
+
+    private void SetPlatform(string platform) {
+        Package.Platform = platform;
+        Package.Section = "";
+        Package.Category = "";
+        Package.Subcategory = "";
+        StateHasChanged();
+    }
+
+    private void SetSection(string section) {
+        Package.Section = section;
+        Package.Category = "";
+        Package.Subcategory = "";
+        StateHasChanged();
+    }
+
+    private void SetCategory(string category) {
+        Package.Category = category;
+        Package.Subcategory = "";
+        StateHasChanged();
+    }
+
+    private void SetSubcategory(string subcategory) {
+        Package.Subcategory = subcategory;
+        StateHasChanged();
+    }
+
+    private async void SetSelectedAddTaskType(int i) {
+        selectedAddTaskType = i;
+    }
+
+    private async void AddTask() {
+        if (selectedAddTaskType == 0) Package.AutoUpdateTasks.Add(new GitReleaseDownloadTask());
+        else if (selectedAddTaskType == 1) Package.AutoUpdateTasks.Add(new MoveFileSystemItemsTask());
+        else if (selectedAddTaskType == 2) Package.AutoUpdateTasks.Add(new DeleteFileSystemItemsTask());
+    }
+
+    private async void SetSelectedAddTriggerType(int i) {
+        selectedAddTriggerType = i;
+    }
+
+    private async void AddTrigger() {
+        if (selectedAddTriggerType == 0) Package.AutoUpdateTriggers.Add(new WebhookTrigger());
+        else if (selectedAddTriggerType == 1) Package.AutoUpdateTriggers.Add(new TimedScanTrigger());
+    }
+
+    private async void SetSelectedConditionType(int i) {
+        selectedConditionType = i;
+
+        switch (selectedConditionType) {
+            case 0:
+                Package.AutoUpdateConditions = new List<UpdaterCondition>() { new GitReleaseTagCondition() };
+                break;
+        }
+    }
+
+    private async void DryRunTasks() {
+        Globals.LockInput = true;
+        string tmp = System.IO.Path.Join(System.IO.Path.GetTempPath(), Utilities.CreateGuid().ToCleanString());
+        foreach(UpdaterTask k in Package.AutoUpdateTasks) {
+            await k.Apply(tmp);
+        }
+        FileSystemItem root = Utilities.BuildRecursiveFileSystemItems(tmp);
+        root.name = "sdsetup.zip";
+        root.fullPath = "sdsetup.zip";
+        Utilities.RebaseFileSystemItems(root, "");
+        System.IO.Directory.Delete(tmp, true);
+        files = root;
+        StateHasChanged();
+        Globals.LockInput = false;
+    }
+
+    private RenderFragment GetTree(FileSystemItem item) {
+        RenderFragment frag;
+
+        frag = b => {
+            BuildTree(b, files, 0);
+        };
+
+        return frag;
+    }
+
+    private void BuildTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder b, FileSystemItem i, int level) {
+        level++;
+        if (i.fileSystemItemType == FileSystemItemType.Folder) b.OpenComponent(level, typeof(FolderEntry));
+        else b.OpenComponent(level, typeof(FileEntry));
+        b.AddAttribute(level, "Name", i.name);
+        if (level < 4) b.AddAttribute(level, "StartCollapsed", false);
+        if (i.childItems?.Count > 0) {
+            level++;
+            b.AddAttribute(level, "ChildContent", (RenderFragment) ((b2) => {
+                b2.OpenElement(level, "ul");
+                foreach (FileSystemItem ci in i.childItems) {
+                    BuildTree(b2, ci, level);
+                }
+                b2.CloseElement();
+            }));
+        }
+        b.CloseComponent();
+    }
+}

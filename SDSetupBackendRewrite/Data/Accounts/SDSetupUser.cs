@@ -42,10 +42,16 @@ namespace SDSetupBackendRewrite.Data {
 
         public LinkedService PrimaryService { get; private set; }
 
-        public string CreateSessionToken() {
+        public async Task<string> CreateSessionToken() {
             SessionToken = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
-            Program.Users.UpdateUser(this);
+            await Program.Users.UpdateUser(this);
             return SessionToken;
+        }
+
+        public async Task<bool> RevokeSessionToken(string token) {
+            if (SessionToken == token) SessionToken = null;
+            await Program.Users.UpdateUser(this);
+            return true;
         }
 
         public bool ValidSessionToken(string token) {
@@ -132,17 +138,40 @@ namespace SDSetupBackendRewrite.Data {
             }
         }
 
-        public void UpdateGithubAuthentication(SDSetupUser user) {
+        public async Task UpdateGithubAuthentication(SDSetupUser user) {
+            if (this.LinkedGithubId.NullOrWhiteSpace()) {
+                this.LinkedGithubId = user.LinkedGithubId;
+            } else {
+                if (this.LinkedGithubId != user.LinkedGithubId) return;
+            }
             this.GithubAccessToken = user.GithubAccessToken;
             this.GithubClient = user.GithubClient;
-            Program.Users.UpdateUser(this);
+            await Program.Users.UpdateUser(this);
         }
 
-        public void UpdateGitlabAuthentication(SDSetupUser user) {
+        public async Task UpdateGitlabAuthentication(SDSetupUser user) {
+            if (this.LinkedGitlabId.NullOrWhiteSpace()) {
+                this.LinkedGitlabId = user.LinkedGitlabId;
+            } else {
+                if (this.LinkedGitlabId != user.LinkedGitlabId) return;
+            }
             this.GitlabAccessToken = user.GitlabAccessToken;
             this.GitlabRefreshToken = user.GitlabRefreshToken;
             this.GitlabClient = user.GitlabClient;
-            Program.Users.UpdateUser(this);
+            
+            await Program.Users.UpdateUser(this);
+        }
+
+        public async Task<GitHubClient> GetGithubClient() {
+            if (!(await IsAuthenticatedWithGithub())) return null;
+
+            return GithubClient;
+        }
+
+        public async Task<GitLabClient> GetGitlabCient() {
+            if (!(await IsAuthenticatedWithGitlab())) return null;
+
+            return GitlabClient;
         }
 
         public string GetSDSetupUserId() {
@@ -157,9 +186,9 @@ namespace SDSetupBackendRewrite.Data {
             return LinkedGitlabId;
         }
 
-        public void SetPrimaryService(LinkedService service) {
+        public async Task SetPrimaryService(LinkedService service) {
             this.PrimaryService = service;
-            Program.Users.UpdateUser(this);
+            await Program.Users.UpdateUser(this);
         }
 
         public async Task<GithubProfile> GetGithubProfile() {

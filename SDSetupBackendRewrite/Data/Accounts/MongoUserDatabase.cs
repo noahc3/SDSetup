@@ -16,7 +16,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
 
         public MongoUserDatabase() {
             MongoClient = new MongoClient(new MongoClientSettings() {
-                UseTls = true,
+                UseTls = false,
                 Credential = MongoCredential.CreateCredential(Program.ActiveConfig.MongoDBDatabase, Program.ActiveConfig.MongoDBUsername, Program.ActiveConfig.MongoDBPassword),
                 Server = new MongoServerAddress(Program.ActiveConfig.MongoDBHostname)
             });
@@ -79,7 +79,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
 
             if (await user.IsAuthenticatedWithGitlab()) {
                 await Users.InsertOneAsync(user);
-                await SetPrimaryService(user.GetSDSetupUserId(), LinkedService.GitHub);
+                await SetPrimaryService(user.GetSDSetupUserId(), LinkedService.GitLab);
                 return true;
             }
 
@@ -91,7 +91,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
             if (existingUser != default(SDSetupUser)) {
                 if (existingUser.GetGithubUserId().NullOrWhiteSpace()) {
                     if (await user.IsAuthenticatedWithGithub()) {
-                        existingUser.UpdateGithubAuthentication(user);
+                        await existingUser.UpdateGithubAuthentication(user);
                         return true;
                     }
                 }
@@ -105,7 +105,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
             if (existingUser != default(SDSetupUser)) {
                 if (existingUser.GetGitlabUserId().NullOrWhiteSpace()) {
                     if (await user.IsAuthenticatedWithGitlab()) {
-                        existingUser.UpdateGitlabAuthentication(user);
+                        await existingUser.UpdateGitlabAuthentication(user);
                         return true;
                     }
                 }
@@ -117,7 +117,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
         public async Task<bool> SetPrimaryService(string userId, LinkedService service) {
             SDSetupUser user = await GetSDSetupUserById(userId);
             if (user != default(SDSetupUser)) {
-                user.SetPrimaryService(service);
+                await user.SetPrimaryService(service);
 
                 return true;
             }

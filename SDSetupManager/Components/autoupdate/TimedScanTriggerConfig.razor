@@ -1,0 +1,37 @@
+﻿@using SDSetupCommon.Data.UpdaterModels
+@inherits ComponentBase
+
+@if (Globals.Authenticated) {
+    <BSCard CardType="CardType.Card">
+        <a href="javascript:void(0);" @onclick="@ToggleCollapse">
+            <BSCard CardType="CardType.Header">
+                Time Scan Trigger (@Trigger.Hours hrs)
+            </BSCard>
+        </a>
+        <BSCard CardType="CardType.Body" Class="@(collapsed ? "collapse" : "")">
+            <BSCard CardType="CardType.Text">
+                You can configure a scan to check for updates every number of hours.
+                <ul>
+                    <li>This will cause a delay between releases going live and the update appearing on SDSetup.</li>
+                    <li>Unless you really want to pull updates from 4TU Appstore, strongly consider using a Webhook Trigger for faster updates on SDSetup.</li>
+                </ul>
+            </BSCard>
+            <BSBasicForm>
+                <BSFormLabel>Scan Updates Every # Hours</BSFormLabel>
+                <BSBasicInput InputType="InputType.Number" min="6" max="24"  @bind-Value="@Trigger.Hours"></BSBasicInput>
+                <small>Between 6 - 24 hours.</small>
+            </BSBasicForm>
+        </BSCard>
+    </BSCard>
+}
+
+@code {
+    [Parameter]
+    public TimedScanTrigger Trigger { get; set; }
+
+    private bool collapsed = true;
+
+    private void ToggleCollapse() {
+        collapsed = !collapsed;
+    }
+}

@@ -1,0 +1,102 @@
+﻿@using SDSetupCommon.Data.UpdaterModels
+@inherits ComponentBase
+
+@if (Globals.Authenticated) {
+    <BSCard CardType="CardType.Card">
+        <a href="javascript:void(0);" @onclick="@ToggleCollapse">
+            <BSCard CardType="CardType.Header">
+                #@TaskNumber: @Component.gitReleaseSource.ToString() Download (@Component.repoAuthor/@Component.repoName)
+            </BSCard>
+        </a>
+        <BSCard CardType="CardType.Body" Class="@(collapsed ? "collapse" : "")">
+            <BSBasicForm>
+                <BSFormLabel>Platform</BSFormLabel>
+                <BSDropdown>
+                    <BSDropdownToggle>@Component.gitReleaseSource</BSDropdownToggle>
+                    <BSDropdownMenu>
+                        @foreach (GitReleaseSource _src in (GitReleaseSource[])Enum.GetValues(typeof(GitReleaseSource))) {
+                            GitReleaseSource src = _src;
+                            string k = src.ToString();
+                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetReleaseSource(src); })">@k</BSDropdownItem>
+                        }
+                    </BSDropdownMenu>
+                </BSDropdown>
+
+                <BSFormLabel>Release Type</BSFormLabel>
+                <BSDropdown>
+                    <BSDropdownToggle>@Component.gitReleaseType</BSDropdownToggle>
+                    <BSDropdownMenu>
+                        @foreach (GitReleaseType _type in (GitReleaseType[])Enum.GetValues(typeof(GitReleaseType))) {
+                            GitReleaseType type = _type;
+                            string k = type.ToString();
+                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetReleaseType(type); })">@k</BSDropdownItem>
+                        }
+                    </BSDropdownMenu>
+                </BSDropdown>
+
+                <BSFormLabel>Repo Owner</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Component.repoAuthor"></BSBasicInput>
+
+                <BSFormLabel>Repo Name</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Component.repoName"></BSBasicInput>
+
+                <BSFormLabel>Match Type</BSFormLabel>
+                <BSDropdown>
+                    <BSDropdownToggle>@Component.matchType</BSDropdownToggle>
+                    <BSDropdownMenu>
+                        @foreach (MatchType _type in (MatchType[])Enum.GetValues(typeof(MatchType))) {
+                            MatchType type = _type;
+                            string k = type.ToString();
+                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetMatchType(type); })">@k</BSDropdownItem>
+                        }
+                    </BSDropdownMenu>
+                </BSDropdown>
+
+                <BSFormLabel>Match Pattern</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Component.matchParameter"></BSBasicInput>
+
+                <BSFormLabel>Download Path</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Component.downloadPath"></BSBasicInput>
+
+                <BSFormGroup IsCheck="true">
+                    <BSBasicInput InputType="InputType.Checkbox" @bind-Value="@Component.createDownloadPathIfMissing" />
+                    <BSLabel IsCheck="true">Create Download Path If Missing</BSLabel>
+                </BSFormGroup>
+
+                <BSFormGroup IsCheck="true">
+                    <BSBasicInput InputType="InputType.Checkbox" @bind-Value="@Component.extractArchives" />
+                    <BSLabel IsCheck="true">Extract Archives</BSLabel>
+                </BSFormGroup>
+            </BSBasicForm>
+        </BSCard>
+    </BSCard>
+}
+
+@code {
+    [Parameter]
+    public GitReleaseDownloadTask Component { get; set; }
+
+    [Parameter]
+    public int TaskNumber { get; set; }
+
+    private bool collapsed = true;
+
+    private void ToggleCollapse() {
+        collapsed = !collapsed;
+    }
+
+    private void SetReleaseSource(GitReleaseSource src) {
+        Component.gitReleaseSource = src;
+        StateHasChanged();
+    }
+
+    private void SetReleaseType(GitReleaseType type) {
+        Component.gitReleaseType = type;
+        StateHasChanged();
+    }
+
+    private void SetMatchType(MatchType type) {
+        Component.matchType = type;
+        StateHasChanged();
+    }
+}

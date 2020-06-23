@@ -81,7 +81,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
             if (existingUser != default(SDSetupUser)) {
                 if (existingUser.GetGithubUserId().NullOrWhiteSpace()) {
                     if (await user.IsAuthenticatedWithGithub()) {
-                        existingUser.UpdateGithubAuthentication(user);
+                        await existingUser.UpdateGithubAuthentication(user);
                         return true;
                     }
                 }
@@ -95,7 +95,7 @@ namespace SDSetupBackendRewrite.Data.Accounts {
             if (existingUser != default(SDSetupUser)) {
                 if (existingUser.GetGitlabUserId().NullOrWhiteSpace()) {
                     if (await user.IsAuthenticatedWithGitlab()) {
-                        existingUser.UpdateGitlabAuthentication(user);
+                        await existingUser.UpdateGitlabAuthentication(user);
                         return true;
                     }
                 }

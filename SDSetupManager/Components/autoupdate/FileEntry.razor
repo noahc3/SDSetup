@@ -1,0 +1,14 @@
+﻿@inherits ComponentBase
+
+<li class="file">
+    @Name
+    @ChildContent
+</li>
+
+@code {
+    [Parameter]
+    public string Name { get; set; }
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+}

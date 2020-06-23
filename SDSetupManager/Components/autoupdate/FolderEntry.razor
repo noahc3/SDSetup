@@ -1,0 +1,30 @@
+﻿@inherits ComponentBase
+
+<li class="@((Collapsed ? "folder-collapsed" : "folder"))">
+    <a href="javascript:void(0);" @onclick="@ToggleCollapse">@Name</a>
+    <div class="@((Collapsed ? "collapse" : ""))">
+        @ChildContent
+    </div>
+</li>
+
+@code {
+    [Parameter]
+    public string Name { get; set; } = "";
+
+    [Parameter]
+    public bool StartCollapsed { get; set; } = true;
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    private bool Collapsed { get; set; } = true;
+
+    protected override Task OnInitializedAsync() {
+        Collapsed = StartCollapsed;
+        return base.OnInitializedAsync();
+    }
+
+    private void ToggleCollapse() {
+        Collapsed = !Collapsed;
+    }
+}

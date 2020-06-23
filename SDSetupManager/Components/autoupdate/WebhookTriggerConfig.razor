@@ -1,0 +1,40 @@
+﻿@using SDSetupCommon.Data.UpdaterModels
+@inherits ComponentBase
+
+@if (Globals.Authenticated) {
+    <BSCard CardType="CardType.Card">
+        <a href="javascript:void(0);" @onclick="@ToggleCollapse">
+            <BSCard CardType="CardType.Header">
+                Webhook Trigger (@Trigger.Name)
+            </BSCard>
+        </a>
+        <BSCard CardType="CardType.Body" Class="@(collapsed ? "collapse" : "")">
+            <BSCard CardType="CardType.Text">
+                You can configure a webhook messenger like GitHub to trigger this webhook on releases.
+                <ul>
+                    <li>This is not recommended if you pull updates from 4TU appstore as otherwise the autoupdate will trigger before 4TU updates.</li>
+                    <li style="font-weight:bold">Abuse of this webhook can result in your account being permanently suspended.</li>
+                </ul>
+            </BSCard>
+            <BSBasicForm>
+                <BSFormLabel>Name</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Trigger.Name"></BSBasicInput>
+
+                <BSFormLabel>Webhook Endpoint</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@Trigger.WebhookEndpoint" IsReadonly="true"></BSBasicInput>
+                <small>This endpoint is unique to this package and should be kept secret. Do not share it with anyone.</small>
+            </BSBasicForm>
+        </BSCard>
+    </BSCard>
+}
+
+@code {
+    [Parameter]
+    public WebhookTrigger Trigger { get; set; }
+
+    private bool collapsed = true;
+
+    private void ToggleCollapse() {
+        collapsed = !collapsed;
+    }
+}

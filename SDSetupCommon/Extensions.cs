@@ -29,6 +29,10 @@ namespace SDSetupCommon
             return String.IsNullOrWhiteSpace(str);
         }
 
+        public static bool IsFile(this FileSystemInfo info) {
+            return File.Exists(info.FullName);
+        }
+
         public static string ToCleanString(this Guid guid) {
             return guid.ToString().Replace("-", "").ToLower();
         }

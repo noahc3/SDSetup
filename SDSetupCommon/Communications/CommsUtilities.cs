@@ -13,6 +13,15 @@ namespace SDSetupCommon.Communications {
             return EndpointSettings.serverInformation.Hostname + endpoint;
         }
 
+        public static async Task<Stream> GetStreamAsync(string endpoint) {
+            HttpResponseMessage response = await EndpointSettings.HttpClient.GetAsync(new Uri(endpoint));
+            if (response.IsSuccessStatusCode) {
+                return await response.Content.ReadAsStreamAsync();
+            } else {
+                return default;
+            }
+        }
+
         public static async Task<string> GetStringAsync(string endpoint) {
             HttpResponseMessage response = await EndpointSettings.HttpClient.GetAsync(new Uri(endpoint));
             if (response.IsSuccessStatusCode) {

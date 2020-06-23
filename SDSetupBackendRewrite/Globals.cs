@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using SDSetupBackendRewrite.Data;
 using MongoDB.Driver;
+using GitLabApiClient.Models.Users.Responses;
+using Microsoft.AspNetCore.Http;
 
 namespace SDSetupBackendRewrite {
     public class Globals {

@@ -25,5 +25,7 @@ namespace SDSetupBackendRewrite.Controllers {
             info.PrivilegedUUID = Security.IsUUIDPrivileged(info.UUID);
             return info;
         }
+
+
     }
 }

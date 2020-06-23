@@ -6,9 +6,22 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using SDSetupCommon.Communications;
 using SDSetupCommon;
+using SDSetupManager.Shared;
 
 namespace SDSetupManager.Data {
     public class Globals {
+        public static Action RefreshInputLock;
+        private static bool _lockInput = false;
+        public static bool LockInput { 
+            get {
+                return _lockInput;
+            } 
+            set {
+                _lockInput = value;
+                RefreshInputLock();
+            } 
+        }
+
         public static bool Authenticated;
         public static SDSetupProfile UserProfile;
         public static Manifest Manifest;

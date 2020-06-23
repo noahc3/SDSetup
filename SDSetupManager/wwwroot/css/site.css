@@ -50,9 +50,23 @@ app {
     padding:0;
 }
 
+.sidebar-content {
+    flex-direction: column;
+    height: calc(100% - 3.5rem);
+}
+
 .sidebar {
     background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+
 }
+
+    .sidebar .nav.flex-column {
+        flex: 1 1 auto;
+    }
+
+    .sidebar .collapse {
+        display:none;
+    }
 
     .sidebar .top-row {
         background-color: rgba(0,0,0,0.4);
@@ -79,6 +93,17 @@ app {
         .sidebar .nav-item + .navbar-header {
             margin-top: 0.5rem;
         }
+
+    .sidebar .navbar-profile {
+        width:100%;
+        font-size: 1.0rem;
+        background-color: rgba(0,0,0,0.4);
+        height:auto;
+        display:block;
+        align-items:center;
+        color:#ffffff;
+        bottom:0;
+    }
 
     .sidebar .oi {
         width: 2rem;
@@ -200,8 +225,12 @@ app {
     }
 
     .sidebar .collapse {
+        display:flex;
+    }
+
+    .sidebar .sidebar-content {
         /* Never collapse the sidebar for wide screens */
-        display: block;
+        display: flex;
     }
 }
 
@@ -258,6 +287,52 @@ button {
             margin-top: 0;
         }
 
+.navbar-profile {
+}
+
+    .navbar-profile > hr {
+        margin: 1px;
+    }
+
+    .navbar-profile .col-8 {
+        padding:0.5rem;
+    }
+
+    .navbar-profile > .row {
+        height: auto;
+    }
+
+        .navbar-profile > .row > span {
+            max-height: 100%;
+        }
+
+            .navbar-profile > .row > span > h5 {
+                margin-bottom: 0;
+            }
+
+            .navbar-profile > .row > span > p {
+                margin-bottom: 0;
+            }
+
+            .navbar-profile > .row > span > img {
+                margin: 5%;
+                width: 90%;
+                padding: 0.2rem;
+                max-height: 75px;
+                max-width: 75px;
+            }
+
+        .navbar-profile > .row > .btn-group {
+            margin-left: auto;
+            margin-right: 0;
+            margin-top: 0;
+            padding: 0.4rem;
+        }
+
+            .navbar-profile > .row > .btn-group > button {
+                margin-top: 0;
+            }
+
 
 
 .login-logo {
@@ -286,4 +361,135 @@ button {
     line-height: 1.5rem;
     display: inline-block;
     vertical-align: middle;
+}
+
+.tooltip-preview {
+    background-color: #000;
+    border: 1px solid #000;
+    color: white;
+    border-radius: 5px;
+    padding: 0.5rem;
+    max-width: 20em;
+    min-width: 20em;
+}
+
+    .tooltip-preview > h4 {
+        margin: 0;
+        font-size: 1.07142857rem;
+        font-weight: 700;
+        line-height: 1.28571429em;
+    }
+
+    .tooltip-preview > h6 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 0.9375rem;
+    }
+
+    .tooltip-preview > p > a {
+        color: #DB2828;
+        word-break: break-all;
+    }
+
+.btn.dropdown-toggle {
+    border: rgba(0,0,0,0.15) solid 1px;
+}
+
+.form-check-label {
+    margin-top: 0;
+}
+
+.form-check {
+    margin-top: 0.5rem;
+}
+
+.panel-with-bottom-rows {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 1.1rem);
+}
+
+    .panel-with-bottom-rows > :first-child {
+        flex: 1 1 auto;
+    }
+
+    .panel-with-bottom-rows > :not(:first-child) {
+        margin-bottom: 1rem;
+    }
+
+.wide-btn-group {
+    width:100%;
+}
+
+.loading-overlay {
+    position:absolute;
+    width:100vw;
+    height:100vh;
+    left:0;
+    top:0;
+    background-color:rgba(0, 0, 0, 0.25);
+}
+
+    .loading-overlay > .loader {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 1;
+        margin: -60px 0 0 -60px;
+        border: 16px solid rgba(0,0,0,0);
+        border-top: 16px solid #3498db; /* Blue */
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 0.5s linear infinite;
+    }
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.filetree ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.filetree li > div > ul {
+    padding-left: 20px;
+}
+
+.filetree li {
+    white-space: nowrap;
+}
+
+.filetree li.folder-collapsed:before {
+    content: '\f07b';
+    font-family: 'FontAwesome';
+    padding-right: 4px;
+}
+
+.filetree li.folder:before {
+    content: '\f07c';
+    font-family: 'FontAwesome';
+    padding-right: 4px;
+}
+
+.filetree li.file:before {
+    content: '\f15b';
+    font-family: 'FontAwesome';
+    padding-right: 4px;
+}
+
+.filetree a {
+    color: MenuText;
+}
+
+.accordion > .card:only-child {
+    border-bottom: 1px solid rgba(0,0,0,0.125);
 }

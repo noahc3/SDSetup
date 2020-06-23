@@ -2,6 +2,7 @@
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+using SDSetupCommon.Data.UpdaterModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,19 @@ namespace SDSetupCommon {
 
         public Manifest() {
 
+        }
+
+        public Package FindPackageById(string id) {
+            foreach(Platform p in Platforms.Values) {
+                foreach(PackageSection s in p.PackageSections.Values) {
+                    foreach(PackageCategory c in s.Categories.Values) {
+                        foreach(PackageSubcategory sc in c.Subcategories.Values) {
+                            if (sc.Packages.ContainsKey(id)) return sc.Packages[id];
+                        }
+                    }
+                }
+            }
+            return null;
         }
     }
 
@@ -124,7 +138,7 @@ namespace SDSetupCommon {
         public long Downloads { get; set; } = 0;
         public Dictionary<string, VersionInfo> Channels { get; set; } = new Dictionary<string, VersionInfo>();
         public string Source { get; set; } = "";
-        public string DLSource { get; set; } = "";
+        public string License { get; set; } = "";
         public int Priority { get; set; } = 0;
         public bool EnabledByDefault { get; set; } = false;
         public bool Visible { get; set; } = true;
@@ -136,9 +150,13 @@ namespace SDSetupCommon {
         public List<string> Dependencies { get; set; } = new List<string>();
         public List<string> DeleteOnUpdate { get; set; } = new List<string>();
 
-        public AutoUpdateType AutoUpdateType { get; set; } = AutoUpdateType.None;
-        public string AutoUpdateHint { get; set; } = "";
-        public string AutoUpdatePathOverride { get; set; } = "";
+        public bool AutoUpdates { get; set; } = false;
+
+        public List<UpdaterTask> AutoUpdateTasks { get; set; } = new List<UpdaterTask>();
+
+        public List<UpdaterTrigger> AutoUpdateTriggers { get; set; } = new List<UpdaterTrigger>();
+
+        public List<UpdaterCondition> AutoUpdateConditions { get; set; } = new List<UpdaterCondition>();
 
         public Package() {
 
@@ -217,7 +235,6 @@ namespace SDSetupCommon {
                 Authors = Authors,
                 Downloads = Downloads,
                 Source = Source,
-                DLSource = DLSource,
                 Priority = Priority,
                 EnabledByDefault = EnabledByDefault,
                 Visible = Visible,
@@ -250,6 +267,6 @@ namespace SDSetupCommon {
     }
 
     public enum AutoUpdateType {
-        None = 0, LibGet = 1, Github = 2, Kosmos = 3, Custom = 4
+        None = 0, Custom = 1
     }
 }

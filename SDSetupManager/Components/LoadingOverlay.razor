@@ -1,0 +1,16 @@
+﻿@inherits ComponentBase
+
+
+@if (Globals.LockInput) {
+    <div class="loading-overlay">
+        <div class="loader"></div>
+    </div>
+}
+
+@code {
+
+    protected override Task OnInitializedAsync() {
+        Globals.RefreshInputLock = new Action(() => { StateHasChanged(); });
+        return base.OnInitializedAsync();
+    }
+}

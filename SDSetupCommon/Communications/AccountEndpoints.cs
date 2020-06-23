@@ -8,20 +8,21 @@ using System.Threading.Tasks;
 
 namespace SDSetupCommon.Communications {
     public class AccountEndpoints {
-        public static readonly string ExternalLoginEndpoint = "/api/v2/account/externallogin";
-        public static readonly string LoginProvidersEndpoint = "/api/v2/account/loginproviders";
-        public static readonly string ExternalRegistrationDetailsEndpoint = "/api/v2/account/externalregistrationdetails";
-        public static readonly string ProfileEndpoint = "/api/v2/account/profile";
+        public static string ExternalLoginEndpoint { get { return CommsUtilities.FullApiEndpoint("/api/v2/account/externallogin"); } }
+        public static string LoginProvidersEndpoint { get { return CommsUtilities.FullApiEndpoint("/api/v2/account/loginproviders"); } }
+        public static string ExternalRegistrationDetailsEndpoint { get { return CommsUtilities.FullApiEndpoint("/api/v2/account/externalregistrationdetails"); } }
+        public static string ProfileEndpoint { get { return CommsUtilities.FullApiEndpoint("/api/v2/account/profile"); } }
+        public static string LogoutEndpoint { get { return CommsUtilities.FullApiEndpoint("/api/v2/account/logout"); } }
         public static async Task<List<SignInProviderViewModel>> LoginProviders() {
-            return await CommsUtilities.GetJsonAsync<List<SignInProviderViewModel>>(CommsUtilities.FullApiEndpoint(LoginProvidersEndpoint));
+            return await CommsUtilities.GetJsonAsync<List<SignInProviderViewModel>>(LoginProvidersEndpoint);
         }
 
         public static async Task<ExternalRegistrationConfirmationModel> ExternalRegistrationDetails() {
-            return await CommsUtilities.GetJsonAsync<ExternalRegistrationConfirmationModel>(CommsUtilities.FullApiEndpoint(ExternalRegistrationDetailsEndpoint));
+            return await CommsUtilities.GetJsonAsync<ExternalRegistrationConfirmationModel>(ExternalRegistrationDetailsEndpoint);
         }
 
         public static async Task<SDSetupProfile> Profile() {
-            return await CommsUtilities.GetJsonAsync<SDSetupProfile>(CommsUtilities.FullApiEndpoint(ProfileEndpoint));
+            return await CommsUtilities.GetJsonAsync<SDSetupProfile>(ProfileEndpoint);
         }
 
         public static string GetLoginEndpoint(LinkedService service) {

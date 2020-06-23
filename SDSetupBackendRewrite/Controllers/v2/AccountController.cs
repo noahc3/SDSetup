@@ -75,19 +75,23 @@ namespace SDSetupBackendRewrite.Controllers {
                         //if that fails (because the session token is invalid or the user already has a linked github account)
                         //try to register a new user
                         if (!(await Program.Users.RegisterUserFromGithub(user))) return new StatusCodeResult(401);
+                        user = await Program.Users.GetSDSetupUserById(user.SDSetupUserId);
                     } else {
                         //if that succeeds set to the existing user
                         user = await Program.Users.GetSDSetupUserBySessionToken(Request.Cookies["session"]);
                     }
+                } else {
+                    if (!(await Program.Users.RegisterUserFromGithub(user))) return new StatusCodeResult(401);
+                    user = await Program.Users.GetSDSetupUserById(user.SDSetupUserId);
                 }
-                
+
             } else {
                 SDSetupUser existingUser = await Program.Users.GetSDSetupUserById(id);
-                existingUser.UpdateGithubAuthentication(user);
+                await existingUser.UpdateGithubAuthentication(user);
                 user = existingUser;
             }
 
-            string sessionToken = user.CreateSessionToken();
+            string sessionToken = await user.CreateSessionToken();
 
             Response.Cookies.Append("session", sessionToken);
 
@@ -110,31 +114,48 @@ namespace SDSetupBackendRewrite.Controllers {
                         //if that fails (because the session token is invalid or the user already has a linked gitlab account)
                         //try to register a new user
                         if (!(await Program.Users.RegisterUserFromGitlab(user))) return new StatusCodeResult(401);
+                        user = await Program.Users.GetSDSetupUserById(user.SDSetupUserId);
                     } else {
                         //if that succeeds set to the existing user
                         user = await Program.Users.GetSDSetupUserBySessionToken(Request.Cookies["session"]);
                     }
+                } else {
+                    if (!(await Program.Users.RegisterUserFromGitlab(user))) return new StatusCodeResult(401);
+                    user = await Program.Users.GetSDSetupUserById(user.SDSetupUserId);
                 }
             } else {
                 SDSetupUser existingUser = await Program.Users.GetSDSetupUserById(id);
-                existingUser.UpdateGitlabAuthentication(user);
+                await existingUser.UpdateGitlabAuthentication(user);
                 user = existingUser;
             }
 
-            string sessionToken = user.CreateSessionToken();
+            string sessionToken = await user.CreateSessionToken();
 
             Response.Cookies.Append("session", sessionToken);
 
             return new RedirectResult(Program.ActiveConfig.ManagerFrontendUrl, false);
         }
 
-        [HttpGet("profile")]
-        public async Task<IActionResult> Profile() {
+        [HttpGet("logout")]
+        public async Task<IActionResult> Logout() {
             string sessionToken = Request.Cookies["session"];
             if (String.IsNullOrWhiteSpace(sessionToken)) return new StatusCodeResult(401);
 
             SDSetupUser user = await Program.Users.GetSDSetupUserBySessionToken(sessionToken);
-            if (user == default(SDSetupUser)) return new StatusCodeResult(401);
+            if (user != default(SDSetupUser)) await user.RevokeSessionToken(sessionToken);
+            Response.Cookies.Delete("session");
+            return new RedirectResult(Program.ActiveConfig.ManagerFrontendUrl, false);
+        }
+
+        [HttpGet("profile")]
+        public async Task<IActionResult> Profile() {
+            string sessionToken = Request.Cookies["session"];
+            if (String.IsNullOrWhiteSpace(sessionToken)) 
+                return new StatusCodeResult(401);
+
+            SDSetupUser user = await Program.Users.GetSDSetupUserBySessionToken(sessionToken);
+            if (user == default(SDSetupUser)) 
+                return new StatusCodeResult(401);
             return new ObjectResult(await user.GetProfile());
 
         }

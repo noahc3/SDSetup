@@ -5,7 +5,7 @@
     </button>
 </div>
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+<div class="@NavMenuCssClass sidebar-content" @onclick="ToggleNavMenu">
     <ul class="nav flex-column">
         <Unauthenticated>
             <li class="nav-item px-3">
@@ -32,7 +32,7 @@
                 <li class="navbar-header">Administration</li>
 
                 <li class="nav-item px-3">
-                    <NavLink class="nav-link" href="/admin/packages" Match="NavLinkMatch.All">
+                    <NavLink class="nav-link" href="/admin/packages" Match="NavLinkMatch.Prefix">
                         <span class="oi oi-box" aria-hidden="true"></span> Packages
                     </NavLink>
                 </li>
@@ -41,6 +41,25 @@
 
         </Authenticated>
     </ul>
+
+    <div class="navbar-profile">
+        <BSRow NoGutters="true">
+            <span>
+                <img src="@Globals.UserProfile.primaryProfile.avatarUrl" />
+            </span>
+            <span style="padding:4px">
+                <BSRow NoGutters="true">
+                    <h5 class="align-self-center">@Globals.UserProfile.primaryProfile.username</h5>
+                </BSRow>
+                <BSRow NoGutters="true">
+                    <BSButtonGroup Size="Size.Small">
+                        <BSButton Color="Color.Primary" IsDisabled="true">Settings</BSButton>
+                        <a href="@AccountEndpoints.LogoutEndpoint"><BSButton Color="Color.Danger">Logout</BSButton></a>
+                    </BSButtonGroup>
+                </BSRow>
+            </span>
+        </BSRow>
+    </div>
 </div>
 
 @code {
