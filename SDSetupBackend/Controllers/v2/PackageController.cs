@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using SDSetupBackendRewrite.Data;
+using SDSetupBackend.Data;
 using SDSetupCommon;
 using SDSetupCommon.Data;
 using SDSetupCommon.Data.Account;
 using SDSetupCommon.Data.PackageModels;
 
-namespace SDSetupBackendRewrite.Controllers.v2 {
+namespace SDSetupBackend.Controllers.v2 {
     [ApiController]
     [Route("api/v2/package")]
     public class PackageController : ControllerBase {

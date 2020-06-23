@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SDSetupBackendRewrite.Data;
+using SDSetupBackend.Data;
 using SDSetupCommon.Data.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SDSetupBackendRewrite {
+namespace SDSetupBackend {
     public class AuthorizationUtilities {
 
         //If the user is authenticated, returns the user. Otherwise returns null.

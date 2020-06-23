@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SDSetupBackendRewrite.Data.Accounts {
+namespace SDSetupBackend.Data.Accounts {
     public interface IUserDatabase {
 
         Task<string> GetSDSetupIdByGithubId(string githubId);

@@ -1,244 +1,230 @@
-﻿/* Copyright (c) 2019 noahc3
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
+using Microsoft.Extensions.Logging.Configuration;
 using Newtonsoft.Json;
-using System.Net;
-using System.Threading;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
-
+using SDSetupBackend.Data;
+using SDSetupBackend.Data.Accounts;
 using SDSetupCommon;
-using System.Security.Cryptography;
 
 namespace SDSetupBackend {
     public class Program {
 
-        public static Dictionary<string, string> Manifests;
+        public static ILogger logger;
 
-        private static string ip;
-        private static int httpPort;
+        public static Config ActiveConfig { get; private set; }
+        public static Runtime ActiveRuntime { get; private set; }
 
-        public static string TempPath;
-        public static string FilesPath;
-        public static string ConfigPath;
-        public static string UpdaterPath;
-
-        public static Timer UpdaterTimer;
-        public static bool UpdaterEnabled = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
-
-        public static string[] validChannels;
-        public static List<string> uuidLocks = new List<string>();
-
-        public static Dictionary<string, DeletingFileStream> generatedZips = new Dictionary<string, DeletingFileStream>();
-
-        public static string latestPackageset = "default";
-        public static string latestAppVersion = "NO VERSION";
-
-        //public static DownloadStats dlStats;
-        //private static bool dlStatsInitialized = false;
-        //private static Timer dlStatsSaveTimer;
-
-        private static string _privilegedUUID;
-        private static string privilegedUUID {
-            get {
-                return _privilegedUUID;
-            }
-
-            set {
-                Console.WriteLine("[WARN] New priveleged UUID: " + value);
-                _privilegedUUID = value;
-            }
-        }
+        public static IUserDatabase Users;
 
         public static void Main(string[] args) {
+            var host = CreateHostBuilder(args).Build();
+            logger = host.Services.GetRequiredService<ILogger<Program>>();
 
-            Console.WriteLine("Working Directory: " + AppContext.BaseDirectory);
+            logger.LogInformation("The backend server has begun initialization.");
+            logger.LogDebug("Test");
 
-            Console.WriteLine(ReloadEverything());
-
-            Console.WriteLine(ConfigPath);
-
-            string[] hostConf = File.ReadAllLines((ConfigPath + "/host.txt").AsPath());
-            ip = hostConf[0];
-            httpPort = Convert.ToInt32(hostConf[1]);
-
-            privilegedUUID = createCryptographicallySecureGuid().ToString().Replace("-", "").ToLower();
-
-            UpdaterTimer = new Timer((e) => {
-                if (UpdaterEnabled) {
-                    if (File.Exists(($"{UpdaterPath}/SDSetupUpdater").AsPath())) {
-                        Process process = new Process {
-                            StartInfo = new ProcessStartInfo {
-                                FileName = ($"{UpdaterPath}/SDSetupUpdater").AsPath(),
-                                Arguments = $"-d {FilesPath} -p {latestPackageset} -u {privilegedUUID}",
-                                UseShellExecute = false,
-                                CreateNoWindow = true,
-                                WorkingDirectory = UpdaterPath
-                            }
-                        };
-                        process.Start();
-                    }
-                }
-            }, null, TimeSpan.Zero, TimeSpan.FromMinutes(720));
-
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux)) {
-                Console.WriteLine("[WARN] Updater has been disabled as non-Linux platforms are not supported!");
+            //attempt to load the configuration file from disk.
+            if (!LoadConfigFromDisk()) {
+                logger.LogError("Errors were detected while loading the configuration and initialization cannot continue. View the log for more details.");
+                Environment.Exit(1);
+            } else {
+                logger.LogInformation("The configuration file loaded without errors.");
             }
 
-            IWebHost host = CreateWebHostBuilder(args).Build();
+            logger.LogInformation("Loading runtime information");
+
+            if (!LoadRuntime()) {
+                logger.LogError("Errors were detected while configuring runtime information and initialization cannot continue. View the log for more details.");
+                Environment.Exit(1);
+            } else {
+                logger.LogInformation("The runtime was configured without errors.");
+            }
+
+            if (!LoadPackageSets()) {
+                logger.LogError("Errors were detected while loading packagesets and initialization cannot continue. View the log for more details.");
+            } else {
+                logger.LogInformation("Packagesets were loaded without errors.");
+            }
+
             host.Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseKestrel(options => {
-                    options.Listen(IPAddress.Parse(ip), httpPort);
-                    //options.Listen(IPAddress.Parse(ip), httpsPort, listenOptions => {
-                    //    listenOptions.UseHttps(httpsCertLocation, httpsCertKey);
-                    //});
-                })
-                .UseStartup<Startup>();
-
-        public static bool IsUuidPriveleged(string uuid) {
-            if (uuid == privilegedUUID) return true;
-            return false;
-        }
-
-        public static bool SetPrivelegedUUID(string oldUuid, string newUuid) {
-            if (oldUuid != privilegedUUID) return false;
-            privilegedUUID = newUuid;
+        public static bool LoadRuntime() {
+            Runtime runtime = new Runtime();
+            runtime.privilegedUuid = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
+            ActiveRuntime = runtime;
+            if (ActiveConfig.UseMongoDB) Users = new MongoUserDatabase();
+            else Users = new JsonUserDatabase();
             return true;
         }
 
-        public static bool ToggleAutoUpdates() {
-            UpdaterEnabled = !UpdaterEnabled;
-            return UpdaterEnabled;
-        }
+        public static bool LoadConfigFromDisk() {
 
-        public static string ReloadEverything() {
-#if (!DEBUG)
-            try {
-#endif
-            //if dlstats was initialized, write them to disk before reloading.
-            //if (dlStatsInitialized) {
-            //    dlStats.VerifyStatisticsIntegrity(U.GetPackageListInLatestPackageset());
-            //    File.WriteAllText((Config + "/dlstats.bin").AsPath(), dlStats.ToDataBinary(U.GetPackageList(latestPackageset)));
-            //}
+            logger.LogInformation("Loading configuration file from disk.");
 
-            //use temporary variables so if anything goes wrong, values wont be out of sync.
-            Dictionary<string, string> _Manifests = new Dictionary<string, string>();
+            bool err = false;
 
-            string _TempPath = (AppContext.BaseDirectory + "/temp").AsPath();
-            string _FilesPath = (AppContext.BaseDirectory + "/files").AsPath();
-            string _ConfigPath = (AppContext.BaseDirectory + "/config").AsPath();
-            string _UpdaterPath = (AppContext.BaseDirectory + "/updater").AsPath();
+            string configPath = (Globals.RootDirectory + "/config/config.json").AsPath();
 
-            if (!Directory.Exists(_TempPath)) Directory.CreateDirectory(_TempPath);
-            if (!Directory.Exists(_FilesPath)) Directory.CreateDirectory(_FilesPath);
-            if (!Directory.Exists(_ConfigPath)) Directory.CreateDirectory(_ConfigPath);
-            if (!File.Exists((_ConfigPath + "/latestpackageset.txt").AsPath())) File.WriteAllText((_ConfigPath + "/latestpackageset.txt").AsPath(), "default");
-            if (!File.Exists((_ConfigPath + "/latestappversion.txt").AsPath())) File.WriteAllText((_ConfigPath + "/latestappversion.txt").AsPath(), "NO VERSION");
-            if (!File.Exists((_ConfigPath + "/validchannels.txt").AsPath())) File.WriteAllLines((_ConfigPath + "/validchannels.txt").AsPath(), new string[] { "latest", "nightly" });
-
-            foreach(string n in Directory.EnumerateDirectories(_FilesPath)) {
-                string k = n.Split(Path.DirectorySeparatorChar).Last();
-                if (!File.Exists((_FilesPath + "/" + k + "/manifest6.json").AsPath())) File.WriteAllText(_FilesPath + "/" + k + "/manifest6.json", "{}");
+            if (!File.Exists(configPath)) {
+                logger.LogInformation("No configuration file found at " + configPath + ", creating a new one and saving.");
+                if (!Directory.Exists(configPath.Replace("config.json", ""))) Directory.CreateDirectory(configPath.Replace("config.json", ""));
+                Config newConfig = new Config();
+                File.WriteAllText(configPath, JsonConvert.SerializeObject(newConfig, Formatting.Indented));
             }
 
-            string _latestPackageset = File.ReadAllText((_ConfigPath + "/latestpackageset.txt").AsPath());
-            string _latestAppVersion = File.ReadAllText((_ConfigPath + "/latestappversion.txt").AsPath());
-            string[] _validChannels = File.ReadAllLines((_ConfigPath + "/validchannels.txt").AsPath());
+            Config proposedConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(configPath));
 
-            //look away
-            foreach (string n in Directory.EnumerateDirectories(_FilesPath)) {
-                string k = n.Split(Path.DirectorySeparatorChar).Last();
-                Manifest m = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText((_FilesPath + "/" + k + "/manifest6.json").AsPath()));
-                foreach (string c in Directory.EnumerateDirectories((_FilesPath + "/" + k).AsPath()).OrderBy(filename => filename)) {
-                    string f = c.Split(Path.DirectorySeparatorChar).Last();
-                    Package p = JsonConvert.DeserializeObject<Package>(File.ReadAllText((_FilesPath + "/" + k + "/" + f + "/info.json").AsPath()));
-                    m.Platforms[p.Platform].PackageSections[p.Section].Categories[p.Category].Subcategories[p.Subcategory].Packages[p.ID] = p;
+            if (!Directory.Exists(proposedConfig.FilesPath)) Directory.CreateDirectory(proposedConfig.FilesPath);
+            if (!Directory.Exists(proposedConfig.TempPath)) Directory.CreateDirectory(proposedConfig.TempPath);
+            if (proposedConfig.UseUpdater) {
+                if (!TimeSpan.TryParse(proposedConfig.UpdaterInterval, out _)) {
+                    err = true;
+                    logger.LogError("Failed to parse updater interval. Please ensure the syntax is correct. See https://docs.microsoft.com/en-us/dotnet/api/system.timespan.tryparse for examples.");
                 }
-                _Manifests[k] = JsonConvert.SerializeObject(m, Formatting.Indented);
+                if (!File.Exists(proposedConfig.UpdaterPath)) {
+                    err = true;
+                    logger.LogError("Updater executable could not be found. Make sure to specify a valid path to the updater or disable autoupdates by setting UseUpdater to false.");
+                }
+            }
+            if (proposedConfig.ValidChannels.Count() == 0) {
+                err = true;
+                logger.LogError("You need at least one valid package channel!");
+            }
+            if (String.IsNullOrWhiteSpace(proposedConfig.LatestPackageset)) {
+                err = true;
+                logger.LogError("You need to specify a packageset to use.");
+            }
+            if (proposedConfig.AppSupport) {
+                logger.LogWarning("App support is not complete in the current version of SDSetupBackend and will not correctly support the SDSetup app. Please use the old version of the backend.");
+                if (!File.Exists(proposedConfig.LatestAppPath)) {
+                    err = true;
+                    logger.LogError("SDSetup app path could not be found. Please ensure the path is correct or disable app support by setting AppSupport to false.");
+                }
+                if (String.IsNullOrWhiteSpace(proposedConfig.LatestAppVersion)) {
+                    err = true;
+                    logger.LogError("SDSetup app version was not specified. Please specify an app version or disable app support by setting AppSupport to false.");
+                }
             }
 
-            //this must be set before GetPackageListInLatestPackageset() is called
-            FilesPath = _FilesPath;
+            if (!err) ActiveConfig = proposedConfig;
 
-            //DownloadStats _dlStats;
+            return !err;
 
-            //if (File.Exists((_Config + "/dlstats.bin").AsPath())) {
-            //    _dlStats = DownloadStats.FromDataBinary(File.ReadAllText((_Config + "/dlstats.bin").AsPath()));
-            //} else {
-            //    _dlStats = new DownloadStats();
-            //}
-
-            Manifest latestManifest = JsonConvert.DeserializeObject<Manifest>(_Manifests[_latestPackageset]);
-            //_dlStats.VerifyStatisticsIntegrity(U.GetPackageList(_latestPackageset), latestManifest);
-            _Manifests[_latestPackageset] = JsonConvert.SerializeObject(latestManifest);
-
-            //if (dlStatsSaveTimer != null) dlStatsSaveTimer.Stop();
-            //dlStatsSaveTimer = new Timer();
-#if (DEBUG)     //
-            //dlStatsSaveTimer.Interval = 10000; //10 seconds
-#else           //
-            //dlStatsSaveTimer.Interval = 600000; //10 minutes
-#endif          //
-            //dlStatsSaveTimer.AutoReset = true;
-            //dlStatsSaveTimer.Elapsed += (sender, e) => {
-            //    dlStats.VerifyStatisticsIntegrity(U.GetPackageListInLatestPackageset());
-            //    File.WriteAllText((Config + "/dlstats.bin").AsPath(), dlStats.ToDataBinary(U.GetPackageList(latestPackageset)));
-            //    Console.WriteLine("[ SAVE ] Wrote download stats to file (" + DateTime.Now.ToShortDateString() + " | " + DateTime.Now.ToShortTimeString() + ").");
-            //};
-            //dlStatsSaveTimer.Start();
-
-            //update the real variables
-            TempPath = _TempPath;
-            ConfigPath = _ConfigPath;
-            UpdaterPath = _UpdaterPath;
-            latestPackageset = _latestPackageset;
-            latestAppVersion = _latestAppVersion;
-            validChannels = _validChannels;
-            Manifests = _Manifests;
-            //dlStats = _dlStats;
-
-            //dlStatsInitialized = true;
-#if (!DEBUG)
-            } catch (Exception e) {
-                return "[ERROR] Something went wrong while reloading: \n\n\nMessage:\n   " + e.Message + "\n\nStack Trace:\n" + e.StackTrace + "\n\n\nThe server will continue running and no changes will be saved";
-            }
-#endif
-            return "Success";
         }
 
-        public static bool OverridePrivilegedUuid() {
-            if (File.Exists((ConfigPath + "/uuidoverride.txt").AsPath())) {
-                privilegedUUID = File.ReadAllText((ConfigPath + "/uuidoverride.txt").AsPath());
-                File.Delete((ConfigPath + "/uuidoverride.txt").AsPath());
-                return true;
+        public static bool LoadPackageSets() {
+            Dictionary<string, Manifest> manifests = new Dictionary<string, Manifest>();
+            foreach (DirectoryInfo packagesetDirectory in new DirectoryInfo(ActiveConfig.FilesPath).GetDirectories()) {
+                logger.LogDebug("Processing packageset at " + packagesetDirectory.FullName);
+                FileInfo manifestFile = new FileInfo((packagesetDirectory.FullName + "/manifest6.json").AsPath());
+                Manifest manifest;
+                string packagesetName = packagesetDirectory.Name;
+                List<Package> packages = new List<Package>();
+                try {
+                    manifest = JsonConvert.DeserializeObject<Manifest>(File.ReadAllText(manifestFile.FullName));
+                } catch (Exception e) {
+                    logger.LogError("Failed to parse the manifest found at '" + manifestFile.FullName + "', the following exception was thrown:\n" + e.Message + "\n" + e.StackTrace);
+                    return false;
+                }
+
+                foreach (DirectoryInfo packageDirectory in packagesetDirectory.GetDirectories()) {
+                    bool dirty = false;
+                    FileInfo packageFile = new FileInfo((packageDirectory.FullName + "/info.json").AsPath());
+                    Package package;
+
+                    try {
+                        package = JsonConvert.DeserializeObject<Package>(File.ReadAllText(packageFile.FullName));
+                        logger.LogDebug("Processing package '" + package.ID + "'");
+                        if (package.Channels.Count == 0) throw new JsonSerializationException("Package format is outdated.");
+                    } catch (JsonSerializationException e) {
+                        //Something is wrong with the package information, it's likely either using the legacy format
+                        //or has no defined channels. Find out which.
+
+#pragma warning disable CS0618 // Type or member is obsolete
+                        LegacyPackageV1 oldFormat = JsonConvert.DeserializeObject<LegacyPackageV1>(File.ReadAllText(packageFile.FullName));
+#pragma warning restore CS0618 // Type or member is obsolete
+
+                        if (oldFormat.Versions.Count == 0) {
+                            logger.LogError("The package '" + oldFormat.ID + "' has no channels defined. Please define at least the 'latest' channel.");
+                            return false;
+                        } else {
+                            // DATAFIXER:
+                            // Old package information files did not use the VersionInfo object. Convert
+                            // the old format to the new format using VersionInfo.
+                            logger.LogInformation("Found outdated package format for package '" + oldFormat.ID + "', this package will be updated.");
+                            package = oldFormat.UpgradeFormat();
+                            dirty = true;
+                        }
+                    }
+
+                    foreach (KeyValuePair<string, VersionInfo> v in package.Channels) {
+                        DirectoryInfo versionDirectory = new DirectoryInfo((packageDirectory.FullName + "/" + v.Value.Version).AsPath());
+
+                        // DATAFIXER:
+                        // Old package directories will have the version directories named with the channel
+                        // they are for. The new format is for the directories to be named with the version.
+                        if (!versionDirectory.Exists) {
+                            DirectoryInfo oldVersionDirectory = new DirectoryInfo((packageDirectory.FullName + "/" + v.Key).AsPath());
+                            if (oldVersionDirectory.Exists) {
+                                logger.LogInformation("Found outdated version format for package '" + package.ID + "', this package will be updated.");
+                                oldVersionDirectory.MoveTo(versionDirectory.FullName);
+                            }
+                        }
+
+                        // DATAFIXER:
+                        // IF the size data for the version is missing or invalid, calculate the size of
+                        // the package.
+                        if (v.Value.Size <= 0) {
+                            logger.LogInformation("Found missing or invalid size data for package '" + package.ID + "' version '" + v.Value.Version + "', this information will be updated.");
+                            package.Channels[v.Key].Size = versionDirectory.SizeRecursive();
+                            dirty = true;
+                        }
+                    }
+
+                    if (dirty) File.WriteAllText(packageFile.FullName, JsonConvert.SerializeObject(package, Formatting.Indented));
+
+                    packages.Add(package);
+                }
+
+                foreach (Package p in packages) {
+                    logger.LogDebug("Registering package '" + p.ID + "' with packageset '" + packagesetName + "'");
+                    manifest
+                        .Platforms[p.Platform]
+                        .PackageSections[p.Section]
+                        .Categories[p.Category]
+                        .Subcategories[p.Subcategory]
+                        .Packages
+                        .Add(p.ID, p);
+                }
+
+                manifests.Add(packagesetName, manifest);
+
             }
-            return false;
+
+            ActiveRuntime.Manifests = manifests;
+
+            return true;
         }
 
-        public static Guid createCryptographicallySecureGuid() {
-            using (var provider = RandomNumberGenerator.Create()) {
-                var bytes = new byte[16];
-                provider.GetBytes(bytes);
-
-                return new Guid(bytes);
-            }
+        public static IHostBuilder CreateHostBuilder(string[] args) {
+            return Host.CreateDefaultBuilder(args)
+                .ConfigureWebHostDefaults(webBuilder => {
+                    webBuilder.UseStartup<Startup>();
+                });
         }
-
-
     }
 }

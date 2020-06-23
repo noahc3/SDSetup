@@ -13,11 +13,11 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using Newtonsoft.Json;
 using Octokit;
-using SDSetupBackendRewrite.Data.Accounts;
+using SDSetupBackend.Data.Accounts;
 using SDSetupCommon;
 using SDSetupCommon.Data.Account;
 
-namespace SDSetupBackendRewrite.Data {
+namespace SDSetupBackend.Data {
     public class SDSetupUser {
 
         [BsonId]

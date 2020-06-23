@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SDSetupCommon.Data;
-using SDSetupBackendRewrite.Providers;
+using SDSetupBackend.Providers;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using SDSetupBackendRewrite.Data;
+using SDSetupBackend.Data;
 using SDSetupCommon.Data;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Authentication;
@@ -22,7 +22,7 @@ using Octokit;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using System.Security.Authentication;
 
-namespace SDSetupBackendRewrite.Controllers {
+namespace SDSetupBackend.Controllers {
     [ApiController]
     [Route("api/v2/account")]
     public class AccountController : ControllerBase {

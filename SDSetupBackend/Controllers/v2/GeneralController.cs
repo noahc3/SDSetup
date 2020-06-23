@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SDSetupCommon.Data;
 
-namespace SDSetupBackendRewrite.Controllers {
+namespace SDSetupBackend.Controllers {
     [ApiController]
     [Route("api/v2")]
     public class GeneralController : ControllerBase {

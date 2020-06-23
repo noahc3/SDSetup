@@ -5,10 +5,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SDSetupCommon.Data;
-using SDSetupBackendRewrite.Providers;
+using SDSetupBackend.Providers;
 using System.Runtime.InteropServices;
 
-namespace SDSetupBackendRewrite.Controllers {
+namespace SDSetupBackend.Controllers {
     [ApiController]
     [Route("api/v2/admin")]
     public class AdminController : ControllerBase {

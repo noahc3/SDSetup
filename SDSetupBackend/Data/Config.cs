@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SDSetupBackendRewrite.Data {
+namespace SDSetupBackend.Data {
     //Config is the structure for the config.json file used to configure the operation of the server. Any properties that also exist in Runtime
     //will overwrite Runtime when the server restarts or the config is manually reloaded, and any changes to the active Runtime will be written to the config.
     public class Config {

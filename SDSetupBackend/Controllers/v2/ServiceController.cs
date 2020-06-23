@@ -10,14 +10,14 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Octokit;
-using SDSetupBackendRewrite.Data;
+using SDSetupBackend.Data;
 using SDSetupCommon;
 using SDSetupCommon.Data;
 using SDSetupCommon.Data.Account;
 using SDSetupCommon.Data.PackageModels;
 using SDSetupCommon.Data.ServiceModels;
 
-namespace SDSetupBackendRewrite.Controllers.v2 {
+namespace SDSetupBackend.Controllers.v2 {
     [ApiController]
     [Route("api/v2/service")]
     public class ServiceController : ControllerBase {

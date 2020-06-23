@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using SDSetupCommon;
 using SDSetupCommon.Data;
 
-namespace SDSetupBackendRewrite.Controllers.v2 {
+namespace SDSetupBackend.Controllers.v2 {
     [ApiController]
     [Route("api/v2/files")]
     public class FilesController : ControllerBase {
