@@ -238,13 +238,23 @@ namespace SDSetupBackend.Controllers {
 
             zipStream.SetLevel(3); //0-9, 9 being the highest level of compression
             foreach(DictionaryEntry f in files) {
-                ZipEntry newEntry = new ZipEntry((string) f.Key);
+                string key = f.Key as string;
+                string value = f.Value as string;
+                bool dir = key[0] == '?';
+                if (dir) {
+                    key = key.Substring(1);
+                    value = key.Substring(1);
+                    if (key.Last() != '/') key = key + "/";
+                }
+
+                ZipEntry newEntry = new ZipEntry(key);
                 newEntry.DateTime = DateTime.Now;
                 zipStream.PutNextEntry(newEntry);
-                FileStream fs = new FileStream((string) f.Value, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                fs.CopyTo(zipStream, 4096);
-                //StreamUtils.Copy(fs, zipStream, new byte[4096]);
-                fs.Close();
+                if (!dir) {
+                    FileStream fs = new FileStream(value, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    fs.CopyTo(zipStream, 81920);
+                    fs.Close();
+                }
                 zipStream.CloseEntry();
             }
             
@@ -259,7 +269,16 @@ namespace SDSetupBackend.Controllers {
         }
 
         private static string[] EnumerateAllFiles(string dir) {
-            return Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories).ToArray();
+            return Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories).Concat(EnumerateEmptyDirectories(dir)).ToArray();
+        }
+
+        private static IEnumerable<string> EnumerateEmptyDirectories(string dir) {
+            List<string> dirs = new List<string>();
+            foreach(string subdir in Directory.GetDirectories(dir)) {
+                if (Directory.GetFileSystemEntries(subdir).Length == 0) dirs.Add("?" + subdir);
+                else dirs.AddRange(EnumerateEmptyDirectories(subdir));
+            }
+            return dirs;
         }
 
 
