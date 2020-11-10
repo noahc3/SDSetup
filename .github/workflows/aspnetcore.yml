@@ -16,6 +16,6 @@ jobs:
     - name: Build Common
       run: dotnet build -c Release SDSetupCommon
     - name: Build Backend
-      run: dotnet build -c Release -r linux-x64 SDSetupBackendRewrite
+      run: dotnet build -c Release -r linux-x64 SDSetupBackend
     - name: Build Manager
       run: dotnet build -c Release SDSetupManager
