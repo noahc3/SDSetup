@@ -92,8 +92,8 @@ namespace SDSetupBackend.Controllers {
             }
 
             string sessionToken = await user.CreateSessionToken();
-
             Response.Cookies.Append("session", sessionToken);
+            user.SetRegistered();
 
             return new RedirectResult(Program.ActiveConfig.ManagerFrontendUrl, false);
         }
@@ -130,8 +130,8 @@ namespace SDSetupBackend.Controllers {
             }
 
             string sessionToken = await user.CreateSessionToken();
-
             Response.Cookies.Append("session", sessionToken);
+            user.SetRegistered();
 
             return new RedirectResult(Program.ActiveConfig.ManagerFrontendUrl, false);
         }

@@ -28,11 +28,7 @@ namespace SDSetupBackend.Data {
         public string GitlabClientId = "";
         public string GitlabClientSecret = "";
 
-        public bool UseMongoDB = false;
-        public string MongoDBHostname = "";
-        public string MongoDBUsername = "";
-        public string MongoDBPassword = "";
-        public string MongoDBDatabase = "";
+        public string DataPath = (Globals.RootDirectory + "/data/").AsPath();
 
     }
 }

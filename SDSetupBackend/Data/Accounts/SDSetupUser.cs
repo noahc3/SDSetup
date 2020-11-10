@@ -20,27 +20,37 @@ using SDSetupCommon.Data.Account;
 namespace SDSetupBackend.Data {
     public class SDSetupUser {
 
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        private string _bsonid { get; set; }
-
+        [JsonProperty]
         public string SDSetupUserId { get; private set; } = Utilities.CreateGuid().ToCleanString();
+        [JsonProperty]
         public SDSetupRole SDSetupRole { get; private set; } = SDSetupRole.Administrator;
+        [JsonProperty]
         public string SessionToken { get; private set; }
 
+        [JsonProperty]
         public string LinkedGithubId { get; private set; }
+        [JsonProperty]
         public string GithubAccessToken { get; private set; }
 
+        [JsonProperty]
         public string LinkedGitlabId { get; private set; }
+        [JsonProperty]
         public string GitlabAccessToken { get; private set; }
+        [JsonProperty]
         public string GitlabRefreshToken { get; private set; }
+        [JsonProperty]
+        public bool IsRegistered { get; private set; } = false;
 
-        [BsonIgnore]
+        [JsonIgnore]
         private GitHubClient GithubClient;
-        [BsonIgnore]
+        [JsonIgnore]
         private GitLabClient GitlabClient;
 
         public LinkedService PrimaryService { get; private set; }
+
+        public static async Task<SDSetupUser> FromJson(string json) {
+            return JsonConvert.DeserializeObject<SDSetupUser>(json);
+        }
 
         public async Task<string> CreateSessionToken() {
             SessionToken = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
@@ -223,6 +233,15 @@ namespace SDSetupBackend.Data {
             }
 
             return profile;
+        }
+
+        public async void SetRegistered() {
+            if (!this.IsRegistered) {
+                this.IsRegistered = true;
+                await Program.Users.UpdateUser(this);
+            } else {
+                this.IsRegistered = true;
+            }
         }
     }
 }

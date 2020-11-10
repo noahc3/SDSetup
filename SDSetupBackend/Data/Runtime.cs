@@ -19,6 +19,8 @@ namespace SDSetupBackend.Data {
                 _privilegedUuid = value;
             }
         }
+
+        public string userDatabasePath = "";
         public string latestPackageSet = "";
         public string latestAppVersion = "";
         public Dictionary<string, Manifest> Manifests = new Dictionary<string, Manifest>();

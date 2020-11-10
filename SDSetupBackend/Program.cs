@@ -66,8 +66,7 @@ namespace SDSetupBackend {
             Runtime runtime = new Runtime();
             runtime.privilegedUuid = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
             ActiveRuntime = runtime;
-            if (ActiveConfig.UseMongoDB) Users = new MongoUserDatabase();
-            else Users = new JsonUserDatabase();
+            Users = new JsonUserDatabase(ActiveConfig.DataPath);
             return true;
         }
 
@@ -89,7 +88,11 @@ namespace SDSetupBackend {
             Config proposedConfig = JsonConvert.DeserializeObject<Config>(File.ReadAllText(configPath));
 
             if (!Directory.Exists(proposedConfig.FilesPath)) Directory.CreateDirectory(proposedConfig.FilesPath);
+
             if (!Directory.Exists(proposedConfig.TempPath)) Directory.CreateDirectory(proposedConfig.TempPath);
+
+            if (!Directory.Exists(proposedConfig.DataPath)) Directory.CreateDirectory(proposedConfig.DataPath);
+
             if (proposedConfig.UseUpdater) {
                 if (!TimeSpan.TryParse(proposedConfig.UpdaterInterval, out _)) {
                     err = true;
@@ -120,7 +123,10 @@ namespace SDSetupBackend {
                 }
             }
 
-            if (!err) ActiveConfig = proposedConfig;
+            if (!err) {
+                ActiveConfig = proposedConfig;
+                File.WriteAllText(configPath, JsonConvert.SerializeObject(ActiveConfig, Formatting.Indented));
+            }
 
             return !err;
 

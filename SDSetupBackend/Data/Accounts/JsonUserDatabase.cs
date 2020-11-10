@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc.Formatters.Xml;
+﻿//using GitLabApiClient.Models.Files.Responses;
+using Microsoft.AspNetCore.Mvc.Formatters.Xml;
 using SDSetupCommon;
 using SDSetupCommon.Data.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.IO;
+using Newtonsoft.Json;
 
 namespace SDSetupBackend.Data.Accounts {
     /// <summary>
@@ -13,7 +16,18 @@ namespace SDSetupBackend.Data.Accounts {
     /// </summary>
     public class JsonUserDatabase : IUserDatabase {
 
+        private DirectoryInfo dbDirectory;
         List<SDSetupUser> users = new List<SDSetupUser>();
+
+        public JsonUserDatabase(string dbPath) {
+            this.dbDirectory = new DirectoryInfo(dbPath);
+            if (!dbDirectory.Exists) dbDirectory.Create();
+
+            foreach(FileInfo k in dbDirectory.EnumerateFiles()) {
+                SDSetupUser user = SDSetupUser.FromJson(File.ReadAllText(k.FullName)).Result;
+                users.Add(user);
+            }
+        }
 
         public async Task<string> GetSDSetupIdByGithubId(string githubId) {
             return await Task.Run(() => {
@@ -107,7 +121,7 @@ namespace SDSetupBackend.Data.Accounts {
         public async Task<bool> SetPrimaryService(string userId, LinkedService service) {
             SDSetupUser user = await GetSDSetupUserById(userId);
             if (user != default(SDSetupUser)) {
-                user.SetPrimaryService(service);
+                await user.SetPrimaryService(service);
                 return true;
             }
 
@@ -127,6 +141,11 @@ namespace SDSetupBackend.Data.Accounts {
         }
 
         public async Task<bool> UpdateUser(SDSetupUser user) {
+            if (user.IsRegistered) {
+                users.RemoveAll(x => x.GetSDSetupUserId() == user.GetSDSetupUserId());
+                users.Add(user);
+                File.WriteAllText($"{dbDirectory.FullName}/{user.SDSetupUserId}.json", JsonConvert.SerializeObject(user));
+            }
             return true;
         }
     }
