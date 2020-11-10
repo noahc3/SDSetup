@@ -49,7 +49,7 @@ namespace SDSetupBackend {
                 return factory.GetUrlHelper(actionContext);
             });
 
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(x => { x.SerializerSettings.TypeNameHandling = Newtonsoft.Json.TypeNameHandling.Auto; });
 
             services.AddHttpClient();
 
