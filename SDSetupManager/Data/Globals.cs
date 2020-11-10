@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using SDSetupCommon.Communications;
 using SDSetupCommon;
+using SDSetupCommon.Data.PackageModels;
 using SDSetupManager.Shared;
 
 namespace SDSetupManager.Data {

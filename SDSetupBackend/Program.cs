@@ -18,6 +18,8 @@ using Newtonsoft.Json;
 using SDSetupBackend.Data;
 using SDSetupBackend.Data.Accounts;
 using SDSetupCommon;
+using SDSetupCommon.Data.PackageModels;
+using SDSetupCommon.Data.PackageModels.Legacy;
 
 namespace SDSetupBackend {
     public class Program {
