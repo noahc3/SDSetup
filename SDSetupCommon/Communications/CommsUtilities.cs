@@ -35,7 +35,7 @@ namespace SDSetupCommon.Communications {
             HttpResponseMessage response = await EndpointSettings.HttpClient.GetAsync(new Uri(endpoint));
             if (response.IsSuccessStatusCode) {
                 return await Task.Run<ReturnType>(async () => {
-                    return JsonConvert.DeserializeObject<ReturnType>(await response.Content.ReadAsStringAsync());
+                    return JsonConvert.DeserializeObject<ReturnType>(await response.Content.ReadAsStringAsync(), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
                 });
             } else {
                 return default;
@@ -43,7 +43,7 @@ namespace SDSetupCommon.Communications {
         }
 
         public static async Task<ReturnType> PostJsonAsync<ReturnType, PostType>(string endpoint, PostType postData) {
-            string json = JsonConvert.SerializeObject(postData);
+            string json = JsonConvert.SerializeObject(postData, typeof(PostType), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
             HttpResponseMessage response = await EndpointSettings.HttpClient.PostAsync(endpoint, content);
             if (response.IsSuccessStatusCode) {
@@ -53,6 +53,13 @@ namespace SDSetupCommon.Communications {
             } else {
                 return default;
             }
+        }
+
+        public static async Task<HttpStatusCode> PostJsonAsync<PostType>(string endpoint, PostType postData) {
+            string json = JsonConvert.SerializeObject(postData, typeof(PostType), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage response = await EndpointSettings.HttpClient.PostAsync(endpoint, content);
+            return response.StatusCode;
         }
     }
 }

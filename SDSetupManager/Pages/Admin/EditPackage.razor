@@ -1,4 +1,5 @@
 ﻿@page "/admin/packages/{PackageId}"
+@inject NavigationManager Nav
 
 <Authorized MinRole="SDSetupRole.Administrator">
 
@@ -13,7 +14,7 @@
             <BSButtonGroup Class="wide-btn-group">
                 <BSButton Color="Color.Secondary">Cancel Edit</BSButton>
                 <BSButton Color="Color.Success">Submit Changes for Approval</BSButton>
-                <BSButton Color="Color.Danger">Push Changes Now</BSButton>
+                <BSButton OnClick="PushChangesNow" Color="Color.Danger">Push Changes Now</BSButton>
             </BSButtonGroup>
         </div>
     </div>
@@ -37,5 +38,20 @@
     public Package EditedPackage {
         get { return _editedPackage; }
         set { _editedPackage = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(value)); }
+    }
+
+    private async Task PushChangesNow() {
+        //TODO: Proper success feedback.
+        Globals.LockInput = true;
+        System.Net.HttpStatusCode rc = await PackageEndpoint.UpdatePackageNow(Globals.Manifest.Packageset, EditedPackage);
+        Console.WriteLine($"Updating package {EditedPackage.ID}, RC " + rc);
+        if (rc == System.Net.HttpStatusCode.Accepted) {
+            Console.WriteLine("Manifest refresh RC " + await Globals.TryUpdateManifest());
+            Globals.LockInput = false;
+            Nav.NavigateTo("/admin/packages/");
+        } else {
+            Globals.LockInput = false;
+        }
+
     }
 }

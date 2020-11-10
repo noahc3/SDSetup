@@ -24,40 +24,25 @@ namespace SDSetupBackend.Controllers.v2 {
         }
 
         [HttpPost("updatenow")]
-        public async Task<IActionResult> LatestPackageSet([FromBody] UpdatePackageModel model) {
+        public async Task<IActionResult> UpdateNow([FromBody] UpdatePackageModel model) {
+            Console.WriteLine("YES!");
             SDSetupUser user = await AuthorizationUtilities.CheckRequestMinAuthorization(Request, SDSetupRole.Administrator);
             if (user == null) return new StatusCodeResult(401); //unauthorized
 
             string m = model.packageset;
-            Package p = model.newPackage;
+            Package p = model.changedPackage;
 
-            try {
-                //TODO: garbage
-                if (Program.ActiveRuntime.Manifests[m]
-                    .Platforms[p.Platform]
-                    .PackageSections[p.Section]
-                    .Categories[p.Category]
-                    .Subcategories[p.Subcategory]
-                    .Packages.ContainsKey(p.ID)) {
+            //try {
+                bool result = Program.ActiveRuntime.UpdatePackage(m, p);
 
-                    //TODO: my god its so bad
-                    Program.ActiveRuntime.Manifests[m]
-                    .Platforms[p.Platform]
-                    .PackageSections[p.Section]
-                    .Categories[p.Category]
-                    .Subcategories[p.Subcategory]
-                    .Packages[p.ID] = p;
-
-                    //TODO: standardize this in one location (UpdatePackage method or something)
-                    System.IO.File.WriteAllText((Program.ActiveConfig.FilesPath + "/" + m + "/" + p.ID + "/info.json").AsPath(), JsonConvert.SerializeObject(p, Formatting.Indented));
-
+                if (result) {
                     return new StatusCodeResult(202); //accepted
                 } else {
-                    return new StatusCodeResult(400); //bad request
+                    return new StatusCodeResult(500); //bad request
                 }
-            } catch (Exception) {
-                return new StatusCodeResult(400); //bad request
-            }
+            //} catch (Exception) {
+            //    return new StatusCodeResult(500); //internal server error
+            //}
         }
     }
 }

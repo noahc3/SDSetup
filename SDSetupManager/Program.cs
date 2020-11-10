@@ -8,10 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 using SDSetupCommon.Communications;
 using BlazorStrap;
 using SDSetupCommon.Data;
+using Newtonsoft.Json;
 
 namespace SDSetupManager {
     public class Program {
         public static async Task Main(string[] args) {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings {
+                TypeNameHandling = TypeNameHandling.Auto
+            };
 
             EndpointSettings.serverInformation = new ServerInformation();
 

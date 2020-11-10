@@ -39,5 +39,10 @@ namespace SDSetupCommon.Data.PackageModels {
         public Package() {
 
         }
+
+        //TODO: Implement Package::Validate()
+        public bool Validate() {
+            return true;
+        }
     }
 }

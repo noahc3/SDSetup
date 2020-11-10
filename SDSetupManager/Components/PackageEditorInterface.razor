@@ -253,7 +253,7 @@
     public Package Package {
         get { return _package; }
         set {
-            _package = JsonConvert.DeserializeObject<Package>(JsonConvert.SerializeObject(value));
+            _package = value;
             if (_package.AutoUpdateConditions == null || _package.AutoUpdateConditions.Count == 0) {
                 _package.AutoUpdateConditions = new List<UpdaterCondition>() { new GitReleaseTagCondition() };
             }

@@ -155,7 +155,7 @@ namespace SDSetupBackend {
                     Package package;
 
                     try {
-                        package = JsonConvert.DeserializeObject<Package>(File.ReadAllText(packageFile.FullName));
+                        package = JsonConvert.DeserializeObject<Package>(File.ReadAllText(packageFile.FullName), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
                         logger.LogDebug("Processing package '" + package.ID + "'");
                         if (package.Channels.Count == 0) throw new JsonSerializationException("Package format is outdated.");
                     } catch (JsonSerializationException e) {
@@ -218,6 +218,8 @@ namespace SDSetupBackend {
                         .Packages
                         .Add(p.ID, p);
                 }
+
+                manifest.Packageset = packagesetName;
 
                 manifests.Add(packagesetName, manifest);
 

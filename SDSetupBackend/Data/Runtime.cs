@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.IO;
+using Microsoft.Extensions.Logging;
 using SDSetupCommon.Data.PackageModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Newtonsoft.Json;
 
 namespace SDSetupBackend.Data {
     //Runtime contains information about currently active variables. During a hot-reload, the active runtime object will be left in place and will
@@ -25,5 +26,17 @@ namespace SDSetupBackend.Data {
         public string latestPackageSet = "";
         public string latestAppVersion = "";
         public Dictionary<string, Manifest> Manifests = new Dictionary<string, Manifest>();
+
+        public bool UpdatePackage(string packageset, Package changedPackage) {
+            bool result = Manifests[packageset].UpdatePackage(changedPackage);
+            
+            if (result) {
+                File.WriteAllText(changedPackage.GetMetaPath(packageset), JsonConvert.SerializeObject(changedPackage, typeof(Package), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }));
+            }
+
+            return result;
+        }
+
+
     }
 }
