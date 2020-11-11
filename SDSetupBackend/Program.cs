@@ -20,6 +20,7 @@ using SDSetupBackend.Data.Accounts;
 using SDSetupCommon;
 using SDSetupCommon.Data.PackageModels;
 using SDSetupCommon.Data.PackageModels.Legacy;
+using SDSetupCommon.Data.UpdaterModels;
 
 namespace SDSetupBackend {
     public class Program {
@@ -209,7 +210,17 @@ namespace SDSetupBackend {
                 }
 
                 foreach (Package p in packages) {
-                    logger.LogDebug("Registering package '" + p.ID + "' with packageset '" + packagesetName + "'");
+
+                    logger.LogDebug($"Registering package '{p.ID}' with packageset '{packagesetName}'");
+
+                    //TODO: Add timed trigger support
+                    foreach (UpdaterTrigger k in p.AutoUpdateTriggers) {
+                        if (k is WebhookTrigger) {
+                            logger.LogDebug($"Found webhook update trigger for package {p.ID}, registering");
+                            ActiveRuntime.RegisterWebhook(((WebhookTrigger)k).WebhookId, packagesetName, p.ID);
+                        }
+                    }
+
                     manifest
                         .Platforms[p.Platform]
                         .PackageSections[p.Section]
