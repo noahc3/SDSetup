@@ -10,17 +10,17 @@ namespace SDSetupCommon.Data.UpdaterModels {
 
         public string Name { get; set; } = "";
 
-        private string _webhookEndpoint { get; set; }
+        private string _webhookId { get; set; }
 
-        public string WebhookEndpoint {
+        public string WebhookId {
             get {
-                if (_webhookEndpoint.NullOrWhiteSpace()) _webhookEndpoint = String.Format(WebhookEndpoints.WebhookEndpoint, Utilities.CreateCryptographicallySecureGuid().ToCleanString());
-                return _webhookEndpoint;
+                if (_webhookId.NullOrWhiteSpace()) _webhookId = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
+                return _webhookId;
             }
 
             set {
                 //Once set it is considered readonly.
-                if (_webhookEndpoint.NullOrWhiteSpace()) _webhookEndpoint = value;
+                if (_webhookId.NullOrWhiteSpace()) _webhookId = value;
             }
         }
 

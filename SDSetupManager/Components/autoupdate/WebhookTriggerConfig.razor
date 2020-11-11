@@ -21,7 +21,7 @@
                 <BSBasicInput InputType="InputType.Text" @bind-Value="@Trigger.Name"></BSBasicInput>
 
                 <BSFormLabel>Webhook Endpoint</BSFormLabel>
-                <BSBasicInput InputType="InputType.Text" @bind-Value="@Trigger.WebhookEndpoint" IsReadonly="true"></BSBasicInput>
+                <BSBasicInput InputType="InputType.Text" Value="String.Format(WebhookEndpoints.WebhookEndpoint, Trigger.WebhookId)" IsReadonly="true"></BSBasicInput>
                 <small>This endpoint is unique to this package and should be kept secret. Do not share it with anyone.</small>
             </BSBasicForm>
         </BSCard>
