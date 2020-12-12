@@ -38,15 +38,18 @@
 
     </div>
     if (G.showWarning == true) {
-        <div class="ui active dimmer fade-in" style="height:100%;width:100%">
-            <div class="ui segment" style="max-width:600px">
-                <h3>@G.GetCurrentWarning().Title</h3>
-                <p>@G.GetCurrentWarning().Content</p>
-                <button class="fluid ui @G.manifest.Platforms[G.consoleId].Color button" style="margin-top:1.5rem;margin-bottom:0.5rem" @onclick="@(() => selectPackage(G.GetCurrentWarning().PackageID))">Select Anyways</button>
-                <button class="fluid ui gray button" @onclick="@(() => hideWarning())">Don't Select</button>
-                <sub><i>This popup will no longer appear if you choose "Select Anyways"</i></sub>
-            </div>
+        <div class="ui active dimmer fade-in" style="height:100vh;width:100vw">
+            <BSCard style="max-width:600px">
+                <BSCard CardType="CardType.Body">
+                    <BSCard CardType="CardType.Title">@G.GetCurrentWarning().Title</BSCard>
+                    <BSCard CardType="CardType.Text">@G.GetCurrentWarning().Content</BSCard>
+                    <BSButton Color="Color.Danger" IsBlock="true" OnClick="@(() => selectPackage(G.GetCurrentWarning().PackageID))">Select Anyways</BSButton>
+                    <BSButton Color="Color.Info" IsBlock="true" OnClick="@(() => hideWarning())">Don't Select</BSButton>
+                    <sub><i>This popup will no longer appear if you choose "Select Anyways"</i></sub>
+                </BSCard>
+        </BSCard>
         </div>
+        
     }
 
     if (downloadFailed == true) {
