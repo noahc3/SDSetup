@@ -3,10 +3,22 @@
 
 <BSNavItem>
     <BSNavLink @bind-IsActive="G.selectedPackages[G.consoleId][PID]" @onclick="@(() => checkClicked(PID))">
-        @DisplayName@if (!String.IsNullOrEmpty(Version)) {<div style="color:#b7b7b7">(@Version)</div>}
+
+        <BSRow style="width:200px;border:none;margin:auto;line-height:1;padding:5px;">
+            <BSCol XS="1" style="padding:0;font-size:xx-large;">
+                @if (G.selectedPackages[G.consoleId][PID]) {
+                    <span>☑</span>
+                } else {
+                    <span>☐</span>
+                }
+            </BSCol>
+            <BSCol XS="11" style="padding:0;">
+                <span>@DisplayName@if (!String.IsNullOrEmpty(Version)) {<div style="color:#b7b7b7;margin-top:3px;">(@Version)</div>}</span>
+            </BSCol>
+        </BSRow>
     </BSNavLink>
 </BSNavItem>
-
+ 
 @functions  {
 
     private string _DisplayName;
@@ -20,7 +32,7 @@
             return _DisplayName;
         }
         set {
-            _DisplayName = value + " ";
+            _DisplayName = value;
         }
     }
 
