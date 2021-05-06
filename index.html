@@ -1,83 +1,125 @@
+﻿<!DOCTYPE html>
 <html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
-        <style>
-            h2 {
-                text-align: center;
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124060019-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-124060019-1');
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width">
+    <title>Homebrew SD Setup</title>
+    <base href="/" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ff0000">
+    <meta name="apple-mobile-web-app-title" content="SDSetup">
+    <meta name="application-name" content="SDSetup">
+    <meta name="msapplication-TileColor" content="#db0e0e">
+    <meta name="theme-color" content="#ffffff">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="scripts/compat.js" charset="utf-8" type="text/javascript"></script>
+    <link rel="stylesheet" href="/css/formantic-modified.css">
+    <link href="css/site.css" rel="stylesheet" />
+    <script src="https://code.iconify.design/1/1.0.3/iconify.min.js"></script>
+</head>
+<body style="height:auto">
+    <!-- Start Single Page Apps for GitHub Pages -->
+    <script type="text/javascript">
+        // Single Page Apps for GitHub Pages
+        // https://github.com/rafrex/spa-github-pages
+        // Copyright (c) 2016 Rafael Pedicini, licensed under the MIT License
+        // ----------------------------------------------------------------------
+        // This script checks to see if a redirect is present in the query string
+        // and converts it back into the correct url and adds it to the
+        // browser's history using window.history.replaceState(...),
+        // which won't cause the browser to attempt to load the new url.
+        // When the single page app is loaded further down in this file,
+        // the correct url will be waiting in the browser's history for
+        // the single page app to route accordingly.
+        (function (l) {
+            if (l.search) {
+                var q = {};
+                l.search.slice(1).split('&').forEach(function (v) {
+                    var a = v.split('=');
+                    q[a[0]] = a.slice(1).join('=').replace(/~and~/g, '&');
+                });
+                if (q.p !== undefined) {
+                    window.history.replaceState(null, null,
+                        l.pathname.slice(0, -1) + (q.p || '') +
+                        (q.q ? ('?' + q.q) : '') +
+                        l.hash
+                    );
+                }
             }
-            h5.sd-text {
-                text-align: center;
-            }
-            .container {
-                margin-top: 30px;
-            }
-            .card-deck {
-                margin-top:50px;
-            }
-            a.btn {
-                margin:1.2rem;
-                margin-top:0;
-                width:auto;
-            }
-            #logo {
-                max-width:600px;
-                width:100%;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div>
-                <img id="logo" src="/img/logo_big.png" class="d-block mx-auto">
-                <br><br><br><br>
-                <h2>Offline for maintenance.</h2>
-                <h5 class="sd-text text-muted">Wednesday May 5th 10PM CST:</h4>
-                <h5 class="sd-text">We are in the process of migrating to a new server host and expect to be back up within an hour or two.</h4>
-                <h5 class="sd-text">If you need a bundle immediately, you can use one of the pre-configured bundles below until we get things back up:</h4>
-                
-                <div class="card-deck justify-content-center">
-                
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Recommended Defaults
-                            </h5>
-                            Includes a base set of default packages recommended for first time users to explore Switch homebrew.
+        }(window.location))
+    </script>
+    <!-- End Single Page Apps for GitHub Pages -->
+    <script>checkIE(); checkMobileFirefox();</script>
+    <div style="min-height:100vh;">
+        <app style="height:100vh;">
+            <div class="ui active dimmer" style="height:100vh;width:100vw;position:absolute;margin:0;top:0;left:0;right:0;bottom:0">
+                <div class="ui massive text loader">Loading</div>
+                <div style="width:90%;position:absolute;bottom:5%">
+                    <div class="ui negative message">
+                        <div class="header fluid">
+                            Some anti-viruses like AVG and Avast might block this site due to a domain reputation (DRep) problem. This should resolve itself in the future, but for now you'll need to disable your anti-virus to use this site if it gets blocked.
                         </div>
-                        <a href="https://tempfiles.sdsetup.com/sdsetup-recommended-defaults.zip" class="btn btn-info" role="button">
-                            Download
-                        </a>
                     </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Recommended Defaults + PegaScape
-                            </h5>
-                            Includes a base set of default packages recommended for first time users to explore Switch homebrew, as well as all PegaScape payloads and related tools.
+                    <div class="ui negative message">
+                        <div class="header fluid">
+                            If the page doesn't load, please report it on <a href="https://github.com/noahc3/SDSetup">GitHub</a>
                         </div>
-                        <a href="https://tempfiles.sdsetup.com/sdsetup-pegascape-defaults.zip" class="btn btn-info" role="button">
-                            Download
-                        </a>
                     </div>
-                    
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                Minimal
-                            </h5>
-                            Includes just enough to get Atmosphere CFW and homebrew running, with no extras.
-                        </div>
-                        
-                        <a href="https://tempfiles.sdsetup.com/sdsetup-minimal.zip" class="btn btn-info" role="button">
-                            Download
-                        </a>
-                    </div>
-                    
                 </div>
             </div>
-            
-        </div>
-    </body>
+            <p></p>
+            <p></p>
+            <p></p>
+        </app>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <script src="scripts/methods.js"></script>
+
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script src="_content/Cloudcrate.AspNetCore.Blazor.Browser.Storage/Storage.js"></script>
+    <script src="_content/BlazorStrap/blazorStrap.js"></script>
+    <script src="_content/CurrieTechnologies.Razor.Clipboard/clipboard.min.js"></script>
+
+    <script type="text/javascript">
+        const assemblyName = 'SDSetupBlazor';
+        const methodName = 'PromiseCallback';
+        const errorMethodName = 'PromiseError';
+
+
+        window.runFunction = (callbackId, fnName, data) => {
+
+            let promise = window[fnName](data);
+
+            promise.then(value => {
+                if (value === undefined) {
+                    value = null;
+                }
+                const result = JSON.stringify(value);
+                DotNet.invokeMethodAsync(assemblyName, methodName, callbackId, result);
+            }).catch(reason => {
+                if (!reason) {
+                    reason = "Something went wrong";
+                }
+                const result = reason.toString();
+                DotNet.invokeMethodAsync(assemblyName, errorMethodName, callbackId, result);
+            });
+
+            // Your function currently has to return something.
+            return true;
+        };
+    </script>
+</body>
 </html>
