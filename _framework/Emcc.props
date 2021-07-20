@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <RuntimeEmccVersionRaw>emcc (Emscripten gcc/clang-like replacement + linker emulating GNU ld) 2.0.21-git (002374041ab769340e824aa3ba549170e6728d91)</RuntimeEmccVersionRaw>
+    <RuntimeEmccVersion>2.0.21-git</RuntimeEmccVersion>
+    <RuntimeEmccVersionHash>002374041ab769340e824aa3ba549170e6728d91</RuntimeEmccVersionHash>
+  </PropertyGroup>
+</Project>
