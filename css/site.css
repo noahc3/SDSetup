@@ -2,10 +2,11 @@
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-app {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+#app {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	height:100vh;
 }
 
 .top-row {
