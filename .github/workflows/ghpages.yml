@@ -24,5 +24,5 @@ jobs:
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         BRANCH: gh-pages # The branch the action should deploy to.
-        FOLDER: SDSetupBlazor\bin\Release\net6.0\publish\wwwroot # The folder the action should deploy.
+        FOLDER: SDSetupBlazor/bin/Release/net6.0/publish/wwwroot # The folder the action should deploy.
         
