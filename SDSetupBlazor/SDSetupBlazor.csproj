@@ -4,7 +4,6 @@
 		<TargetFramework>net6.0</TargetFramework>
 		<LangVersion>8.0</LangVersion>
 		<SignAssembly>false</SignAssembly>
-		<RunAOTCompilation>true</RunAOTCompilation>
 	</PropertyGroup>
 
 	<ItemGroup>
