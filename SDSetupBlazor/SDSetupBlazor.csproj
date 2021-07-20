@@ -1,33 +1,32 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
-    <LangVersion>8.0</LangVersion>
-    <RazorLangVersion>3.0</RazorLangVersion>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<LangVersion>8.0</LangVersion>
+		<SignAssembly>false</SignAssembly>
+		<RunAOTCompilation>true</RunAOTCompilation>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="BlazorStrap" Version="1.1.101" />
-    <PackageReference Include="Cloudcrate.AspNetCore.Blazor.Browser.Storage" Version="3.0.0" />
-    <PackageReference Include="CurrieTechnologies.Razor.Clipboard" Version="1.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="3.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Build" Version="3.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="3.2.0" />
+	<ItemGroup>
+		<PackageReference Include="BlazorStrap" Version="1.1.101" />
+		<PackageReference Include="Cloudcrate.AspNetCore.Blazor.Browser.Storage" Version="3.0.0" />
+		<PackageReference Include="CurrieTechnologies.Razor.Clipboard" Version="1.2.1" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.0-preview.6.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.0-preview.6.*" />
 
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-  </ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\scss\" />
-  </ItemGroup>
+	<ItemGroup>
+		<Folder Include="wwwroot\scss\" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SDSetupCommon\SDSetupCommon.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\SDSetupCommon\SDSetupCommon.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
-  </ItemGroup>
+	<ItemGroup>
+		<Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+	</ItemGroup>
 
 </Project>
