@@ -7,19 +7,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-      
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
-        
+    - name: Install microsoft-net-sdk-blazorwebassembly-aot Workload
+      run: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot
     - name: Build Blazor
       run: dotnet publish -c Release SDSetupBlazor
-      
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
