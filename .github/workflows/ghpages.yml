@@ -14,6 +14,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '6.0.x'
+        include-prerelease: true
     - name: Install microsoft-net-sdk-blazorwebassembly-aot Workload
       run: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot
     - name: Build Blazor
