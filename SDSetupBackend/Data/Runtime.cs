@@ -7,7 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using SDSetupCommon.Data.UpdaterModels;
-using MongoDB.Driver;
+using SDSetupCommon;
+using System.IO.Enumeration;
 
 namespace SDSetupBackend.Data {
     //Runtime contains information about currently active variables. During a hot-reload, the active runtime object will be left in place and will
@@ -30,7 +31,7 @@ namespace SDSetupBackend.Data {
         public Dictionary<string, Manifest> Manifests = new Dictionary<string, Manifest>();
         private Dictionary<string, WebhookTriggerRegistration> Webhooks = new Dictionary<string, WebhookTriggerRegistration>();
 
-        public bool UpdatePackage(string packageset, Package changedPackage) {
+        public bool UpdatePackageMeta(string packageset, Package changedPackage) {
             bool result = Manifests[packageset].UpdatePackage(changedPackage);
             
             if (result) {
@@ -61,6 +62,28 @@ namespace SDSetupBackend.Data {
                 return Webhooks[webhookId]?.PackageID;
             }
             return null;
+        }
+
+        public async Task<bool> ExecuteAutoUpdate(string packageset, string packageid, string channel) {
+            if (!Manifests.ContainsKey(packageset)) return false;
+
+            Package package = Manifests[packageset]?.FindPackageById(packageid);
+            if (package == null) return false;
+
+
+            string tmp = Path.Join(Path.GetTempPath(), Utilities.CreateGuid().ToCleanString());
+            if (!Directory.Exists(tmp)) Directory.CreateDirectory(tmp);
+            Program.logger.LogDebug("Update path: " + tmp);
+            try {
+                foreach (UpdaterTask k in package.AutoUpdateTasks) {
+                    await k.Apply(tmp);
+                }
+            } catch {
+                return false;
+            }
+
+            return true;
+
         }
 
 

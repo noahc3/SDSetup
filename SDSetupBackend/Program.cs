@@ -15,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Configuration;
 using Newtonsoft.Json;
+using Octokit;
 using SDSetupBackend.Data;
 using SDSetupBackend.Data.Accounts;
 using SDSetupCommon;
@@ -30,14 +31,16 @@ namespace SDSetupBackend {
         public static Config ActiveConfig { get; private set; }
         public static Runtime ActiveRuntime { get; private set; }
 
+        public static GitHubClient GithubClient { get; private set; }
+
         public static IUserDatabase Users;
 
         public static void Main(string[] args) {
+            bool err = false;
             var host = CreateHostBuilder(args).Build();
             logger = host.Services.GetRequiredService<ILogger<Program>>();
 
             logger.LogInformation("The backend server has begun initialization.");
-            logger.LogDebug("Test");
 
             //attempt to load the configuration file from disk.
             if (!LoadConfigFromDisk()) {
@@ -45,6 +48,16 @@ namespace SDSetupBackend {
                 Environment.Exit(1);
             } else {
                 logger.LogInformation("The configuration file loaded without errors.");
+            }
+
+            if (!SDSetupCommon.Communications.Overrides.UseDirectGitHub(
+                ActiveConfig.GithubClientId, ActiveConfig.GithubClientSecret)) err = true;
+
+            if (err) {
+                logger.LogError("Errors were detected with the provided GitHub Client ID/Secret and initialization cannot continue. Please validate the configured ID and secret token.");
+                Environment.Exit(1);
+            } else {
+                logger.LogInformation("Direct service overrides have been enabled in Common.");
             }
 
             logger.LogInformation("Loading runtime information");
@@ -97,13 +110,17 @@ namespace SDSetupBackend {
             if (!Directory.Exists(proposedConfig.DataPath)) Directory.CreateDirectory(proposedConfig.DataPath);
 
             if (proposedConfig.UseUpdater) {
+                if (String.IsNullOrWhiteSpace(proposedConfig.GithubUsername)) {
+                    err = true;
+                    logger.LogError("The auto-updater requires a valid GitHub login. Please specify a username in the config file.");
+                }
+                if (String.IsNullOrWhiteSpace(proposedConfig.GithubPassword)) {
+                    err = true;
+                    logger.LogError("The auto-updater requires a valid GitHub login. Please specify a passord in the config file.");
+                }
                 if (!TimeSpan.TryParse(proposedConfig.UpdaterInterval, out _)) {
                     err = true;
                     logger.LogError("Failed to parse updater interval. Please ensure the syntax is correct. See https://docs.microsoft.com/en-us/dotnet/api/system.timespan.tryparse for examples.");
-                }
-                if (!File.Exists(proposedConfig.UpdaterPath)) {
-                    err = true;
-                    logger.LogError("Updater executable could not be found. Make sure to specify a valid path to the updater or disable autoupdates by setting UseUpdater to false.");
                 }
             }
             if (proposedConfig.ValidChannels.Count() == 0) {
@@ -158,7 +175,7 @@ namespace SDSetupBackend {
                     try {
                         package = JsonConvert.DeserializeObject<Package>(File.ReadAllText(packageFile.FullName), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
                         logger.LogDebug("Processing package '" + package.ID + "'");
-                        if (package.Channels.Count == 0) throw new JsonSerializationException("Package format is outdated.");
+                        if (package.VersionInfo == null) throw new JsonSerializationException("Package format is outdated.");
                     } catch (JsonSerializationException e) {
                         //Something is wrong with the package information, it's likely either using the legacy format
                         //or has no defined channels. Find out which.
@@ -180,28 +197,26 @@ namespace SDSetupBackend {
                         }
                     }
 
-                    foreach (KeyValuePair<string, VersionInfo> v in package.Channels) {
-                        DirectoryInfo versionDirectory = new DirectoryInfo((packageDirectory.FullName + "/" + v.Value.Version).AsPath());
+                    DirectoryInfo versionDirectory = new DirectoryInfo((packageDirectory.FullName + "/" + package.VersionInfo.Version).AsPath());
 
-                        // DATAFIXER:
-                        // Old package directories will have the version directories named with the channel
-                        // they are for. The new format is for the directories to be named with the version.
-                        if (!versionDirectory.Exists) {
-                            DirectoryInfo oldVersionDirectory = new DirectoryInfo((packageDirectory.FullName + "/" + v.Key).AsPath());
-                            if (oldVersionDirectory.Exists) {
-                                logger.LogInformation("Found outdated version format for package '" + package.ID + "', this package will be updated.");
-                                oldVersionDirectory.MoveTo(versionDirectory.FullName);
-                            }
+                    // DATAFIXER:
+                    // Old package directories will have the version directories named with the channel
+                    // they are for. The new format is for the directories to be named with the version.
+                    if (!versionDirectory.Exists) {
+                        DirectoryInfo oldVersionDirectory = new DirectoryInfo((packageDirectory.FullName + "/latest").AsPath());
+                        if (oldVersionDirectory.Exists) {
+                            logger.LogInformation("Found outdated version format for package '" + package.ID + "', this package will be updated.");
+                            oldVersionDirectory.MoveTo(versionDirectory.FullName);
                         }
+                    }
 
-                        // DATAFIXER:
-                        // IF the size data for the version is missing or invalid, calculate the size of
-                        // the package.
-                        if (v.Value.Size <= 0) {
-                            logger.LogInformation("Found missing or invalid size data for package '" + package.ID + "' version '" + v.Value.Version + "', this information will be updated.");
-                            package.Channels[v.Key].Size = versionDirectory.SizeRecursive();
-                            dirty = true;
-                        }
+                    // DATAFIXER:
+                    // IF the size data for the version is missing or invalid, calculate the size of
+                    // the package.
+                    if (package.VersionInfo.Size <= 0) {
+                        logger.LogInformation("Found missing or invalid size data for package '" + package.ID + "' version '" + package.VersionInfo.Version + "', this information will be updated.");
+                        package.VersionInfo.Size = versionDirectory.SizeRecursive();
+                        dirty = true;
                     }
 
                     if (dirty) File.WriteAllText(packageFile.FullName, JsonConvert.SerializeObject(package, Formatting.Indented));

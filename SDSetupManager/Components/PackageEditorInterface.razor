@@ -165,8 +165,8 @@
                                 <BSCollapseGroup>
                                     @foreach (UpdaterCondition _k in Package.AutoUpdateConditions) {
                                         UpdaterCondition k = _k;
-                                        if (k is GitReleaseTagCondition) {
-                                            <GitReleaseTagConditionConfig Condition="k as GitReleaseTagCondition" />
+                                        if (k is VersionChangedCondition) {
+                                            <VersionChangedConditionConfig Condition="k as VersionChangedCondition" />
                                         }
                                     }
                                 </BSCollapseGroup>
@@ -245,7 +245,7 @@
     private string[] triggerTypes = new string[] { "Webook Trigger", "Timed Scan Trigger" };
 
     private int selectedConditionType;
-    private string[] conditionTypes = new string[] { "Git Release Tag Condition" };
+    private string[] conditionTypes = new string[] { "Version Changed Condition" };
 
     private FileSystemItem files;
 
@@ -255,10 +255,10 @@
         set {
             _package = value;
             if (_package.AutoUpdateConditions == null || _package.AutoUpdateConditions.Count == 0) {
-                _package.AutoUpdateConditions = new List<UpdaterCondition>() { new GitReleaseTagCondition() };
+                _package.AutoUpdateConditions = new List<UpdaterCondition>() { new VersionChangedCondition() };
             }
 
-            if (_package.AutoUpdateConditions.First() is GitReleaseTagCondition) {
+            if (_package.AutoUpdateConditions.First() is VersionChangedCondition) {
                 selectedConditionType = 0;
             }
         }
@@ -314,7 +314,7 @@
 
         switch (selectedConditionType) {
             case 0:
-                Package.AutoUpdateConditions = new List<UpdaterCondition>() { new GitReleaseTagCondition() };
+                Package.AutoUpdateConditions = new List<UpdaterCondition>() { new VersionChangedCondition() };
                 break;
         }
     }

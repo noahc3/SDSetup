@@ -14,7 +14,6 @@ namespace SDSetupBackend.Data {
         public string UpdaterInterval = "12:00:00"; // 12 hours
         public string TempPath = (Globals.RootDirectory + "/temp").AsPath();
         public string FilesPath = (Globals.RootDirectory + "/files").AsPath();
-        public string UpdaterPath = (Globals.RootDirectory + "/updater/SDSetupUpdater").AsPath();
 
         public string[] ValidChannels = new string[] { "latest" };
         public bool AppSupport = true;
@@ -27,6 +26,9 @@ namespace SDSetupBackend.Data {
         public string GithubClientSecret = "";
         public string GitlabClientId = "";
         public string GitlabClientSecret = "";
+
+        public string GithubUsername = "";
+        public string GithubPassword = "";
 
         public string DataPath = (Globals.RootDirectory + "/data/").AsPath();
 

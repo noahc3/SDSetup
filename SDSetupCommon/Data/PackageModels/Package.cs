@@ -14,7 +14,7 @@ namespace SDSetupCommon.Data.PackageModels {
         public string Subcategory { get; set; } = "";
         public string Authors { get; set; } = "";
         public long Downloads { get; set; } = 0;
-        public Dictionary<string, VersionInfo> Channels { get; set; } = new Dictionary<string, VersionInfo>();
+        public VersionInfo VersionInfo { get; set; }
         public string Source { get; set; } = "";
         public string License { get; set; } = "";
         public int Priority { get; set; } = 0;
@@ -31,10 +31,9 @@ namespace SDSetupCommon.Data.PackageModels {
         public bool AutoUpdates { get; set; } = false;
 
         public List<UpdaterTask> AutoUpdateTasks { get; set; } = new List<UpdaterTask>();
-
         public List<UpdaterTrigger> AutoUpdateTriggers { get; set; } = new List<UpdaterTrigger>();
-
         public List<UpdaterCondition> AutoUpdateConditions { get; set; } = new List<UpdaterCondition>();
+        public VersionSource AutoUpdateVersionSource { get; set; }
 
         public Package() {
 

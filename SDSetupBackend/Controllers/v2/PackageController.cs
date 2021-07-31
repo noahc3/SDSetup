@@ -33,7 +33,7 @@ namespace SDSetupBackend.Controllers.v2 {
             Package p = model.changedPackage;
 
             //try {
-                bool result = Program.ActiveRuntime.UpdatePackage(m, p);
+                bool result = Program.ActiveRuntime.UpdatePackageMeta(m, p);
 
                 if (result) {
                     return new StatusCodeResult(202); //accepted

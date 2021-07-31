@@ -12,7 +12,7 @@ namespace SDSetupCommon.Data.UpdaterModels {
 
         }
 
-        public WebhookTriggerRegistration(string packageset, string packageID, string webhookID) {
+        public WebhookTriggerRegistration(string webhookID, string packageset, string packageID) {
             Packageset = packageset;
             PackageID = packageID;
             WebhookID = webhookID;

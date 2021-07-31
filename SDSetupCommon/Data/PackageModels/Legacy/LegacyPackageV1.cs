@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace SDSetupCommon.Data.PackageModels.Legacy {
@@ -74,6 +75,7 @@ namespace SDSetupCommon.Data.PackageModels.Legacy {
                 Subcategory = Subcategory,
                 Authors = Authors,
                 Downloads = Downloads,
+                VersionInfo = new VersionInfo() { Version = Versions.First().Value, Size = 0 },
                 Source = Source,
                 Priority = Priority,
                 EnabledByDefault = EnabledByDefault,
@@ -86,13 +88,6 @@ namespace SDSetupCommon.Data.PackageModels.Legacy {
                 Dependencies = Dependencies,
                 DeleteOnUpdate = DeleteOnUpdate
             };
-
-            foreach (KeyValuePair<string, string> v in Versions) {
-                p.Channels[v.Key] = new VersionInfo() {
-                    Version = v.Value,
-                    Size = 0
-                };
-            }
 
             return p;
         }

@@ -15,8 +15,13 @@ namespace SDSetupBackend.Controllers.v2 {
             if (String.IsNullOrWhiteSpace(package)) {
                 return new StatusCodeResult(404);
             } else {
+                //TODO: get rid of channels i dont want em
+                _ = Program.ActiveRuntime.ExecuteAutoUpdate(
+                    Program.ActiveConfig.LatestPackageset,
+                    package,
+                    Program.ActiveConfig.ValidChannels[0]
+                );
                 return new StatusCodeResult(200);
-                //STUB: trigger auto update
             }
         }
     }

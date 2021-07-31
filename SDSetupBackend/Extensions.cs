@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using SDSetupCommon;
+using SDSetupCommon.Data.UpdaterModels;
 
 namespace SDSetupBackend {
     public static class Extensions {
@@ -15,6 +16,13 @@ namespace SDSetupBackend {
         }
         public static string GetMetaPath(this Package package, string packageset) {
             return ($"{package.GetLocalPath(packageset)}/info.json").AsPath();
+        }
+        public static string GetChannelPath(this Package package, string packageset, string channel) {
+            return ($"{package.GetLocalPath(packageset)}/{channel}").AsPath();
+        }
+
+        public static string GetVersion(this GitReleaseTagVersionSource src) {
+            return "";
         }
     }
 }
