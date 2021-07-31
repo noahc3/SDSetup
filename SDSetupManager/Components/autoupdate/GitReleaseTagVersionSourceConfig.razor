@@ -1,0 +1,95 @@
+﻿@using SDSetupCommon.Data.UpdaterModels
+@inherits ComponentBase
+
+@if (Globals.Authenticated) {
+    <BSCard CardType="CardType.Card">
+        <a href="javascript:void(0);" @onclick="@ToggleCollapse">
+            <BSCard CardType="CardType.Header">
+                Git Release Tag Version Source
+            </BSCard>
+        </a>
+        <BSCard CardType="CardType.Body" Class="@(collapsed ? "collapse" : "")">
+            <BSBasicForm>
+                <BSFormLabel>Platform</BSFormLabel>
+                <BSDropdown>
+                    <BSDropdownToggle>@VersionSource.gitReleaseSource</BSDropdownToggle>
+                    <BSDropdownMenu>
+                        @foreach (GitReleaseSource _src in (GitReleaseSource[])Enum.GetValues(typeof(GitReleaseSource))) {
+                            GitReleaseSource src = _src;
+                            string k = src.ToString();
+                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetReleaseSource(src); })">@k</BSDropdownItem>
+                        }
+                    </BSDropdownMenu>
+                </BSDropdown>
+
+                <BSFormLabel>Release Type</BSFormLabel>
+                <BSDropdown>
+                    <BSDropdownToggle>@VersionSource.gitReleaseType</BSDropdownToggle>
+                    <BSDropdownMenu>
+                        @foreach (GitReleaseType _type in (GitReleaseType[])Enum.GetValues(typeof(GitReleaseType))) {
+                            GitReleaseType type = _type;
+                            string k = type.ToString();
+                            <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetReleaseType(type); })">@k</BSDropdownItem>
+                        }
+                    </BSDropdownMenu>
+                </BSDropdown>
+
+                <BSFormLabel>Repo Owner</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@VersionSource.repoAuthor"></BSBasicInput>
+
+                <BSFormLabel>Repo Name</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@VersionSource.repoName"></BSBasicInput>
+
+                <BSFormLabel>Regex Filter</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@VersionSource.regexFilter"></BSBasicInput>
+                <sub>If your tags contain more info than just the version, you can filter it using Regex.</sub><br />
+
+                <BSFormLabel>Format</BSFormLabel>
+                <BSBasicInput InputType="InputType.Text" @bind-Value="@VersionSource.format"></BSBasicInput>
+                <sub>All instances of {tag} in the string above will be replaced with the text matched by the Regex filter.</sub><br />
+
+                <BSButton OnClick="DryRunVersionSource">Test Version Source</BSButton>
+                <small style="display:block">Note: Tests run fully in your browser and will use your GitHub/GitLab API key to retrieve repo information (if applicable), counting towards your own API limits.</small>
+            
+                @if (testVersionTextRetrieved) {
+                    <p>Version source test generated the following version string: @testVersionText</p>
+                }
+            </BSBasicForm>
+        </BSCard>
+    </BSCard>
+}
+
+@code {
+    [Parameter]
+    public GitReleaseTagVersionSource VersionSource { get; set; }
+
+    [Parameter]
+    public int TaskNumber { get; set; }
+
+    private bool collapsed = true;
+
+    private bool testVersionTextRetrieved = false;
+    private string testVersionText = "";
+
+    private void ToggleCollapse() {
+        collapsed = !collapsed;
+    }
+
+    private void SetReleaseSource(GitReleaseSource src) {
+        VersionSource.gitReleaseSource = src;
+        StateHasChanged();
+    }
+
+    private void SetReleaseType(GitReleaseType type) {
+        VersionSource.gitReleaseType = type;
+        StateHasChanged();
+    }
+
+    private async void DryRunVersionSource() {
+        Globals.LockInput = true;
+        testVersionText = await VersionSource.GetVersion();
+        testVersionTextRetrieved = true;
+        StateHasChanged();
+        Globals.LockInput = false;
+    }
+}

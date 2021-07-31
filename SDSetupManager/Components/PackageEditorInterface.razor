@@ -117,7 +117,7 @@
                 <BSTabLabel>Automatic Update Config</BSTabLabel>
                 <BSTabContent>
                     <BSRow style="padding:0.5rem;height:calc(100vh - 196px - 2rem)">
-                        <BSCol XS="6" style="overflow-y:auto;height:inherit">
+                        <BSCol XS="4" style="overflow-y:auto;height:inherit">
                             <h5>Automatic Update Triggers</h5>
                             <BSButtonGroup>
                                 <BSDropdown>
@@ -147,7 +147,29 @@
                                 </BSCollapseGroup>
                             </div>
                         </BSCol>
-                        <BSCol XS="6" style="overflow-y:auto;height:inherit">
+                        <BSCol XS="4" style="overflow-y:auto;height:inherit">
+                            <h5>Automatic Update Version Source</h5>
+                            <BSDropdown>
+                                <BSDropdownToggle>
+                                    @versionSourceTypes[selectedVersionSourceType]
+                                </BSDropdownToggle>
+                                <BSDropdownMenu>
+                                    @for (int _i = 0; _i < conditionTypes.Length; _i++) {
+                                        int i = _i;
+                                        <BSDropdownItem Href="javascript:void(0);" OnClick="@(() => { SetSelectedVersionSourceType(i); })">@versionSourceTypes[i]</BSDropdownItem>
+                                    }
+                                </BSDropdownMenu>
+                            </BSDropdown>
+                            <div style="margin:1rem" />
+                            <div class="accordion">
+                                <BSCollapseGroup>
+                                    @if (_package.AutoUpdateVersionSource is GitReleaseTagVersionSource) {
+                                        <GitReleaseTagVersionSourceConfig VersionSource="_package.AutoUpdateVersionSource as GitReleaseTagVersionSource" />
+                                    }
+                                </BSCollapseGroup>
+                            </div>
+                        </BSCol>
+                        <BSCol XS="4" style="overflow-y:auto;height:inherit">
                             <h5>Automatic Update Condition</h5>
                             <BSDropdown>
                                 <BSDropdownToggle>
@@ -244,6 +266,9 @@
     private int selectedAddTriggerType;
     private string[] triggerTypes = new string[] { "Webook Trigger", "Timed Scan Trigger" };
 
+    private int selectedVersionSourceType;
+    private string[] versionSourceTypes = new string[] { "Git Release Tag Version Source" };
+
     private int selectedConditionType;
     private string[] conditionTypes = new string[] { "Version Changed Condition" };
 
@@ -260,6 +285,12 @@
 
             if (_package.AutoUpdateConditions.First() is VersionChangedCondition) {
                 selectedConditionType = 0;
+            }
+
+            if (_package.AutoUpdateVersionSource == null) {
+                _package.AutoUpdateVersionSource = new GitReleaseTagVersionSource(); 
+            } else if (_package.AutoUpdateVersionSource is GitReleaseTagVersionSource) {
+                selectedVersionSourceType = 0;
             }
         }
     }
@@ -307,6 +338,16 @@
     private async void AddTrigger() {
         if (selectedAddTriggerType == 0) Package.AutoUpdateTriggers.Add(new WebhookTrigger());
         else if (selectedAddTriggerType == 1) Package.AutoUpdateTriggers.Add(new TimedScanTrigger());
+    }
+
+    private async void SetSelectedVersionSourceType(int i) {
+        selectedVersionSourceType = i;
+
+        switch (selectedVersionSourceType) {
+            case 0:
+                Package.AutoUpdateVersionSource = new GitReleaseTagVersionSource();
+                break;
+        } 
     }
 
     private async void SetSelectedConditionType(int i) {
