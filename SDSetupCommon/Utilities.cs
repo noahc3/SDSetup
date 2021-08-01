@@ -54,5 +54,11 @@ namespace SDSetupCommon {
                 }
             }
         }
+
+        public static DirectoryInfo GetTempDirectory() {
+            DirectoryInfo tmp = new DirectoryInfo(Path.Join(Path.GetTempPath(), Utilities.CreateGuid().ToCleanString()));
+            tmp.Create();
+            return tmp;
+        }
     }
 }

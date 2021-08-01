@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 using SDSetupCommon.Data.UpdaterModels;
 
 namespace SDSetupCommon.Data.PackageModels {
@@ -42,6 +43,11 @@ namespace SDSetupCommon.Data.PackageModels {
         //TODO: Implement Package::Validate()
         public bool Validate() {
             return true;
+        }
+
+        public Package Copy() {
+            string copy = JsonConvert.SerializeObject(this);
+            return JsonConvert.DeserializeObject<Package>(copy, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
         }
     }
 }

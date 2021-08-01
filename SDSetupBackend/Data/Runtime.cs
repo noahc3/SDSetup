@@ -65,22 +65,54 @@ namespace SDSetupBackend.Data {
         }
 
         public async Task<bool> ExecuteAutoUpdate(string packageset, string packageid, string channel) {
+            Package package;
+            bool conditionsPassed = true;
+            DirectoryInfo tmpDir;
+            string newVersion;
+            string targetDirectory;
+
             if (!Manifests.ContainsKey(packageset)) return false;
 
-            Package package = Manifests[packageset]?.FindPackageById(packageid);
-            if (package == null) return false;
+            package = Manifests[packageset]?.FindPackageById(packageid);
+            if (package == null) 
+                return false;
+            
+            try {
+                package = package.Copy();
+            } catch (Exception e) {
+                Program.logger.LogDebug(e.Message);
+            }
+           
+            foreach (UpdaterCondition k in package.AutoUpdateConditions) {
+                if (!await k.Assert(package)) {
+                    conditionsPassed = false;
+                    break;
+                }
+            }
 
+            if (!conditionsPassed) return false;
 
-            string tmp = Path.Join(Path.GetTempPath(), Utilities.CreateGuid().ToCleanString());
-            if (!Directory.Exists(tmp)) Directory.CreateDirectory(tmp);
-            Program.logger.LogDebug("Update path: " + tmp);
+            tmpDir = Utilities.GetTempDirectory();
+            Program.logger.LogDebug("Update path: " + tmpDir.FullName);
             try {
                 foreach (UpdaterTask k in package.AutoUpdateTasks) {
-                    await k.Apply(tmp);
+                    await k.Apply(tmpDir.FullName);
                 }
             } catch {
                 return false;
             }
+
+            newVersion = await package.AutoUpdateVersionSource.GetVersion();
+
+            package.VersionInfo.Version = newVersion;
+            package.VersionInfo.Size = tmpDir.SizeRecursive();
+
+            targetDirectory = $"{Program.ActiveConfig.FilesPath}/{packageset}/{package.ID}/{newVersion}/".AsPath();
+            Program.logger.LogDebug("Update path in packageset: " + targetDirectory);
+
+            tmpDir.MoveTo(targetDirectory);
+
+            this.UpdatePackageMeta(packageset, package);
 
             return true;
 
