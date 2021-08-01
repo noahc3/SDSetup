@@ -64,7 +64,7 @@ namespace SDSetupBackend.Data {
             return null;
         }
 
-        public async Task<bool> ExecuteAutoUpdate(string packageset, string packageid, string channel) {
+        public async Task<bool> ExecuteAutoUpdate(string packageset, string packageid) {
             Package package;
             bool conditionsPassed = true;
             DirectoryInfo tmpDir;

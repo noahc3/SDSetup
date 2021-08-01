@@ -15,7 +15,6 @@ namespace SDSetupBackend.Data {
         public string TempPath = (Globals.RootDirectory + "/temp").AsPath();
         public string FilesPath = (Globals.RootDirectory + "/files").AsPath();
 
-        public string[] ValidChannels = new string[] { "latest" };
         public bool AppSupport = true;
         public string LatestPackageset = "default";
         public string LatestAppVersion = "v1.0";

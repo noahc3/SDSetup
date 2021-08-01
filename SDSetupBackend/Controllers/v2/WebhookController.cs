@@ -18,8 +18,7 @@ namespace SDSetupBackend.Controllers.v2 {
                 //TODO: get rid of channels i dont want em
                 _ = Program.ActiveRuntime.ExecuteAutoUpdate(
                     Program.ActiveConfig.LatestPackageset,
-                    package,
-                    Program.ActiveConfig.ValidChannels[0]
+                    package
                 );
                 return new StatusCodeResult(200);
             }

@@ -123,10 +123,6 @@ namespace SDSetupBackend {
                     logger.LogError("Failed to parse updater interval. Please ensure the syntax is correct. See https://docs.microsoft.com/en-us/dotnet/api/system.timespan.tryparse for examples.");
                 }
             }
-            if (proposedConfig.ValidChannels.Count() == 0) {
-                err = true;
-                logger.LogError("You need at least one valid package channel!");
-            }
             if (String.IsNullOrWhiteSpace(proposedConfig.LatestPackageset)) {
                 err = true;
                 logger.LogError("You need to specify a packageset to use.");
