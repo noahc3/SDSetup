@@ -11,7 +11,7 @@ namespace SDSetupBackend.Data {
         public string BindIp = "127.0.0.1";
         public int BindPort = 5000;
         public bool UseUpdater = true;
-        public string UpdaterInterval = "12:00:00"; // 12 hours
+        public string TimedTasksInterval = "12:00:00"; // 12 hours
         public string TempPath = (Globals.RootDirectory + "/temp").AsPath();
         public string FilesPath = (Globals.RootDirectory + "/files").AsPath();
 

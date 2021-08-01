@@ -46,7 +46,7 @@ namespace SDSetupCommon.Data.PackageModels {
         }
 
         public Package Copy() {
-            string copy = JsonConvert.SerializeObject(this);
+            string copy = JsonConvert.SerializeObject(this, typeof(Package), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
             return JsonConvert.DeserializeObject<Package>(copy, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
         }
     }

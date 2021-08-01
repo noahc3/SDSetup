@@ -24,6 +24,8 @@
                 <BSBasicInput InputType="InputType.Text" Value="String.Format(WebhookEndpoints.WebhookEndpoint, Trigger.WebhookId)" IsReadonly="true"></BSBasicInput>
                 <small>This endpoint is unique to this package and should be kept secret. Do not share it with anyone.</small>
             </BSBasicForm>
+            <br />
+            <BSButton Color="Color.Danger" OnClick="@Delete"><span class="oi oi-trash" aria-hidden="true"></span> Delete</BSButton>
         </BSCard>
     </BSCard>
 }
@@ -31,6 +33,9 @@
 @code {
     [Parameter]
     public WebhookTrigger Trigger { get; set; }
+
+    [Parameter]
+    public Action Delete { get; set; }
 
     private bool collapsed = true;
 

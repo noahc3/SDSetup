@@ -114,7 +114,7 @@
                 </BSTabContent>
             </BSTab>
             <BSTab>
-                <BSTabLabel>Automatic Update Config</BSTabLabel>
+                <BSTabLabel IsDisabled="@(!Package.AutoUpdates)">Automatic Update Config</BSTabLabel>
                 <BSTabContent>
                     <BSRow style="padding:0.5rem;height:calc(100vh - 196px - 2rem)">
                         <BSCol XS="4" style="overflow-y:auto;height:inherit">
@@ -139,9 +139,9 @@
                                     @foreach (UpdaterTrigger _k in Package.AutoUpdateTriggers) {
                                         UpdaterTrigger k = _k;
                                         if (k is WebhookTrigger) {
-                                            <WebhookTriggerConfig Trigger="k as WebhookTrigger" />
+                                            <WebhookTriggerConfig Delete="@(() => { DeleteTrigger(k); })" Trigger="k as WebhookTrigger" />
                                         } else if (k is TimedScanTrigger) {
-                                            <TimedScanTriggerConfig Trigger="k as TimedScanTrigger" />
+                                            <TimedScanTriggerConfig Delete="@(() => { DeleteTrigger(k); })" Trigger="k as TimedScanTrigger" />
                                         }
                                     }
                                 </BSCollapseGroup>
@@ -227,11 +227,11 @@
                                         int i = _i;
                                         UpdaterTask k = _k;
                                         if (k is GitReleaseDownloadTask) {
-                                            <GitReleaseDownloadTaskConfig Component="k as GitReleaseDownloadTask" TaskNumber="@i" />
+                                            <GitReleaseDownloadTaskConfig Delete="@(() => { DeleteTask(k); })" Component="k as GitReleaseDownloadTask" TaskNumber="@i" />
                                         } else if (k is MoveFileSystemItemsTask) {
-                                            <MoveFileSystemItemsTaskConfig Component="k as MoveFileSystemItemsTask" TaskNumber="@i" />
+                                            <MoveFileSystemItemsTaskConfig Delete="@(() => { DeleteTask(k); })" Component="k as MoveFileSystemItemsTask" TaskNumber="@i" />
                                         } else if (k is DeleteFileSystemItemsTask) {
-                                            <DeleteFileSystemItemsTaskConfig Component="k as DeleteFileSystemItemsTask" TaskNumber="@i" />
+                                            <DeleteFileSystemItemsTaskConfig Delete="@(() => { DeleteTask(k); })" Component="k as DeleteFileSystemItemsTask" TaskNumber="@i" />
                                         }
                                     }
                                 </BSCollapseGroup>
@@ -358,6 +358,16 @@
                 Package.AutoUpdateConditions = new List<UpdaterCondition>() { new VersionChangedCondition() };
                 break;
         }
+    }
+
+    private async void DeleteTrigger(UpdaterTrigger trigger) {
+        _package.AutoUpdateTriggers.Remove(trigger);
+        StateHasChanged();
+    }
+
+    private async void DeleteTask(UpdaterTask task) {
+        _package.AutoUpdateTasks.Remove(task);
+        StateHasChanged();
     }
 
     private async void DryRunTasks() {

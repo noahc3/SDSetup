@@ -5,6 +5,5 @@ using System.Threading.Tasks;
 
 namespace SDSetupCommon.Data.UpdaterModels {
     public interface UpdaterTrigger {
-        Task Register();
     }
 }

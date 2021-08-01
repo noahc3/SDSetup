@@ -75,6 +75,9 @@ namespace SDSetupBackend {
                 logger.LogInformation("Packagesets were loaded without errors.");
             }
 
+            ActiveRuntime.ScheduleTimedTasks();
+            logger.LogInformation("Timed tasks have been scheduled with an interval of " + TimeSpan.Parse(ActiveConfig.TimedTasksInterval).ToString());
+
             host.Run();
         }
 
@@ -118,7 +121,7 @@ namespace SDSetupBackend {
                     err = true;
                     logger.LogError("The auto-updater requires a valid GitHub login. Please specify a passord in the config file.");
                 }
-                if (!TimeSpan.TryParse(proposedConfig.UpdaterInterval, out _)) {
+                if (!TimeSpan.TryParse(proposedConfig.TimedTasksInterval, out _)) {
                     err = true;
                     logger.LogError("Failed to parse updater interval. Please ensure the syntax is correct. See https://docs.microsoft.com/en-us/dotnet/api/system.timespan.tryparse for examples.");
                 }
@@ -137,6 +140,13 @@ namespace SDSetupBackend {
                     err = true;
                     logger.LogError("SDSetup app version was not specified. Please specify an app version or disable app support by setting AppSupport to false.");
                 }
+            }
+
+            try {
+                TimeSpan.Parse(proposedConfig.TimedTasksInterval);
+            } catch (Exception e) {
+                err = true;
+                logger.LogDebug("Could not parse TimedTasksInterval from config. Please ensure the format is valid for TimeSpan.Parse().");
             }
 
             if (!err) {
@@ -229,6 +239,9 @@ namespace SDSetupBackend {
                         if (k is WebhookTrigger) {
                             logger.LogDebug($"Found webhook update trigger for package {p.ID}, registering");
                             ActiveRuntime.RegisterWebhook(((WebhookTrigger)k).WebhookId, packagesetName, p.ID);
+                        } else if (k is TimedScanTrigger) {
+                            logger.LogDebug($"Found timed scan update trigger for package {p.ID}, registering");
+                            ActiveRuntime.RegisterTimedUpdate(packagesetName, p.ID);
                         }
                     }
 

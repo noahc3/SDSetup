@@ -6,10 +6,5 @@ using System.Threading.Tasks;
 
 namespace SDSetupCommon.Data.UpdaterModels {
     public class TimedScanTrigger : UpdaterTrigger {
-        public int Hours = 12;
-
-        public async Task Register() {
-            //STUB: Implement timed scan registry
-        }
     }
 }

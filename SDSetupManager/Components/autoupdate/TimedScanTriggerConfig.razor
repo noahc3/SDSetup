@@ -5,22 +5,21 @@
     <BSCard CardType="CardType.Card">
         <a href="javascript:void(0);" @onclick="@ToggleCollapse">
             <BSCard CardType="CardType.Header">
-                Time Scan Trigger (@Trigger.Hours hrs)
+                Timed Scan Trigger
             </BSCard>
         </a>
         <BSCard CardType="CardType.Body" Class="@(collapsed ? "collapse" : "")">
             <BSCard CardType="CardType.Text">
-                You can configure a scan to check for updates every number of hours.
+                This scan will check for updates when  a set time interval passes.
                 <ul>
-                    <li>This will cause a delay between releases going live and the update appearing on SDSetup.</li>
-                    <li>Unless you really want to pull updates from 4TU Appstore, strongly consider using a Webhook Trigger for faster updates on SDSetup.</li>
+                    <li>The length of the interval is configured on the server and cannot be set custom for each package.</li>
+                    <li>This trigger will cause a delay between releases going live and the update appearing on SDSetup.</li>
+                    <li>Unless you want to pull updates from 4TU Appstore, strongly consider using a Webhook Trigger for faster updates on SDSetup.</li>
                 </ul>
             </BSCard>
-            <BSBasicForm>
-                <BSFormLabel>Scan Updates Every # Hours</BSFormLabel>
-                <BSBasicInput InputType="InputType.Number" min="6" max="24"  @bind-Value="@Trigger.Hours"></BSBasicInput>
-                <small>Between 6 - 24 hours.</small>
-            </BSBasicForm>
+
+            <br />
+            <BSButton Color="Color.Danger" OnClick="@Delete"><span class="oi oi-trash" aria-hidden="true"></span> Delete</BSButton>
         </BSCard>
     </BSCard>
 }
@@ -28,6 +27,9 @@
 @code {
     [Parameter]
     public TimedScanTrigger Trigger { get; set; }
+
+    [Parameter]
+    public Action Delete { get; set; }
 
     private bool collapsed = true;
 

@@ -23,9 +23,5 @@ namespace SDSetupCommon.Data.UpdaterModels {
                 if (_webhookId.NullOrWhiteSpace()) _webhookId = value;
             }
         }
-
-        public async Task Register() {
-            //STUB: Implement webhook registry
-        }
     }
 }

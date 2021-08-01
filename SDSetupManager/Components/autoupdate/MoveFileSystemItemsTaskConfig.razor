@@ -48,6 +48,9 @@
                     <BSLabel IsCheck="true">Create Target Directory If Missing</BSLabel>
                 </BSFormGroup>
             </BSBasicForm>
+
+            <br />
+            <BSButton Color="Color.Danger" OnClick="@Delete"><span class="oi oi-trash" aria-hidden="true"></span> Delete</BSButton>
         </BSCard>
     </BSCard>
 }
@@ -58,6 +61,9 @@
 
     [Parameter]
     public int TaskNumber { get; set; }
+
+    [Parameter]
+    public Action Delete { get; set; }
 
     private bool collapsed = true;
 
