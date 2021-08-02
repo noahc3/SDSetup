@@ -149,6 +149,13 @@ namespace SDSetupBackend {
                 logger.LogDebug("Could not parse TimedTasksInterval from config. Please ensure the format is valid for TimeSpan.Parse().");
             }
 
+            try {
+                TimeSpan.Parse(proposedConfig.ZipRetentionTime);
+            } catch (Exception e) {
+                err = true;
+                logger.LogDebug("Could not parse ZipRetentionTime from config. Please ensure the format is valid for TimeSpan.Parse().");
+            }
+
             if (!err) {
                 ActiveConfig = proposedConfig;
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(ActiveConfig, Formatting.Indented));

@@ -16,6 +16,7 @@ using System.Security.Permissions;
 using ICSharpCode.SharpZipLib.Zip;
 using SDSetupCommon.Data.BundlerModels;
 using System.Runtime.ExceptionServices;
+using System.Net;
 
 namespace SDSetupBackend.Data {
     //Runtime contains information about currently active variables. During a hot-reload, the active runtime object will be left in place and will
@@ -75,11 +76,43 @@ namespace SDSetupBackend.Data {
             return result;
         }
 
+        public void PurgeStaleBundles() {
+            TimeSpan retentionTime = TimeSpan.Parse(Program.ActiveConfig.ZipRetentionTime);
+            List<string> deleteKeys = new List<string>();
+            Program.logger.LogDebug("Purging stale bundles from temp directory.");
+            foreach (string k in BundlerProgresses.Keys) {
+                if (BundlerProgresses[k].IsComplete && 
+                    DateTime.UtcNow - BundlerProgresses[k].CompletionTime > retentionTime) {
+                    try {
+                        Program.logger.LogDebug($"Purging bundle {FinishedBundles[k]}.");
+                        File.Delete(FinishedBundles[k]);
+                        deleteKeys.Add(k);
+                    } catch (Exception e) {
+                        Program.logger.LogWarning($"Failed to delete zip at {k}, a handle may still be open on the file.");
+                    }
+
+                }
+            }
+
+            foreach (string k in deleteKeys) {
+                BundlerProgresses.Remove(k);
+                FinishedBundles.Remove(k);
+            }
+        }
+
+        public string GetBundlePath(string uuid) {
+            string path = null;
+            if (FinishedBundles.ContainsKey(uuid)) {
+                path = FinishedBundles[uuid];
+            }
+
+            return path;
+        }
+
         public BundlerProgress GetBundlerProgress(string uuid) {
             BundlerProgress result = null;
             if (BundlerProgresses.ContainsKey(uuid)) {
                 result = BundlerProgresses[uuid].Copy();
-                if (result.IsComplete) BundlerProgresses.Remove(uuid);
             }
 
             return result;
@@ -146,7 +179,8 @@ namespace SDSetupBackend.Data {
                     Total = 1,
                     IsComplete = true,
                     Success = false,
-                    CurrentTask = "Failed."
+                    CurrentTask = "Failed.",
+                    CompletionTime = DateTime.UtcNow
                 };
 
                 if (!zipPath.NullOrWhiteSpace() && File.Exists(zipPath)) {
@@ -252,7 +286,10 @@ namespace SDSetupBackend.Data {
 
         public async Task ExecuteTimedTasks() {
             Program.logger.LogDebug("Executing timed tasks.");
+
             await ExecuteTimedAutoUpdates();
+            PurgeStaleBundles();
+
             ScheduleTimedTasks();
         }
 
@@ -263,8 +300,6 @@ namespace SDSetupBackend.Data {
                     Program.logger.LogDebug($"Executing timed auto update for package {packageset}/{package}.");
                     if (await ExecuteAutoUpdate(packageset, package)) {
                         Program.logger.LogDebug($"Timed auto update for package {packageset}/{package} completed successfully.");
-                    } else {
-                        Program.logger.LogError($"Timed auto update for package {packageset}/{package} failed.");
                     }
                 }
             }

@@ -13,6 +13,7 @@ namespace SDSetupBackend.Data {
         public int BindPort = 5000;
         public bool UseUpdater = true;
         public string TimedTasksInterval = "12:00:00"; // 12 hours
+        public string ZipRetentionTime = "01:00:00"; //1 hour
         public int ZipCompressionLevel = 3; //0-9, 0=store
         public string TempPath = (Globals.RootDirectory + "/temp").AsPath();
         public string FilesPath = (Globals.RootDirectory + "/files").AsPath();

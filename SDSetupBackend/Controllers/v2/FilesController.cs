@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -42,13 +43,27 @@ namespace SDSetupBackend.Controllers.v2 {
                 Program.ActiveRuntime.BuildBundle(uuid, packageset, packages);
             });
 
-            return this.StatusCode(202, uuid); //accepted
+            return StatusCode(202, uuid); //accepted
         }
 
         [HttpGet("bundleprogress/{uuid}")]
         public async Task<IActionResult> BundleProgress(string uuid) {
             BundlerProgress progress = Program.ActiveRuntime.GetBundlerProgress(uuid);
-            return new ObjectResult(progress);
+            if (progress != null) {
+                return new ObjectResult(progress);
+            } else {
+                return StatusCode(404); //not found
+            }
+        }
+
+        [HttpGet("downloadbundle/{uuid}")]
+        public async Task<IActionResult> DownloadBundle(string uuid) {
+            string path = Program.ActiveRuntime.GetBundlePath(uuid);
+            FileStream stream;
+            if (path == null) return StatusCode(404); //not found
+
+            stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+            return File(stream, "application/octet-stream", $"sdsetup-{DateTime.UtcNow.ToShortDateString()}.zip");
         }
     }
 }
