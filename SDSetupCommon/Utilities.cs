@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -45,6 +46,19 @@ namespace SDSetupCommon {
             return entry;
         }
 
+        public static IEnumerable<string> EnumerateFiles(string dir) {
+            return Directory.EnumerateFiles(dir, "*", SearchOption.AllDirectories);
+        }
+
+        public static IEnumerable<string> EnumerateEmptyDirectories(string dir) {
+            List<string> dirs = new List<string>();
+            foreach (string subdir in Directory.GetDirectories(dir)) {
+                if (Directory.GetFileSystemEntries(subdir).Length == 0) dirs.Add(subdir);
+                else dirs.AddRange(EnumerateEmptyDirectories(subdir));
+            }
+            return dirs;
+        }
+
         public static void RebaseFileSystemItems(FileSystemItem item, string newRoot = "", FileSystemItem parent = null) {
             item.fullPath = $"{newRoot}/{item.name}".AsPath();
             item.parent = parent;
@@ -53,12 +67,6 @@ namespace SDSetupCommon {
                     RebaseFileSystemItems(i, item.fullPath, item);
                 }
             }
-        }
-
-        public static DirectoryInfo GetTempDirectory() {
-            DirectoryInfo tmp = new DirectoryInfo(Path.Join(Path.GetTempPath(), Utilities.CreateGuid().ToCleanString()));
-            tmp.Create();
-            return tmp;
         }
     }
 }

@@ -25,7 +25,6 @@ namespace SDSetupBackend.Controllers.v2 {
 
         [HttpPost("updatenow")]
         public async Task<IActionResult> UpdateNow([FromBody] UpdatePackageModel model) {
-            Console.WriteLine("YES!");
             SDSetupUser user = await AuthorizationUtilities.CheckRequestMinAuthorization(Request, SDSetupRole.Administrator);
             if (user == null) return new StatusCodeResult(401); //unauthorized
 

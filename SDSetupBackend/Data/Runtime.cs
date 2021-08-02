@@ -13,6 +13,9 @@ using MongoDB.Driver.Core.WireProtocol.Messages.Encoders.JsonEncoders;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection.Metadata.Ecma335;
 using System.Security.Permissions;
+using ICSharpCode.SharpZipLib.Zip;
+using SDSetupCommon.Data.BundlerModels;
+using System.Runtime.ExceptionServices;
 
 namespace SDSetupBackend.Data {
     //Runtime contains information about currently active variables. During a hot-reload, the active runtime object will be left in place and will
@@ -32,10 +35,14 @@ namespace SDSetupBackend.Data {
         public string userDatabasePath = "";
         public string latestPackageSet = "";
         public string latestAppVersion = "";
+
         public Dictionary<string, Manifest> Manifests = new Dictionary<string, Manifest>();
         private Dictionary<string, WebhookTriggerRegistration> Webhooks = new Dictionary<string, WebhookTriggerRegistration>();
         private Dictionary<string, List<string>> TimedUpdateTriggers = new Dictionary<string, List<string>>();
         private Task ScheduledTimedTask;
+
+        private Dictionary<string, BundlerProgress> BundlerProgresses = new Dictionary<string, BundlerProgress>();
+        private Dictionary<string, string> FinishedBundles = new Dictionary<string, string>();
 
         public bool UpdatePackageMeta(string packageset, Package changedPackage) {
             Package package = Manifests[packageset]?.FindPackageById(changedPackage.ID);
@@ -66,6 +73,130 @@ namespace SDSetupBackend.Data {
             }
 
             return result;
+        }
+
+        public BundlerProgress GetBundlerProgress(string uuid) {
+            BundlerProgress result = null;
+            if (BundlerProgresses.ContainsKey(uuid)) {
+                result = BundlerProgresses[uuid].Copy();
+                if (result.IsComplete) BundlerProgresses.Remove(uuid);
+            }
+
+            return result;
+        }
+
+        //TODO: move to Package::validate
+        public void AssertValidPackage(string packageset, string packageID) {
+            Package package;
+            DirectoryInfo packageDir;
+
+            if (!Manifests.ContainsKey(packageset)) throw new DirectoryNotFoundException($"GetPackageFiles: Packageset {packageset} not found.");
+
+            package = Manifests[packageset].FindPackageById(packageID);
+            if (package == null) throw new DirectoryNotFoundException($"GetPackageFiles: Package {packageset}/{packageID} not found.");
+
+            packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{packageset}/{packageID}/{package.VersionInfo.Version}".AsPath());
+            if (!packageDir.Exists) throw new DirectoryNotFoundException($"GetPackageFiles: Version desync, {packageset}/{package}/{package.VersionInfo.Version} not found.");
+        }
+
+        public void BuildBundle(string uuid, string packageset, string[] packages) {
+            string zipPath = Program.ActiveConfig.GetTempFilePath();
+            List<string> fileList = new List<string>();
+            FileStream outputStream = null;
+            ZipOutputStream zipStream;
+            BundlerProgress progress;
+            try {
+                progress = new BundlerProgress() {
+                    Progress = 0,
+                    Total = packages.Length,
+                    IsComplete = false,
+                    Success = false,
+                    CurrentTask = "Getting ready..."
+                };
+                BundlerProgresses[uuid] = progress;
+
+                outputStream = new FileStream(zipPath, FileMode.Create);
+                zipStream = new ZipOutputStream(outputStream);
+                zipStream.SetLevel(Program.ActiveConfig.ZipCompressionLevel);
+
+                //TODO: dependency resolution
+
+                foreach(string packageID in packages) {
+                    AssertValidPackage(packageset, packageID);
+                    string name = Manifests[packageset].FindPackageById(packageID).Name;
+                    progress.CurrentTask = $"Adding '{name}' to your bundle...";
+                    PutPackageZipEntries(packageset, packageID, zipStream, ref fileList);
+                    progress.Progress++;
+                }
+
+                zipStream.Close();
+
+                FinishedBundles[uuid] = zipPath;
+
+                Program.logger.LogDebug("Done! " + zipPath);
+
+                progress.CompletionTime = DateTime.UtcNow;
+                progress.Success = true;
+                progress.IsComplete = true;
+
+            } catch (Exception e) {
+                outputStream?.Close();
+                BundlerProgresses[uuid] = new BundlerProgress() {
+                    Progress = 0,
+                    Total = 1,
+                    IsComplete = true,
+                    Success = false,
+                    CurrentTask = "Failed."
+                };
+
+                if (!zipPath.NullOrWhiteSpace() && File.Exists(zipPath)) {
+                    File.Delete(zipPath);
+                }
+
+                //rethrow preserving trace
+                ExceptionDispatchInfo.Capture(e).Throw();
+                throw; //nop
+            }
+        }
+
+        public void PutPackageZipEntries(string packageset, string packageID, ZipOutputStream zipStream, ref List<string> fileList) {
+            IEnumerable<string> files;
+            IEnumerable<string> directories;
+            List<ZipEntry> entries = new List<ZipEntry>();
+            DirectoryInfo packageDir;
+            Package package;
+
+            package = Manifests[packageset].FindPackageById(packageID);
+            packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{packageset}/{packageID}/{package.VersionInfo.Version}".AsPath());
+
+            files = Utilities.EnumerateFiles(packageDir.FullName);
+            directories = Utilities.EnumerateEmptyDirectories(packageDir.FullName);
+
+            foreach(string k in files) {
+                string pathInZip = k.AsPath().Replace(packageDir.FullName.AsPath(), "");
+                if (!fileList.Contains(pathInZip)) {
+                    ZipEntry newEntry = new ZipEntry(pathInZip);
+                    fileList.Add(pathInZip);
+                    zipStream.PutNextEntry(newEntry);
+                    //TODO: memory caching
+                    FileStream fs = new FileStream(k, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    fs.CopyTo(zipStream, 81920);
+                    fs.Close();
+                    zipStream.CloseEntry();
+                }
+            }
+
+            foreach(string k in directories) {
+                string pathInZip = k.AsPath().Replace(packageDir.FullName.AsPath(), "");
+                if (pathInZip.Last() != '/') pathInZip += '/';
+                if (!fileList.Contains(pathInZip)) {
+                    ZipEntry newEntry = new ZipEntry(pathInZip);
+                    fileList.Add(pathInZip);
+                    zipStream.PutNextEntry(newEntry);
+                    zipStream.CloseEntry();
+                }
+            }
+
         }
 
         public bool RegisterWebhook(string webhookId, string packageSet, string packageId) {
@@ -167,7 +298,7 @@ namespace SDSetupBackend.Data {
 
             if (!conditionsPassed) return false;
 
-            tmpDir = Utilities.GetTempDirectory();
+            tmpDir = Program.ActiveConfig.GetTempDirectory();
             Program.logger.LogDebug("Update path: " + tmpDir.FullName);
             try {
                 foreach (UpdaterTask k in package.AutoUpdateTasks) {

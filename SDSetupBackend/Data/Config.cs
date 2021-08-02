@@ -1,6 +1,7 @@
 ﻿using SDSetupCommon;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,8 +13,10 @@ namespace SDSetupBackend.Data {
         public int BindPort = 5000;
         public bool UseUpdater = true;
         public string TimedTasksInterval = "12:00:00"; // 12 hours
+        public int ZipCompressionLevel = 3; //0-9, 0=store
         public string TempPath = (Globals.RootDirectory + "/temp").AsPath();
         public string FilesPath = (Globals.RootDirectory + "/files").AsPath();
+        public string DataPath = (Globals.RootDirectory + "/data/").AsPath();
 
         public bool AppSupport = true;
         public string LatestPackageset = "default";
@@ -29,7 +32,18 @@ namespace SDSetupBackend.Data {
         public string GithubUsername = "";
         public string GithubPassword = "";
 
-        public string DataPath = (Globals.RootDirectory + "/data/").AsPath();
+        
+
+        public DirectoryInfo GetTempDirectory() {
+            DirectoryInfo tmp = new DirectoryInfo(Path.Join(TempPath, Utilities.CreateGuid().ToCleanString()));
+            tmp.Create();
+            return tmp;
+        }
+
+        public string GetTempFilePath() {
+            string tmp = Path.Join(TempPath, Utilities.CreateGuid().ToCleanString());
+            return tmp;
+        }
 
     }
 }
