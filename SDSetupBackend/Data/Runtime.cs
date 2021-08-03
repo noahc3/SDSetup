@@ -129,7 +129,7 @@ namespace SDSetupBackend.Data {
             if (package == null) throw new DirectoryNotFoundException($"GetPackageFiles: Package {packageset}/{packageID} not found.");
 
             packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{packageset}/{packageID}/{package.VersionInfo.Version}".AsPath());
-            if (!packageDir.Exists) throw new DirectoryNotFoundException($"GetPackageFiles: Version desync, {packageset}/{package}/{package.VersionInfo.Version} not found.");
+            if (!packageDir.Exists && package.VersionInfo.Size != 0) throw new DirectoryNotFoundException($"GetPackageFiles: Version desync, {packageset}/{packageID}/{package.VersionInfo.Version} not found.");
         }
 
         public void BuildBundle(string uuid, string packageset, string[] packages) {
@@ -201,6 +201,7 @@ namespace SDSetupBackend.Data {
             Package package;
 
             package = Manifests[packageset].FindPackageById(packageID);
+            if (package.VersionInfo.Size == 0) return;
             packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{packageset}/{packageID}/{package.VersionInfo.Version}".AsPath());
 
             files = Utilities.EnumerateFiles(packageDir.FullName);

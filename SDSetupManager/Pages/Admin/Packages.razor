@@ -24,7 +24,8 @@
                     @foreach (PackageSection sec in plat.PackageSections.Values) {
                         @foreach (PackageCategory cat in sec.Categories.Values) {
                             @foreach (PackageSubcategory sub in cat.Subcategories.Values) {
-                                @foreach (Package p in sub.Packages.Values) {
+                                @foreach (string id in sub.Packages) {
+                                    Package p = Globals.Manifest.FindPackageById(id);
                                     <tr>
                                         <th scope="row">@p.DisplayName</th>
                                         <td>@p.ID</td>

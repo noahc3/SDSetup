@@ -258,6 +258,10 @@ namespace SDSetupBackend {
                         .Categories[p.Category]
                         .Subcategories[p.Subcategory]
                         .Packages
+                        .Add(p.ID);
+
+                    manifest
+                        .Packages
                         .Add(p.ID, p);
                 }
 

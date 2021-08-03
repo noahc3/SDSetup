@@ -1,0 +1,120 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.loading-splash {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: rgba(0, 0, 0, .85);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.loading-splash > div {
+    text-align: center;
+}
+
+.loading-splash .spinner-border {
+    width:55px;
+    height:55px;
+    margin-bottom:1rem;
+}
+
+.container {
+    margin-top:1rem;
+    
+}
+
+.navbar-brand {
+    padding:0;
+}
+
+.navbar-brand img {
+    height:50px;
+}
+
+#site-navbar > div > a {
+    color:white;
+}
+
+.big-logo {
+    max-height:25vh;
+    max-width:60vw;
+    display: block;
+    margin:auto;
+    margin-bottom:1rem;
+}
+
+.platform-card-group {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.platform-card {
+    max-width: 18rem;
+    margin:1rem;
+}
+
+.center {
+    text-align: center;
+}
+
+.bundle-card .card-footer {
+    padding:0.5rem;
+}
+
+.btn-group-wide {
+    display:flex;
+}
+
+.btn-group-wide .btn:not(.btn-focus) {
+    flex: 1;
+    flex-grow: 0;
+}
+
+.btn-group-wide .btn-focus {
+    flex-grow:1;
+}
+
+.muted {
+    color:gray;
+}
+
+.category-col {
+    padding:1rem;
+}
+
+.category-col .card {
+    height:100%;
+}
+
+.package-checkbox {
+    margin-left:1rem;
+}
+
+.subcategory {
+    margin-bottom:1rem;
+}
+
+.copyright {
+    color:gray;
+    margin-top:2rem;
+    margin-bottom:5rem;
+    text-align: center;
+}

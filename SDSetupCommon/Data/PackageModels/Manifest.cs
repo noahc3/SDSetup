@@ -10,22 +10,15 @@ namespace SDSetupCommon.Data.PackageModels {
         public string Copyright { get; set; } = "";
         public Message Message { get; set; } = new Message();
         public Dictionary<string, Platform> Platforms { get; set; } = new Dictionary<string, Platform>();
+        public Dictionary<string, Package> Packages { get; set; } = new Dictionary<string, Package>();
 
         public Manifest() {
 
         }
 
         public Package FindPackageById(string id) {
-            foreach (Platform p in Platforms.Values) {
-                foreach (PackageSection s in p.PackageSections.Values) {
-                    foreach (PackageCategory c in s.Categories.Values) {
-                        foreach (PackageSubcategory sc in c.Subcategories.Values) {
-                            if (sc.Packages.ContainsKey(id)) return sc.Packages[id];
-                        }
-                    }
-                }
-            }
-            return null;
+            if (Packages.ContainsKey(id)) return Packages[id];
+            else return null;
         }
 
         public Platform FindPlatformByPath(string platform) {
@@ -59,21 +52,10 @@ namespace SDSetupCommon.Data.PackageModels {
             return s;
         }
 
-        public Package FindPackageByPath(string platform, string section, string category, string subcategory, string packageId) {
-            PackageSubcategory s = FindSubcategoryByPath(platform, section, category, subcategory);
-            Package p = null;
-            if (s != null && s.Packages != null && s.Packages.ContainsKey(packageId)) p = s.Packages[packageId];
-
-            return p;
-        }
-
         public bool UpdatePackage(Package changedPackage) {
-            PackageSubcategory sub = FindSubcategoryByPath(changedPackage.Platform, changedPackage.Section, changedPackage.Category, changedPackage.Subcategory);
 
-            if (sub == null) return false;
-            if (!sub.Packages.ContainsKey(changedPackage.ID)) return false;
-
-            sub.Packages[changedPackage.ID] = changedPackage;
+            if (!Packages.ContainsKey(changedPackage.ID)) return false;
+            Packages[changedPackage.ID] = changedPackage;
 
             return true;
         }

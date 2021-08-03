@@ -60,20 +60,12 @@ namespace SDSetupCommon
             }
 
             if (manifestToUpdate != null) {
-                foreach(Platform plat in manifestToUpdate.Platforms.Values) {
-                    foreach(PackageSection sec in plat.PackageSections.Values) {
-                        foreach(PackageCategory cat in sec.Categories.Values) {
-                            foreach(PackageSubcategory sub in cat.Subcategories.Values) {
-                                foreach(Package p in sub.Packages.Values) {
-                                    if (AllTimeStats.ContainsKey(p.ID)) {
-                                        p.Downloads = AllTimeStats[p.ID];
-                                    } else {
-                                        p.Downloads = 0;
-                                    }
-                                    
-                                }
-                            }
-                        }
+
+                foreach(Package p in manifestToUpdate.Packages.Values) {
+                    if (AllTimeStats.ContainsKey(p.ID)) {
+                        p.Downloads = AllTimeStats[p.ID];
+                    } else {
+                        p.Downloads = 0;
                     }
                 }
             }

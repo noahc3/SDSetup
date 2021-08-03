@@ -10,7 +10,7 @@ namespace SDSetupCommon.Data.PackageModels {
         public bool Visible { get; set; } = true;
         public List<string> When { get; set; } = new List<string>();
         public int WhenMode { get; set; } = 0; //0: all | 1: any
-        public Dictionary<string, Package> Packages { get; set; } = new Dictionary<string, Package>();
+        public List<string> Packages { get; set; } = new List<string>();
 
 
         public PackageSubcategory() {
