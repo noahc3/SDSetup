@@ -2,6 +2,20 @@ import React from 'react';
 import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
 
 export default class PackageCheckbox extends React.Component {
+
+    /**
+     * @typedef {{
+     * pkg: Package
+     * }} Props
+     */
+
+    constructor(props) {
+        super(props);
+
+        /** @type {Props} */
+        this.props = this.props || {};
+    }
+
     render() {
         const sdsetup = this.props.sdsetup;
         const pkg = this.props.pkg;
