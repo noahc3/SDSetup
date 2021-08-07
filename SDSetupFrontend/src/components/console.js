@@ -81,7 +81,7 @@ class Console extends React.Component {
         return (
             <div>
             {downloadingModal}
-                <h1 className="center">
+                <h1 className="tall-margin center">
                     {platform.name}
                 </h1>
                 <Alert key={platformid+"_topalert"} variant="primary" className="center">

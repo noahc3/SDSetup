@@ -25,10 +25,6 @@ code {
     align-items:center;
 }
 
-.loading-splash > div {
-    text-align: center;
-}
-
 .loading-splash .spinner-border {
     width:55px;
     height:55px;
@@ -79,17 +75,29 @@ code {
     padding:0.5rem;
 }
 
-.btn-group-wide {
+.btn-group-vertical.btn-group-wide {
+    width:100%;
+}
+
+.btn-group-vertical.btn-group-wide .btn {
+    width:100%;
+}
+
+.btn-group.btn-group-wide {
     display:flex;
 }
 
-.btn-group-wide .btn:not(.btn-focus) {
+.btn-group.btn-group-wide .btn:not(.btn-focus) {
     flex: 1;
     flex-grow: 0;
 }
 
-.btn-group-wide .btn-focus {
+.btn-group.btn-group-wide .btn-focus {
     flex-grow:1;
+}
+
+.sharp-corners .btn {
+    border-radius: 0;
 }
 
 .muted {
@@ -117,4 +125,32 @@ code {
     margin-top:2rem;
     margin-bottom:5rem;
     text-align: center;
+}
+
+h1.tall-margin {
+    margin-top:2rem;
+    margin-bottom:2rem;
+}
+
+.seamless.card-footer {
+    background-color: inherit;
+    border-top: 0;
+}
+
+.error-box {
+    margin:auto;
+    background-color:lightsteelblue;
+    max-width: 600px;
+    width:100vw;
+}
+
+.error-box pre {
+    margin:0;
+    padding:1rem;
+    max-height: 20rem;
+}
+
+.fail-icon {
+    width:100px;
+    margin-bottom:1rem;
 }

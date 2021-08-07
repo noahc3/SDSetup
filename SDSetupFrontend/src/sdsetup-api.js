@@ -1,5 +1,3 @@
-import { ThemeProvider } from 'react-bootstrap';
-
 import './sdsetup-typedef';
 
 const BACKEND_URL = "http://files.sdsetup.com/api/v2/"
@@ -11,6 +9,10 @@ const ENDPOINT_DOWNLOAD_BUNDLE = BACKEND_URL + "files/downloadbundle/{id}"
 
 const packageVisibilityOverrides = {};
 
+let defaultErrorHandler;
+let defaultBundleSuccessHandler;
+
+let localId = uuid4();
 let manifest = {};
 let latestPackageset = "";
 let rerender;
@@ -19,13 +21,42 @@ let isBundlingInProgress = false;
 let bundlerProgress = {}
 let bundlerUuid = "";
 
+function uuid4() {
+    return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : ((r & 0x3) | 0x8);
+        return v.toString(16);
+    });
+}
+
+function handleError(err) {
+    console.error(err);
+    if (typeof(defaultErrorHandler) === 'function') defaultErrorHandler(err);
+}
 
 async function fetchJson(endpoint) {
-    return fetch(endpoint).then(res => res.json());
+    return fetch(endpoint).then(res => {
+        if (res.ok) return res.json();
+        else {
+            return res.text().then(msg =>  {
+                let rawMessage = msg;
+                if (msg.includes("<html>")) msg = res.statusText;
+                return new ApiError(res.status, msg, "fetchString", rawMessage, res.url);
+            });
+        }
+    });
 }
 
 async function fetchString(endpoint) {
-    return fetch(endpoint).then(res => res.text());
+    return fetch(endpoint).then(res => {
+        if (res.ok) return res.text();
+        else {
+            return res.text().then(msg =>  {
+                let rawMessage = msg;
+                if (msg.includes("<html>")) msg = res.statusText;
+                return new ApiError(res.status, msg, "fetchString", rawMessage, res.url);
+            });
+        }
+    });
 }
 
 async function postAndFetchString(endpoint, body) {
@@ -35,7 +66,16 @@ async function postAndFetchString(endpoint, body) {
         body: JSON.stringify(body)
     };
 
-    return fetch(endpoint, opts).then(res => res.text());
+    return fetch(endpoint, opts).then(res => {
+        if (res.ok) return res.text();
+        else {
+            return res.text().then(msg =>  {
+                let rawMessage = msg;
+                if (msg.includes("<html>")) msg = res.statusText;
+                return new ApiError(res.status, msg, "fetchString", rawMessage, res.url);
+            });
+        }
+    });
 }
 
 async function postAndFetchJson(endpoint, body) {
@@ -45,10 +85,21 @@ async function postAndFetchJson(endpoint, body) {
         body: JSON.stringify(body)
     };
 
-    return fetch(endpoint, opts).then(res => res.json());
+    return fetch(endpoint, opts).then(res => {
+        if (res.ok) return res.json();
+        else {
+            return res.text().then(msg =>  {
+                let rawMessage = msg;
+                if (msg.includes("<html>")) msg = res.statusText;
+                return new ApiError(res.status, msg, "fetchString", rawMessage, res.url);
+            });
+        }
+    });
 }
 
-
+export function setDefaultErrorHandler(func) {
+    defaultErrorHandler = func;
+}
 
 export function setForceUpdate(func) {
     rerender = func;
@@ -59,9 +110,22 @@ export function setModalUpdate(func) {
 }
 
 export async function fetchLatestManifest() {
-    latestPackageset = await fetchString(ENDPOINT_LATEST_PACKAGESET);
-    manifest = await fetchJson(ENDPOINT_MANIFEST.replace("{id}", latestPackageset));
-    console.log(manifest);
+    let ps;
+    let man;
+
+    ps = await fetchString(ENDPOINT_LATEST_PACKAGESET);
+    if (ps.error) {
+        handleError(ps.withLocation("fetchLatestManifest"));
+    } else {
+        latestPackageset = ps;
+        man = await fetchJson(ENDPOINT_MANIFEST.replace("{id}", latestPackageset));
+
+        if (man.error) {
+            handleError(manifest.withLocation("fetchLatestManifest"));
+        } else {
+            manifest = man;
+        }
+    }
 }
 
 /**
@@ -242,7 +306,7 @@ export async function requestBundle(platform) {
     rerender();
 
     packages = Object.values(manifest.packages).filter((pkg) => {
-        return pkg.checked && pkg.platform == platform;
+        return pkg.checked && pkg.platform === platform;
     });
 
     packages = getValidatedPackageList(packages);
@@ -285,3 +349,22 @@ export function isBundling() {
 export function getBundlerProgress() {
     return bundlerProgress;
 }
+
+export class ApiError {
+    constructor(code, message, location, rawMessage, url) {
+        this.error = true;
+        this.code = code;
+        this.location = location;
+        this.message = message;
+        this.rawMessage = rawMessage;
+        this.url = url;
+        this.clientid = localId;
+        this.bundlerid = bundlerUuid;
+        this.ua = navigator.userAgent;
+    }
+
+    withLocation(loc) {
+        this.location = loc + "/" + this.location; 
+        return this;
+    }
+  }

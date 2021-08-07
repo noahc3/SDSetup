@@ -117,5 +117,6 @@
  * isComplete: boolean,
  * success: boolean,
  * completionTime: string
- * }}
+ * }} BundlerProgress
+ * 
  */
