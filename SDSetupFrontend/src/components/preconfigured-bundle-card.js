@@ -2,9 +2,25 @@ import React from 'react';
 import { Card, Button, ButtonGroup } from 'react-bootstrap';
 import { FiDownload } from "react-icons/fi"
 
+import * as sdsetup from '../sdsetup-api';
+import '../sdsetup-typedef';
+
 export default class PreconfiguredBundleCard extends React.Component {
+
+    /**
+     * @typedef {{
+     * bundle: Bundle
+     * }} Props
+     */
+
+    constructor(props) {
+        super(props);
+
+        /** @type {Props} */
+        this.props = this.props || {};
+    }
+
     render() {
-        const sdsetup = this.props.sdsetup;
         const bundle = this.props.bundle;
         return (
             <Card className="bundle-card">

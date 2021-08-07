@@ -2,15 +2,31 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 import PackageCheckbox from './package-checkbox';
 
-export default class Subcategory extends React.Component {
+import * as sdsetup from '../sdsetup-api';
+import '../sdsetup-typedef';
+
+export default class SubcategoryComponent extends React.Component {
+
+    /**
+     * @typedef {{
+     * subcategory: Subcategory
+     * }} Props
+     */
+
+    constructor(props) {
+        super(props);
+
+        /** @type {Props} */
+        this.props = this.props || {};
+    }
+
     render() {
-        const sdsetup = this.props.sdsetup;
         const subcategory = this.props.subcategory;
         const packages = subcategory.packages.map((id) => {
             const pkg = sdsetup.getPackageById(id);
             if (sdsetup.canShow(pkg)) {
                 return (
-                    <PackageCheckbox key={"pkg_"+pkg.id} sdsetup={sdsetup} pkg={pkg} />
+                    <PackageCheckbox key={"pkg_"+pkg.id} pkg={pkg} />
                 )
             } else return null;
         });

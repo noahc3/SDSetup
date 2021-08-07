@@ -1,18 +1,19 @@
 import React from 'react';
 import { Alert, Card, CardGroup, Button, Modal, ProgressBar } from 'react-bootstrap';
 import PreconfiguredBundleCard from './preconfigured-bundle-card';
-import CheckboxSection from './checkbox-section';
+import CheckboxSectionComponent from './checkbox-section-component';
 import parse from 'html-react-parser';
+
+import * as sdsetup from '../sdsetup-api';
+import '../sdsetup-typedef';
 
 class DownloadModalContents extends React.Component {
     constructor(props) {
         super(props);
-        const sdsetup = props.sdsetup;
         sdsetup.setModalUpdate(() => { this.forceUpdate(); });
     }
 
     render() {
-        const sdsetup = this.props.sdsetup;
         const bundlerProgress = sdsetup.getBundlerProgress();
 
         return (
@@ -34,16 +35,28 @@ class DownloadModalContents extends React.Component {
 
 class Console extends React.Component {
 
+    /**
+     * @typedef {{
+     * platformid: string
+     * }} Props
+     */
+
+    constructor(props) {
+        super(props);
+
+        /** @type {Props} */
+        this.props = this.props || {};
+    }
+
     render() {
-        const sdsetup = this.props.sdsetup;
+        const platformid = this.props.platformid;
         const isBundling = sdsetup.isBundling();
         const copyright = sdsetup.getCopyrightText();
-        const platformid = this.props.platformid;
         const platform = sdsetup.getPlatformById(platformid);
 
         const bundles = sdsetup.getBundlesForPlatform(platformid).map((bundle) => {
             return (
-                <PreconfiguredBundleCard key={"bundle_"+bundle.name} sdsetup={sdsetup} bundle={bundle} />
+                <PreconfiguredBundleCard key={"bundle_"+bundle.name} bundle={bundle} />
             );
         });
 
@@ -52,7 +65,7 @@ class Console extends React.Component {
             if (sdsetup.canShow(section)) {
                 return (
                     <div key={"section_"+section.id}>
-                        <CheckboxSection sdsetup={sdsetup} section={section} />
+                        <CheckboxSectionComponent section={section} />
                         <br />
                     </div>
                 )
@@ -61,7 +74,7 @@ class Console extends React.Component {
 
         const downloadingModal = (
             <Modal key="downloading-modal" show={isBundling} size="lg" centered>
-                <DownloadModalContents sdsetup={sdsetup}/>
+                <DownloadModalContents/>
             </Modal>
         );
 

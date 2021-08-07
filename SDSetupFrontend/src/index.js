@@ -69,10 +69,10 @@ class App extends React.Component {
                     <Container>
                         <Switch>
                             <Route path='/' exact>
-                                <Home sdsetup={sdsetup} />
+                                <Home />
                             </Route>
                             <Route path='/console/:platformid' component={
-                                props => <Console platformid={props.match.params.platformid} sdsetup={sdsetup} />
+                                props => <Console platformid={props.match.params.platformid} />
                             }>
                             </Route>
                         </Switch>

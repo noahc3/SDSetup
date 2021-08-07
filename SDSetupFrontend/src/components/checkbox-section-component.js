@@ -1,17 +1,33 @@
 import React from 'react';
 import { Card } from 'react-bootstrap';
-import Category from './category';
+import CategoryComponent from './category-component';
 
-export default class CheckboxSection extends React.Component {
+import * as sdsetup from '../sdsetup-api';
+import '../sdsetup-typedef';
+
+export default class CheckboxSectionComponent extends React.Component {
+
+    /**
+     * @typedef {{
+     * section: Section
+     * }} Props
+     */
+
+    constructor(props) {
+        super(props);
+
+        /** @type {Props} */
+        this.props = this.props || {};
+    }
+
     render() {
-        const sdsetup = this.props.sdsetup;
         const section = this.props.section;
         const categories = Object.keys(section.categories).map((key) => {
             const category = section.categories[key];
             if (sdsetup.canShow(category)) {
                 return (
                     <div key={"cat_"+category.id} className="col-mb-4 category-col">
-                        <Category sdsetup={sdsetup} category={category} />
+                        <CategoryComponent category={category} />
                     </div>
                 )
             } else return null;

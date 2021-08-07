@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import { Card, CardGroup } from 'react-bootstrap';
 import logo from '../img/logo_big.png'
 
+import * as sdsetup from '../sdsetup-api';
+import '../sdsetup-typedef';
+
 class Home extends React.Component {
     render() {
-        const sdsetup = this.props.sdsetup;
         const platforms = sdsetup.getAllPlatforms();
         let platformCards = platforms.map((key) => {
             const platform = sdsetup.getPlatformById(key);

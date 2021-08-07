@@ -1,6 +1,9 @@
 import React from 'react';
 import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
 
+import * as sdsetup from '../sdsetup-api';
+import '../sdsetup-typedef';
+
 export default class PackageCheckbox extends React.Component {
 
     /**
@@ -17,7 +20,6 @@ export default class PackageCheckbox extends React.Component {
     }
 
     render() {
-        const sdsetup = this.props.sdsetup;
         const pkg = this.props.pkg;
         const popover = (
             <Popover id={"popover_"+pkg.id}>
