@@ -10,13 +10,13 @@ const ENDPOINT_DOWNLOAD_BUNDLE = BACKEND_URL + "files/downloadbundle/{id}"
 const packageVisibilityOverrides = {};
 
 let defaultErrorHandler;
+let defaultBundleProgressHandler;
 let defaultBundleSuccessHandler;
 
 let localId = uuid4();
 let manifest = {};
 let latestPackageset = "";
 let rerender;
-let modalRerender;
 let isBundlingInProgress = false;
 /** @type {BundlerProgress} */
 let bundlerProgress = {}
@@ -32,6 +32,17 @@ function uuid4() {
 function handleError(err) {
     console.error(err);
     if (typeof(defaultErrorHandler) === 'function') defaultErrorHandler(err);
+}
+
+function handleProgress(progress) {
+    if (typeof(defaultBundleProgressHandler) === 'function') defaultBundleProgressHandler(progress);
+}
+
+/**
+ * @param {BundleResult} result 
+ */
+function handleSuccess(result) {
+    if (typeof(defaultBundleSuccessHandler) === 'function') defaultBundleSuccessHandler(result);
 }
 
 async function fetchJson(endpoint) {
@@ -110,12 +121,16 @@ export function setDefaultErrorHandler(func) {
     defaultErrorHandler = func;
 }
 
-export function setForceUpdate(func) {
-    rerender = func;
+export function setDefaultBundleProgressHandler(func) {
+    defaultBundleProgressHandler = func;
 }
 
-export function setModalUpdate(func) {
-    modalRerender = func;
+export function setDefaultBundleSuccessHandler(func) {
+    defaultBundleSuccessHandler = func;
+}
+
+export function setForceUpdate(func) {
+    rerender = func;
 }
 
 export async function fetchLatestManifest() {
@@ -272,11 +287,25 @@ export function forceShow(id) {
 
 /**
  * 
- * @param {string[]} packages 
+ * @param {string} platform 
  * @returns {string[]}
  */
-export function getValidatedPackageList(packages) {
+export function getPackageList(platform) {
+    const packages = Object.values(manifest.packages).filter((pkg) => {
+        return pkg.checked && pkg.platform === platform;
+    });
+
+    return packages;
+}
+
+/**
+ * 
+ * @param {string} platform 
+ * @returns {string[]}
+ */
+export function getValidatedPackageList(platform) {
     const manifest = getManifest(); 
+    let packages = getPackageList(platform);
     packages = packages.filter((pkg) => {
         const section = manifest.platforms[pkg.platform].packageSections[pkg.section];
         const category = section.categories[pkg.category];
@@ -303,6 +332,7 @@ export function getValidatedPackageList(packages) {
 export async function requestBundle(platform) {
     const manifest = getManifest();
     let packages;
+    let rawPackages;
 
     bundlerProgress = {
         progress: 0,
@@ -314,42 +344,39 @@ export async function requestBundle(platform) {
     isBundlingInProgress = true;
     rerender();
 
-    packages = Object.values(manifest.packages).filter((pkg) => {
-        return pkg.checked && pkg.platform === platform;
-    });
-
-    packages = getValidatedPackageList(packages);
+    packages = getValidatedPackageList(platform);
     
     bundlerUuid = await postAndFetchString(ENDPOINT_REQUEST_BUNDLE, {packageset: latestPackageset, packages: packages})
 
-    checkProgressUntilComplete();
+    checkProgressUntilComplete(platform, packages);
 }
 
-async function checkProgressUntilComplete() {
-    let progressEndpoint = ENDPOINT_BUNDLE_PROGRESS.replace("{id}", bundlerUuid);
-    bundlerProgress = await fetchJson();
-    modalRerender();
+async function checkProgressUntilComplete(platform, packages) {
+    const progressEndpoint = ENDPOINT_BUNDLE_PROGRESS.replace("{id}", bundlerUuid);
+    bundlerProgress = await fetchJson(progressEndpoint);
 
-    if (bundlerProgress.isComplete) {
-        if (!bundlerProgress.success) {
-            handleError(new ApiError(
-                -3,
-                bundlerProgress.currentTask,
-                "checkProgressUntilComplete",
-                bundlerProgress.currentTask,
-                progressEndpoint
-            ));
-        }
-        downloadCompletedBundle();
+    if (bundlerProgress.error) {
+        handleError(bundlerProgress.withLocation("checkProgressUntilComplete"));
+    } else if (bundlerProgress.isComplete && !bundlerProgress.success) {
+        handleError(new ApiError(
+            -3,
+            bundlerProgress.currentTask,
+            "checkProgressUntilComplete",
+            bundlerProgress.currentTask,
+            progressEndpoint
+        ));
+    }else if (bundlerProgress.isComplete) {
+        downloadCompletedBundle(platform, packages);
     } else {
-        setTimeout(() => { checkProgressUntilComplete(); }, 200);
+        handleProgress(bundlerProgress);
+        setTimeout(() => { checkProgressUntilComplete(platform, packages); }, 200);
     }
 }
 
-async function downloadCompletedBundle() {
-    window.open(ENDPOINT_DOWNLOAD_BUNDLE.replace("{id}", bundlerUuid));
+async function downloadCompletedBundle(platform, packages) {
+    const url = ENDPOINT_DOWNLOAD_BUNDLE.replace("{id}", bundlerUuid);
     isBundlingInProgress = false;
-    rerender();
+    handleSuccess(new BundleResult(url, platform, packages));
 }
 
 /**
@@ -385,4 +412,12 @@ export class ApiError {
         this.location = loc + "/" + this.location; 
         return this;
     }
-  }
+}
+
+export class BundleResult {
+    constructor(bundleUrl, platform, packages) {
+        this.bundleUrl = bundleUrl;
+        this.platform = platform;
+        this.packages = packages;
+    }
+}

@@ -87,13 +87,13 @@ code {
     display:flex;
 }
 
-.btn-group.btn-group-wide .btn:not(.btn-focus) {
+.btn-group.btn-group-wide .btn:not(.btn-min) {
     flex: 1;
-    flex-grow: 0;
+    flex-grow: 1;
 }
 
-.btn-group.btn-group-wide .btn-focus {
-    flex-grow:1;
+.btn-group.btn-group-wide .btn-min {
+    flex-grow:0;
 }
 
 .sharp-corners .btn {
@@ -153,4 +153,8 @@ h1.tall-margin {
 .fail-icon {
     width:100px;
     margin-bottom:1rem;
+}
+
+.modal-dialog {
+    max-width:700px;
 }

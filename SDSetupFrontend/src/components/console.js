@@ -1,39 +1,16 @@
 import React from 'react';
-import { Alert, Card, CardGroup, Button, Modal, ProgressBar } from 'react-bootstrap';
+import { Alert, Card, CardGroup, Button } from 'react-bootstrap';
 import PreconfiguredBundleCard from './preconfigured-bundle-card';
 import CheckboxSectionComponent from './checkbox-section-component';
 import parse from 'html-react-parser';
 
+import * as utils from '../utils';
 import * as sdsetup from '../sdsetup-api';
 import '../sdsetup-typedef';
 
-class DownloadModalContents extends React.Component {
-    constructor(props) {
-        super(props);
-        sdsetup.setModalUpdate(() => { this.forceUpdate(); });
-    }
 
-    render() {
-        const bundlerProgress = sdsetup.getBundlerProgress();
 
-        return (
-                <div>
-                    <Modal.Header>
-                        <Modal.Title>Your bundle is being prepared, please wait.</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div class="center">
-                            <h5>{bundlerProgress.currentTask}</h5>
-                            <p>({bundlerProgress.progress}/{bundlerProgress.total})</p>
-                            <ProgressBar variant="success" animated now={bundlerProgress.progress} max={bundlerProgress.total} />
-                        </div>
-                    </Modal.Body>
-                </div>
-        )
-    }
-}
-
-class Console extends React.Component {
+export default class Console extends React.Component {
 
     /**
      * @typedef {{
@@ -46,6 +23,11 @@ class Console extends React.Component {
 
         /** @type {Props} */
         this.props = this.props || {};
+
+        let prePackages = utils.getPackagesFromQuery();
+        if (prePackages.length > 0) {
+            sdsetup.selectPackages(prePackages);
+        }
     }
 
     render() {
@@ -72,15 +54,8 @@ class Console extends React.Component {
             } else return null;
         });
 
-        const downloadingModal = (
-            <Modal key="downloading-modal" show={isBundling} size="lg" centered>
-                <DownloadModalContents/>
-            </Modal>
-        );
-
         return (
             <div>
-            {downloadingModal}
                 <h1 className="tall-margin center">
                     {platform.name}
                 </h1>
@@ -100,12 +75,10 @@ class Console extends React.Component {
                 {sections}
                 <Button onClick={() => { sdsetup.requestBundle(platformid); }} variant="danger" size="lg" block>Get My Bundle</Button>
                 <br />
-                <div class="copyright">
+                <div className="copyright">
                     {parse(copyright)}
                 </div>
             </div>
         );
     }
 }
-
-export default Console;

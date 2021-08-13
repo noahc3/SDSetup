@@ -2,8 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { Navbar, Nav, Spinner, Container, Button, ButtonGroup, SafeAnchor } from 'react-bootstrap';
+import GlobalModal from './components/global-modal-component';
 import Home from './components/home';
 import Console from './components/console';
+import Share from './components/share';
 
 import * as utils from './utils';
 import * as sdsetup from './sdsetup-api';
@@ -78,7 +80,7 @@ class App extends React.Component {
                         <div>
                             <div className="center">
                                 <img alt="" className="fail-icon" src={failIcon}/>
-                                <h3>SDSetup failed to load</h3>
+                                <h3>SDSetup encountered an error</h3>
                                 <p className="muted">Error {err.code}: {err.message}</p>
                                 <p>This error was unexpected. If you have the time, please report this error by creating an issue on GitHub, and copy the following text into your report:</p>
                             </div>
@@ -108,6 +110,7 @@ class App extends React.Component {
         } else {
             return (
                 <main>
+                    <GlobalModal/>
                     <SiteNavbar/>
                     <Container>
                         <Switch>
@@ -116,6 +119,10 @@ class App extends React.Component {
                             </Route>
                             <Route path='/console/:platformid' component={
                                 props => <Console platformid={props.match.params.platformid} />
+                            }>
+                            </Route>
+                            <Route path='/share/:platformid' component={
+                                props => <Share platformid={props.match.params.platformid} />
                             }>
                             </Route>
                         </Switch>

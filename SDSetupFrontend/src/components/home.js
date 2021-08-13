@@ -12,7 +12,7 @@ class Home extends React.Component {
         let platformCards = platforms.map((key) => {
             const platform = sdsetup.getPlatformById(key);
             return (
-                <Card className="platform-card">
+                <Card key={key} className="platform-card">
                     <Link to={"/console/"+key}>
                         <Card.Img src={platform.homeIcon} />
                     </Link>

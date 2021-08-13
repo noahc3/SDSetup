@@ -30,8 +30,8 @@ export default class PreconfiguredBundleCard extends React.Component {
                 </Card.Body>
                 <Card.Footer className="seamless">
                     <ButtonGroup className="btn-group-wide" >
-                        <Button variant="danger" className="btn-focus" onClick={() => {sdsetup.selectPackages(bundle.packages)}}>Select and Customize</Button>
-                        <Button variant="primary" title="Direct download this bundle as-is, no wait time!"><FiDownload/></Button>
+                        <Button variant="danger" onClick={() => {sdsetup.selectPackages(bundle.packages)}}>Select and Customize</Button>
+                        <Button variant="primary" className="btn-min" title="Direct download this bundle as-is, no wait time!"><FiDownload/></Button>
                     </ButtonGroup>
                 </Card.Footer>
             </Card>
