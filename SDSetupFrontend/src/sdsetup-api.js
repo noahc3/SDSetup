@@ -330,9 +330,7 @@ export function getValidatedPackageList(platform) {
  * @param {string} platform 
  */
 export async function requestBundle(platform) {
-    const manifest = getManifest();
     let packages;
-    let rawPackages;
 
     bundlerProgress = {
         progress: 0,
@@ -393,6 +391,15 @@ export function isBundling() {
  */
 export function getBundlerProgress() {
     return bundlerProgress;
+}
+
+/**
+ * 
+ * @returns {DonationInfo}
+ */
+ export function getDonationInfo() {
+    const manifest = getManifest();
+    return manifest.donationInfo;
 }
 
 export class ApiError {

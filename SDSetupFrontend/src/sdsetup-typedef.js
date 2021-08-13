@@ -6,7 +6,8 @@
  * copyright: string,
  * message: Message,
  * platforms: Object.<string, Platform>,
- * packages: Object.<string, Package>
+ * packages: Object.<string, Package>,
+ * donationInfo: DonationInfo
  * }} Manifest
  * 
  * Package
@@ -118,5 +119,13 @@
  * success: boolean,
  * completionTime: string
  * }} BundlerProgress
+ * 
+ * DonationInfo
+ * @typedef {{
+ * kofiUrl: string,
+ * patreonUrl: string,
+ * patreonFundingCurrent: number,
+ * patreonFundingGoal: number
+ * }} DonationInfo
  * 
  */

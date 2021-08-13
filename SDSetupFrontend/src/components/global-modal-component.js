@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, Modal, ProgressBar, Form, InputGroup } from 'react-bootstrap';
+import { Button, ButtonGroup, Modal, ProgressBar, Form, InputGroup, Row, Col, SafeAnchor } from 'react-bootstrap';
 import { SiPatreon, SiKoFi } from 'react-icons/si';
 import { FaRegCopy } from 'react-icons/fa'
 
@@ -99,19 +99,39 @@ export default class GlobalModal extends React.Component {
     renderBundleSuccess() {
         const bundleUrl = this.state.bundleDownloadUrl;
         const shareUrl = this.state.bundleShareUrl;
-        const donateMessage = (
-            <div>
-                <h5>If you like SDSetup, please consider supporting us by donating.</h5>
-                <p>There are a number of hosting costs involved in keeping SDSetup running 
-                and we would greatly appreciate it if you could help out!</p>
-                <ProgressBar variant="info" animated now={50} max={121} label="$50/$121" />
-                <br/>
-                <ButtonGroup className="btn-group-wide">
-                    <Button variant="warning"><SiPatreon/> Patreon (recurring donation)</Button>
-                    <Button><SiKoFi/> Ko-fi (one-time donation)</Button>
-                </ButtonGroup>
-            </div>
-        )
+        const donationInfo = sdsetup.getDonationInfo();
+        let donateMessage = null;
+
+        if (donationInfo && donationInfo.patreonFundingGoal) {
+            const currentDollars = donationInfo.patreonFundingCurrent/100;
+            const goalDollars = donationInfo.patreonFundingGoal/100;
+            const percent = currentDollars * 100 / goalDollars;
+            const progressText = "$" + currentDollars + " of monthly $" + goalDollars + " Patreon goal reached.";
+            let color;
+
+            if (percent < 70) color = "danger";
+            else if (percent < 90) color = "warning";
+            else color = "success";
+            
+            //only show donation message if funding is below the goal
+            if (currentDollars < goalDollars) {
+                donateMessage = (
+                    <div className="center">
+                        <hr/>
+                        <h5>If you like SDSetup, please consider supporting us by donating.</h5>
+                        <p>There are a number of hosting costs involved in keeping SDSetup running 
+                        and we would greatly appreciate it if you could help out!</p>
+                        <ProgressBar variant={color} now={currentDollars} max={goalDollars} label={percent + "%"} />
+                        <Form.Label className="muted italics">{progressText}</Form.Label>
+                        <br/>
+                        <ButtonGroup className="btn-group-wide">
+                            <Button as={SafeAnchor} href={donationInfo.patreonUrl} variant="warning"><SiPatreon/> Patreon</Button>
+                            <Button as={SafeAnchor} href={donationInfo.kofiUrl}><SiKoFi/> Ko-fi</Button>
+                        </ButtonGroup>
+                    </div>
+                )
+            }
+        }
 
         return (
             <div>
@@ -134,10 +154,7 @@ export default class GlobalModal extends React.Component {
                                 </Button>
                             </InputGroup.Append>
                         </InputGroup>
-                        <hr/>
-                        <div className="center">
-                            {donateMessage}
-                        </div>
+                        {donateMessage}
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
