@@ -18,6 +18,7 @@ let latestPackageset = "";
 let rerender;
 let modalRerender;
 let isBundlingInProgress = false;
+/** @type {BundlerProgress} */
 let bundlerProgress = {}
 let bundlerUuid = "";
 
@@ -40,10 +41,12 @@ async function fetchJson(endpoint) {
             return res.text().then(msg =>  {
                 let rawMessage = msg;
                 if (msg.includes("<html>")) msg = res.statusText;
-                return new ApiError(res.status, msg, "fetchString", rawMessage, res.url);
+                return new ApiError(res.status, msg, "fetchJson", rawMessage, res.url);
             });
         }
-    });
+    }).catch(err => {
+        return new ApiError(-2, err.message, "fetchJson", err.stack, endpoint);
+    });;
 }
 
 async function fetchString(endpoint) {
@@ -56,6 +59,8 @@ async function fetchString(endpoint) {
                 return new ApiError(res.status, msg, "fetchString", rawMessage, res.url);
             });
         }
+    }).catch(err => {
+        return new ApiError(-2, err.message, "fetchString", err.stack, endpoint);
     });
 }
 
@@ -72,10 +77,12 @@ async function postAndFetchString(endpoint, body) {
             return res.text().then(msg =>  {
                 let rawMessage = msg;
                 if (msg.includes("<html>")) msg = res.statusText;
-                return new ApiError(res.status, msg, "fetchString", rawMessage, res.url);
+                return new ApiError(res.status, msg, "postAndFetchString", rawMessage, res.url);
             });
         }
-    });
+    }).catch(err => {
+        return new ApiError(-2, err.message, "postAndFetchString", err.stack, endpoint);
+    });;
 }
 
 async function postAndFetchJson(endpoint, body) {
@@ -91,10 +98,12 @@ async function postAndFetchJson(endpoint, body) {
             return res.text().then(msg =>  {
                 let rawMessage = msg;
                 if (msg.includes("<html>")) msg = res.statusText;
-                return new ApiError(res.status, msg, "fetchString", rawMessage, res.url);
+                return new ApiError(res.status, msg, "postAndFetchJson", rawMessage, res.url);
             });
         }
-    });
+    }).catch(err => {
+        return new ApiError(-2, err.message, "postAndFetchJson", err.stack, endpoint);
+    });;
 }
 
 export function setDefaultErrorHandler(func) {
@@ -317,11 +326,20 @@ export async function requestBundle(platform) {
 }
 
 async function checkProgressUntilComplete() {
-    bundlerProgress = await fetchJson(ENDPOINT_BUNDLE_PROGRESS.replace("{id}", bundlerUuid));
-    console.log(bundlerProgress);
+    let progressEndpoint = ENDPOINT_BUNDLE_PROGRESS.replace("{id}", bundlerUuid);
+    bundlerProgress = await fetchJson();
     modalRerender();
 
     if (bundlerProgress.isComplete) {
+        if (!bundlerProgress.success) {
+            handleError(new ApiError(
+                -3,
+                bundlerProgress.currentTask,
+                "checkProgressUntilComplete",
+                bundlerProgress.currentTask,
+                progressEndpoint
+            ));
+        }
         downloadCompletedBundle();
     } else {
         setTimeout(() => { checkProgressUntilComplete(); }, 200);
