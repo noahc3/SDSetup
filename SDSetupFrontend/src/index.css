@@ -71,6 +71,12 @@ code {
     text-align: center;
 }
 
+.vertical-center-children {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
 .bundle-card .card-footer {
     padding:0.5rem;
 }
@@ -115,6 +121,37 @@ code {
 .package-checkbox {
     margin-left:1rem;
 }
+
+.nav.nav-pills .nav-item.package-selector {
+    border: 1px solid #DEE2E6;
+    height: 100%;
+}
+
+.nav.nav-pills .nav-item.package-selector:hover {
+    background-color: rgba(0,0,0, 0.05);
+}
+
+.nav.nav-pills .nav-item.package-selector .nav-link {
+    color:inherit;
+    height: 100%;
+}
+
+.nav.nav-pills .nav-item.package-selector .nav-link.active {
+    background-color:rgba(0,0,0,0.10);
+}
+
+.nav.nav-pills .nav-item.package-selector .nav-link span {
+    display: inline-block;
+    height: 100%;
+    margin-left:0.5rem;
+    margin-right:0.5rem;
+}
+
+.huge-text {
+    font-size: xx-large;
+}
+
+
 
 .subcategory {
     margin-bottom:1rem;

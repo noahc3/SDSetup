@@ -35,6 +35,7 @@
  * dependencies: string[],
  * deleteOnUpdate: string[],
  * autoUpdates: boolean
+ * checked: boolean
  * }} Package
  * 
  * VersionInfo

@@ -210,6 +210,27 @@ export function getVisiblePlatforms() {
 }
 
 /**
+ * @param {Section} section
+ * @returns {Package[]} 
+ */
+export function getVisiblePackagesForSection(section) {
+    const manifest = getManifest();
+    const packages = [];
+    for (const cat of Object.values(section.categories)) {
+        for (const sub of Object.values(cat.subcategories)) {
+            for (const pkgid of sub.packages) {
+                const pkg = getPackageById(pkgid);
+                if (canShow(pkg)) {
+                    packages.push(pkg);
+                }
+            }
+        }
+    }
+
+    return packages;
+}
+
+/**
  * 
  * @param {string} platform 
  * @returns {Bundle[]}

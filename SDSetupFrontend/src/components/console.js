@@ -7,6 +7,7 @@ import parse from 'html-react-parser';
 import * as utils from '../utils';
 import * as sdsetup from '../sdsetup-api';
 import '../sdsetup-typedef';
+import MenuSectionComponent from './menu-section-component';
 
 
 
@@ -45,12 +46,21 @@ export default class Console extends React.Component {
         const sections = Object.keys(platform.packageSections).map((id) => {
             const section = platform.packageSections[id];
             if (sdsetup.canShow(section)) {
-                return (
-                    <div key={"section_"+section.id}>
-                        <CheckboxSectionComponent section={section} />
-                        <br />
-                    </div>
-                )
+                if (section.listingMode === 0) {
+                    return (
+                        <div key={"section_"+section.id}>
+                            <CheckboxSectionComponent section={section} />
+                            <br />
+                        </div>
+                    );
+                } else if (section.listingMode === 1) {
+                    return (
+                        <div key={"section_"+section.id}>
+                            <MenuSectionComponent section={section} />
+                            <br />
+                        </div>
+                    );
+                }
             } else return null;
         });
 
