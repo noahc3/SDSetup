@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace SDSetupCommon
 {
@@ -23,6 +24,10 @@ namespace SDSetupCommon
             } else {
                 return path.Replace("\\", "/").Replace("//", "/");
             }
+        }
+
+        public static string UrlEncode(this string str) {
+            return HttpUtility.UrlEncode(str);
         }
 
         public static bool NullOrWhiteSpace(this string str) {

@@ -30,8 +30,11 @@ namespace SDSetupBackend.Data {
         public string GitlabClientId = "";
         public string GitlabClientSecret = "";
 
-        public string GithubUsername = "";
-        public string GithubPassword = "";
+        public string PatreonAccessToken = "";
+        public string PatreonCampaignId = "";
+
+        //No integration (Ko-fi does not have a REST API), but url will be included in manifest if specified.
+        public string KofiUrl = "";
 
         
 

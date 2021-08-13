@@ -17,6 +17,8 @@ using ICSharpCode.SharpZipLib.Zip;
 using SDSetupCommon.Data.BundlerModels;
 using System.Runtime.ExceptionServices;
 using System.Net;
+using SDSetupBackend.Data.Integrations;
+using SDSetupCommon.Data.IntegrationModels;
 
 namespace SDSetupBackend.Data {
     //Runtime contains information about currently active variables. During a hot-reload, the active runtime object will be left in place and will
@@ -44,6 +46,8 @@ namespace SDSetupBackend.Data {
 
         private Dictionary<string, BundlerProgress> BundlerProgresses = new Dictionary<string, BundlerProgress>();
         private Dictionary<string, string> FinishedBundles = new Dictionary<string, string>();
+
+        
 
         public bool UpdatePackageMeta(string packageset, Package changedPackage) {
             Package package = Manifests[packageset]?.FindPackageById(changedPackage.ID);
@@ -290,8 +294,36 @@ namespace SDSetupBackend.Data {
 
             await ExecuteTimedAutoUpdates();
             PurgeStaleBundles();
+            UpdateDonationInfo();
 
             ScheduleTimedTasks();
+        }
+
+        public void UpdateDonationInfo() {
+            PatreonIntegration patreon = null;
+            DonationModel donation = new DonationModel();
+
+            Program.logger.LogDebug("Updating donation information.");
+
+            if (!String.IsNullOrWhiteSpace(Program.ActiveConfig.PatreonAccessToken)) {
+                patreon = PatreonIntegration.GetPatreonData(Program.ActiveConfig.PatreonAccessToken, Program.ActiveConfig.PatreonCampaignId);
+                if (patreon == null) {
+                    Program.logger.LogError("Failed to update Patreon donation info during scheduled cycle.");
+                    return;
+                }
+            }
+
+            donation = new DonationModel();
+            donation.KofiUrl = Program.ActiveConfig.KofiUrl;
+            if (patreon != null) {
+                donation.PatreonUrl = patreon.Url;
+                donation.PatreonFundingCurrent = patreon.FundingCurrent;
+                donation.PatreonFundingGoal = patreon.FundingGoal;
+            }
+
+            foreach (Manifest m in Manifests.Values) {
+                m.DonationInfo = donation;
+            }
         }
 
         public async Task ExecuteTimedAutoUpdates() {

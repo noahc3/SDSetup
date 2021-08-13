@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using SDSetupCommon.Data.FrontendModels;
+using SDSetupCommon.Data.IntegrationModels;
 
 namespace SDSetupCommon.Data.PackageModels {
     public class Manifest {
@@ -11,6 +12,7 @@ namespace SDSetupCommon.Data.PackageModels {
         public Message Message { get; set; } = new Message();
         public Dictionary<string, Platform> Platforms { get; set; } = new Dictionary<string, Platform>();
         public Dictionary<string, Package> Packages { get; set; } = new Dictionary<string, Package>();
+        public DonationModel DonationInfo { get; set; } = new DonationModel();
 
         public Manifest() {
 

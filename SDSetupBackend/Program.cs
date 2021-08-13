@@ -18,7 +18,9 @@ using Newtonsoft.Json;
 using Octokit;
 using SDSetupBackend.Data;
 using SDSetupBackend.Data.Accounts;
+using SDSetupBackend.Data.Integrations;
 using SDSetupCommon;
+using SDSetupCommon.Data.IntegrationModels;
 using SDSetupCommon.Data.PackageModels;
 using SDSetupCommon.Data.PackageModels.Legacy;
 using SDSetupCommon.Data.UpdaterModels;
@@ -113,23 +115,25 @@ namespace SDSetupBackend {
             if (!Directory.Exists(proposedConfig.DataPath)) Directory.CreateDirectory(proposedConfig.DataPath);
 
             if (proposedConfig.UseUpdater) {
-                if (String.IsNullOrWhiteSpace(proposedConfig.GithubUsername)) {
+                if (String.IsNullOrWhiteSpace(proposedConfig.GithubClientId)) {
                     err = true;
-                    logger.LogError("The auto-updater requires a valid GitHub login. Please specify a username in the config file.");
+                    logger.LogError("The auto-updater requires a valid GitHub login. Please specify a client ID in the config file.");
                 }
-                if (String.IsNullOrWhiteSpace(proposedConfig.GithubPassword)) {
+                if (String.IsNullOrWhiteSpace(proposedConfig.GithubClientSecret)) {
                     err = true;
-                    logger.LogError("The auto-updater requires a valid GitHub login. Please specify a passord in the config file.");
+                    logger.LogError("The auto-updater requires a valid GitHub login. Please specify a client secret in the config file.");
                 }
                 if (!TimeSpan.TryParse(proposedConfig.TimedTasksInterval, out _)) {
                     err = true;
                     logger.LogError("Failed to parse updater interval. Please ensure the syntax is correct. See https://docs.microsoft.com/en-us/dotnet/api/system.timespan.tryparse for examples.");
                 }
             }
+
             if (String.IsNullOrWhiteSpace(proposedConfig.LatestPackageset)) {
                 err = true;
                 logger.LogError("You need to specify a packageset to use.");
             }
+
             if (proposedConfig.AppSupport) {
                 logger.LogWarning("App support is not complete in the current version of SDSetupBackend and will not correctly support the SDSetup app. Please use the old version of the backend.");
                 if (!File.Exists(proposedConfig.LatestAppPath)) {
@@ -156,6 +160,21 @@ namespace SDSetupBackend {
                 logger.LogDebug("Could not parse ZipRetentionTime from config. Please ensure the format is valid for TimeSpan.Parse().");
             }
 
+            if (!String.IsNullOrWhiteSpace(proposedConfig.PatreonAccessToken)) {
+                if (String.IsNullOrWhiteSpace(proposedConfig.PatreonCampaignId)) {
+                    logger.LogError("Patreon integration was enabled by supplying an access token, but no campaign ID was supplied. Please specify a campaign ID, or remove your access token to disable Patreon integration.");
+                    err = true;
+                } else {
+                    PatreonIntegration patreonTest = PatreonIntegration.GetPatreonData(proposedConfig.PatreonAccessToken, proposedConfig.PatreonCampaignId);
+                    if (patreonTest == null) {
+                        logger.LogError("Failed to retrieve Patreon campaign information. Please double check your access token and campaign ID.");
+                        err = true;
+                    } else {
+                        logger.LogDebug($"Patreon integration loaded for campaign with URL {patreonTest.Url} and funding {patreonTest.FundingCurrent}/{patreonTest.FundingGoal} (USD cents).");
+                    }
+                }
+            } 
+
             if (!err) {
                 ActiveConfig = proposedConfig;
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(ActiveConfig, Formatting.Indented));
@@ -167,6 +186,27 @@ namespace SDSetupBackend {
 
         public static bool LoadPackageSets() {
             Dictionary<string, Manifest> manifests = new Dictionary<string, Manifest>();
+
+            //Load initial Patreon information to inject into manifests
+            PatreonIntegration patreon = null;
+            DonationModel donation = null;
+
+            if (!String.IsNullOrWhiteSpace(ActiveConfig.PatreonAccessToken)) {
+                patreon = PatreonIntegration.GetPatreonData(ActiveConfig.PatreonAccessToken, ActiveConfig.PatreonCampaignId);
+
+                if (patreon == null) {
+                    logger.LogError("Failed to retrieve Patreon campaign information during manifest injection. Please double check your access token and campaign ID.");
+                    return false;
+                }
+
+                donation = new DonationModel() {
+                    KofiUrl = ActiveConfig.KofiUrl,
+                    PatreonUrl = patreon.Url,
+                    PatreonFundingCurrent = patreon.FundingCurrent,
+                    PatreonFundingGoal = patreon.FundingGoal
+                };
+            }
+
             foreach (DirectoryInfo packagesetDirectory in new DirectoryInfo(ActiveConfig.FilesPath).GetDirectories()) {
                 logger.LogDebug("Processing packageset at " + packagesetDirectory.FullName);
                 FileInfo manifestFile = new FileInfo((packagesetDirectory.FullName + "/manifest6.json").AsPath());
@@ -266,6 +306,10 @@ namespace SDSetupBackend {
                 }
 
                 manifest.Packageset = packagesetName;
+
+                if (donation != null) {
+                    manifest.DonationInfo = donation;
+                }
 
                 manifests.Add(packagesetName, manifest);
 
