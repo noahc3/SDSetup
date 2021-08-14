@@ -1,5 +1,7 @@
 import query from 'query-string'
 
+let themeSelectHandler;
+
 function fallbackCopyTextToClipboard(text) {
     var textArea = document.createElement("textarea");
     textArea.value = text;
@@ -48,4 +50,12 @@ export function getPackagesFromQuery() {
 export function buildShareString(platform, packages) {
     let str = query.stringify({packages: packages}, {arrayFormat: 'comma'});
     return window.location.origin + "/share/" + platform + "?" + str;
+}
+
+export function setTheme(str) {
+    if (typeof(themeSelectHandler) === 'function') themeSelectHandler(str);
+}
+
+export function setThemeSelectHandler(func) {
+    themeSelectHandler = func;
 }

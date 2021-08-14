@@ -69,7 +69,7 @@ export default class Console extends React.Component {
                 <h1 className="tall-margin center">
                     {platform.name}
                 </h1>
-                <Alert key={platformid+"_topalert"} variant="primary" className="center">
+                <Alert key={platformid+"_topalert"} variant="info" className="center">
                     Want to hack your Switch but not sure what to do? 
                     Check out the official SDSetup guide: <a href="https://switch.homebrew.guide">https://switch.homebrew.guide</a>
                 </Alert>

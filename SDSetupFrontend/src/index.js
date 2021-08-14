@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
-import { Navbar, Nav, Spinner, Container, Button, ButtonGroup, SafeAnchor } from 'react-bootstrap';
+import { Navbar, Nav, Spinner, Container, Button, ButtonGroup, SafeAnchor, NavDropdown } from 'react-bootstrap';
+import { FaGithub, FaDiscord } from 'react-icons/fa';
+import ThemeSelector from './themes/theme-selector.js';
 import GlobalModal from './components/global-modal-component';
 import Home from './components/home';
 import Console from './components/console';
@@ -11,8 +13,7 @@ import * as utils from './utils';
 import * as sdsetup from './sdsetup-api';
 import './sdsetup-typedef';
 
-import 'bootstrap/dist/css/bootstrap.css';
-import './index.css';
+import './index.css'
 
 import logo from './img/logo_nav.png'
 import failIcon from './img/fail.png'
@@ -31,6 +32,16 @@ function SiteNavbar() {
             <Navbar.Collapse id="site-navbar">
                 <Nav className="mr-auto">
                     {platformLinks}
+                </Nav>
+                <Nav>
+                    <NavDropdown title="Theme" id="theme-dropdown">
+                        <NavDropdown.Item onClick={() => {utils.setTheme("light"); }}>Light</NavDropdown.Item>
+                        <NavDropdown.Item onClick={() => {utils.setTheme("dark"); }}>Dark</NavDropdown.Item>
+                    </NavDropdown>
+                    <Nav.Link>Donate</Nav.Link>
+                    <Nav.Link>Guide</Nav.Link>
+                    <Nav.Link>Report an Issue</Nav.Link>
+                    <Nav.Link className="huge-text"><FaGithub/></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
@@ -138,6 +149,7 @@ class App extends React.Component {
 
 ReactDOM.render(
     <BrowserRouter>
+        <ThemeSelector/>
         <App />
     </BrowserRouter>,
     document.getElementById('root')

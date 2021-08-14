@@ -81,6 +81,10 @@ code {
     padding:0.5rem;
 }
 
+.btn {
+    color: #fff;
+}
+
 .btn-group-vertical.btn-group-wide {
     width:100%;
 }
@@ -107,7 +111,7 @@ code {
 }
 
 .muted {
-    color:gray;
+    color: #b7b7b7;
 }
 
 .category-col {
@@ -120,6 +124,14 @@ code {
 
 .package-checkbox {
     margin-left:1rem;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link {
+    color: #fff;
+}
+
+.navbar-dark .navbar-nav .nav-link:focus, .navbar-dark .navbar-nav .nav-link:hover {
+    color: #fff;
 }
 
 .nav.nav-pills .nav-item.package-selector {
@@ -150,8 +162,6 @@ code {
 .huge-text {
     font-size: xx-large;
 }
-
-
 
 .subcategory {
     margin-bottom:1rem;
@@ -198,4 +208,16 @@ h1.tall-margin {
 
 .italics {
     font-style: italic
+}
+
+.navbar-nav .nav-link {
+    margin: auto;
+}
+
+.navbar-nav .nav-link {
+    line-height: 1;
+}
+
+.navbar-nav .nav-item {
+    margin: auto;
 }
