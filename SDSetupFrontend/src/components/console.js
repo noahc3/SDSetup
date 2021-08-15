@@ -2,7 +2,6 @@ import React from 'react';
 import { Alert, Card, CardGroup, Button } from 'react-bootstrap';
 import PreconfiguredBundleCard from './preconfigured-bundle-card';
 import CheckboxSectionComponent from './checkbox-section-component';
-import parse from 'html-react-parser';
 
 import * as utils from '../utils';
 import * as sdsetup from '../sdsetup-api';
@@ -33,8 +32,6 @@ export default class Console extends React.Component {
 
     render() {
         const platformid = this.props.platformid;
-        const isBundling = sdsetup.isBundling();
-        const copyright = sdsetup.getCopyrightText();
         const platform = sdsetup.getPlatformById(platformid);
 
         const bundles = sdsetup.getBundlesForPlatform(platformid).map((bundle) => {
@@ -84,10 +81,6 @@ export default class Console extends React.Component {
                 <br />
                 {sections}
                 <Button onClick={() => { sdsetup.requestBundle(platformid); }} variant="danger" size="lg" block>Get My Bundle</Button>
-                <br />
-                <div className="copyright">
-                    {parse(copyright)}
-                </div>
             </div>
         );
     }

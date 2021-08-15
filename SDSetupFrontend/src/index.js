@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import parse from 'html-react-parser';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { Navbar, Nav, Spinner, Container, Button, ButtonGroup, SafeAnchor, NavDropdown } from 'react-bootstrap';
 import { FaGithub, FaDiscord } from 'react-icons/fa';
@@ -122,6 +123,7 @@ class App extends React.Component {
                 </main>
             )
         } else {
+            const copyright = sdsetup.getCopyrightText();
             return (
                 <main>
                     <GlobalModal/>
@@ -143,6 +145,9 @@ class App extends React.Component {
                                 <BisKeyGen/>
                             </Route>
                         </Switch>
+                        <div className="copyright">
+                            {parse(copyright)}
+                        </div>
                     </Container>
                 </main>
             )
