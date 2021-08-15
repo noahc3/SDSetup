@@ -85,6 +85,10 @@ code {
     color: #fff;
 }
 
+.btn.btn-wide {
+    width: 100%;
+}
+
 .btn-group-vertical.btn-group-wide {
     width:100%;
 }
@@ -220,4 +224,30 @@ h1.tall-margin {
 
 .navbar-nav .nav-item {
     margin: auto;
+}
+
+.bis-box {
+    max-width: 600px;
+    margin: auto;
+    padding: 1rem 3rem 0 3rem;
+}
+
+.bis-box h6 {
+    text-align: center;
+    margin-top:1rem;
+}
+
+.bis-box input.form-control {
+    font-family: monospace;
+    text-align: center;
+}
+
+.bis-box .tab-content {
+    margin-bottom:2rem;
+}
+
+.bis-box textarea {
+    margin-bottom: 2rem;
+    font-family: monospace;
+    resize: none;
 }

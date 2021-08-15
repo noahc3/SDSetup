@@ -8,6 +8,7 @@ import GlobalModal from './components/global-modal-component';
 import Home from './components/home';
 import Console from './components/console';
 import Share from './components/share';
+import BisKeyGen from './components/biskeygen.js';
 
 import * as utils from './utils';
 import * as sdsetup from './sdsetup-api';
@@ -17,6 +18,7 @@ import './index.css'
 
 import logo from './img/logo_nav.png'
 import failIcon from './img/fail.png'
+
 
 function SiteNavbar() {
     const platformLinks = sdsetup.getAllPlatforms().map((id) => {
@@ -38,6 +40,7 @@ function SiteNavbar() {
                         <NavDropdown.Item onClick={() => {utils.setTheme("light"); }}>Light</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => {utils.setTheme("dark"); }}>Dark</NavDropdown.Item>
                     </NavDropdown>
+                    <Nav.Link as={Link} to={"/biskeygen"}>BIS</Nav.Link>
                     <Nav.Link>Donate</Nav.Link>
                     <Nav.Link>Guide</Nav.Link>
                     <Nav.Link>Report an Issue</Nav.Link>
@@ -135,6 +138,9 @@ class App extends React.Component {
                             <Route path='/share/:platformid' component={
                                 props => <Share platformid={props.match.params.platformid} />
                             }>
+                            </Route>
+                            <Route path='/biskeygen'>
+                                <BisKeyGen/>
                             </Route>
                         </Switch>
                     </Container>
