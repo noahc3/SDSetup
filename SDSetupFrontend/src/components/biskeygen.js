@@ -57,8 +57,8 @@ export default class BisKeyGen extends React.Component {
         let sbk = document.getElementById('key-sbk').value;
         let tsec = document.getElementById('key-tsec').value;
 
-        if (sbk.length != 32) res.push("SBK key length is not valid.");
-        if (tsec.length != 32) res.push("TSEC key length is not valid.");
+        if (sbk.length !== 32) res.push("SBK key length is not valid.");
+        if (tsec.length !== 32) res.push("TSEC key length is not valid.");
         sbk.split('').every((x) => {
             if (!validChars.includes(x)) res.push("SBK key contains invalid characters.");
             return validChars.includes(x);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, ButtonGroup, Modal, ProgressBar, Form, InputGroup, Row, Col, SafeAnchor } from 'react-bootstrap';
+import { Button, ButtonGroup, Modal, ProgressBar, Form, InputGroup, SafeAnchor } from 'react-bootstrap';
 import { SiPatreon, SiKoFi } from 'react-icons/si';
 import { FaRegCopy } from 'react-icons/fa'
 

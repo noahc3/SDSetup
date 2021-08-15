@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Col, Nav, Row } from 'react-bootstrap';
+import { Card, Nav } from 'react-bootstrap';
 import { FaRegSquare, FaRegCheckSquare } from 'react-icons/fa'
 
 import * as sdsetup from '../sdsetup-api';

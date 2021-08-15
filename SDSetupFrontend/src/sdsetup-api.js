@@ -214,7 +214,6 @@ export function getVisiblePlatforms() {
  * @returns {Package[]} 
  */
 export function getVisiblePackagesForSection(section) {
-    const manifest = getManifest();
     const packages = [];
     for (const cat of Object.values(section.categories)) {
         for (const sub of Object.values(cat.subcategories)) {

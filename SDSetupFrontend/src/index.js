@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import parse from 'html-react-parser';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { Navbar, Nav, Spinner, Container, Button, ButtonGroup, SafeAnchor, NavDropdown } from 'react-bootstrap';
-import { FaGithub, FaDiscord } from 'react-icons/fa';
+import { FaGithub } from 'react-icons/fa';
 import ThemeSelector from './themes/theme-selector.js';
 import GlobalModal from './components/global-modal-component';
 import Home from './components/home';

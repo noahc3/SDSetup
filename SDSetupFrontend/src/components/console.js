@@ -57,7 +57,7 @@ export default class Console extends React.Component {
                             <br />
                         </div>
                     );
-                }
+                } else return null;
             } else return null;
         });
 
