@@ -1,5 +1,6 @@
 import query from 'query-string'
 
+let donationMessageHandler;
 let themeSelectHandler;
 
 function fallbackCopyTextToClipboard(text) {
@@ -58,4 +59,12 @@ export function setTheme(str) {
 
 export function setThemeSelectHandler(func) {
     themeSelectHandler = func;
+}
+
+export function showDonationMessage() {
+    if (typeof(donationMessageHandler) === 'function') donationMessageHandler();
+}
+
+export function setDonationMessageHandler(func) {
+    donationMessageHandler = func;
 }

@@ -30,8 +30,13 @@ export default class GlobalModal extends React.Component {
             bundleShareUrl: ""
         }
 
+        utils.setDonationMessageHandler(() => { this.showDonationMessage(); })
         sdsetup.setDefaultBundleProgressHandler((progress) => { this.handleProgress(progress); });
-        sdsetup.setDefaultBundleSuccessHandler((url) => { this.handleBundleSuccess(url); })
+        sdsetup.setDefaultBundleSuccessHandler((url) => { this.handleBundleSuccess(url); });
+    }
+
+    showDonationMessage() {
+        this.setState({ show: true, display: "donate" });
     }
 
     handleProgress(prog) {
@@ -51,11 +56,7 @@ export default class GlobalModal extends React.Component {
     }
 
     closeModal() {
-        const display = this.state.display;
-
-        if (display === "bundle-success") {
-            this.setState({show: false});
-        }
+        this.setState({show: false});
     }
 
     render() {
@@ -67,6 +68,8 @@ export default class GlobalModal extends React.Component {
             modalContents = this.renderBundlerProgress();
         } else if (display === "bundle-success") {
             modalContents = this.renderBundleSuccess();
+        } else if (display === "donate") {
+            modalContents = this.renderDonationMessage();
         } else modalContents = null;
 
         return (
@@ -96,9 +99,7 @@ export default class GlobalModal extends React.Component {
         );
     }
 
-    renderBundleSuccess() {
-        const bundleUrl = this.state.bundleDownloadUrl;
-        const shareUrl = this.state.bundleShareUrl;
+    buildDonationMessage(onlyIfUnder) {
         const donationInfo = sdsetup.getDonationInfo();
         let donateMessage = null;
 
@@ -114,10 +115,10 @@ export default class GlobalModal extends React.Component {
             else color = "success";
             
             //only show donation message if funding is below the goal
-            if (currentDollars < goalDollars) {
+            if (!onlyIfUnder || currentDollars < goalDollars) {
                 donateMessage = (
                     <div className="center">
-                        <hr/>
+                        {onlyIfUnder && <hr/>}
                         <h5>If you like SDSetup, please consider supporting us by donating.</h5>
                         <p>There are a number of hosting costs involved in keeping SDSetup running 
                         and we would greatly appreciate it if you could help out!</p>
@@ -125,13 +126,21 @@ export default class GlobalModal extends React.Component {
                         <Form.Label className="muted italics">{progressText}</Form.Label>
                         <br/>
                         <ButtonGroup className="btn-group-wide">
-                            <Button as={SafeAnchor} href={donationInfo.patreonUrl} variant="warning"><SiPatreon/> Patreon</Button>
-                            <Button as={SafeAnchor} href={donationInfo.kofiUrl}><SiKoFi/> Ko-fi</Button>
+                            <Button as={SafeAnchor} href={donationInfo.patreonUrl} variant="success"><SiPatreon/> Patreon</Button>
+                            <Button as={SafeAnchor} href={donationInfo.kofiUrl} variant="info"><SiKoFi/> Ko-fi</Button>
                         </ButtonGroup>
                     </div>
                 )
             }
+
+            return donateMessage;
         }
+    }
+
+    renderBundleSuccess() {
+        const bundleUrl = this.state.bundleDownloadUrl;
+        const shareUrl = this.state.bundleShareUrl;
+        const donateMessage = this.buildDonationMessage(true);
 
         return (
             <div>
@@ -154,6 +163,26 @@ export default class GlobalModal extends React.Component {
                                 </Button>
                             </InputGroup.Append>
                         </InputGroup>
+                        {donateMessage}
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="danger" onClick={() => { this.closeModal(); }}>Close</Button>
+                </Modal.Footer>
+            </div>
+        );
+    }
+
+    renderDonationMessage() {
+        const donateMessage = this.buildDonationMessage(false);
+
+        return (
+            <div>
+                <Modal.Header>
+                    <Modal.Title>Donate</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="center">
                         {donateMessage}
                     </div>
                 </Modal.Body>

@@ -307,6 +307,17 @@ export function forceShow(id) {
 
 /**
  * 
+ * @returns {Package[]}
+ */
+export function getCreditsPackages() {
+    const manifest = getManifest();
+    return Object.values(manifest.packages).filter((pkg) => {
+        return pkg.showsInCredits;
+    });
+}
+
+/**
+ * 
  * @param {string} platform 
  * @returns {string[]}
  */

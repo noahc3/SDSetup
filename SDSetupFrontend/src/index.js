@@ -19,6 +19,7 @@ import './index.css'
 
 import logo from './img/logo_nav.png'
 import failIcon from './img/fail.png'
+import Credits from './components/credits.js';
 
 
 function SiteNavbar() {
@@ -37,15 +38,20 @@ function SiteNavbar() {
                     {platformLinks}
                 </Nav>
                 <Nav>
+                    <Nav.Link onClick={() => { utils.showDonationMessage(); }}>Donate</Nav.Link>
                     <NavDropdown title="Theme" id="theme-dropdown">
                         <NavDropdown.Item onClick={() => {utils.setTheme("light"); }}>Light</NavDropdown.Item>
                         <NavDropdown.Item onClick={() => {utils.setTheme("dark"); }}>Dark</NavDropdown.Item>
                     </NavDropdown>
-                    <Nav.Link as={Link} to={"/biskeygen"}>BIS</Nav.Link>
-                    <Nav.Link>Donate</Nav.Link>
-                    <Nav.Link>Guide</Nav.Link>
-                    <Nav.Link>Report an Issue</Nav.Link>
-                    <Nav.Link className="huge-text"><FaGithub/></Nav.Link>
+                    <NavDropdown title="Tools" id="tools-dropdown">
+                        <NavDropdown.Item as={Link} to={"/biskeygen"}>BIS Key Calculator</NavDropdown.Item>
+                        <NavDropdown.Item as={SafeAnchor} href="https://pegascape.sdsetup.com">PegaScape</NavDropdown.Item>
+                        <NavDropdown.Item as={SafeAnchor} href="https://status.sdsetup.com">Service Status</NavDropdown.Item>
+                    </NavDropdown>
+                    <Nav.Link as={SafeAnchor} href="https://switch.homebrew.guide">Guide</Nav.Link>
+                    <Nav.Link as={Link} to={"/credits"}>Credits</Nav.Link>
+                    <Nav.Link as={SafeAnchor} href="https://github.com/noahc3/sdsetup/issues">Report an Issue</Nav.Link>
+                    <Nav.Link as={SafeAnchor} href="https://github.com/noahc3/sdsetup" className="huge-text"><FaGithub/></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
@@ -140,6 +146,9 @@ class App extends React.Component {
                             <Route path='/share/:platformid' component={
                                 props => <Share platformid={props.match.params.platformid} />
                             }>
+                            </Route>
+                            <Route path='/credits'>
+                                <Credits/>
                             </Route>
                             <Route path='/biskeygen'>
                                 <BisKeyGen/>
