@@ -39,11 +39,13 @@ namespace SDSetupBackend.Controllers.v2 {
             string uuid = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
 
             //TODO: implement queue
-            _ = Task.Run(() => {
-                Program.ActiveRuntime.BuildBundle(uuid, packageset, packages);
-            });
+            if (Program.ActiveRuntime.BuildBundle(uuid, packageset, packages)) {
+                return StatusCode(202, uuid); //accepted
+            } else {
+                return StatusCode(400, "Invalid packageset."); //bad request
+            }
 
-            return StatusCode(202, uuid); //accepted
+            
         }
 
         [HttpGet("bundleprogress/{uuid}")]
@@ -64,6 +66,14 @@ namespace SDSetupBackend.Controllers.v2 {
 
             stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
             return File(stream, "application/octet-stream", $"sdsetup-{DateTime.UtcNow.ToShortDateString()}.zip");
+        }
+
+        [HttpGet("ddl/{packageset}/{name}")]
+        public async Task<IActionResult> DirectDownloadBundle(string packageset, string name) {
+            string uuid = Program.ActiveRuntime.GetUuidForPermalinkBundle(packageset, name);
+
+            if (String.IsNullOrWhiteSpace(uuid)) return StatusCode(404);
+            else return RedirectToAction("DownloadBundle", "Files", new { uuid = uuid });
         }
     }
 }

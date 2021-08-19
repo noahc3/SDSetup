@@ -14,6 +14,7 @@ namespace SDSetupCommon.Data.PackageModels {
         public Dictionary<string, Platform> Platforms { get; set; } = new Dictionary<string, Platform>();
         public Dictionary<string, Package> Packages { get; set; } = new Dictionary<string, Package>();
         public DonationModel DonationInfo { get; set; } = new DonationModel();
+        public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
 
         public Manifest() {
 
@@ -59,6 +60,7 @@ namespace SDSetupCommon.Data.PackageModels {
 
             if (!Packages.ContainsKey(changedPackage.ID)) return false;
             Packages[changedPackage.ID] = changedPackage;
+            LastUpdated = DateTime.Now;
 
             return true;
         }

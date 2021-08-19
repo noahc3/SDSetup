@@ -95,7 +95,8 @@
  * @typedef {{
  * name: string,
  * description: string,
- * packages: string[]
+ * packages: string[],
+ * permalinkAvailable: boolean
  * }} Bundle
  * 
  * Warning

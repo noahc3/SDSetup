@@ -2,10 +2,11 @@ import './sdsetup-typedef';
 
 const BACKEND_URL = "http://files.sdsetup.com/api/v2/"
 const ENDPOINT_LATEST_PACKAGESET = BACKEND_URL + "files/latestpackageset/";
-const ENDPOINT_MANIFEST = BACKEND_URL + "files/manifest/{id}"
-const ENDPOINT_REQUEST_BUNDLE = BACKEND_URL + "files/requestbundle"
-const ENDPOINT_BUNDLE_PROGRESS = BACKEND_URL + "files/bundleprogress/{id}"
-const ENDPOINT_DOWNLOAD_BUNDLE = BACKEND_URL + "files/downloadbundle/{id}"
+const ENDPOINT_MANIFEST = BACKEND_URL + "files/manifest/{id}";
+const ENDPOINT_REQUEST_BUNDLE = BACKEND_URL + "files/requestbundle";
+const ENDPOINT_BUNDLE_PROGRESS = BACKEND_URL + "files/bundleprogress/{id}";
+const ENDPOINT_DOWNLOAD_BUNDLE = BACKEND_URL + "files/downloadbundle/{id}";
+const ENDPOINT_DIRECT_DOWNLOAD_BUNDLE = BACKEND_URL + "files/ddl/{packageset}/{name}";
 
 const packageVisibilityOverrides = {};
 
@@ -167,6 +168,15 @@ export function getManifest() {
 export function getCopyrightText() {
     const manifest = getManifest();
     return manifest.copyright.replace("$", "<br />");
+}
+
+/**
+ * 
+ * @param {Bundle} bundle 
+ * @returns {string}
+ */
+export function getDirectForBundle(bundle) {
+    return ENDPOINT_DIRECT_DOWNLOAD_BUNDLE.replace("{packageset}", latestPackageset).replace("{name}", bundle.name);
 }
 
 /**

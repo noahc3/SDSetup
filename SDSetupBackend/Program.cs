@@ -52,6 +52,11 @@ namespace SDSetupBackend {
                 logger.LogInformation("The configuration file loaded without errors.");
             }
 
+            logger.LogInformation("Cleaning orphaned bundles from temp directory.");
+            foreach(FileInfo f in new DirectoryInfo(ActiveConfig.TempPath).GetFiles()) {
+                f.Delete();
+            }
+
             if (!SDSetupCommon.Communications.Overrides.UseDirectGitHub(
                 ActiveConfig.GithubClientId, ActiveConfig.GithubClientSecret)) err = true;
 
@@ -76,6 +81,10 @@ namespace SDSetupBackend {
             } else {
                 logger.LogInformation("Packagesets were loaded without errors.");
             }
+
+            logger.LogInformation("Generating permalink bundles for all packagesets and platforms.");
+            ActiveRuntime.BuildAllPermalinkBundles().Wait();
+            logger.LogInformation("Permalink bundles generated.");
 
             ActiveRuntime.ScheduleTimedTasks();
             logger.LogInformation("Timed tasks have been scheduled with an interval of " + TimeSpan.Parse(ActiveConfig.TimedTasksInterval).ToString());

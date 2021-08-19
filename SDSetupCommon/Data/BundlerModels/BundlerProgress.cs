@@ -11,6 +11,7 @@ namespace SDSetupCommon.Data.BundlerModels {
         public bool IsComplete = false;
         public bool Success = true;
         public DateTime CompletionTime;
+        public bool Permanent = false;
 
         public BundlerProgress Copy() {
             return new BundlerProgress {

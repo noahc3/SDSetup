@@ -21,6 +21,7 @@ using System.Net;
 using SDSetupBackend.Data.Integrations;
 using SDSetupCommon.Data.IntegrationModels;
 using System.Reflection.Metadata;
+using System.CodeDom.Compiler;
 
 namespace SDSetupBackend.Data {
     //Runtime contains information about currently active variables. During a hot-reload, the active runtime object will be left in place and will
@@ -48,6 +49,7 @@ namespace SDSetupBackend.Data {
 
         private ConcurrentDictionary<string, BundlerProgress> BundlerProgresses = new ConcurrentDictionary<string, BundlerProgress>();
         private ConcurrentDictionary<string, string> FinishedBundles = new ConcurrentDictionary<string, string>();
+        private ConcurrentDictionary<string, string> PermaBundles = new ConcurrentDictionary<string, string>();
 
         private bool WebhookUpdateInProgress = false;
         private bool TimedUpdateInProgress = false;
@@ -130,7 +132,8 @@ namespace SDSetupBackend.Data {
             List<string> deleteKeys = new List<string>();
             Program.logger.LogDebug("Purging stale bundles from temp directory.");
             foreach (string k in BundlerProgresses.Keys) {
-                if (BundlerProgresses[k].IsComplete && 
+                if (!BundlerProgresses[k].Permanent &&
+                    BundlerProgresses[k].IsComplete && 
                     DateTime.UtcNow - BundlerProgresses[k].CompletionTime > retentionTime) {
                     try {
                         Program.logger.LogDebug($"Purging bundle {FinishedBundles[k]}.");
@@ -179,9 +182,60 @@ namespace SDSetupBackend.Data {
             if (!packageDir.Exists && package.VersionInfo.Size != 0) throw new DirectoryNotFoundException($"GetPackageFiles: Version desync, {manifest.Packageset}/{packageID}/{package.VersionInfo.Version} not found.");
         }
 
-        public void BuildBundle(string uuid, string packageset, string[] packages) {
+        public string GetUuidForPermalinkBundle(string packageset, string name) {
+            string identifier = $"{packageset}/{name}";
+            if (PermaBundles.ContainsKey(identifier)) {
+                return PermaBundles[identifier];
+            } else return null;
+        }
+
+        public async Task BuildPermalinkBundle(Manifest manifest, Bundle bundle) {
+            string packageset = manifest.Packageset;
+            string identifier = $"{packageset}/{bundle.Name}";
+            string uuid = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
+            string oldUuid;
+            Program.logger.LogInformation($"Generating pre-configured bundle '{identifier}'");
+
+            if (PermaBundles.ContainsKey(identifier)) {
+                Program.logger.LogInformation($"Checking if old pre-configured bundle for '{identifier}' is outdated.");
+                oldUuid = PermaBundles[identifier];
+                if (BundlerProgresses[oldUuid].CompletionTime > manifest.LastUpdated) {
+                    //if the manifest is older than this bundle, no need to generate a new bundle.
+                    Program.logger.LogInformation($"Pre-configured bundle for '{identifier}' is already up-to-date, will not regenerate.");
+                    return;
+                }
+            }
+
+            Program.logger.LogInformation($"Building pre-configured bundle for '{identifier}' .");
+            await BuildBundle(uuid, manifest, bundle.Packages);
+
+            if (FinishedBundles.ContainsKey(uuid)) {
+                BundlerProgresses[uuid].Permanent = true;
+                if (PermaBundles.ContainsKey(identifier)) {
+                    Program.logger.LogInformation($"Marking old pre-configured bundle '{identifier}' for deletion.");
+                    oldUuid = PermaBundles[identifier];
+                    BundlerProgresses[oldUuid].Permanent = false;
+                }
+                PermaBundles[identifier] = uuid;
+                bundle.PermalinkAvailable = true;
+                Program.logger.LogInformation($"Pre-configured bundle '{identifier}' built and live.");
+            } else {
+                Program.logger.LogError($"Failed to generate pre-configured bundle for {packageset}/{bundle.Name}");
+            }
+
+        }
+
+        public bool BuildBundle(string uuid, string packageset, string[] packages) {
+            if (Manifests.ContainsKey(packageset)) {
+                _ = BuildBundle(uuid, Manifests[packageset], packages);
+                return true;
+            }
+
+            return false;
+        }
+
+        public async Task BuildBundle(string uuid, Manifest manifest, string[] packages) {
             string zipPath = Program.ActiveConfig.GetTempFilePath();
-            Manifest manifest = Manifests[packageset];
             List<string> fileList = new List<string>();
             FileStream outputStream = null;
             ZipOutputStream zipStream;
@@ -229,7 +283,7 @@ namespace SDSetupBackend.Data {
 
                 foreach(Package p in resolvedPackages) {
                     progress.CurrentTask = $"Adding '{p.Name}' to your bundle...";
-                    PutPackageZipEntries(p, packageset, zipStream, ref fileList);
+                    PutPackageZipEntries(p, manifest.Packageset, zipStream, ref fileList);
                     progress.Progress++;
                 }
 
@@ -410,10 +464,24 @@ namespace SDSetupBackend.Data {
             ScheduledTimedTask = Task.Delay(interval).ContinueWith(async o => { await ExecuteTimedTasks(); });
         }
 
+        public async Task BuildAllPermalinkBundles() {
+            List<Task> tasks = new List<Task>();
+            foreach(Manifest manifest in Manifests.Values) {
+                foreach (Platform p in manifest.Platforms.Values) {
+                    foreach (Bundle b in p.Bundles) {
+                        tasks.Add(BuildPermalinkBundle(manifest, b));
+                    }
+                }
+            }
+
+            await Task.WhenAll(tasks);
+        }
+
         public async Task ExecuteTimedTasks() {
             Program.logger.LogDebug("Executing timed tasks.");
 
             await ExecuteTimedAutoUpdates();
+            await BuildAllPermalinkBundles();
             PurgeStaleBundles();
             UpdateDonationInfo();
 
