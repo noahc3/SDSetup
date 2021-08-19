@@ -20,6 +20,7 @@ using System.Runtime.ExceptionServices;
 using System.Net;
 using SDSetupBackend.Data.Integrations;
 using SDSetupCommon.Data.IntegrationModels;
+using System.Reflection.Metadata;
 
 namespace SDSetupBackend.Data {
     //Runtime contains information about currently active variables. During a hot-reload, the active runtime object will be left in place and will
@@ -167,17 +168,15 @@ namespace SDSetupBackend.Data {
         }
 
         //TODO: move to Package::validate
-        public void AssertValidPackage(string packageset, string packageID) {
+        public void AssertValidPackage(Manifest manifest, string packageID) {
             Package package;
             DirectoryInfo packageDir;
 
-            if (!Manifests.ContainsKey(packageset)) throw new DirectoryNotFoundException($"GetPackageFiles: Packageset {packageset} not found.");
+            package = manifest.FindPackageById(packageID);
+            if (package == null) throw new DirectoryNotFoundException($"GetPackageFiles: Package {manifest.Packageset}/{packageID} not found.");
 
-            package = Manifests[packageset].FindPackageById(packageID);
-            if (package == null) throw new DirectoryNotFoundException($"GetPackageFiles: Package {packageset}/{packageID} not found.");
-
-            packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{packageset}/{packageID}/{package.VersionInfo.Version}".AsPath());
-            if (!packageDir.Exists && package.VersionInfo.Size != 0) throw new DirectoryNotFoundException($"GetPackageFiles: Version desync, {packageset}/{packageID}/{package.VersionInfo.Version} not found.");
+            packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{manifest.Packageset}/{packageID}/{package.VersionInfo.Version}".AsPath());
+            if (!packageDir.Exists && package.VersionInfo.Size != 0) throw new DirectoryNotFoundException($"GetPackageFiles: Version desync, {manifest.Packageset}/{packageID}/{package.VersionInfo.Version} not found.");
         }
 
         public void BuildBundle(string uuid, string packageset, string[] packages) {
@@ -187,6 +186,7 @@ namespace SDSetupBackend.Data {
             FileStream outputStream = null;
             ZipOutputStream zipStream;
             BundlerProgress progress;
+            List<Package> resolvedPackages;
 
             try {
                 progress = new BundlerProgress() {
@@ -201,17 +201,35 @@ namespace SDSetupBackend.Data {
                 if (manifest == null) throw new Exception("Packageset not found.");
                 manifest = manifest.Copy();
 
+                foreach (string packageID in packages) {
+                    AssertValidPackage(manifest, packageID);
+                }
+
+                resolvedPackages = new List<Package>();
+
+                foreach(string packageID in packages.ToArray()) {
+                    Package p = manifest.FindPackageById(packageID);
+                    Package dp;
+
+                    if (!resolvedPackages.Contains(p)) resolvedPackages.Add(p);
+
+                    foreach (string dep in p.Dependencies) {
+                        dp = manifest.FindPackageById(dep);
+                        if (!resolvedPackages.Contains(dp)) resolvedPackages.Add(dp);
+                    }
+                }
+
+                resolvedPackages.Sort((a, b) => {
+                    return a.Priority.CompareTo(b.Priority);
+                });
+
                 outputStream = new FileStream(zipPath, FileMode.Create);
                 zipStream = new ZipOutputStream(outputStream);
-                zipStream.SetLevel(Program.ActiveConfig.ZipCompressionLevel);
+                zipStream.SetLevel(Program.ActiveConfig.ZipCompressionLevel);                
 
-                //TODO: dependency resolution
-
-                foreach(string packageID in packages) {
-                    AssertValidPackage(packageset, packageID);
-                    string name = manifest.FindPackageById(packageID).Name;
-                    progress.CurrentTask = $"Adding '{name}' to your bundle...";
-                    PutPackageZipEntries(packageset, packageID, zipStream, ref fileList);
+                foreach(Package p in resolvedPackages) {
+                    progress.CurrentTask = $"Adding '{p.Name}' to your bundle...";
+                    PutPackageZipEntries(p, packageset, zipStream, ref fileList);
                     progress.Progress++;
                 }
 
@@ -246,16 +264,14 @@ namespace SDSetupBackend.Data {
             }
         }
 
-        public void PutPackageZipEntries(string packageset, string packageID, ZipOutputStream zipStream, ref List<string> fileList) {
+        public void PutPackageZipEntries(Package package, string packageset, ZipOutputStream zipStream, ref List<string> fileList) {
             IEnumerable<string> files;
             IEnumerable<string> directories;
             List<ZipEntry> entries = new List<ZipEntry>();
             DirectoryInfo packageDir;
-            Package package;
 
-            package = Manifests[packageset].FindPackageById(packageID);
             if (package.VersionInfo.Size == 0) return;
-            packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{packageset}/{packageID}/{package.VersionInfo.Version}".AsPath());
+            packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{packageset}/{package.ID}/{package.VersionInfo.Version}".AsPath());
 
             files = Utilities.EnumerateFiles(packageDir.FullName);
             directories = Utilities.EnumerateEmptyDirectories(packageDir.FullName);
