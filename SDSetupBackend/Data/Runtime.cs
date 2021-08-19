@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using SDSetupCommon.Data.PackageModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -44,40 +45,79 @@ namespace SDSetupBackend.Data {
         private Dictionary<string, List<string>> TimedUpdateTriggers = new Dictionary<string, List<string>>();
         private Task ScheduledTimedTask;
 
-        private Dictionary<string, BundlerProgress> BundlerProgresses = new Dictionary<string, BundlerProgress>();
-        private Dictionary<string, string> FinishedBundles = new Dictionary<string, string>();
+        private ConcurrentDictionary<string, BundlerProgress> BundlerProgresses = new ConcurrentDictionary<string, BundlerProgress>();
+        private ConcurrentDictionary<string, string> FinishedBundles = new ConcurrentDictionary<string, string>();
 
-        
+        private bool TimedUpdateInProgress = false;
+        private ConcurrentQueue<(string, Package)> QueuedPackageInfoUpdates = new ConcurrentQueue<(string, Package)>();
 
-        public bool UpdatePackageMeta(string packageset, Package changedPackage) {
-            Package package = Manifests[packageset]?.FindPackageById(changedPackage.ID);
-            bool result = Manifests[packageset].UpdatePackage(changedPackage);
+        public bool UpdatePackageInfo(string packageset, Package changedPackage, bool bypassQueue = false) {
+            if (!Manifests.ContainsKey(packageset) || !Manifests[packageset].Packages.ContainsKey(changedPackage.ID)) {
+                return false;
+            } 
             
+            if (!bypassQueue && TimedUpdateInProgress) { //if a timed update is in progress, put changes into the queue for later.
+                QueuedPackageInfoUpdates.Enqueue((packageset, changedPackage));
+                return true;
+            } else { //hold ptr to old package info, update pkg info, deregister all of the old update triggers, then register all the new ones with a ptr to the new pkg.
+                return UpdatePackageInfo(Manifests[packageset], changedPackage);
+            }
+        }
+
+        public bool UpdatePackageInfo(Manifest manifest, Package changedPackage) {
+            Package package = manifest.FindPackageById(changedPackage.ID);
+            bool result = manifest.UpdatePackage(changedPackage);
+
             if (result) {
-                
-                //re-register update triggers
-                foreach(UpdaterTrigger k in package.AutoUpdateTriggers) {
+                foreach (UpdaterTrigger k in package.AutoUpdateTriggers) {
                     if (k is WebhookTrigger) {
                         DeregisterWebhook((k as WebhookTrigger).WebhookId);
                     } else if (k is TimedScanTrigger) {
-                        DeregisterTimedUpdate(packageset, package.ID);
+                        DeregisterTimedUpdate(manifest.Packageset, package.ID);
                     }
                 }
 
-                package = Manifests[packageset]?.FindPackageById(package.ID);
+                package = manifest.FindPackageById(changedPackage.ID);
 
                 foreach (UpdaterTrigger k in package.AutoUpdateTriggers) {
                     if (k is WebhookTrigger) {
-                        RegisterWebhook((k as WebhookTrigger).WebhookId, packageset, package.ID);
+                        RegisterWebhook((k as WebhookTrigger).WebhookId, manifest.Packageset, package.ID);
                     } else if (k is TimedScanTrigger) {
-                        RegisterTimedUpdate(packageset, package.ID);
+                        RegisterTimedUpdate(manifest.Packageset, package.ID);
                     }
                 }
 
-                File.WriteAllText(changedPackage.GetMetaPath(packageset), JsonConvert.SerializeObject(changedPackage, typeof(Package), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }));
+                File.WriteAllText(changedPackage.GetMetaPath(manifest.Packageset), JsonConvert.SerializeObject(changedPackage, typeof(Package), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }));
             }
 
             return result;
+        }
+        
+        public bool UpdateManifest(Manifest manifest) {
+            string packageset = manifest.Packageset;
+
+            if (Manifests.ContainsKey(packageset)) {
+                Webhooks.Clear();
+                TimedUpdateTriggers.Clear();
+
+                foreach (Package package in manifest.Packages.Values) {
+                    foreach (UpdaterTrigger k in package.AutoUpdateTriggers) {
+                        if (k is WebhookTrigger) {
+                            RegisterWebhook((k as WebhookTrigger).WebhookId, packageset, package.ID);
+                        } else if (k is TimedScanTrigger) {
+                            RegisterTimedUpdate(packageset, package.ID);
+                        }
+                    }
+
+                    File.WriteAllText(package.GetMetaPath(packageset), JsonConvert.SerializeObject(package, typeof(Package), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto }));
+                }
+
+                Manifests[packageset] = manifest;
+
+                return true;
+            }
+
+            return false;
         }
 
         public void PurgeStaleBundles() {
@@ -99,8 +139,8 @@ namespace SDSetupBackend.Data {
             }
 
             foreach (string k in deleteKeys) {
-                BundlerProgresses.Remove(k);
-                FinishedBundles.Remove(k);
+                BundlerProgresses.TryRemove(k, out _);
+                FinishedBundles.TryRemove(k, out _);
             }
         }
 
@@ -327,34 +367,90 @@ namespace SDSetupBackend.Data {
         }
 
         public async Task ExecuteTimedAutoUpdates() {
-            Program.logger.LogDebug("Executing timed auto updates.");
-            foreach (string packageset in TimedUpdateTriggers.Keys) {
-                foreach(string package in TimedUpdateTriggers[packageset]) {
-                    Program.logger.LogDebug($"Executing timed auto update for package {packageset}/{package}.");
-                    if (await ExecuteAutoUpdate(packageset, package)) {
-                        Program.logger.LogDebug($"Timed auto update for package {packageset}/{package} completed successfully.");
+            Dictionary<string, List<Package>> updatedPackages = new Dictionary<string, List<Package>>();
+            Manifest manifest;
+            Package package;
+            if (!TimedUpdateInProgress) {
+                TimedUpdateInProgress = true;
+                try {
+                    Program.logger.LogDebug("Executing timed auto updates.");
+
+                    foreach (string packageset in TimedUpdateTriggers.Keys) {
+                        updatedPackages[packageset] = new List<Package>();
+                        manifest = Manifests[packageset];
+
+                        foreach (string packageId in TimedUpdateTriggers[packageset]) {
+                            Program.logger.LogDebug($"Executing timed auto update for package {packageset}/{packageId}.");
+
+                            package = manifest.FindPackageById(packageId);
+                            package = await ExecuteAutoUpdate(package, packageset);
+                            if (package != null) {
+                                Program.logger.LogDebug($"Timed auto update for package {packageset}/{package} completed successfully.");
+                                updatedPackages[packageset].Add(package);
+                            } else {
+                                Program.logger.LogDebug($"No updates detected for package {packageset}/{package}.");
+                            }
+                        }
                     }
+
+                    if (updatedPackages.Count > 0) {
+                        Program.logger.LogDebug($"Writing package meta changes to disk.");
+                        foreach (string packageset in updatedPackages.Keys) {
+                            List<Package> changed = updatedPackages[packageset];
+                            if (changed.Count > 0) {
+                                Program.logger.LogDebug($"Processing packageset {packageset}");
+                                manifest = Manifests[packageset].Copy(); //copy the manifest so we arent making changes on the live manifest.
+                                foreach (Package p in changed) {
+                                    Program.logger.LogDebug($"Updating package {packageset}/{p.ID}");
+                                    UpdatePackageInfo(manifest, p); //reregister triggers and write all changes to disk.
+                                }
+                                Program.logger.LogDebug($"Pushing updated package information for packageset {packageset} public.");
+                                Manifests[packageset] = manifest; //once changes are fully written to disk, push the new manifest live.
+                            }
+                        }
+                    } else {
+                        Program.logger.LogDebug("No packages were updated.");
+                    }
+
+                } finally {
+                    if (!QueuedPackageInfoUpdates.IsEmpty) {
+                        Program.logger.LogDebug("Processing queued package info updates.");
+                        while (!QueuedPackageInfoUpdates.IsEmpty) {
+                            (string, Package) t;
+
+                            if (QueuedPackageInfoUpdates.TryDequeue(out t) && Manifests.ContainsKey(t.Item1)) {
+                                string packageset = t.Item1;
+                                Package p = t.Item2;
+                                Package og = Manifests[packageset].FindPackageById(p.ID);
+
+                                Program.logger.LogDebug($"Updating package info for {packageset}/{p.ID}");
+
+                                if (og != null) {
+                                    p.VersionInfo = og.VersionInfo; //maintain new version data.
+                                    UpdatePackageInfo(Manifests[packageset], p);
+                                }
+                            }
+                        }
+                    }
+
+                    TimedUpdateInProgress = false;
+
+                    Program.logger.LogDebug("Timed auto update process complete.");
                 }
             }
         }
 
-        public async Task<bool> ExecuteAutoUpdate(string packageset, string packageid) {
-            Package package;
+        public async Task<Package> ExecuteAutoUpdate(Package package, string packageset) {
             bool conditionsPassed = true;
             DirectoryInfo tmpDir;
             string newVersion;
             string targetDirectory;
-
-            if (!Manifests.ContainsKey(packageset)) return false;
-
-            package = Manifests[packageset]?.FindPackageById(packageid);
-            if (package == null) 
-                return false;
-            
+                        
             try {
                 package = package.Copy();
             } catch (Exception e) {
                 Program.logger.LogDebug(e.Message);
+                return null;
             }
            
             foreach (UpdaterCondition k in package.AutoUpdateConditions) {
@@ -364,7 +460,7 @@ namespace SDSetupBackend.Data {
                 }
             }
 
-            if (!conditionsPassed) return false;
+            if (!conditionsPassed) return null;
 
             tmpDir = Program.ActiveConfig.GetTempDirectory();
             Program.logger.LogDebug("Update path: " + tmpDir.FullName);
@@ -373,7 +469,7 @@ namespace SDSetupBackend.Data {
                     await k.Apply(tmpDir.FullName);
                 }
             } catch {
-                return false;
+                return null;
             }
 
             newVersion = await package.AutoUpdateVersionSource.GetVersion();
@@ -386,9 +482,7 @@ namespace SDSetupBackend.Data {
 
             tmpDir.MoveTo(targetDirectory);
 
-            this.UpdatePackageMeta(packageset, package);
-
-            return true;
+            return package;
 
         }
 

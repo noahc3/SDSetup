@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 using SDSetupCommon.Data.FrontendModels;
 using SDSetupCommon.Data.IntegrationModels;
 
@@ -60,6 +61,18 @@ namespace SDSetupCommon.Data.PackageModels {
             Packages[changedPackage.ID] = changedPackage;
 
             return true;
+        }
+
+        public Manifest Copy() {
+            string copy = JsonConvert.SerializeObject(this, typeof(Manifest), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
+            return JsonConvert.DeserializeObject<Manifest>(copy, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
+        }
+
+        public Manifest CopyWithoutPackages() {
+            string json = JsonConvert.SerializeObject(this, typeof(Manifest), new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
+            Manifest copy = JsonConvert.DeserializeObject<Manifest>(json, new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.Auto });
+            copy.Packages = new Dictionary<string, Package>();
+            return copy;
         }
     }
 }

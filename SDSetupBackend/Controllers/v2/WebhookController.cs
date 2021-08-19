@@ -16,10 +16,10 @@ namespace SDSetupBackend.Controllers.v2 {
                 return new StatusCodeResult(404);
             } else {
                 //TODO: get rid of channels i dont want em
-                _ = Program.ActiveRuntime.ExecuteAutoUpdate(
-                    Program.ActiveConfig.LatestPackageset,
-                    package
-                );
+                //_ = Program.ActiveRuntime.ExecuteAutoUpdate(
+                //    package,
+                //    Program.ActiveConfig.LatestPackageset
+                //);
                 return new StatusCodeResult(200);
             }
         }
