@@ -182,10 +182,12 @@ namespace SDSetupBackend.Data {
 
         public void BuildBundle(string uuid, string packageset, string[] packages) {
             string zipPath = Program.ActiveConfig.GetTempFilePath();
+            Manifest manifest = Manifests[packageset];
             List<string> fileList = new List<string>();
             FileStream outputStream = null;
             ZipOutputStream zipStream;
             BundlerProgress progress;
+
             try {
                 progress = new BundlerProgress() {
                     Progress = 0,
@@ -196,6 +198,9 @@ namespace SDSetupBackend.Data {
                 };
                 BundlerProgresses[uuid] = progress;
 
+                if (manifest == null) throw new Exception("Packageset not found.");
+                manifest = manifest.Copy();
+
                 outputStream = new FileStream(zipPath, FileMode.Create);
                 zipStream = new ZipOutputStream(outputStream);
                 zipStream.SetLevel(Program.ActiveConfig.ZipCompressionLevel);
@@ -204,7 +209,7 @@ namespace SDSetupBackend.Data {
 
                 foreach(string packageID in packages) {
                     AssertValidPackage(packageset, packageID);
-                    string name = Manifests[packageset].FindPackageById(packageID).Name;
+                    string name = manifest.FindPackageById(packageID).Name;
                     progress.CurrentTask = $"Adding '{name}' to your bundle...";
                     PutPackageZipEntries(packageset, packageID, zipStream, ref fileList);
                     progress.Progress++;
