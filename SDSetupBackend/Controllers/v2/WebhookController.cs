@@ -8,20 +8,12 @@ namespace SDSetupBackend.Controllers.v2 {
 
     [ApiController]
     [Route("api/v2/webhook")]
-    public class WebhookController {
+    public class WebhookController : ControllerBase {
         [HttpGet("{webhookId}")]
         public async Task<IActionResult> TriggerWebhook([FromRoute] string webhookId) {
-            string package = Program.ActiveRuntime.GetWebhookPackage(webhookId);
-            if (String.IsNullOrWhiteSpace(package)) {
-                return new StatusCodeResult(404);
-            } else {
-                //TODO: get rid of channels i dont want em
-                //_ = Program.ActiveRuntime.ExecuteAutoUpdate(
-                //    package,
-                //    Program.ActiveConfig.LatestPackageset
-                //);
-                return new StatusCodeResult(200);
-            }
+            bool result = Program.ActiveRuntime.ScheduleWebhookUpdate(webhookId);
+            if (result) return StatusCode(202); //Accepted
+            else return StatusCode(404);
         }
     }
 }

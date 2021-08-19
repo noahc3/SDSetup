@@ -48,7 +48,10 @@ namespace SDSetupBackend.Data {
         private ConcurrentDictionary<string, BundlerProgress> BundlerProgresses = new ConcurrentDictionary<string, BundlerProgress>();
         private ConcurrentDictionary<string, string> FinishedBundles = new ConcurrentDictionary<string, string>();
 
+        private bool WebhookUpdateInProgress = false;
         private bool TimedUpdateInProgress = false;
+        private bool TimedUpdateQueued = false;
+        private ConcurrentQueue<string> QueuedWebhookUpdates = new ConcurrentQueue<string>();
         private ConcurrentQueue<(string, Package)> QueuedPackageInfoUpdates = new ConcurrentQueue<(string, Package)>();
 
         public bool UpdatePackageInfo(string packageset, Package changedPackage, bool bypassQueue = false) {
@@ -65,6 +68,7 @@ namespace SDSetupBackend.Data {
         }
 
         public bool UpdatePackageInfo(Manifest manifest, Package changedPackage) {
+            if (manifest == null || changedPackage == null) return false;
             Package package = manifest.FindPackageById(changedPackage.ID);
             bool result = manifest.UpdatePackage(changedPackage);
 
@@ -316,11 +320,67 @@ namespace SDSetupBackend.Data {
             return true;
         }
 
-        public string GetWebhookPackage(string webhookId) {
+        public WebhookTriggerRegistration GetWebhookTriggerInfo(string webhookId) {
             if (Webhooks.ContainsKey(webhookId)) {
-                return Webhooks[webhookId]?.PackageID;
+                return Webhooks[webhookId];
             }
             return null;
+        }
+
+        public bool ScheduleWebhookUpdate(string webhookId) {
+            if (GetWebhookTriggerInfo(webhookId) == null) return false;
+
+            if (!TimedUpdateInProgress && !WebhookUpdateInProgress) {
+                _ = ProcessWebhookUpdate(webhookId); //start this async
+            } else {
+                QueuedWebhookUpdates.Enqueue(webhookId);
+            }
+
+            return true;
+        }
+
+        private async Task ProcessQueuedWebhookUpdates() {
+            if (!QueuedWebhookUpdates.IsEmpty) {
+                Program.logger.LogDebug("Processing webhook update queue.");
+                WebhookUpdateInProgress = true;
+                string id;
+                if (QueuedWebhookUpdates.TryDequeue(out id)) {
+                    await ProcessWebhookUpdate(id, false);
+                }
+                WebhookUpdateInProgress = false;
+            }
+        }
+
+        private async Task ProcessWebhookUpdate(string webhookId, bool updateState = true) {
+            if (updateState) WebhookUpdateInProgress = true;
+
+            WebhookTriggerRegistration w = GetWebhookTriggerInfo(webhookId);
+
+            if (w != null) {
+                Package p = Manifests[w.Packageset].FindPackageById(w.PackageID);
+
+                Program.logger.LogDebug($"Processing webhook update for package {w.Packageset}/{w.PackageID}");
+
+                p = await ExecuteAutoUpdate(p, w.Packageset);
+                if (p == null) Program.logger.LogDebug($"Webhook update for package {w.Packageset}/{w.PackageID} failed.");
+                else {
+                    UpdatePackageInfo(Manifests[w.Packageset], p);
+                    Program.logger.LogDebug($"Webhook update for package {w.Packageset}/{w.PackageID} complete.");
+                }
+            }
+
+            if (!QueuedWebhookUpdates.IsEmpty) {
+                string id;
+                if (QueuedWebhookUpdates.TryDequeue(out id)) {
+                    await ProcessWebhookUpdate(id, false);
+                }
+            }
+
+            if (TimedUpdateQueued) {
+                await ExecuteTimedAutoUpdates(true);
+            }
+
+            if (updateState) WebhookUpdateInProgress = false;
         }
 
         public void ScheduleTimedTasks() {
@@ -366,10 +426,20 @@ namespace SDSetupBackend.Data {
             }
         }
 
-        public async Task ExecuteTimedAutoUpdates() {
+        public async Task ExecuteTimedAutoUpdates(bool ignoreQueue = false) {
             Dictionary<string, List<Package>> updatedPackages = new Dictionary<string, List<Package>>();
             Manifest manifest;
             Package package;
+
+            if (!ignoreQueue && WebhookUpdateInProgress) {
+                TimedUpdateQueued = true;
+                Program.logger.LogInformation("Timed auto update will be delayed until the current webhook updates complete.");
+                return;
+                
+            } else {
+                TimedUpdateQueued = false;
+            }
+
             if (!TimedUpdateInProgress) {
                 TimedUpdateInProgress = true;
                 try {
@@ -432,6 +502,8 @@ namespace SDSetupBackend.Data {
                             }
                         }
                     }
+
+                    await ProcessQueuedWebhookUpdates();
 
                     TimedUpdateInProgress = false;
 
