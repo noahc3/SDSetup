@@ -227,7 +227,7 @@ namespace SDSetupBackend.Data {
 
         public bool BuildBundle(string uuid, string packageset, string[] packages) {
             if (Manifests.ContainsKey(packageset)) {
-                _ = BuildBundle(uuid, Manifests[packageset], packages);
+                Task.Run(async () => { await BuildBundle(uuid, Manifests[packageset], packages); });
                 return true;
             }
 
