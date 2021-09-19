@@ -381,7 +381,7 @@ export async function requestBundle(platform) {
         success: false
     }
     isBundlingInProgress = true;
-    rerender();
+    handleProgress(bundlerProgress);
 
     packages = getValidatedPackageList(platform);
     
