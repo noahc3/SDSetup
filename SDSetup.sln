@@ -1,10 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28729.10
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31512.422
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupBlazor", "SDSetupBlazor\SDSetupBlazor.csproj", "{D8B8881F-EBA1-4531-A73B-06DDB9F2BF34}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupCommon", "SDSetupCommon\SDSetupCommon.csproj", "{008EBE72-29B1-425B-93A0-13CA061F8BB9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B47C36A-849E-4560-9E3C-3726068E184B}"
@@ -12,8 +10,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		libraries\Blazor.Extensions.Storage.dll = libraries\Blazor.Extensions.Storage.dll
 		libraries\Blazor.Extensions.Storage.JS.dll = libraries\Blazor.Extensions.Storage.JS.dll
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupUpdater", "SDSetupUpdater\SDSetupUpdater.csproj", "{28EB6571-3546-457F-9733-6446924DC9ED}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SDSetupBackend", "SDSetupBackend\SDSetupBackend.csproj", "{996D394C-5DE9-4B7A-B96A-66150DE44D5F}"
 EndProject
@@ -25,18 +21,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D8B8881F-EBA1-4531-A73B-06DDB9F2BF34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8B8881F-EBA1-4531-A73B-06DDB9F2BF34}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8B8881F-EBA1-4531-A73B-06DDB9F2BF34}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8B8881F-EBA1-4531-A73B-06DDB9F2BF34}.Release|Any CPU.Build.0 = Release|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{008EBE72-29B1-425B-93A0-13CA061F8BB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28EB6571-3546-457F-9733-6446924DC9ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28EB6571-3546-457F-9733-6446924DC9ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28EB6571-3546-457F-9733-6446924DC9ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28EB6571-3546-457F-9733-6446924DC9ED}.Release|Any CPU.Build.0 = Release|Any CPU
 		{996D394C-5DE9-4B7A-B96A-66150DE44D5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{996D394C-5DE9-4B7A-B96A-66150DE44D5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{996D394C-5DE9-4B7A-B96A-66150DE44D5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
