@@ -18,7 +18,7 @@ namespace SDSetupBlazor {
                                                            0x44, 0x42, 0x4E, 0xDA, 0xB4, 0x9D, 0xFC, 0xD9, 0x87, 0x77, 0x24, 0x9A, 0xDC, 0x9F, 0x7C, 0xA4 };
         private readonly static byte[] BisKeySrc2 = { 0x52, 0xC2, 0xE9, 0xEB, 0x09, 0xE3, 0xEE, 0x29, 0x32, 0xA1, 0x0C, 0x1F, 0xB6, 0xA0, 0x92, 0x6C,
                                                            0x4D, 0x12, 0xE1, 0x4B, 0x2A, 0x47, 0x4C, 0x1C, 0x09, 0xCB, 0x03, 0x59, 0xF0, 0x15, 0xF4, 0xE4 };
-        
+
         private static string X(this byte[] input) =>
         BitConverter.ToString(input).Replace("-", "").ToUpper();
 
@@ -40,14 +40,14 @@ namespace SDSetupBlazor {
             return resp;
         }
 
-        private static byte[] EBC(byte[] Data, byte[] Key) =>
-        new RijndaelManaged {
-            Mode = CipherMode.ECB,
-            Key = Key,
-            Padding = PaddingMode.None
+        private static byte[] EBC(byte[] Data, byte[] Key) {
+            Aes crypto = Aes.Create();
+            crypto.Mode = CipherMode.ECB;
+            crypto.Key = Key;
+            crypto.Padding = PaddingMode.None;
+
+            return crypto.CreateDecryptor().TransformFinalBlock(Data, 0, Data.Length);
         }
-        .CreateDecryptor()
-        .TransformFinalBlock(Data, 0, Data.Length);
 
         public static string deriveBisKeys(string sbk, string tsec) {
             byte[]
