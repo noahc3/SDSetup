@@ -102,7 +102,7 @@ window["CurrieTechnologies"] = window["CurrieTechnologies"] || {};
 window["CurrieTechnologies"]["Razor"] = window["CurrieTechnologies"]["Razor"] || {};
 window["CurrieTechnologies"]["Razor"]["Clipboard"] = window["CurrieTechnologies"]["Razor"]["Clipboard"] || {};
 
-window["CurrieTechnologies"]["Razor"]["Clipboard"]["ReadText"] = async requestId => {
+window["CurrieTechnologies"]["Razor"]["Clipboard"]["ReadText"] = async (requestId) => {
   const text = await window.navigator.clipboard.readText();
   await dispatchReadResponse(requestId, text);
 };

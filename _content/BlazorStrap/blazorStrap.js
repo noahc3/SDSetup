@@ -1,4 +1,5 @@
 ﻿var link;
+var script;
 
 // MDN String.include polyfill
 if (!String.prototype.includes) {
@@ -13,6 +14,78 @@ if (!String.prototype.includes) {
 }
 
 window.blazorStrap = {
+    modal: {
+        paddingRight: function (padding) {
+            var dpi = window.devicePixelRatio;
+            if (dpi === 1 || !padding) {
+                document.body.style.paddingRight = padding;
+            }
+            return true;
+        },
+        eventListeners: [],
+        open: function (id) {
+            if (!document.body.classList.contains("modal-open")) {
+                document.body.classList.add("modal-open");
+            }
+            var body = document.body,
+                html = document.documentElement;
+            var height = Math.max(body.scrollHeight, body.offsetHeight,
+                html.clientHeight, html.scrollHeight, html.offsetHeight);
+            if (height > window.innerHeight) {
+                this.paddingRight("17px");
+            }
+            return id;
+        },
+        close: function (id) {
+            for (var i = 0; i < this.eventListeners.length; ++i) {
+                if (this.eventListeners[i].id == id) {
+                    
+                    if (i + 1 != this.eventListeners.length) {
+                        this.eventListeners.splice(i, 1);
+                    }
+                    else {
+                        // Removes this event listener.
+                        document.removeEventListener("keyup", window.blazorStrap.modal.eventListeners[window.blazorStrap.modal.eventListeners.length - 1].func);
+                        window.blazorStrap.modal.eventListeners.pop();
+
+                        // Adds Event listener back to modal under closing modal.
+                        if (window.blazorStrap.modal.eventListeners.length >= 1)
+                            document.addEventListener("keyup", window.blazorStrap.modal.eventListeners[window.blazorStrap.modal.eventListeners.length - 1].func);
+                        else {
+                            document.body.classList.remove("modal-open");
+                            window.blazorStrap.modal.paddingRight("");
+                        }
+                    }
+                }
+            }
+        },
+        initOnEscape: function (id) {
+            this.eventListeners.push({id: id, func: function (e) {
+                if (e.key == "Escape") {
+                    DotNet.invokeMethodAsync("BlazorStrap", "OnModalEscape", id);
+
+                    // Removes this event listener.
+                    document.removeEventListener("keyup", window.blazorStrap.modal.eventListeners[window.blazorStrap.modal.eventListeners.length - 1].func);
+                    window.blazorStrap.modal.eventListeners.pop();
+
+                    // Adds Event listener back to modal under closing modal.
+                    if (window.blazorStrap.modal.eventListeners.length >= 1)
+                        document.addEventListener("keyup", window.blazorStrap.modal.eventListeners[window.blazorStrap.modal.eventListeners.length - 1].func);
+                    else {
+                        document.body.classList.remove("modal-open");
+                        window.blazorStrap.modal.paddingRight("");
+                    }
+                };
+            }});
+            // Removes event listener from modal under current modal.
+            if(this.eventListeners.length > 1)
+                document.removeEventListener("keyup", this.eventListeners[this.eventListeners.length - 2].func);
+            // Adds new event listener for just opened modal.
+            document.addEventListener("keyup", this.eventListeners[this.eventListeners.length - 1].func);
+            return id;
+        }
+    },
+    poppers: [],
     animationEvent: function (event) {
         if (event.target.hasAttributes()) {
             var name = "";
@@ -50,16 +123,31 @@ window.blazorStrap = {
     },
     changeBodyPaddingRight: function (padding) {
         var dpi = window.devicePixelRatio;
-        if (dpi == 1 || !padding) {
+        if (dpi === 1 || !padding) {
             document.body.style.paddingRight = padding;
         }
         return true;
     },
     popper: function (target, popperId, arrow, placement) {
+        window.blazorStrap.closeOtherPoppers(popperId);
         var reference = document.getElementById(target);
         var popper = document.getElementById(popperId);
         showPopper(reference, popper, arrow, placement);
         return true;
+    },
+    closeOtherPoppers: function(popperId) {
+        window.blazorStrap.poppers.forEach(p => {
+            if (p !== popperId) {
+                var el = document.getElementById(p);
+                if (el) {
+                    el.style.visibility = "hidden";
+                    el.style.pointerEvents = "none";
+                }
+            }
+        });
+        if (window.blazorStrap.poppers.indexOf(popperId) === -1) {
+            window.blazorStrap.poppers.push(popperId);
+        }
     },
     tooltip: function (target, tooltip, arrow, placement) {
         var instance;
@@ -82,18 +170,42 @@ window.blazorStrap = {
         reference.addEventListener("mouseover", mouseoverHandler);
         return true;
     },
-    modelEscape: function () {
+    modelEscape: function (dotnetHelper) {
         document.body.onkeydown = function (e) {
             if (e.key == "Escape") {
                 document.body.onkeydown = null;
-                DotNet.invokeMethodAsync("BlazorStrap", "OnEscape");
+                dotnetHelper.invokeMethodAsync("OnEscape");
             }
         };
     },
     focusElement: function (element) {
         element.focus();
     },
-    setBootstrapCSS: function (theme, version) {
+    collapsingElement: function (element, show) {
+        element.classList.remove("collapsing");
+        element.classList.remove("collapse");
+        var height = element.offsetHeight;
+        element.classList.add("collapsing");
+
+        if (show) {
+            setTimeout(function () { element.style.height = height + "px"; }, 100)
+        }
+        else {
+            element.style.height = height + "px";
+            setTimeout(function () { element.style.height =""; }, 100)   
+        }
+        return true;
+    },
+
+    collapsingElementEnd: function (element) {
+        if (element) {
+            element.style.height = "";
+            element.classList.remove("collapsing");
+            element.classList.add("collapse");
+        }
+        return true;
+    },
+    setBootstrapCss: function (theme, version) {
         if (link === undefined) {
             link = document.createElement('link');
             document.head.insertBefore(link, document.head.firstChild);
@@ -106,13 +218,21 @@ window.blazorStrap = {
             link.href = "https://stackpath.bootstrapcdn.com/bootswatch/" + version + "/" + theme + "/bootstrap.min.css";
         }
         return true;
+    },
+    setPopper: function () {
+        if (typeof Popper === undefined || script === undefined) {
+            script = document.createElement('script');
+            document.head.insertBefore(script, document.head.lastChild);
+            script.src = "_content/BlazorStrap/popper.min.js";
+        }
+        return true;
     }
 };
 
 function showPopper(reference, popper, arrow, placement) {
     var thePopper = new Popper(reference, popper,
         {
-            placement,
+            placement: placement,
             modifiers: {
                 offset: {
                     offset: 0
