@@ -14,8 +14,6 @@ jobs:
       with:
         dotnet-version: '6.0.x'
         include-prerelease: true
-    - name: Install microsoft-net-sdk-blazorwebassembly-aot Workload
-      run: dotnet workload install microsoft-net-sdk-blazorwebassembly-aot
     - name: Build Backend
       run: dotnet build -c Release -r linux-x64 SDSetupBackend
     - name: Build Updater
