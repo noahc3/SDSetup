@@ -4,7 +4,7 @@
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 @inherits LayoutComponentBase
 @inject IJSRuntime jsRuntime
-@inject IBootstrapCSS BootstrapCSS
+@inject IBootstrapCss BootstrapCss
 @inject Microsoft.AspNetCore.Components.NavigationManager UriHelper
 @inject HttpClient Http
 @inject LocalStorage localStorage
@@ -127,7 +127,7 @@
 
         string theme = localStorage.GetItem("theme");
         if (String.IsNullOrWhiteSpace(theme)) theme = "flatly";
-        await BootstrapCSS.SetBootstrapCSS(theme, "4.3.1");
+        await BootstrapCss.SetBootstrapCss(theme, "4.3.1");
 
         string discordClosed = localStorage.GetItem("discord-overlay");
         if (!String.IsNullOrWhiteSpace(discordClosed)) {
