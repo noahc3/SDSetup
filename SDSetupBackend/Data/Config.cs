@@ -34,6 +34,8 @@ namespace SDSetupBackend.Data {
         public string PatreonCampaignId = "";
 
         public string LogRetentionTime = "12:00:00"; //12 hours
+        public int MaxSystemLogs = 1;
+        public int MaxBundlerLogs = 1;
 
         //No integration (Ko-fi does not have a REST API), but url will be included in manifest if specified.
         public string KofiUrl = "";

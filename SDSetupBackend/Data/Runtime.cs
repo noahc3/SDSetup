@@ -63,12 +63,18 @@ namespace SDSetupBackend.Data {
 
         private TaskLogger CreateSystemTaskLogger(string Title) {
             TaskLogger log = new TaskLogger(Title, "INTERNAL", "INTERNAL");
+            if (SystemLogs.Count >= Program.ActiveConfig.MaxSystemLogs) {
+                SystemLogs.TryRemove(SystemLogs.OrderBy(x => x.Value.StartTime).First().Key, out _);
+            }
             SystemLogs.TryAdd(log.LoggerId, log);
             return log;
         }
 
         private TaskLogger CreateUserBundleTaskLogger(string bundlerId, string clientId) {
             TaskLogger log = new TaskLogger($"Bundle {bundlerId}", bundlerId, clientId);
+            if (UserBundleLogs.Count >= Program.ActiveConfig.MaxBundlerLogs) {
+                UserBundleLogs.TryRemove(UserBundleLogs.OrderBy(x => x.Value.StartTime).First().Key, out _);
+            }
             UserBundleLogs.TryAdd(log.LoggerId, log);
             return log;
         }
