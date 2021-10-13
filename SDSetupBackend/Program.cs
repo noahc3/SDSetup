@@ -169,6 +169,13 @@ namespace SDSetupBackend {
                 logger.LogDebug("Could not parse ZipRetentionTime from config. Please ensure the format is valid for TimeSpan.Parse().");
             }
 
+            try {
+                TimeSpan.Parse(proposedConfig.LogRetentionTime);
+            } catch (Exception e) {
+                err = true;
+                logger.LogDebug("Could not parse LogRetentionTime from config. Please ensure the format is valid for TimeSpan.Parse().");
+            }
+
             if (!String.IsNullOrWhiteSpace(proposedConfig.PatreonAccessToken)) {
                 if (String.IsNullOrWhiteSpace(proposedConfig.PatreonCampaignId)) {
                     logger.LogError("Patreon integration was enabled by supplying an access token, but no campaign ID was supplied. Please specify a campaign ID, or remove your access token to disable Patreon integration.");

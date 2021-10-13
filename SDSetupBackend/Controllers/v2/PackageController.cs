@@ -32,13 +32,13 @@ namespace SDSetupBackend.Controllers.v2 {
             Package p = model.changedPackage;
 
             //try {
-                bool result = Program.ActiveRuntime.UpdatePackageInfo(m, p);
+            bool result = Program.ActiveRuntime.UpdatePackageInfo(m, p);
 
-                if (result) {
-                    return new StatusCodeResult(202); //accepted
-                } else {
-                    return new StatusCodeResult(500); //bad request
-                }
+            if (result) {
+                return new StatusCodeResult(202); //accepted
+            } else {
+                return new StatusCodeResult(500); //bad request
+            }
             //} catch (Exception) {
             //    return new StatusCodeResult(500); //internal server error
             //}

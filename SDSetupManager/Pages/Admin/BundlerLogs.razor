@@ -1,0 +1,82 @@
+﻿@page "/admin/bundlerlogs"
+
+<h2>Bundler Logs</h2>
+
+<Authorized MinRole="SDSetupRole.Administrator">
+    <BSRow>
+        <BSBasicForm IsInline="true">
+            <BSFormGroup>
+                <BSBasicInput placeholder="Client ID or Bundler UUID" @bind-Value="@searchValue" />
+                <BSButton Color="Color.Info" OnClick="@(() => {GetLogs();})">Search</BSButton>
+            </BSFormGroup>
+        </BSBasicForm>
+    </BSRow>
+    @if(resultsAvailable) {
+        <BSRow>
+            <BSCol XS="6">
+                <BSTable IsSmall="true" IsResponsive="true" IsStriped="true">
+                    <BSTableHead>
+                        <BSTableHeadCell>Title</BSTableHeadCell>
+                        <BSTableHeadCell>Start</BSTableHeadCell>
+                        <BSTableHeadCell>End</BSTableHeadCell>
+                        <BSTableHeadCell>Status</BSTableHeadCell>
+                        <BSTableHeadCell>Actions</BSTableHeadCell>
+                    </BSTableHead>
+                    <BSTableBody>
+                        @foreach(TaskLogger _log in Logs) {
+                            TaskLogger log = _log;
+                            string status = "IP";
+                            if (log.failed) status = "ERROR";
+                            else if (log.success) status = "SUCCESS";
+                            <BSTableRow>
+                                <BSTableCell>@log.Title</BSTableCell>
+                                <BSTableCell>@log.StartTime</BSTableCell>
+                                <BSTableCell>@log.CompletionTime</BSTableCell>
+                                <BSTableCell>@status</BSTableCell>
+                                <BSTableCell><BSButton OnClick="@(() => {SetActiveLog(log);})" Size="Size.Small" Color="Color.Info">View</BSButton></BSTableCell>
+                            </BSTableRow>
+                        }
+                    </BSTableBody>
+                </BSTable>
+            </BSCol>
+            <BSCol XS="6">
+                <p>@ActiveLog.Title (@ActiveLog.StartTime)</p>
+                <div class="log">
+                    @((MarkupString)String.Join("<br>", ActiveLog.log));
+                </div>
+            </BSCol>
+        </BSRow>
+    }
+</Authorized>
+
+@code {
+    private bool resultsAvailable = false;
+    private List<TaskLogger> Logs;
+    private TaskLogger ActiveLog;
+    private string searchValue = "";
+
+    protected override async Task OnInitializedAsync() {
+        await base.OnInitializedAsync();
+    }
+
+    private async void GetLogs() {
+        if (searchValue.Length > 0) {
+            Globals.LockInput = true;
+            Logs = await AdminEndpoints.GetBundlerLogs(searchValue);
+
+            if (Logs.Count() > 0) {
+                ActiveLog = Logs.First();
+                resultsAvailable = true;
+            } else {
+                resultsAvailable = false;
+            }
+
+            Globals.LockInput = false;
+            StateHasChanged();
+        }
+    }
+
+    private void SetActiveLog(TaskLogger log) {
+        ActiveLog = log;
+    }
+}

@@ -1,6 +1,7 @@
 import './sdsetup-typedef';
 
 const BACKEND_URL = "http://files.sdsetup.com/api/v2/"
+
 const ENDPOINT_LATEST_PACKAGESET = BACKEND_URL + "files/latestpackageset/";
 const ENDPOINT_MANIFEST = BACKEND_URL + "files/manifest/{id}";
 const ENDPOINT_REQUEST_BUNDLE = BACKEND_URL + "files/requestbundle";
@@ -385,7 +386,7 @@ export async function requestBundle(platform) {
 
     packages = getValidatedPackageList(platform);
     
-    bundlerUuid = await postAndFetchString(ENDPOINT_REQUEST_BUNDLE, {packageset: latestPackageset, packages: packages})
+    bundlerUuid = await postAndFetchString(ENDPOINT_REQUEST_BUNDLE, {clientId: localId, packageset: latestPackageset, packages: packages})
 
     checkProgressUntilComplete(platform, packages);
 }

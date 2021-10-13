@@ -12,7 +12,7 @@ namespace SDSetupBackend.Data {
         public string BindIp = "127.0.0.1";
         public int BindPort = 5000;
         public bool UseUpdater = true;
-        public string TimedTasksInterval = "12:00:00"; // 12 hours
+        public string TimedTasksInterval = "01:00:00"; //1 hour
         public string ZipRetentionTime = "01:00:00"; //1 hour
         public int ZipCompressionLevel = 3; //0-9, 0=store
         public string TempPath = (Globals.RootDirectory + "/temp").AsPath();
@@ -32,6 +32,8 @@ namespace SDSetupBackend.Data {
 
         public string PatreonAccessToken = "";
         public string PatreonCampaignId = "";
+
+        public string LogRetentionTime = "12:00:00"; //12 hours
 
         //No integration (Ko-fi does not have a REST API), but url will be included in manifest if specified.
         public string KofiUrl = "";

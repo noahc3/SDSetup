@@ -493,3 +493,12 @@ button {
 .accordion > .card:only-child {
     border-bottom: 1px solid rgba(0,0,0,0.125);
 }
+
+.log {
+    overflow-y: scroll;
+    max-height:85vh;
+    font-family: monospace;
+    background-color:lightgray;
+    word-wrap:normal;
+    margin-top:1rem;
+}

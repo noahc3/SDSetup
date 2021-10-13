@@ -22,6 +22,7 @@ using SDSetupBackend.Data.Integrations;
 using SDSetupCommon.Data.IntegrationModels;
 using System.Reflection.Metadata;
 using System.CodeDom.Compiler;
+using SDSetupCommon.Data;
 
 namespace SDSetupBackend.Data {
     //Runtime contains information about currently active variables. During a hot-reload, the active runtime object will be left in place and will
@@ -42,6 +43,9 @@ namespace SDSetupBackend.Data {
         public string latestPackageSet = "";
         public string latestAppVersion = "";
 
+        public ConcurrentDictionary<string, TaskLogger> UserBundleLogs = new ConcurrentDictionary<string, TaskLogger>();
+        public ConcurrentDictionary<string, TaskLogger> SystemLogs = new ConcurrentDictionary<string, TaskLogger>();
+
         public Dictionary<string, Manifest> Manifests = new Dictionary<string, Manifest>();
         private Dictionary<string, WebhookTriggerRegistration> Webhooks = new Dictionary<string, WebhookTriggerRegistration>();
         private Dictionary<string, List<string>> TimedUpdateTriggers = new Dictionary<string, List<string>>();
@@ -56,6 +60,44 @@ namespace SDSetupBackend.Data {
         private bool TimedUpdateQueued = false;
         private ConcurrentQueue<string> QueuedWebhookUpdates = new ConcurrentQueue<string>();
         private ConcurrentQueue<(string, Package)> QueuedPackageInfoUpdates = new ConcurrentQueue<(string, Package)>();
+
+        private TaskLogger CreateSystemTaskLogger(string Title) {
+            TaskLogger log = new TaskLogger(Title, "INTERNAL", "INTERNAL");
+            SystemLogs.TryAdd(log.LoggerId, log);
+            return log;
+        }
+
+        private TaskLogger CreateUserBundleTaskLogger(string bundlerId, string clientId) {
+            TaskLogger log = new TaskLogger($"Bundle {bundlerId}", bundlerId, clientId);
+            UserBundleLogs.TryAdd(log.LoggerId, log);
+            return log;
+        }
+
+        private void PurgeStaleLogs(TaskLogger log) {
+            TimeSpan retentionTime = TimeSpan.Parse(Program.ActiveConfig.LogRetentionTime);
+            List<string> deleteKeysSystem = new List<string>();
+            List<string> deleteKeysUser = new List<string>();
+            log?.LogInfo("Purging stale logs from memory.");
+            foreach (string k in SystemLogs.Keys) {
+                if (DateTime.UtcNow - SystemLogs[k].StartTime > retentionTime) {
+                    deleteKeysSystem.Add(k);
+                }
+            }
+
+            foreach (string k in UserBundleLogs.Keys) {
+                if (DateTime.UtcNow - UserBundleLogs[k].StartTime > retentionTime) {
+                    deleteKeysUser.Add(k);
+                }
+            }
+
+            foreach (string k in deleteKeysSystem) {
+                SystemLogs.TryRemove(k, out _);
+            }
+
+            foreach (string k in deleteKeysUser) {
+                UserBundleLogs.TryRemove(k, out _);
+            }
+        }
 
         public bool UpdatePackageInfo(string packageset, Package changedPackage, bool bypassQueue = false) {
             if (!Manifests.ContainsKey(packageset) || !Manifests[packageset].Packages.ContainsKey(changedPackage.ID)) {
@@ -127,20 +169,20 @@ namespace SDSetupBackend.Data {
             return false;
         }
 
-        public void PurgeStaleBundles() {
+        public void PurgeStaleBundles(TaskLogger log) {
             TimeSpan retentionTime = TimeSpan.Parse(Program.ActiveConfig.ZipRetentionTime);
             List<string> deleteKeys = new List<string>();
-            Program.logger.LogDebug("Purging stale bundles from temp directory.");
+            log?.LogInfo("Purging stale bundles from temp directory.");
             foreach (string k in BundlerProgresses.Keys) {
                 if (!BundlerProgresses[k].Permanent &&
                     BundlerProgresses[k].IsComplete && 
                     DateTime.UtcNow - BundlerProgresses[k].CompletionTime > retentionTime) {
                     try {
-                        Program.logger.LogDebug($"Purging bundle {FinishedBundles[k]}.");
+                        log?.LogInfo($"Purging bundle {FinishedBundles[k]}.");
                         File.Delete(FinishedBundles[k]);
                         deleteKeys.Add(k);
                     } catch (Exception e) {
-                        Program.logger.LogWarning($"Failed to delete zip at {k}, a handle may still be open on the file.");
+                        log?.LogInfo($"Failed to delete zip at {k}, a handle may still be open on the file.");
                     }
 
                 }
@@ -194,53 +236,64 @@ namespace SDSetupBackend.Data {
             string identifier = $"{packageset}/{bundle.Name}";
             string uuid = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
             string oldUuid;
-            Program.logger.LogInformation($"Generating pre-configured bundle '{identifier}'");
+            TaskLogger log = CreateSystemTaskLogger($"Pre-configured Bundle {identifier}");
+
+            log?.LogInfo($"Generating pre-configured bundle '{identifier}'");
 
             if (PermaBundles.ContainsKey(identifier)) {
-                Program.logger.LogInformation($"Checking if old pre-configured bundle for '{identifier}' is outdated.");
+                log?.LogInfo($"Checking if old pre-configured bundle for '{identifier}' is outdated.");
                 oldUuid = PermaBundles[identifier];
                 if (BundlerProgresses[oldUuid].CompletionTime > manifest.LastUpdated) {
                     //if the manifest is older than this bundle, no need to generate a new bundle.
-                    Program.logger.LogInformation($"Pre-configured bundle for '{identifier}' is already up-to-date, will not regenerate.");
+                    log?.LogInfo($"Pre-configured bundle for '{identifier}' is already up-to-date, will not regenerate.");
                     return;
                 }
             }
 
-            Program.logger.LogInformation($"Building pre-configured bundle for '{identifier}' .");
-            await BuildBundle(uuid, manifest, bundle.Packages);
+            log?.LogInfo($"Building pre-configured bundle for '{identifier}' .");
+            await BuildBundle(uuid, "INTERNAL", manifest, bundle.Packages, log);
 
             if (FinishedBundles.ContainsKey(uuid)) {
                 BundlerProgresses[uuid].Permanent = true;
                 if (PermaBundles.ContainsKey(identifier)) {
-                    Program.logger.LogInformation($"Marking old pre-configured bundle '{identifier}' for deletion.");
+                    log?.LogInfo($"Marking old pre-configured bundle '{identifier}' for deletion.");
                     oldUuid = PermaBundles[identifier];
                     BundlerProgresses[oldUuid].Permanent = false;
                 }
                 PermaBundles[identifier] = uuid;
                 bundle.PermalinkAvailable = true;
-                Program.logger.LogInformation($"Pre-configured bundle '{identifier}' built and live.");
+                log?.LogInfo($"Pre-configured bundle '{identifier}' built and live.");
             } else {
-                Program.logger.LogError($"Failed to generate pre-configured bundle for {packageset}/{bundle.Name}");
+                log.LogError($"Failed to generate pre-configured bundle for {packageset}/{bundle.Name}");
             }
 
         }
 
-        public bool BuildBundle(string uuid, string packageset, string[] packages) {
+        public bool BuildBundle(string uuid, string clientUuid, string packageset, string[] packages, TaskLogger log = null) {
+            if (log == null) {
+                log = CreateUserBundleTaskLogger(uuid, clientUuid);
+            }
+
             if (Manifests.ContainsKey(packageset)) {
-                Task.Run(async () => { await BuildBundle(uuid, Manifests[packageset], packages); });
+                Task.Run(async () => { await BuildBundle(uuid, clientUuid, Manifests[packageset], packages, log); });
                 return true;
             }
 
+            log.LogError($"Packageset '{packageset}' not found.");
             return false;
         }
 
-        public async Task BuildBundle(string uuid, Manifest manifest, string[] packages) {
+        public async Task BuildBundle(string uuid, string clientUuid, Manifest manifest, string[] packages, TaskLogger log = null) {
             string zipPath = Program.ActiveConfig.GetTempFilePath();
             List<string> fileList = new List<string>();
             FileStream outputStream = null;
             ZipOutputStream zipStream;
             BundlerProgress progress;
             List<Package> resolvedPackages;
+
+            if (log == null) {
+                log = CreateUserBundleTaskLogger(uuid, clientUuid);
+            }
 
             try {
                 progress = new BundlerProgress() {
@@ -252,10 +305,17 @@ namespace SDSetupBackend.Data {
                 };
                 BundlerProgresses[uuid] = progress;
 
-                if (manifest == null) throw new Exception("Packageset not found.");
+                if (manifest == null) {
+                    log.LogError($"Manifest null.");
+                    throw new Exception("Manifest null.");
+                }
+
                 manifest = manifest.Copy();
 
+                log.LogInfo($"Requested packages: [ {String.Join(", ", packages)} ]");
+
                 foreach (string packageID in packages) {
+                    log.LogInfo($"Validating package {packageID}.");
                     AssertValidPackage(manifest, packageID);
                 }
 
@@ -264,6 +324,8 @@ namespace SDSetupBackend.Data {
                 foreach(string packageID in packages.ToArray()) {
                     Package p = manifest.FindPackageById(packageID);
                     Package dp;
+
+                    log.LogInfo($"Resolving dependencies for {packageID}.");
 
                     if (!resolvedPackages.Contains(p)) resolvedPackages.Add(p);
 
@@ -277,11 +339,14 @@ namespace SDSetupBackend.Data {
                     return a.Priority.CompareTo(b.Priority);
                 });
 
+                log.LogInfo($"Resolved packages: [ {String.Join(", ", resolvedPackages.Select(x=>x.ID))} ]");
+
                 outputStream = new FileStream(zipPath, FileMode.Create);
                 zipStream = new ZipOutputStream(outputStream);
                 zipStream.SetLevel(Program.ActiveConfig.ZipCompressionLevel);                
 
                 foreach(Package p in resolvedPackages) {
+                    log.LogInfo($"Bundling package {p.ID}");
                     progress.CurrentTask = $"Adding '{p.Name}' to your bundle...";
                     PutPackageZipEntries(p, manifest.Packageset, zipStream, ref fileList);
                     progress.Progress++;
@@ -291,11 +356,15 @@ namespace SDSetupBackend.Data {
 
                 FinishedBundles[uuid] = zipPath;
 
-                Program.logger.LogDebug("Done! " + zipPath);
+                log.LogInfo($"Done! {zipPath}");
 
                 progress.CompletionTime = DateTime.UtcNow;
                 progress.Success = true;
                 progress.IsComplete = true;
+
+                log.complete = true;
+                log.success = true;
+                log.CompletionTime = DateTime.UtcNow;
 
             } catch (Exception e) {
                 outputStream?.Close();
@@ -307,6 +376,8 @@ namespace SDSetupBackend.Data {
                     CurrentTask = "Failed.",
                     CompletionTime = DateTime.UtcNow
                 };
+
+                log.LogError($"Exception thrown in BuildBundle.\n{e.Message}\n{e.StackTrace}");
 
                 if (!zipPath.NullOrWhiteSpace() && File.Exists(zipPath)) {
                     File.Delete(zipPath);
@@ -414,19 +485,19 @@ namespace SDSetupBackend.Data {
             return true;
         }
 
-        private async Task ProcessQueuedWebhookUpdates() {
+        private async Task ProcessQueuedWebhookUpdates(TaskLogger log) {
             if (!QueuedWebhookUpdates.IsEmpty) {
-                Program.logger.LogDebug("Processing webhook update queue.");
+                log?.LogInfo("Processing webhook update queue.");
                 WebhookUpdateInProgress = true;
                 string id;
                 if (QueuedWebhookUpdates.TryDequeue(out id)) {
-                    await ProcessWebhookUpdate(id, false);
+                    await ProcessWebhookUpdate(id, false, log);
                 }
                 WebhookUpdateInProgress = false;
             }
         }
 
-        private async Task ProcessWebhookUpdate(string webhookId, bool updateState = true) {
+        private async Task ProcessWebhookUpdate(string webhookId, bool updateState = true, TaskLogger log = null) {
             if (updateState) WebhookUpdateInProgress = true;
 
             WebhookTriggerRegistration w = GetWebhookTriggerInfo(webhookId);
@@ -434,25 +505,25 @@ namespace SDSetupBackend.Data {
             if (w != null) {
                 Package p = Manifests[w.Packageset].FindPackageById(w.PackageID);
 
-                Program.logger.LogDebug($"Processing webhook update for package {w.Packageset}/{w.PackageID}");
+                log.LogInfo($"Processing webhook update for package {w.Packageset}/{w.PackageID}");
 
-                p = await ExecuteAutoUpdate(p, w.Packageset);
-                if (p == null) Program.logger.LogDebug($"Webhook update for package {w.Packageset}/{w.PackageID} failed.");
+                p = await ExecuteAutoUpdate(p, w.Packageset, log);
+                if (p == null) log.LogInfo($"Webhook update for package {w.Packageset}/{w.PackageID} failed.");
                 else {
                     UpdatePackageInfo(Manifests[w.Packageset], p);
-                    Program.logger.LogDebug($"Webhook update for package {w.Packageset}/{w.PackageID} complete.");
+                    log.LogInfo($"Webhook update for package {w.Packageset}/{w.PackageID} complete.");
                 }
             }
 
             if (!QueuedWebhookUpdates.IsEmpty) {
                 string id;
                 if (QueuedWebhookUpdates.TryDequeue(out id)) {
-                    await ProcessWebhookUpdate(id, false);
+                    await ProcessWebhookUpdate(id, false, log);
                 }
             }
 
             if (TimedUpdateQueued) {
-                await ExecuteTimedAutoUpdates(true);
+                await ExecuteTimedAutoUpdates(log, true);
             }
 
             if (updateState) WebhookUpdateInProgress = false;
@@ -478,26 +549,28 @@ namespace SDSetupBackend.Data {
         }
 
         public async Task ExecuteTimedTasks() {
-            Program.logger.LogDebug("Executing timed tasks.");
+            TaskLogger log = CreateSystemTaskLogger($"Timed Tasks {DateTime.UtcNow}");
+            log.LogInfo("Executing timed tasks.");
 
-            await ExecuteTimedAutoUpdates();
+            await ExecuteTimedAutoUpdates(log);
             await BuildAllPermalinkBundles();
-            PurgeStaleBundles();
-            UpdateDonationInfo();
+            PurgeStaleBundles(log);
+            PurgeStaleLogs(log);
+            UpdateDonationInfo(log);
 
             ScheduleTimedTasks();
         }
 
-        public void UpdateDonationInfo() {
+        public void UpdateDonationInfo(TaskLogger log) {
             PatreonIntegration patreon = null;
             DonationModel donation = new DonationModel();
 
-            Program.logger.LogDebug("Updating donation information.");
+            log?.LogInfo("Updating donation information.");
 
             if (!String.IsNullOrWhiteSpace(Program.ActiveConfig.PatreonAccessToken)) {
                 patreon = PatreonIntegration.GetPatreonData(Program.ActiveConfig.PatreonAccessToken, Program.ActiveConfig.PatreonCampaignId);
                 if (patreon == null) {
-                    Program.logger.LogError("Failed to update Patreon donation info during scheduled cycle.");
+                    log?.LogError("Failed to update Patreon donation info during scheduled cycle.");
                     return;
                 }
             }
@@ -515,14 +588,14 @@ namespace SDSetupBackend.Data {
             }
         }
 
-        public async Task ExecuteTimedAutoUpdates(bool ignoreQueue = false) {
+        public async Task ExecuteTimedAutoUpdates(TaskLogger log = null, bool ignoreQueue = false) {
             Dictionary<string, List<Package>> updatedPackages = new Dictionary<string, List<Package>>();
             Manifest manifest;
             Package package;
 
             if (!ignoreQueue && WebhookUpdateInProgress) {
                 TimedUpdateQueued = true;
-                Program.logger.LogInformation("Timed auto update will be delayed until the current webhook updates complete.");
+                log?.LogInfo("Timed auto update will be delayed until the current webhook updates complete.");
                 return;
                 
             } else {
@@ -532,48 +605,48 @@ namespace SDSetupBackend.Data {
             if (!TimedUpdateInProgress) {
                 TimedUpdateInProgress = true;
                 try {
-                    Program.logger.LogDebug("Executing timed auto updates.");
+                    log?.LogInfo("Executing timed auto updates.");
 
                     foreach (string packageset in TimedUpdateTriggers.Keys) {
                         updatedPackages[packageset] = new List<Package>();
                         manifest = Manifests[packageset];
 
                         foreach (string packageId in TimedUpdateTriggers[packageset]) {
-                            Program.logger.LogDebug($"Executing timed auto update for package {packageset}/{packageId}.");
+                            log?.LogInfo($"Executing timed auto update for package {packageset}/{packageId}.");
 
                             package = manifest.FindPackageById(packageId);
-                            package = await ExecuteAutoUpdate(package, packageset);
+                            package = await ExecuteAutoUpdate(package, packageset, log);
                             if (package != null) {
-                                Program.logger.LogDebug($"Timed auto update for package {packageset}/{package} completed successfully.");
+                                log?.LogInfo($"Timed auto update for package {packageset}/{package} completed successfully.");
                                 updatedPackages[packageset].Add(package);
                             } else {
-                                Program.logger.LogDebug($"No updates detected for package {packageset}/{package}.");
+                                log?.LogInfo($"No updates detected for package {packageset}/{package}.");
                             }
                         }
                     }
 
                     if (updatedPackages.Count > 0) {
-                        Program.logger.LogDebug($"Writing package meta changes to disk.");
+                        log?.LogInfo($"Writing package meta changes to disk.");
                         foreach (string packageset in updatedPackages.Keys) {
                             List<Package> changed = updatedPackages[packageset];
                             if (changed.Count > 0) {
-                                Program.logger.LogDebug($"Processing packageset {packageset}");
+                                log?.LogInfo($"Processing packageset {packageset}");
                                 manifest = Manifests[packageset].Copy(); //copy the manifest so we arent making changes on the live manifest.
                                 foreach (Package p in changed) {
-                                    Program.logger.LogDebug($"Updating package {packageset}/{p.ID}");
+                                    log?.LogInfo($"Updating package {packageset}/{p.ID}");
                                     UpdatePackageInfo(manifest, p); //reregister triggers and write all changes to disk.
                                 }
-                                Program.logger.LogDebug($"Pushing updated package information for packageset {packageset} public.");
+                                log?.LogInfo($"Pushing updated package information for packageset {packageset} public.");
                                 Manifests[packageset] = manifest; //once changes are fully written to disk, push the new manifest live.
                             }
                         }
                     } else {
-                        Program.logger.LogDebug("No packages were updated.");
+                        log?.LogInfo("No packages were updated.");
                     }
 
                 } finally {
                     if (!QueuedPackageInfoUpdates.IsEmpty) {
-                        Program.logger.LogDebug("Processing queued package info updates.");
+                        log?.LogInfo("Processing queued package info updates.");
                         while (!QueuedPackageInfoUpdates.IsEmpty) {
                             (string, Package) t;
 
@@ -582,7 +655,7 @@ namespace SDSetupBackend.Data {
                                 Package p = t.Item2;
                                 Package og = Manifests[packageset].FindPackageById(p.ID);
 
-                                Program.logger.LogDebug($"Updating package info for {packageset}/{p.ID}");
+                                log?.LogInfo($"Updating package info for {packageset}/{p.ID}");
 
                                 if (og != null) {
                                     p.VersionInfo = og.VersionInfo; //maintain new version data.
@@ -592,16 +665,16 @@ namespace SDSetupBackend.Data {
                         }
                     }
 
-                    await ProcessQueuedWebhookUpdates();
+                    await ProcessQueuedWebhookUpdates(log);
 
                     TimedUpdateInProgress = false;
 
-                    Program.logger.LogDebug("Timed auto update process complete.");
+                    log?.LogInfo("Timed auto update process complete.");
                 }
             }
         }
 
-        public async Task<Package> ExecuteAutoUpdate(Package package, string packageset) {
+        public async Task<Package> ExecuteAutoUpdate(Package package, string packageset, TaskLogger log = null) {
             bool conditionsPassed = true;
             DirectoryInfo tmpDir;
             string newVersion;
@@ -610,7 +683,7 @@ namespace SDSetupBackend.Data {
             try {
                 package = package.Copy();
             } catch (Exception e) {
-                Program.logger.LogDebug(e.Message);
+                log?.LogInfo(e.Message);
                 return null;
             }
            
@@ -624,7 +697,7 @@ namespace SDSetupBackend.Data {
             if (!conditionsPassed) return null;
 
             tmpDir = Program.ActiveConfig.GetTempDirectory();
-            Program.logger.LogDebug("Update path: " + tmpDir.FullName);
+            log?.LogInfo("Update path: " + tmpDir.FullName);
             try {
                 foreach (UpdaterTask k in package.AutoUpdateTasks) {
                     await k.Apply(tmpDir.FullName);
@@ -639,7 +712,7 @@ namespace SDSetupBackend.Data {
             package.VersionInfo.Size = tmpDir.SizeRecursive();
 
             targetDirectory = $"{Program.ActiveConfig.FilesPath}/{packageset}/{package.ID}/{newVersion}/".AsPath();
-            Program.logger.LogDebug("Update path in packageset: " + targetDirectory);
+            log?.LogInfo("Update path in packageset: " + targetDirectory);
 
             tmpDir.MoveTo(targetDirectory);
 

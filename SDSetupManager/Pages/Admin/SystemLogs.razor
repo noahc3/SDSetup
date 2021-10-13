@@ -1,0 +1,64 @@
+﻿@page "/admin/syslog"
+
+<h2>System Logs</h2>
+
+<Authorized MinRole="SDSetupRole.Administrator">
+    @if(initialized) {
+        <BSRow>
+            <BSCol XS="6">
+                <BSTable IsSmall="true" IsResponsive="true" IsStriped="true">
+                    <BSTableHead>
+                        <BSTableHeadCell>Title</BSTableHeadCell>
+                        <BSTableHeadCell>Start</BSTableHeadCell>
+                        <BSTableHeadCell>End</BSTableHeadCell>
+                        <BSTableHeadCell>Status</BSTableHeadCell>
+                        <BSTableHeadCell>Actions</BSTableHeadCell>
+                    </BSTableHead>
+                    <BSTableBody>
+                        @foreach(TaskLogger _log in Logs) {
+                            TaskLogger log = _log;
+                            string status = "IP";
+                            if (log.failed) status = "ERROR";
+                            else if (log.success) status = "SUCCESS";
+                            <BSTableRow>
+                                <BSTableCell>@log.Title</BSTableCell>
+                                <BSTableCell>@log.StartTime</BSTableCell>
+                                <BSTableCell>@log.CompletionTime</BSTableCell>
+                                <BSTableCell>@status</BSTableCell>
+                                <BSTableCell><BSButton OnClick="@(() => {SetActiveLog(log);})" Size="Size.Small" Color="Color.Info">View</BSButton></BSTableCell>
+                            </BSTableRow>
+                        }
+                    </BSTableBody>
+                </BSTable>
+            </BSCol>
+            <BSCol XS="6">
+                <p>@ActiveLog.Title (@ActiveLog.StartTime)</p>
+                <div class="log">
+                    @((MarkupString)String.Join("<br>", ActiveLog.log));
+                </div>
+            </BSCol>
+        </BSRow>
+    }
+</Authorized>
+
+@code {
+    private bool initialized = false;
+    private List<TaskLogger> Logs;
+    private TaskLogger ActiveLog;
+
+    protected override async Task OnInitializedAsync() {
+        Globals.LockInput = true;
+
+        Logs = await AdminEndpoints.GetSystemLogs();
+        Logs = Logs.OrderBy(x => x.StartTime).ToList();
+        ActiveLog = Logs.First();
+
+        await base.OnInitializedAsync();
+        initialized = true;
+        Globals.LockInput = false;
+    }
+
+    private void SetActiveLog(TaskLogger log) {
+        ActiveLog = log;
+    }
+}

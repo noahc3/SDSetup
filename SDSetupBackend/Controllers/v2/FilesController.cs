@@ -34,12 +34,13 @@ namespace SDSetupBackend.Controllers.v2 {
 
         [HttpPost("requestbundle")]
         public async Task<IActionResult> RequestBundle([FromBody] BundleRequestModel model) {
+            string clientId = model.clientId;
             string packageset = model.packageset;
             string[] packages = model.packages;
             string uuid = Utilities.CreateCryptographicallySecureGuid().ToCleanString();
 
             //TODO: implement queue
-            if (Program.ActiveRuntime.BuildBundle(uuid, packageset, packages)) {
+            if (Program.ActiveRuntime.BuildBundle(uuid, clientId, packageset, packages)) {
                 return StatusCode(202, uuid); //accepted
             } else {
                 return StatusCode(400, "Invalid packageset."); //bad request
