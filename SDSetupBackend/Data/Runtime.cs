@@ -105,6 +105,20 @@ namespace SDSetupBackend.Data {
             }
         }
 
+        private void PurgeStaleVersions(Manifest manifest, TaskLogger log) {
+            DirectoryInfo packageDir;
+            foreach(Package p in manifest.Packages.Values) {
+                packageDir = new DirectoryInfo(p.GetLocalPath(manifest.Packageset));
+
+                foreach(DirectoryInfo v in packageDir.GetDirectories()) {
+                    if (v.Name != p.VersionInfo.Version) {
+                        log.LogInfo($"Deleting stale version {v.Name} for package {p.ID}.");
+                        v.Delete(true);
+                    }
+                }
+            }
+        }
+
         public bool UpdatePackageInfo(string packageset, Package changedPackage, bool bypassQueue = false) {
             if (!Manifests.ContainsKey(packageset) || !Manifests[packageset].Packages.ContainsKey(changedPackage.ID)) {
                 return false;
@@ -252,6 +266,7 @@ namespace SDSetupBackend.Data {
                 if (BundlerProgresses[oldUuid].CompletionTime > manifest.LastUpdated) {
                     //if the manifest is older than this bundle, no need to generate a new bundle.
                     log?.LogInfo($"Pre-configured bundle for '{identifier}' is already up-to-date, will not regenerate.");
+                    log.MarkSuccess();
                     return;
                 }
             }
@@ -368,9 +383,7 @@ namespace SDSetupBackend.Data {
                 progress.Success = true;
                 progress.IsComplete = true;
 
-                log.complete = true;
-                log.success = true;
-                log.CompletionTime = DateTime.UtcNow;
+                log.MarkSuccess();
 
             } catch (Exception e) {
                 outputStream?.Close();
@@ -384,6 +397,7 @@ namespace SDSetupBackend.Data {
                 };
 
                 log.LogError($"Exception thrown in BuildBundle.\n{e.Message}\n{e.StackTrace}");
+                log.MarkFailed();
 
                 if (!zipPath.NullOrWhiteSpace() && File.Exists(zipPath)) {
                     File.Delete(zipPath);
@@ -402,7 +416,7 @@ namespace SDSetupBackend.Data {
             DirectoryInfo packageDir;
 
             if (package.VersionInfo.Size == 0) return;
-            packageDir = new DirectoryInfo($"{Program.ActiveConfig.FilesPath}/{packageset}/{package.ID}/{package.VersionInfo.Version}".AsPath());
+            packageDir = new DirectoryInfo(package.GetVersionPath(packageset, package.VersionInfo.Version));
 
             files = Utilities.EnumerateFiles(packageDir.FullName);
             directories = Utilities.EnumerateEmptyDirectories(packageDir.FullName);
@@ -558,11 +572,15 @@ namespace SDSetupBackend.Data {
             TaskLogger log = CreateSystemTaskLogger($"Timed Tasks {DateTime.UtcNow}");
             log.LogInfo("Executing timed tasks.");
 
+            foreach (Manifest m in Manifests.Values) PurgeStaleVersions(m, log);
+
             await ExecuteTimedAutoUpdates(log);
             await BuildAllPermalinkBundles();
             PurgeStaleBundles(log);
             PurgeStaleLogs(log);
             UpdateDonationInfo(log);
+
+            log.MarkSuccess();
 
             ScheduleTimedTasks();
         }
@@ -725,6 +743,7 @@ namespace SDSetupBackend.Data {
             return package;
 
         }
+
 
 
     }

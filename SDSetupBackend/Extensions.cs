@@ -17,8 +17,8 @@ namespace SDSetupBackend {
         public static string GetMetaPath(this Package package, string packageset) {
             return ($"{package.GetLocalPath(packageset)}/info.json").AsPath();
         }
-        public static string GetChannelPath(this Package package, string packageset, string channel) {
-            return ($"{package.GetLocalPath(packageset)}/{channel}").AsPath();
+        public static string GetVersionPath(this Package package, string packageset, string version) {
+            return ($"{package.GetLocalPath(packageset)}/{version}").AsPath();
         }
 
         public static string GetVersion(this GitReleaseTagVersionSource src) {
