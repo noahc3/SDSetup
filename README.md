@@ -1,30 +1,40 @@
-[![Homebrew SD Setup](https://www.sdsetup.com/img/logo.png)](https://www.sdsetup.com)
+<p align="center">
+    <a href="https://www.sdsetup.com">
+        <img alt="sdsetup" src="https://www.sdsetup.com/img/logo.png">
+    </a>
+</p>
 
-<p align='center'><a href='https://www.sdsetup.com'>https://www.sdsetup.com</a><br><br><a href='https://github.com/noahc3/SDSetup/actions'><img src='https://github.com/noahc3/SDSetup/workflows/.NET%20Core%20CI/badge.svg'></img></a></p>
+<p align="center">
+    <img alt="License: AGPLv3" src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg"/>
+    <img alt=".NET Core CI" src="https://github.com/noahc3/SDSetup/workflows/.NET%20Core%20CI/badge.svg"/>
+</p>
 
-Homebrew SD Setup is a web application written in C# (and a little bit of JavaScript) running on Blazor. The app lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
-
-## Compatibility
-The application has been verified working in Chrome, Firefox, Opera and Edge on Windows 10, as well as Chrome and Firefox on Android. Other browsers are likely to work fine as long as they support WebAssembly or asm.js, and ES6.
-
-Internet Explorer is explicitly incompatible due to lack of ES6 support. Additionally, Firefox 61 and lower requires the user to manually navigate to the generated ZIP blob because the blob won't download programatically for whatever reason. This is fixed in Firefox 62+.
+SDSetup is a web application written in JavaScript and C#. The site lets you select from a list of homebrew applications and custom firmwares to quickly create a zip archive to extract to your SD card. This is effectively the Ninite for your game consoles.
 
 ## Features
 ### General
 * Generate a perfectly formatted file structure in ZIP format, ready for direct extraction to your SD card. No additional setup necessary, just drag and drop!
-* Save your setup so you can update everything later without reselecting all of the packages.
+* Save your setup to reselect packages later, or share with a friend.
+* Don't want to customize? Quick-download from a list of pre-configured bundles.
 
 ### Nintendo Switch
 * Choose between a selection of common homebrew applications, tools and utilities, including:
-	* Custom Firmwares (ex. SX OS, Atmosphere, ReiNX)
-	* Homebrew Utilities (ex. Homebrew Menu, Checkpoint, JKSV, Tinfoil)
+	* Custom Firmwares (ex. Atmosphere)
+    * CFW Options (ex. Sysmodules, Tesla plugins)
+	* Utilities (ex. Homebrew Menu, Checkpoint, JKSV)
 	* Emulators (ex. Salamander RetroNX, pSNES)
-	* Games (ex. Mystery of Solarus DX, SDL Prince of Persia)
 	* Fusee Payloads (ex. Hekate, BISKeyDump, BriccMii)
-	* PC Utilities (ex. TegraRCMSmash)
+    * PegaScape Paylods (ex. Caffeine, Nereba)
+	* PC Tools (ex. TegraRcmGui)
+    * Android Tools (ex. Rekado)
 
 ## Usage
-Head over to [https://www.sdsetup.com](https://www.sdsetup.com), select your console of choice, select the packages you want, and hit download! Once finished, simply **extract the contents of the sd folder** in the downloaded ZIP archive **to the root of your SD card!** Do what you wish with any additional folders included in the zip file.
+Head over to [https://www.sdsetup.com](https://www.sdsetup.com), select your console of choice, select the packages you want, and hit "Get My Bundle"! Once finished, simply **extract the contents of the sd folder** in the downloaded ZIP archive **to the root of your SD card!** Do what you wish with any additional folders included in the zip file.
+
+## Compatibility
+The user-facing frontend is written in JS with React and should be functional on most browsers. 
+
+The admin control panel is written in C# with Blazor and requries a WASM capable browser to function.
 
 ## Issues
 Please feel free [submit an issue](https://www.github.com/noahc3/sdsetup/issues) for any of the following reasons:
@@ -40,18 +50,18 @@ Please feel free [submit an issue](https://www.github.com/noahc3/sdsetup/issues)
 * Any other issue with the site or it's packages
 
 ## Build
-Clone the repository and open the solution in Visual Studio. Build from there.
+The backend server, manager and common library can be built easily by opening the project solution in Visual Studio 2022.
+
+The frontend is a Node.js project written in React, launch into debug mode with the command `npm start`. You can build the static output with `npm run build`.
 
 ## Included Projects
-* **SDSetup Blazor:** The web application itself, written in C# (and a little bit of JavaScript).
-* **SDSetup Backend:** The backend server which the frontend communicates with. Upon request, generates zip bundles based on the client selection. Also provides manifest data and download statistics.
-* **SDSetup Backend Control Panel:** Control panel to manage functionality of the backend server(s). Also for managing the Homebrew Guide.
-* **SDSetup Updater:** A tool to autoupdate a number of homebrew packages present on SDSetup through various means. Designed specifically for SDSetup packages, not dynamic.
-* **SDSetup Common:** Common utilities and types shared between two or more of the above projects.
+* **SDSetup Frontend:** The user-facing frontend, written in JavaScript with React.
+* **SDSetup Backend:** The backend server which the frontend communicates with. Upon request, generates zip bundles based on the client selection. Also provides a management API for use with SDSetup Manager. Written in C# with ASP.NET Core.
+* **SDSetup Manager:** Control panel to manage functionality of the backend server, including package data, auto-update configuration, error tracking and more. Written in C# with Blazor.
+* **SDSetup Common:** Common utilities and data types shared between the backend and the manager.
 
 ## Todo
-* The frontend needs a lot of optimization. For example, converting things to components and setting up databinding on individual components to refresh only what UI needs to be refreshed rather than entire containers.
-* The backend needs to be refactored to conform to ASP.Net Core standards.
+* See [this issue](https://github.com/noahc3/SDSetup/issues/203) for a list of features still planned or in-progress.
 
 ## Contributing
 Feel free to make pull requests where you see fit!
@@ -60,7 +70,6 @@ Feel free to make pull requests where you see fit!
 Please see https://www.sdsetup.com/credits for an up-to-date list of credits and sources for each package available.
 
 Other credits:
-* tomGER and the rest of Team AtlasNX for working with me to keep this project up to date.
-* the ASP.NET Core team for making this great thing called [Blazor](https://blazor.net/)
-* Chanan Braunstein for  [BlazorStrap](https://github.com/chanan/BlazorStrap)
-* Joonas W. for  [Using C# await against JS Promises in Blazor](https://joonasw.net/view/csharp-await-and-js-promises-in-blazor)
+* Team AtlasNX for originally working with me to get SDSetup off the ground.
+* Team Neptune for providing amazing user support for SDSetup bundles.
+* Behemoth, hax4dayz, Slluxx, PanSaborATrapo, Austin, and TechGeekGamer for helping me out a ton during the transition period.
