@@ -65,6 +65,8 @@ namespace SDSetupBackend.Data.Accounts {
         /// <param name="user">The SDSetupUser object authenticated with GitHub.</param>
         /// <returns>Returns Task<string>: a blank string if the GitHub ID is already linked to an SDSetup user, otherwise returns the new SDSetup user ID.</returns>
         public async Task<bool> RegisterUserFromGithub(SDSetupUser user) {
+            if (!Program.ActiveConfig.ManagerRegistrationEnabled) return false;
+
             if (await UserExistsWithGithubId(user.GetGithubUserId()))
                 return false;
 
@@ -78,6 +80,8 @@ namespace SDSetupBackend.Data.Accounts {
         }
 
         public async Task<bool> RegisterUserFromGitlab(SDSetupUser user) {
+            if (!Program.ActiveConfig.ManagerRegistrationEnabled) return false;
+
             if (await UserExistsWithGitlabId(user.GetGitlabUserId()))
                 return false;
 

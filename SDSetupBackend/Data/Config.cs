@@ -24,7 +24,10 @@ namespace SDSetupBackend.Data {
         public string LatestAppVersion = "v1.0";
         public string LatestAppPath = (Globals.RootDirectory + "/config/sdsetup.nro").AsPath();
 
+        public string BackendUrl = "http://files.sdsetup.com";
         public string ManagerFrontendUrl = "http://manager.sdsetup.com";
+        public bool ManagerRegistrationEnabled = false;
+
         public string GithubClientId = "";
         public string GithubClientSecret = "";
         public string GitlabClientId = "";

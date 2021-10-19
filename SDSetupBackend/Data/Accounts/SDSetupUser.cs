@@ -92,7 +92,7 @@ namespace SDSetupBackend.Data {
                         { "client_secret", Program.ActiveConfig.GitlabClientSecret },
                         { "code", code },
                         { "grant_type", "authorization_code" },
-                        { "redirect_uri", "http://files.sdsetup.com/api/v2/account/gitlablogincallback" }
+                        { "redirect_uri", $"{Program.ActiveConfig.BackendUrl}/api/v2/account/gitlablogincallback" }
                     };
 
                     HttpContent content = new FormUrlEncodedContent(parameters);

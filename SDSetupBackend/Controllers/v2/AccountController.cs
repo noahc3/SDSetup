@@ -42,7 +42,7 @@ namespace SDSetupBackend.Controllers {
             return Redirect(
                 "https://github.com/login/oauth/authorize?" +
                 "client_id=" + Program.ActiveConfig.GithubClientId +
-                "&redirect_uri=" + "http://files.sdsetup.com/api/v2/account/githublogincallback" +
+                "&redirect_uri=" + $"{Program.ActiveConfig.BackendUrl}/api/v2/account/githublogincallback" +
                 "&state=" + SDSetupCommon.Utilities.CreateCryptographicallySecureGuid().ToCleanString()
             );
         }
@@ -52,7 +52,7 @@ namespace SDSetupBackend.Controllers {
             return Redirect(
                 "https://gitlab.com/oauth/authorize?" +
                 "client_id=" + Program.ActiveConfig.GitlabClientId +
-                "&redirect_uri=" + "http://files.sdsetup.com/api/v2/account/gitlablogincallback" +
+                "&redirect_uri=" + $"{Program.ActiveConfig.BackendUrl}/api/v2/account/gitlablogincallback" +
                 "&state=" + SDSetupCommon.Utilities.CreateCryptographicallySecureGuid().ToCleanString() +
                 "&response_type=code" +
                 "&scope=read_user"
