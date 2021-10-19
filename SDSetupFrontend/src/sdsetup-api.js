@@ -1,6 +1,6 @@
 import './sdsetup-typedef';
 
-const BACKEND_URL = "http://api.sdsetup.com/api/v2/"
+const BACKEND_URL = "https://api.sdsetup.com/api/v2/"
 
 const ENDPOINT_LATEST_PACKAGESET = BACKEND_URL + "files/latestpackageset/";
 const ENDPOINT_MANIFEST = BACKEND_URL + "files/manifest/{id}";
