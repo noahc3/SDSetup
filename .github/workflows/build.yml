@@ -17,6 +17,7 @@ jobs:
         node-version: 13.x
         
     - name: Install NPM packages
+      working-directory: ./SDSetupFrontend
       run: npm ci
       
     - name: Install .NET
@@ -25,6 +26,7 @@ jobs:
         dotnet-version: 5.0
         
     - name: Build Frontend
+      working-directory: ./SDSetupFrontend
       run: npm run build
         
     - name: Build Common
