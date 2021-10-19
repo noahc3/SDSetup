@@ -1,4 +1,6 @@
-﻿using Octokit;
+﻿using GitLabApiClient;
+using GitLabApiClient.Models.Users.Responses;
+using Octokit;
 using SDSetupCommon.Data;
 using SDSetupCommon.Data.ServiceModels;
 using System;
@@ -47,6 +49,36 @@ namespace SDSetupCommon.Communications {
                 return artifacts;
             }
         }
+
+        //TODO: Finish GitLab release integration
+        //public static async Task<GitReleaseArtifacts> GetGitlabReleaseArtifacts(bool includePrereleases, string author, string repoName) {
+        //    if (!Overrides.DirectGitLab) {
+        //        //return await CommsUtilities.GetJsonAsync<GitReleaseArtifacts>(String.Format(GithubReleaseArtifactsEndpoint, includePrereleases ? "prerelease" : "stable", author, repoName));
+        //    } else {
+        //        GitLabClient client = Overrides.GitLabClient;
+        //        GitReleaseArtifacts artifacts;
+        //
+        //        var project = await client.Projects.GetAsync($"{author}%2F{repoName}");
+        //        var releases = await client.Releases.GetAsync(project.Id);
+        //
+        //        var release = releases.OrderByDescending(x => new DateTimeOffset(x.CreatedAt.Value).ToUnixTimeSeconds()).FirstOrDefault();
+        //
+        //
+        //        //there are no releases, or a stable release was requested but only prereleases exist
+        //        if (release == default) throw new Exception("GetGitlabReleaseArtifacts Override: No releases found with specified options.");
+        //
+        //        artifacts = new GitReleaseArtifacts() {
+        //            Tag = release.TagName,
+        //            Artifacts = new Dictionary<string, int>()
+        //        };
+        //
+        //        foreach (var k in release.Assets.Links) {
+        //            artifacts.Artifacts.Add(k.Name, k.Id);
+        //        }
+        //
+        //        return artifacts;
+        //    }
+        //}
 
         public static async Task<MemoryStream> DownloadGithubArtifact(string author, string repoName, string artifactId) {
             MemoryStream ms = new MemoryStream();
