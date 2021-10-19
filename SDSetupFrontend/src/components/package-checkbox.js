@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form, OverlayTrigger, Popover } from 'react-bootstrap';
+import parse from 'html-react-parser';
 
 import * as sdsetup from '../sdsetup-api';
 import '../sdsetup-typedef';
@@ -26,7 +27,7 @@ export default class PackageCheckbox extends React.Component {
                 <Popover.Title as="h3">{pkg.name} <small><br/>by {pkg.authors}</small></Popover.Title>
                 <Popover.Content>
                     <div></div>
-                    <div>{pkg.description}</div>
+                    <div>{parse(pkg.description)}</div>
                     <br/>
                     <div>License: {pkg.license}</div>
                 </Popover.Content>
