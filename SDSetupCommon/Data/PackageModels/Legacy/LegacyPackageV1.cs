@@ -75,7 +75,7 @@ namespace SDSetupCommon.Data.PackageModels.Legacy {
                 Subcategory = Subcategory,
                 Authors = Authors,
                 Downloads = Downloads,
-                VersionInfo = new VersionInfo() { Version = Versions.First().Value, Size = 0 },
+                VersionInfo = new VersionInfo() { Version = Versions.First().Value.Replace("/", "."), Size = 0 },
                 Source = Source,
                 Priority = Priority,
                 EnabledByDefault = EnabledByDefault,
