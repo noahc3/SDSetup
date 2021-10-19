@@ -3,7 +3,7 @@ import React from 'react';
 import * as utils from '../utils';
 
 const LIGHT_THEME = "https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css";
-const DARK_THEME = "https://cdn.jsdelivr.net/npm/@forevolve/bootstrap-dark@1.0.0/dist/css/bootstrap-dark.min.css";
+const DARK_THEME = "/bootstrap-dark.min.css";
 
 export default class ThemeSelector extends React.Component {
     constructor(props) {
