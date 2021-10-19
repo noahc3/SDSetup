@@ -23,7 +23,7 @@ namespace SDSetupBackend.Data {
         [JsonProperty]
         public string SDSetupUserId { get; private set; } = Utilities.CreateGuid().ToCleanString();
         [JsonProperty]
-        public SDSetupRole SDSetupRole { get; private set; } = SDSetupRole.Administrator;
+        public SDSetupRole SDSetupRole { get; private set; } = SDSetupRole.None;
         [JsonProperty]
         public string SessionToken { get; private set; }
 
