@@ -309,6 +309,17 @@ export function selectPackages(packages) {
 
 /**
  * 
+ * @param {string} platform 
+ * @returns {number}
+ */
+export function countSelectedPackages(platform) {
+    const manifest = getManifest()
+    if (!manifest) return 0;
+    else return getValidatedPackageList(platform).length;
+}
+
+/**
+ * 
  * @param {string} id 
  */
 export function forceShow(id) {

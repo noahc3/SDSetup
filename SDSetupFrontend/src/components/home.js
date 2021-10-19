@@ -8,7 +8,7 @@ import '../sdsetup-typedef';
 
 class Home extends React.Component {
     render() {
-        const platforms = sdsetup.getAllPlatforms();
+        const platforms = sdsetup.getVisiblePlatforms();
         let platformCards = platforms.map((key) => {
             const platform = sdsetup.getPlatformById(key);
             return (

@@ -23,7 +23,7 @@ import Credits from './components/credits.js';
 
 
 function SiteNavbar() {
-    const platformLinks = sdsetup.getAllPlatforms().map((id) => {
+    const platformLinks = sdsetup.getVisiblePlatforms().map((id) => {
         const platform = sdsetup.getPlatformById(id);
         return (
             <Nav.Link key={"nav_console_" + platform.id} as={Link} to={"/console/" + id}>{platform.menuName}</Nav.Link>

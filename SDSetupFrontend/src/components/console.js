@@ -33,6 +33,7 @@ export default class Console extends React.Component {
     render() {
         const platformid = this.props.platformid;
         const platform = sdsetup.getPlatformById(platformid);
+        let downloadButton;
 
         const bundles = sdsetup.getBundlesForPlatform(platformid).map((bundle) => {
             return (
@@ -61,6 +62,12 @@ export default class Console extends React.Component {
             } else return null;
         });
 
+        if (sdsetup.countSelectedPackages(platformid) > 0) {
+            downloadButton = <Button onClick={() => { sdsetup.requestBundle(platformid); }} variant="danger" size="lg" block>Get My Bundle</Button>
+        } else {
+            downloadButton = <Button disabled variant="secondary" size="lg" block>Get My Bundle</Button>
+        }
+
         return (
             <div>
                 <h1 className="tall-margin center">
@@ -80,7 +87,7 @@ export default class Console extends React.Component {
                 </Card>
                 <br />
                 {sections}
-                <Button onClick={() => { sdsetup.requestBundle(platformid); }} variant="danger" size="lg" block>Get My Bundle</Button>
+                {downloadButton}
             </div>
         );
     }
