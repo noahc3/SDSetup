@@ -1,0 +1,83 @@
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v1
+      
+    - name: Install Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 13.x
+        
+    - name: Install NPM packages
+      working-directory: ./SDSetupFrontend
+      run: npm ci
+      
+    - name: Install .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.*
+        
+    - name: Build Frontend
+      working-directory: ./SDSetupFrontend
+      run: npm run build
+        
+    - name: Build Common
+      run: dotnet build -c Release SDSetupCommon
+      
+    - name: Build Backend
+      run: dotnet publish -c Release -r linux-x64 SDSetupBackend
+      
+    - name: Build Manager
+      run: dotnet publish -c Release SDSetupManager
+
+    - name: Upload Frontend
+      uses: actions/upload-artifact@v2
+      with:
+        name: frontend
+        path: ./SDSetupFrontend/build
+        
+    - name: Upload Common
+      uses: actions/upload-artifact@v2
+      with:
+        name: common
+        path: ./SDSetupCommon/bin/Release/netstandard2.1
+        
+    - name: Upload Backend
+      uses: actions/upload-artifact@v2
+      with:
+        name: backend
+        path: ./SDSetupBackend/bin/Release/net5.0/linux-x64/publish
+        
+    - name: Upload Manager
+      uses: actions/upload-artifact@v2
+      with:
+        name: manager
+        path: ./SDSetupManager/bin/Release/netstandard2.1/publish/wwwroot
+        
+        
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/rewrite'
+    
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v2
+      with:
+        name: frontend
+        path: ./build
+
+    - name: Deploy to gh-pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
