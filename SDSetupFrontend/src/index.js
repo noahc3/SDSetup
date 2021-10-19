@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import parse from 'html-react-parser';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
-import { Navbar, Nav, Spinner, Container, Button, ButtonGroup, SafeAnchor, NavDropdown } from 'react-bootstrap';
-import { FaGithub } from 'react-icons/fa';
+import { Navbar, Nav, Spinner, Container, Button, ButtonGroup, SafeAnchor, NavDropdown, Alert } from 'react-bootstrap';
+import { FaGithub, FaDiscord } from 'react-icons/fa';
 import ThemeSelector from './themes/theme-selector.js';
 import GlobalModal from './components/global-modal-component';
 import Home from './components/home';
@@ -52,6 +52,7 @@ function SiteNavbar() {
                     <Nav.Link as={Link} to={"/credits"}>Credits</Nav.Link>
                     <Nav.Link as={SafeAnchor} href="https://github.com/noahc3/sdsetup/issues">Report an Issue</Nav.Link>
                     <Nav.Link as={SafeAnchor} href="https://github.com/noahc3/sdsetup" className="huge-text"><FaGithub/></Nav.Link>
+                    <Nav.Link as={SafeAnchor} href="https://discord.sdsetup.com" className="huge-text"><FaDiscord/></Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
@@ -130,11 +131,22 @@ class App extends React.Component {
             )
         } else {
             const copyright = sdsetup.getCopyrightText();
+            const messageData = sdsetup.getAnnouncement();
+            let message = <></>;
+
+            if (messageData) {
+                message = (
+                    <Alert variant={messageData.color}>
+                        {parse(messageData.innerHTML)}
+                    </Alert>
+                );
+            }
             return (
                 <main>
                     <GlobalModal/>
                     <SiteNavbar/>
                     <Container>
+                        <div>{message}</div>
                         <Switch>
                             <Route path='/' exact>
                                 <Home />

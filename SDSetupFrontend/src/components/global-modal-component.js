@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, ButtonGroup, Modal, ProgressBar, Form, InputGroup, SafeAnchor } from 'react-bootstrap';
-import { SiPatreon, SiKoFi } from 'react-icons/si';
+import { SiPatreon, SiKofi } from 'react-icons/si';
 import { FaRegCopy } from 'react-icons/fa'
 
 import * as utils from '../utils';
@@ -127,7 +127,7 @@ export default class GlobalModal extends React.Component {
                         <br/>
                         <ButtonGroup className="btn-group-wide">
                             <Button as={SafeAnchor} href={donationInfo.patreonUrl} variant="success"><SiPatreon/> Patreon</Button>
-                            <Button as={SafeAnchor} href={donationInfo.kofiUrl} variant="info"><SiKoFi/> Ko-fi</Button>
+                            <Button as={SafeAnchor} href={donationInfo.kofiUrl} variant="info"><SiKofi/> Ko-fi</Button>
                         </ButtonGroup>
                     </div>
                 )

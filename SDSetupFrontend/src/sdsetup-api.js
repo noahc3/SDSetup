@@ -173,6 +173,15 @@ export function getCopyrightText() {
 
 /**
  * 
+ * @returns {Message}
+ */
+ export function getAnnouncement() {
+    const manifest = getManifest();
+    return manifest.message;
+}
+
+/**
+ * 
  * @param {Bundle} bundle 
  * @returns {string}
  */
