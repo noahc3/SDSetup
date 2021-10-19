@@ -6,7 +6,7 @@
 
 <p align="center">
     <img alt="License: AGPLv3" src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg"/>
-    <img alt="Build Status" src="https://github.com/noahc3/SDSetupPreview/actions/workflows/build.yml/badge.svg?branch=rewrite"/>
+    <img alt="Build Status" src="https://github.com/noahc3/SDSetupPreview/actions/workflows/build-and-deploy.yml/badge.svg?branch=rewrite"/>
 </p>
 
 SDSetup is a web application written in JavaScript and C#. The site lets you select from a list of homebrew applications and custom firmwares to quickly create a zip archive to extract to your SD card. This is effectively the Ninite for your game consoles.
