@@ -98,26 +98,26 @@ async function postAndFetchString(endpoint, body) {
     });;
 }
 
-async function postAndFetchJson(endpoint, body) {
-    const opts = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body)
-    };
-
-    return fetch(endpoint, opts).then(res => {
-        if (res.ok) return res.json();
-        else {
-            return res.text().then(msg =>  {
-                let rawMessage = msg;
-                if (msg.includes("<html>")) msg = res.statusText;
-                return new ApiError(res.status, msg, "postAndFetchJson", rawMessage, res.url);
-            });
-        }
-    }).catch(err => {
-        return new ApiError(-2, err.message, "postAndFetchJson", err.stack, endpoint);
-    });;
-}
+//async function postAndFetchJson(endpoint, body) {
+//    const opts = {
+//        method: 'POST',
+//        headers: { 'Content-Type': 'application/json' },
+//        body: JSON.stringify(body)
+//    };
+//
+//    return fetch(endpoint, opts).then(res => {
+//        if (res.ok) return res.json();
+//        else {
+//            return res.text().then(msg =>  {
+//                let rawMessage = msg;
+//                if (msg.includes("<html>")) msg = res.statusText;
+//                return new ApiError(res.status, msg, "postAndFetchJson", rawMessage, res.url);
+//            });
+//        }
+//    }).catch(err => {
+//        return new ApiError(-2, err.message, "postAndFetchJson", err.stack, endpoint);
+//    });;
+//}
 
 export function setDefaultErrorHandler(func) {
     defaultErrorHandler = func;
