@@ -1,12 +1,12 @@
 <p align="center">
-    <a href="https://www.sdsetup.com">
+    <a href="https://preview.sdsetup.com">
         <img alt="sdsetup" src="https://www.sdsetup.com/img/logo.png">
     </a>
 </p>
 
 <p align="center">
     <img alt="License: AGPLv3" src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg"/>
-    <img alt=".NET Core CI" src="https://github.com/noahc3/SDSetup/workflows/.NET%20Core%20CI/badge.svg"/>
+    <img alt="Build Status" src="https://github.com/noahc3/SDSetupPreview/actions/workflows/build.yml/badge.svg?branch=rewrite"/>
 </p>
 
 SDSetup is a web application written in JavaScript and C#. The site lets you select from a list of homebrew applications and custom firmwares to quickly create a zip archive to extract to your SD card. This is effectively the Ninite for your game consoles.
@@ -29,7 +29,7 @@ SDSetup is a web application written in JavaScript and C#. The site lets you sel
     * Android Tools (ex. Rekado)
 
 ## Usage
-Head over to [https://www.sdsetup.com](https://www.sdsetup.com), select your console of choice, select the packages you want, and hit "Get My Bundle"! Once finished, simply **extract the contents of the sd folder** in the downloaded ZIP archive **to the root of your SD card!** Do what you wish with any additional folders included in the zip file.
+Head over to [https://preview.sdsetup.com](https://preview.sdsetup.com), select your console of choice, select the packages you want, and hit "Get My Bundle"! Once finished, simply **extract the contents of the sd folder** in the downloaded ZIP archive **to the root of your SD card!** Do what you wish with any additional folders included in the zip file.
 
 ## Compatibility
 The user-facing frontend is written in JS with React and should be functional on most browsers. 
@@ -67,7 +67,7 @@ The frontend is a Node.js project written in React, launch into debug mode with 
 Feel free to make pull requests where you see fit!
 
 ## Credits
-Please see https://www.sdsetup.com/credits for an up-to-date list of credits and sources for each package available.
+Please see https://preview.sdsetup.com/credits for an up-to-date list of credits and sources for each package available.
 
 Other credits:
 * Team AtlasNX for originally working with me to get SDSetup off the ground.
