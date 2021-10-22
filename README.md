@@ -9,6 +9,8 @@
     <img alt="Build Status" src="https://github.com/noahc3/SDSetupPreview/actions/workflows/build-and-deploy.yml/badge.svg?branch=rewrite"/>
 </p>
 
+<i><p align="center">This is the new codebase for the rewrite of SDSetup utilizing React, in public testing at https://preview.sdsetup.com.</p></i>
+
 SDSetup is a web application written in JavaScript and C#. The site lets you select from a list of homebrew applications and custom firmwares to quickly create a zip archive to extract to your SD card. This is effectively the Ninite for your game consoles.
 
 ## Features
