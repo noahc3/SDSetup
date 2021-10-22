@@ -1,4 +1,4 @@
-name: Build and Deploy
+name: Build
 
 on: [push, pull_request]
 
@@ -61,23 +61,3 @@ jobs:
       with:
         name: manager
         path: ./SDSetupManager/bin/Release/netstandard2.1/publish/wwwroot
-        
-        
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/rewrite'
-    
-    steps:
-    - name: Download artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: frontend
-        path: ./build
-
-    - name: Deploy to gh-pages
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
