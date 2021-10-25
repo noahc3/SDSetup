@@ -6,7 +6,7 @@
 
 <p align="center">
     <img alt="License: AGPLv3" src="https://img.shields.io/badge/License-AGPL%20v3-blue.svg"/>
-    <img alt="Build Status" src="https://github.com/noahc3/SDSetupPreview/actions/workflows/build-and-deploy.yml/badge.svg?branch=rewrite"/>
+    <img alt="Build Status" src="https://github.com/noahc3/SDSetup/actions/workflows/build.yml/badge.svg?branch=preview"/>
 </p>
 
 <i><p align="center">This is the new codebase for the rewrite of SDSetup utilizing React, in public testing at https://preview.sdsetup.com.</p></i>
