@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SDSetupCommon.Data.UpdaterModels {
     public class DeleteFileSystemItemsTask : UpdaterTask {
-        public FileSystemItemFilterComponent filter { get; set; }
+        public FileSystemItemFilterComponent filter { get; set; } = new FileSystemItemFilterComponent();
 
         public async Task Apply(string root) {
             List<FileSystemInfo> matches = await filter.Match(root);
