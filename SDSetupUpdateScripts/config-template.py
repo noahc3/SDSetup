@@ -1,0 +1,1 @@
+access_token = "" # GitHub access token (no special permissions required)

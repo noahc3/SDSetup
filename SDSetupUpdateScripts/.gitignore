@@ -1,0 +1,9 @@
+# Config files
+config.py
+
+# Build files
+out/
+
+# Python
+__pycache__/
+

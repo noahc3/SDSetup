@@ -1,0 +1,24 @@
+{
+  "id": "hbmenu",
+  "shortName": "Homebrew Menu",
+  "name": "Homebrew Menu",
+  "description": "Menu to launch all of your Switch NRO homebrew.",
+  "authors": "yellows8, SwitchBrew",
+  "source": "https://github.com/switchbrew/nx-hbmenu",
+  "license": "",
+  "downloads": 0,
+  
+  "platform": "switch",
+  "section": "homebrew",
+  "category": "general",
+  "subcategory": "loaders",
+  
+  "visible": true,
+  "showsInCredits": true,
+  "enabledByDefault": false,
+  
+  "priority": 0,
+  "dependencyMode": 0,
+  "dependencies": [],
+  "autoDependencies": [],
+}
