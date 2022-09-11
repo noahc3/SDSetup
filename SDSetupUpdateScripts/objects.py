@@ -1,6 +1,3 @@
-from pickletools import long1
-
-
 class Package6:
     id: str
     shortName: str
@@ -56,7 +53,7 @@ class Package6:
 class Version1:
     displayTag: str
     canonicalTag: str
-    fetchDate: str
+    timestamp: str
     size: int
 
     @staticmethod

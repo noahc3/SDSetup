@@ -39,7 +39,7 @@ def main():
     for package in packages:
         print(f"Fetching {package}")
         module: PackageFetch = packages[package]
-        canonicalTag = module.getCanonicalTag()
+        canonicalTag, displayTag = module.generateLatestTags()
         print(f"    Canonical tag: {canonicalTag}")
         hasUpdate = module.hasUpdate()
         print(f"    Has update: {hasUpdate}")
@@ -64,7 +64,12 @@ def main():
                     print(f"       Actual: {actual}")
                     print("    Skipping update, please verify the fetch script is up-to-date with the latest release format")
                     shutil.rmtree(outdir, ignore_errors=True)
+                    continue
             else:
                 print("    No validation data found, generating validation data")
                 utils.writeJson(validationDataPath, actual)
+
+            print(f"    Writing version data")
+            module.writeVersionData()
+
 main()
