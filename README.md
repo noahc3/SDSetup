@@ -4,6 +4,16 @@
 
 Homebrew SD Setup is a web application written in C# (and a little bit of JavaScript) running on Blazor. The app lets you select the homebrew applications and custom firmwares you want, and quickly create a zip archive to extract to your SD card. The Ninite for your game consoles.
 
+## SDSetup, PegaScape, and homebrew.guide are shutting down indefinitely
+
+I have not had the motivation to maintain these tools for quite a while now, leaving packages to fall very out-of-date. It's possible I may bring SDSetup back one day if I get the itch, but no promises, and certainly not any time soon. For now, it's best you switch to a new source.
+
+Right now, your best alternative is to follow [switch.hacks.guide](https://switch.hacks.guide). This guide will walk you through rolling your own Switch CFW setup, including obtaining all files from their original sources. This is the best option to learn about what you are installing on your Switch, the guide is excellent, and the folks at Nintendo Homebrew have a great team of helpers if you get stuck.
+
+If you want a drop-in replacement which provides a ZIP that you just drag and drop, check out Team Neptune's [DeepSea](https://github.com/Team-Neptune/DeepSea) package. This is a spiritual successor to Kosmos and should work as you expect.
+
+If you would like to host your own instances of these tools, the source code will remain archived on GitHub (but really, SDSetup should be rewritten from scratch). Please note that while code and content for SDSetup, homebrew.guide, and PegaScape are released under permissive licenses, logos and graphical assets are copyrighted. If you want to host a public replacement, just change the names and you are good to go!
+
 ## Compatibility
 The application has been verified working in Chrome, Firefox, Opera and Edge on Windows 10, as well as Chrome and Firefox on Android. Other browsers are likely to work fine as long as they support WebAssembly or asm.js, and ES6.
 
