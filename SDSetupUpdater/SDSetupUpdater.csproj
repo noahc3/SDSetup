@@ -8,7 +8,7 @@
   <ItemGroup>
     <PackageReference Include="CommandLineParser" Version="2.6.0" />
     <PackageReference Include="LibGetDownloader" Version="1.0.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3-beta1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Octokit" Version="0.32.0" />
     <PackageReference Include="SharpZipLib" Version="1.2.0" />
   </ItemGroup>
